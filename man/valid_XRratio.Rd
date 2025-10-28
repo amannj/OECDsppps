@@ -15,14 +15,14 @@ valid_XRratio(
 \arguments{
 \item{Year}{add}
 
-\item{`Product}{code` add}
+\item{`Product}{code`}
 
-\item{`Average}{price of product` add}
+\item{`Average}{price of product`}
 
-\item{`XR}{USD` add}
+\item{`XR}{USD`}
 }
 \description{
-\code{valid_XRratio} Calculates the XR-ratio, which is a region/country's XR-price
+\code{valid_XRratio()} calculates the exchange rate ratio (XR-ratio), which is a region/country's XR-price
 for a product divided by the geometric mean of the product price.
 Variability can be compared to highlight products in countries/regions
 that are most variable (high XR-ratio) across countries.

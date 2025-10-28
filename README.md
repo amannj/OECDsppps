@@ -4,22 +4,18 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of OECDsppps is to ...
+`OECDsppps` provides functionalities for calculating subnational 
+Purchasing Power Parities (SPPPs) in OECD regions.
 
 ## Installation
 
-You can install the development version of OECDsppps like so:
+This package is still under development, but can be installed using [devtools](https://cran.r-project.org/web/packages/devtools/index.html).
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+devtools::install_github('amannj/OECDsppps')
 ```
 
-## Example
+## Documentation
 
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(OECDsppps)
-## basic example code
-```
+See tab `Articles` for detailed package documentation.
 

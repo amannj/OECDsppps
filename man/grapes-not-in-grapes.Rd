@@ -18,5 +18,7 @@ Vector excluding values specified.
 \verb{\%!in\%} exclude rows with values specified in a vector.
 }
 \examples{
-c(1,2,3) \%!in\% c(2,3)
+ x <- c(1,2,3)
+ y <-  c(2,3)
+ x \%!in\% y
 }

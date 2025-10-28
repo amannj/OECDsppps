@@ -7,6 +7,8 @@
 #'
 #' @return Vector excluding values specified.
 #' @examples
-#' c(1,2,3) %!in% c(2,3)
+#'  x <- c(1,2,3)
+#'  y <-  c(2,3)
+#'  x %!in% y
 #' @export
 "%!in%" <- function(x, y){ !("%in%"(x, y))}

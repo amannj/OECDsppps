@@ -2,7 +2,7 @@
 % Please edit documentation in R/valid.R
 \name{valid_apt}
 \alias{valid_apt}
-\title{Create \emph{Average Price Table}}
+\title{Create \strong{Average Price Table}}
 \usage{
 valid_apt(
   df,
@@ -17,26 +17,30 @@ valid_apt(
 \arguments{
 \item{Year}{add}
 
-\item{`Product}{description` add}
+\item{`Product}{description`}
 
-\item{`Unit}{of reference quantity` add}
+\item{`Unit}{of reference quantity`}
 
-\item{`Reference}{quantity price` add}
+\item{`Reference}{quantity price`}
 }
 \description{
-\code{valid_apt} Creates the Average Price Table used for Stage 2 of
+\code{valid_apt()} creates the Average Price Table used for Stage 2 of
 the intra-regional validation process. In returns a tibble with the
 input parameters (variables), as well as the
-\verb{Number of observations},
-\verb{Average price of product},
-\verb{Maximum price of product},
-\verb{Minimum price of product}, and \verb{Standard deviation}.
+\itemize{
+\item \verb{Number of observations},
+\item \verb{Average price of product},
+\item \verb{Maximum price of product},
+\item \verb{Minimum price of product}, and
+\item \verb{Standard deviation}.
+}
+}
+\details{
 It furthermore provides the \verb{Max-min ratio} and
 \verb{Coefficient of variation}
 statistics. All products that do not pass the two tests
 are flagged in columns
-}
-\details{
-\verb{Max-min ratio FLAG} and \verb{Coefficient of variation FLAG}, respectively.
+#' \verb{Max-min ratio FLAG} and \verb{Coefficient of variation FLAG}, respectively.
+
 \emph{TODO add description}
 }

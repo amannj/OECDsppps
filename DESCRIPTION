@@ -1,19 +1,15 @@
 Package: OECDsppps
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Calculating subnational purchasing power parities (SPPPs) in OECD regions
+Version: 0.0.0.1
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+    person("", "OECD", , "juergen.amann@oecd.org", role = c("aut", "cre"))
 Description: R package to calculate subnational purchasing power parities in OECD regions.
 License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Suggests: 
-    gt,
-    knitr,
-    rmarkdown,
-    testthat (>= 3.0.0),
-    tidyverse
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Depends: 
     R (>= 3.5)
@@ -21,3 +17,10 @@ LazyData: true
 URL: https://github.com/amannj/OECDsppps, https://amannj.github.io/OECDsppps/
 BugReports: https://github.com/amannj/OECDsppps/issues
 VignetteBuilder: knitr
+Imports: 
+    dplyr,
+    gt,
+    knitr,
+    ggplot2,
+    rmarkdown,
+    tidyr

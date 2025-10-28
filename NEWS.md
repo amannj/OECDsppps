@@ -1,3 +1,4 @@
 # OECDsppps (development version)
 
-* Initial testing.
+* Version `0.0.0.1`
+  - Initial testing.

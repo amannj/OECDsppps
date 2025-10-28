@@ -24,23 +24,23 @@ valid_pot(
 \arguments{
 \item{Year}{add}
 
-\item{`Product}{description` add}
+\item{`Product}{description`}
 
-\item{`Date}{of quote` add}
+\item{`Date}{of quote`}
+
+\item{`Shop}{identifier`}
+
+\item{`Type}{of shop`}
+
+\item{`Quantity}{observed`}
+
+\item{`Unit}{of observed quantity`}
+
+\item{`Price}{observed`}
+
+\item{`Reference}{quantity price`}
 
 \item{`Region`}{add}
-
-\item{`Shop}{identifier` add}
-
-\item{`Type}{of shop` add}
-
-\item{`Quantity}{observed` add}
-
-\item{`Unit}{of observed quantity` add}
-
-\item{`Price}{observed` add}
-
-\item{`Reference}{quantity price` add}
 }
 \description{
 \code{valid_pot} Creates the Price Observation Table used for Stage 1 of

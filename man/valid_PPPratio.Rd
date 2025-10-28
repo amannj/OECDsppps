@@ -15,14 +15,12 @@ valid_PPPratio(
 \arguments{
 \item{Year}{add}
 
-\item{`Product}{code` add}
+\item{`Product}{code`}
 
-\item{`Average}{price of product` add}
-
-\item{`XR}{USD` add}
+\item{`Average}{price of product`}
 }
 \description{
-\code{valid_PPPratio} Calculates the PPP-ratio, which shows the The variation
+\code{valid_PPPratio()} calculates the PPP-ratio, which shows the variation
 coefficient representing variability across products and across countries.
 }
 \details{
