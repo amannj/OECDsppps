@@ -6,3 +6,5 @@
 ^\.github$
 ^data-raw$
 ^LICENSE\.md$
+^vignettes/\.quarto$
+^vignettes/*_files$

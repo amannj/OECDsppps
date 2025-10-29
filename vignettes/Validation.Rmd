@@ -2,7 +2,7 @@
 title: "Validation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{vignette}
+  %\VignetteIndexEntry{Validation}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -171,7 +171,6 @@ uk_irv <- uk_cpi |>
   filter(!`Ratio-to-average price test FLAG` & !`T-value test FLAG`) |>
   # Remove bimodal distribution
   filter(`Ratio-to-average price test` > 0.8) |>
-  select(-c(contains("Ratio-to-average"), contains("T-value"))) |>
   # Apply Average Price Table checks
   valid_apt()
 

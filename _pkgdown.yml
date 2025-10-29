@@ -1,4 +1,9 @@
-usethisurl: ~
+usethisurl: https://amannj.github.io/OECDsppps/
 template:
   bootstrap: 5
-
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - Validation
+  - Estimation

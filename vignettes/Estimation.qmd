@@ -1,0 +1,40 @@
+---
+title: "Estimation"
+vignette: >
+  %\VignetteIndexEntry{Estimation}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+library(OECDsppps)
+```
+
+> **Sources** used in this section: Detailed discussion on the framework for PPP compilation and the methods for aggregation at the elementary or basic heading level and for aggregation at higher levels are available, respectively, in chapters 1, 4 and 5 (Rao 2013a; Rao, 2013b; and Diewert 2013) in Measuring the Real Size of the World Economy (World Bank, 2013).
+
+## Estimation of item level prices to basic heading level
+
+> **Sources** used in this section: The estimation process to obtain these basic heading PPPs is described in chapter 4. Chapter 6 describes the multistage process used to estimate global PPPs that begins with estimation of the within-region basic heading PPPs.
+
+::: callout-note
+🚧 Code to be completed. 
+:::
+
+## Household expenditure survey
+
+For estimation beyond the basic heading level, household expenditure data are used. These CPI weights are usually drawn from household expenditure surveys, a survey of thousands of households keeping records of their expenditures
+
+::: callout-note
+🚧 Code to be completed. 
+:::
+
+## Estimation of basic heading level PPPs to PPPs for higher level aggregates
+
+::: callout-note
+🚧 Code to be completed. 
+:::
