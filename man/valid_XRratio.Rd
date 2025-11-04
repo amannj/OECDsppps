@@ -13,13 +13,15 @@ valid_XRratio(
 )
 }
 \arguments{
+\item{df}{add}
+
 \item{Year}{add}
 
-\item{`Product}{code`}
+\item{`Product}{code` add}
 
-\item{`Average}{price of product`}
+\item{`Average}{price of product` add}
 
-\item{`XR}{USD`}
+\item{`XR}{USD` add}
 }
 \description{
 \code{valid_XRratio()} calculates the exchange rate ratio (XR-ratio), which is a region/country's XR-price

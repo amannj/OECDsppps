@@ -1,28 +1,35 @@
-#' Create *Price Observation Table*
+#' Create the "Price Observation Table"
 #'
-#' `valid_pot` Creates the Price Observation Table used for Stage 1 of
-#' the intra-regional validation process. In returns a tibble with the
-#' input parameters (variables), as well as the `Ratio-to-average price test` and
-#' `T-value test`. All price quotes that do not pass the two tests
-#'  are flagged in columns
+#' \loadmathjax
+#' `valid_pot` in  \pkg{OECDsppps} creates the "Price Observation Table" containing a characterisation o
+#' f the individual product as well as two *individual price outlier statistics*:
+#' the *Ratio-to-average price test* and the *t-value test*;
+#' see \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+#' table 9.1a.
+#'  All price
+#' quotes that do not pass the two tests are flagged in columns
 #' `Ratio-to-average price test FLAG` and `T-value test FLAG`, respectively.
-#'  *TODO add description*
-# ` * also add `Reference quantity price`
-#' @param Year add
 #'
-#' @param df
-#' @param `Product code`
-#' @param `Product description`
-#' @param `Reference quantity`
-#' @param `Unit of reference quantity`
-#' @param `Date of quote`
-#' @param `Shop identifier`
-#' @param `Type of shop`
-#' @param `Quantity observed`
-#' @param `Unit of observed quantity`
-#' @param `Price observed`
-#' @param `Reference quantity price`
+#' The probability density function of a normal distribution is given by \mjdeqn{f(x) = \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2},}{f(x) = 1/(sqrt(2 pi) sigma) e^-((x - mu)^2/(2 sigma^2)),} where \mjseqn{\mu} denotes the mean of the distribution and \mjseqn{\sigma} its standard deviation.
+#'
+#' @param Year add
+#' @param df add
+#' @param `Product code` add
+#' @param `Product description` add
+#' @param `Reference quantity` add
+#' @param `Unit of reference quantity` add
+#' @param `Date of quote` add
+#' @param `Shop identifier` add
+#' @param `Type of shop` add
+#' @param `Quantity observed` add
+#' @param `Unit of observed quantity` add
+#' @param `Price observed` add
+#' @param `Reference quantity price` add
 #' @param `Region` add
+#' @references
+#'   \insertAllCited{}
+#' @importFrom Rdpack reprompt
+#' @importFrom mathjaxr preview_rd
 #' @export
 valid_pot <- function(df,
                       Year = "Year",
@@ -89,12 +96,12 @@ valid_pot <- function(df,
 #'
 #'  *TODO add description*
 #'
-#' @param df
-#' @param `Product code`
-#' @param `Product description`
-#' @param `Reference quantity`
-#' @param `Unit of reference quantity`
-#' @param `Reference quantity price`
+#' @param df add
+#' @param `Product code` add
+#' @param `Product description` add
+#' @param `Reference quantity` add
+#' @param `Unit of reference quantity` add
+#' @param `Reference quantity price` add
 #' @param Year add
 #' @export
 valid_apt <- function(df,
@@ -148,10 +155,10 @@ valid_apt <- function(df,
 #' Variability can be compared to highlight products in countries/regions
 #' that are most variable (high XR-ratio) across countries.
 #'
-#' @param df
-#' @param `Product code`
-#' @param `Average price of product`
-#' @param `XR USD`
+#' @param df add
+#' @param `Product code` add
+#' @param `Average price of product` add
+#' @param `XR USD` add
 #' @param Year add
 #' @export
 valid_XRratio <- function(df,
@@ -181,10 +188,10 @@ valid_XRratio <- function(df,
 #' - The (product) variation coefficient column measures the standard
 #' deviation among the PPP ratios for each product.
 #'
-#' @param df
-#' @param `Product code`
-#' @param `Country`
-#' @param `Average price of product`
+#' @param df add
+#' @param `Product code` add
+#' @param `Country` add
+#' @param `Average price of product` add
 #' @param Year add
 #' @export
 valid_PPPratio <- function(df,

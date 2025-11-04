@@ -7,27 +7,31 @@
 \format{
 \subsection{\code{uk_cpi}}{
 
-A data frame with 6,845 rows and 14 columns:
+A data frame with 11,807 rows and 14 columns containing two products:
+\emph{White sliced loaf branded 750 grams} (COICOP 1010103) and
+\emph{carpenter hourly rate} (COICOP 410518).
+
 \describe{
 \item{Year}{Year}
-\item{COICOP5}{COICOP 5-digit code}
-\item{Product code}{identification of the item collected}
-\item{Product description}{Product description}
-\item{Reference quantity}{Reference quantity}
-\item{Unit of reference quantity}{Unit of reference quantity}
 \item{Date of quote}{year and month of data collection (yyyymm)}
-\item{Region}{Region (TL2/ITL1)}
-\item{Shop identifier}{code of shop that the price was collected from}
-\item{Type of shop}{1 = Multiple (10 or more outlets); 2 = Independents (less than 10 outlets)}
-\item{Quantity observed}{Quantity observed}
-\item{Unit of observed quantity}{Unit of observed quantity}
-\item{Price observed}{Price observed}
-\item{Reference quantity price}{Reference quantity price}
+\item{COICOP5}{COICOP 5-digit code}
+\item{Product code}{Identification of the item collected}
+\item{Product description}{Description of item collected}
+\item{Reference quantity}{Reference quantity of commodity that \emph{should} be surveyed}
+\item{Unit of reference quantity}{Unit of reference quantity of commodity that \emph{should} be surveyed}
+\item{Region}{Region, following \href{https://www.oecd.org/en/data/datasets/oecd-geographical-definitions.html}{TL2}/\href{https://www.ons.gov.uk/methodology/geography/ukgeographies/eurostat}{ITL1} boundaries)}
+\item{Shop identifier}{Code of shop that the price was collected from}
+\item{Type of shop}{Either "Multiple" (10 or more outlets) or "Independents" (less than 10 outlets)}
+\item{Quantity observed}{Quantity observed of commodity that \emph{was} be surveyed}
+\item{Unit of observed quantity}{Unit of observed quantity of commodity that \emph{was} be surveyed}
+\item{Price observed}{Price observed of commodity that \emph{was} be surveyed}
+\item{Reference quantity price}{The \emph{reference quantity price} scales the observed price to the quantity that \emph{should} be surveyed.
+It is defined as \verb{Price observed} / \verb{Quantity observed} * \verb{Reference quantity} whenever \verb{Unit of observed quantity} == \verb{Unit of reference quantity}.}
 }
 }
 }
 \source{
-\url{https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes}
+\href{https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes}{ONS Consumer price inflation consumption segment indices and price quotes }, last access November 2025
 }
 \usage{
 uk_cpi
@@ -36,7 +40,9 @@ uk_cpi
 A subset of the official UK CIP microdata set
 }
 \examples{
-head(uk_cpi)
+uk_cpi |> dim()
+uk_cpi |> dplyr::distinct(`Product description`)
+uk_cpi |> names()
 
 }
 \keyword{datasets}

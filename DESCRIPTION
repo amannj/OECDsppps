@@ -18,10 +18,16 @@ LazyData: true
 URL: https://github.com/amannj/OECDsppps, https://amannj.github.io/OECDsppps/
 BugReports: https://github.com/amannj/OECDsppps/issues
 VignetteBuilder: knitr, quarto
+RdMacros: 
+    Rdpack,
+    mathjaxr 
 Imports: 
     dplyr,
     gt,
     knitr,
     ggplot2,
     rmarkdown,
-    tidyr
+    tidyr,
+    Rdpack,
+    mathjaxr 
+BuildManual: TRUE

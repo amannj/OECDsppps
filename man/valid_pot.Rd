@@ -2,7 +2,7 @@
 % Please edit documentation in R/valid.R
 \name{valid_pot}
 \alias{valid_pot}
-\title{Create \emph{Price Observation Table}}
+\title{Create the "Price Observation Table"}
 \usage{
 valid_pot(
   df,
@@ -22,32 +22,42 @@ valid_pot(
 )
 }
 \arguments{
+\item{df}{add}
+
 \item{Year}{add}
 
-\item{`Product}{description`}
+\item{`Product}{description` add}
 
-\item{`Date}{of quote`}
+\item{`Date}{of quote` add}
 
-\item{`Shop}{identifier`}
+\item{`Shop}{identifier` add}
 
-\item{`Type}{of shop`}
+\item{`Type}{of shop` add}
 
-\item{`Quantity}{observed`}
+\item{`Quantity}{observed` add}
 
-\item{`Unit}{of observed quantity`}
+\item{`Unit}{of observed quantity` add}
 
-\item{`Price}{observed`}
+\item{`Price}{observed` add}
 
-\item{`Reference}{quantity price`}
+\item{`Reference}{quantity price` add}
 
 \item{`Region`}{add}
 }
 \description{
-\code{valid_pot} Creates the Price Observation Table used for Stage 1 of
-the intra-regional validation process. In returns a tibble with the
-input parameters (variables), as well as the \verb{Ratio-to-average price test} and
-\verb{T-value test}. All price quotes that do not pass the two tests
-are flagged in columns
+\loadmathjax
+\code{valid_pot} in  \pkg{OECDsppps} creates the "Price Observation Table" containing a characterisation o
+f the individual product as well as two \emph{individual price outlier statistics}:
+the \emph{Ratio-to-average price test} and the \emph{t-value test};
+see \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+table 9.1a.
+All price
+quotes that do not pass the two tests are flagged in columns
 \verb{Ratio-to-average price test FLAG} and \verb{T-value test FLAG}, respectively.
-\emph{TODO add description}
+}
+\details{
+The probability density function of a normal distribution is given by \mjdeqn{f(x) = \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2},}{f(x) = 1/(sqrt(2 pi) sigma) e^-((x - mu)^2/(2 sigma^2)),} where \mjseqn{\mu} denotes the mean of the distribution and \mjseqn{\sigma} its standard deviation.
+}
+\references{
+\insertAllCited{}
 }

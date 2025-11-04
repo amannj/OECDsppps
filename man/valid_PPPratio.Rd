@@ -13,11 +13,15 @@ valid_PPPratio(
 )
 }
 \arguments{
+\item{df}{add}
+
 \item{Year}{add}
 
-\item{`Product}{code`}
+\item{`Product}{code` add}
 
-\item{`Average}{price of product`}
+\item{`Country`}{add}
+
+\item{`Average}{price of product` add}
 }
 \description{
 \code{valid_PPPratio()} calculates the PPP-ratio, which shows the variation

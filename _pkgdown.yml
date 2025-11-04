@@ -1,6 +1,7 @@
 usethisurl: https://amannj.github.io/OECDsppps/
 template:
   bootstrap: 5
+  math-rendering: mathjax
 articles:
 - title: Articles
   navbar: ~

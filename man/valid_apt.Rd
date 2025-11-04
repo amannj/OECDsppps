@@ -15,13 +15,15 @@ valid_apt(
 )
 }
 \arguments{
+\item{df}{add}
+
 \item{Year}{add}
 
-\item{`Product}{description`}
+\item{`Product}{description` add}
 
-\item{`Unit}{of reference quantity`}
+\item{`Unit}{of reference quantity` add}
 
-\item{`Reference}{quantity price`}
+\item{`Reference}{quantity price` add}
 }
 \description{
 \code{valid_apt()} creates the Average Price Table used for Stage 2 of
