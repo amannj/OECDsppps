@@ -29,5 +29,6 @@ Imports:
     rmarkdown,
     tidyr,
     Rdpack,
-    mathjaxr 
+    mathjaxr,
+    magrittr
 BuildManual: TRUE

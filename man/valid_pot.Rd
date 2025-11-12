@@ -4,59 +4,59 @@
 \alias{valid_pot}
 \title{Create the "Price Observation Table"}
 \usage{
-valid_pot(
-  df,
-  Year = "Year",
-  `Product code` = "Product code",
-  `Product description` = "Product description",
-  `Reference quantity` = "Reference quantity",
-  `Unit of reference quantity` = "Unit of reference quantity",
-  `Date of quote` = "Date of quote",
-  Region = "Region",
-  `Shop identifier` = "Shop identifier",
-  `Type of shop` = "Type of shop",
-  `Quantity observed` = "Quantity observed",
-  `Unit of observed quantity` = "Unit of observed quantity",
-  `Price observed` = "Price observed",
-  `Reference quantity price` = "Reference quantity price"
-)
+valid_pot(data, price_quote = "Reference quantity price", ...)
 }
 \arguments{
-\item{df}{add}
+\item{data}{A data frame or tibble containing at least one column with
+individual item-level price quotes.}
 
-\item{Year}{add}
-
-\item{`Product}{description` add}
-
-\item{`Date}{of quote` add}
-
-\item{`Shop}{identifier` add}
-
-\item{`Type}{of shop` add}
-
-\item{`Quantity}{observed` add}
-
-\item{`Unit}{of observed quantity` add}
-
-\item{`Price}{observed` add}
-
-\item{`Reference}{quantity price` add}
-
-\item{`Region`}{add}
+\item{price_quote}{Column containing the individual item-level price quotes,
+which should be based on the
+"reference quantity price"; see \emph{Details} for more information.}
 }
 \description{
 \loadmathjax
-\code{valid_pot} in  \pkg{OECDsppps} creates the "Price Observation Table" containing a characterisation o
-f the individual product as well as two \emph{individual price outlier statistics}:
-the \emph{Ratio-to-average price test} and the \emph{t-value test};
-see \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
-table 9.1a.
-All price
+\code{valid_pot} in  \pkg{OECDsppps} creates the "Price Observation Table";
+by calculating two \emph{individual price outlier statistics} for the
+individual item-level price quotes,  the \emph{ratio-to-average price test} and the \emph{t-value test};
+\insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
+All item-level price
 quotes that do not pass the two tests are flagged in columns
 \verb{Ratio-to-average price test FLAG} and \verb{T-value test FLAG}, respectively.
+The item-level price quotes should be based on the
+\emph{reference quantity price};
+see \emph{Details} and \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+table 9.1a. for more information.
 }
 \details{
-The probability density function of a normal distribution is given by \mjdeqn{f(x) = \frac{1}{\sqrt{2\pi} \sigma} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2},}{f(x) = 1/(sqrt(2 pi) sigma) e^-((x - mu)^2/(2 sigma^2)),} where \mjseqn{\mu} denotes the mean of the distribution and \mjseqn{\sigma} its standard deviation.
+\strong{Reference quantity price:} Scales the observed price to the quantity
+that \emph{should} be surveyed. It is defined as:
+\mjdeqn{Reference~quantity~price = \frac{Observed~price}{Observed~quantity} \times Reference~quantity}{Reference~quantity~price = \frac{Observed~price}{Observed~quantity} \times Reference~quantity}
+whenever the measurement unit of observed quantity is identical to the measurement unit of the reference quantity.
+
+\strong{Ratio-to-average price test:} The ratio of an individual price observation
+\mjseqn{i}, \mjseqn{P_{i}}, of a specific product \mjseqn{j} and the observed average
+price for the product, \mjseqn{\mu_j}. An observed price passes the this test
+if the ratio is between 0.5 and 1.5, meaning it is no less than half or no
+more than double the mean price. This simple check flags extreme values
+without relying on standard deviation, which can itself be distorted by outliers:
+\mjdeqn{ratio-to-average = p_{ij}/\mu_j}{ratio-to-average = p_{ij}/\mu_j}
+
+\strong{T-value test}: The ratio of the deviation of an individual price observation
+from the average reference quantity price for the product and the standard
+deviation of the product. To pass the test, the ratio must be 2.0 or less
+(any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval):
+\mjdeqn{t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}}{t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}}
+}
+\examples{
+suppressPackageStartupMessages(library(dplyr))
+library(OECDsppps)
+uk_cpi |>
+  select(Year, `Product code`, `Reference quantity price`) |>
+  group_by(Year, `Product code`) |>
+  valid_pot(price_quote = "Reference quantity price") |>
+  head()
+
 }
 \references{
 \insertAllCited{}

@@ -2,30 +2,40 @@
 % Please edit documentation in R/valid.R
 \name{valid_XRratio}
 \alias{valid_XRratio}
-\title{Calculate \emph{XR-ratio tables}}
+\title{The "XR-ratio tables"}
 \usage{
 valid_XRratio(
-  df,
-  Year = "Year",
-  `Product code` = "Product code",
-  `Average price of product` = "Average price of product",
-  `XR USD` = "XR USD"
+  data,
+  average_price = "Average price of product",
+  exchange_rate = "XR USD",
+  ...
 )
 }
 \arguments{
-\item{df}{add}
+\item{data}{A data frame or tibble containing at least a column with the average country-region
+prices and exchange rate.}
 
-\item{Year}{add}
+\item{average_price}{Average country-region
+prices of the individual item-level price quotes. Correspond to the
+"Average price of product" obtained in \code{valid_apt()}.}
 
-\item{`Product}{code` add}
-
-\item{`Average}{price of product` add}
-
-\item{`XR}{USD` add}
+\item{exchange_rate}{National-level exchange rate for common currency; typically USD.}
 }
 \description{
-\code{valid_XRratio()} calculates the exchange rate ratio (XR-ratio), which is a region/country's XR-price
-for a product divided by the geometric mean of the product price.
+\loadmathjax
+\code{valid_XRratio()} in  \pkg{OECDsppps} calculates the exchange rate ratio (XR-ratio), which is a region-country's XR-price
 Variability can be compared to highlight products in countries/regions
-that are most variable (high XR-ratio) across countries.
+that are most variable (high XR-ratio) across countries;
+\insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
+}
+\details{
+The \strong{XR-ratio} uses the exchange-rate-converted prices to calculate the \emph{standardised price ratio (SPR)}
+For product \mjseqn{1} and country–region \mjseqn{A}, the SPR is defined as:
+\mjdeqn{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}
+where
+\mjseqn{\mu^{*}_{1A}} represents the \emph{average converted price} of product \mjseqn{1} in country–region
+\mjseqn{A}, and \mjseqn{N} is the total number of country–regions.
+}
+\references{
+\insertAllCited{}
 }

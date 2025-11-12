@@ -2,47 +2,63 @@
 % Please edit documentation in R/valid.R
 \name{valid_apt}
 \alias{valid_apt}
-\title{Create \strong{Average Price Table}}
+\title{Create "Average Price Table"}
 \usage{
-valid_apt(
-  df,
-  Year = "Year",
-  `Product code` = "Product code",
-  `Product description` = "Product description",
-  `Reference quantity` = "Reference quantity",
-  `Unit of reference quantity` = "Unit of reference quantity",
-  `Reference quantity price` = "Reference quantity price"
-)
+valid_apt(data, price_quote = "Reference quantity price", ...)
 }
 \arguments{
-\item{df}{add}
+\item{data}{A data frame or tibble containing at least one column with
+individual item-level price quotes.}
 
-\item{Year}{add}
-
-\item{`Product}{description` add}
-
-\item{`Unit}{of reference quantity` add}
-
-\item{`Reference}{quantity price` add}
+\item{price_quote}{Column containing the individual item-level price quotes,
+which should be based on the
+"reference quantity price"; see \emph{Details} for more information.}
 }
 \description{
-\code{valid_apt()} creates the Average Price Table used for Stage 2 of
-the intra-regional validation process. In returns a tibble with the
-input parameters (variables), as well as the
+\loadmathjax
+\code{valid_apt()} in  \pkg{OECDsppps} creates the "Average Price Table" by
+calculating: the
 \itemize{
-\item \verb{Number of observations},
-\item \verb{Average price of product},
-\item \verb{Maximum price of product},
-\item \verb{Minimum price of product}, and
-\item \verb{Standard deviation}.
+\item \verb{number of observations} - Number of observations by group as specified by \code{group_by()}
+\item \verb{average price of product}- Average price based on item-level price quotes by group as specified by \code{group_by()}
+\item \verb{maximum price of product}- Highest price based on item-level price quotes by group as specified by \code{group_by()}
+\item \verb{minimum price of product} - Lowest price based on item-level price quotes by group as specified by \code{group_by()}
+\item \verb{standard deviation} - Standard deviation based on item-level price quotes by group as specified by \code{group_by()}
+\item \verb{max-min ratio test} and \verb{coefficient of variation test} - see \emph{Details} for more information
+All item-level price
+quotes that do not pass the two tests are flagged in columns
+\verb{Max-min ratio FLAG} and\verb{Coefficient of variation FLAG}, respectively;
+\insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
 }
 }
 \details{
-It furthermore provides the \verb{Max-min ratio} and
-\verb{Coefficient of variation}
-statistics. All products that do not pass the two tests
-are flagged in columns
-#' \verb{Max-min ratio FLAG} and \verb{Coefficient of variation FLAG}, respectively.
+\strong{Reference quantity price:} Scales the observed price to the quantity
+that \emph{should} be surveyed. It is defined as:
+\mjdeqn{Reference~quantity~price = \frac{Observed~price}{Observed~quantity} \times Reference~quantity}{Reference~quantity~price = \frac{Observed~price}{Observed~quantity} \times Reference~quantity}
+whenever the measurement unit of observed quantity is identical to the measurement unit of the reference quantity.
 
-\emph{TODO add description}
+\strong{Max-min ratio test:} The ratio between the maximal and minimal observed price
+for product \mjseqn{j}, \mjseqn{p_j}. Products where the maximal observed price is more than twice
+as big as the minimum are flagged in \verb{Max-min ratio FLAG}:
+\mjdeqn{max-min~ratio = max(p_j)/min(p_j)}{max-min~ratio = max(p_j)/min(p_j)}
+
+\strong{Coefficient to variation test:} The standard deviation \mjseqn{\sigma_{p_j}}
+of product  \mjseqn{j}'s price \mjseqn{p_j}
+expressed as a percentage of the average price for the product,  \mjseqn{\mu_{p_j}}. Products
+with a coefficient of variation greater than 20\% will be flagged in \verb{Coefficient of variation FLAG}:
+\mjdeqn{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}
+}
+\examples{
+suppressPackageStartupMessages(library(dplyr))
+library(OECDsppps)
+uk_cpi |>
+  select(Year, Region, `Product code`, `Reference quantity price`) |>
+  group_by(Year, Region, `Product code`) |>
+  valid_apt(price_quote = "Reference quantity price") |>
+  head(n = 2) |>
+  t()
+
+}
+\references{
+\insertAllCited{}
 }

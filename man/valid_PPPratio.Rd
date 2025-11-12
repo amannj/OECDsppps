@@ -2,37 +2,50 @@
 % Please edit documentation in R/valid.R
 \name{valid_PPPratio}
 \alias{valid_PPPratio}
-\title{Calculate \emph{PPP-ratio tables}}
+\title{The "PPP-ratio tables"}
 \usage{
 valid_PPPratio(
-  df,
+  data,
   Year = "Year",
   `Product code` = "Product code",
-  Country = "Country",
-  `Average price of product` = "Average price of product"
+  Region = "Region",
+  `Average price of product` = "Average price of product",
+  ...
 )
 }
 \arguments{
-\item{df}{add}
+\item{data}{A data frame or tibble containing at least a column with the average country-region
+prices and a region and product identifier.}
 
-\item{Year}{add}
+\item{Year}{Year}
 
-\item{`Product}{code` add}
+\item{Region}{Identifier for regions (within or across countries.}
 
-\item{`Country`}{add}
+\item{`Product}{code` Product code identifier}
 
-\item{`Average}{price of product` add}
+\item{`Average}{price of product\verb{Average country-region prices of the individual item-level price quotes. Correspond to the "Average price of product" obtained in}valid_apt()`.}
 }
 \description{
-\code{valid_PPPratio()} calculates the PPP-ratio, which shows the variation
-coefficient representing variability across products and across countries.
+\loadmathjax
+\code{valid_PPPratio()} in  \pkg{OECDsppps} calculates the PPP-ratio, which shows the variation
+coefficient representing variability across products and across country-regions;
+\insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
 }
 \details{
-\itemize{
-\item The (country) variation coefficient row measures the standard deviation of
-the product PPPs for each country, thereby highlighting countries with the
-highest variability.
-\item The (product) variation coefficient column measures the standard
-deviation among the PPP ratios for each product.
+The country variation coefficient (row measure) represents the standard
+deviation of product PPPs within  country-regions, thereby identifying
+countries exhibiting the greatest price variability. Conversely,
+the product variation coefficient (column measure) represents the
+standard deviation of PPP-ratios across country-regions, highlighting
+products with the most significant cross-country variation.
+
+The \strong{PPP-ratio} uses the PPP-converted prices to calculate the \emph{standardised price ratio (SPR)}
+For product \mjseqn{1} and country–region \mjseqn{A}, the SPR is defined as:
+\mjdeqn{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}
+where
+\mjseqn{\mu^{*}_{1A}} represents the \emph{average converted price} of product \mjseqn{1} in country–region
+\mjseqn{A}, and \mjseqn{N} is the total number of country–regions.
 }
+\references{
+\insertAllCited{}
 }
