@@ -224,12 +224,14 @@ valid_XRratio <- function(data,
 #'
 #' @param data A data frame or tibble containing at least a column with the average country-region
 #'  prices and a region and product identifier.
-#' @param Year Year
-#' @param `Product code` Product code identifier
-#' @param Region Identifier for regions (within or across countries)
-#' @param `Average price of product` Average country-region
+#' \describe{
+#'   \item{Year}{Year}
+#'   \item{`Product code`}{Product code identifier}
+#'   \item{Region}{Identifier for regions (within or across countries)}
+#'   \item{`Average price of product`}{Average country-region
 #'  prices of the individual item-level price quotes. Correspond to the
-#'  "Average price of product" obtained in `valid_apt()`.
+#'  "Average price of product" obtained in `valid_apt()`}
+#' }
 #'
 #' @references
 #'   \insertAllCited{}
@@ -293,4 +295,3 @@ valid_PPPratio <- function(data,
     rbind(x2) |>
     rename("Product variation coefficients" = `VC Product`)
 }
-

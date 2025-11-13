@@ -15,15 +15,15 @@ valid_PPPratio(
 }
 \arguments{
 \item{data}{A data frame or tibble containing at least a column with the average country-region
-prices and a region and product identifier.}
-
+prices and a region and product identifier.
+\describe{
 \item{Year}{Year}
-
-\item{Region}{Identifier for regions (within or across countries.}
-
-\item{`Product}{code` Product code identifier}
-
-\item{`Average}{price of product\verb{Average country-region prices of the individual item-level price quotes. Correspond to the "Average price of product" obtained in}valid_apt()`.}
+\item{\verb{Product code}}{Product code identifier}
+\item{Region}{Identifier for regions (within or across countries)}
+\item{\verb{Average price of product}}{Average country-region
+prices of the individual item-level price quotes. Correspond to the
+"Average price of product" obtained in \code{valid_apt()}}
+}}
 }
 \description{
 \loadmathjax
