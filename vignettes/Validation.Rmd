@@ -35,7 +35,7 @@ library(OECDsppps)
 
 **Data validation** is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions.
 
-The process aligns with current recommendations; see @icp2021, [p. 26], @worldbank2013 [p.249] and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
+The process aligns with current recommendations; see @icp2021 [p. 26], @worldbank2013 [p.249] and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
 
 **The validation steps** are:
 
