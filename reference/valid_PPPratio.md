@@ -3,7 +3,7 @@
 `valid_PPPratio()` in OECDsppps calculates the PPP-ratio, which shows
 the variation coefficient representing variability across products and
 across country-regions; see World Bank (2013), ICP (2021) and European
-Union/OECD (2024) .
+Union/OECD et al. (2024) .
 
 ## Usage
 
@@ -25,22 +25,23 @@ valid_PPPratio(
   A data frame or tibble containing at least a column with the average
   country-region prices and a region and product identifier.
 
-- Year:
-
   Year
 
-- Region:
+  :   Year
 
-  Identifier for regions (within or across countries.
+  `Product code`
 
-- \`Product:
+  :   Product code identifier
 
-  code\` Product code identifier
+  Region
 
-- \`Average:
+  :   Identifier for regions (within or across countries)
 
-  price of
-  product`Average country-region prices of the individual item-level price quotes. Correspond to the "Average price of product" obtained in`valid_apt()\`.
+  `Average price of product`
+
+  :   Average country-region prices of the individual item-level price
+      quotes. Correspond to the "Average price of product" obtained in
+      [`valid_apt()`](valid_apt.md)
 
 ## Details
 
@@ -61,9 +62,11 @@ country–regions.
 
 ## References
 
-European Union/OECD (2024). *Eurostat-OECD Methodological Manual on
-Purchasing Power Parities (2023 Edition)*. OECD Publishing, Paris.
-[doi:10.2785/384854](https://doi.org/10.2785/384854) .  
+European Union/OECD, Hearne D, Bailey D (2024). *Eurostat-OECD
+Methodological Manual on Purchasing Power Parities (2023 Edition)*,
+volume 12(1). OECD Publishing, Paris.
+[doi:10.2785/384854](https://doi.org/10.2785/384854) ,
+<https://doi.org/10.1080/21681376.2025.2475115>.  
   
 ICP (2021). “A Guide to the Compilation of Subnational Purchasing Power
 Parities (PPPs).” International Comparison Program.

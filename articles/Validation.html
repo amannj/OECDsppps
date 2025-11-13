@@ -85,11 +85,53 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The documentation for data validation is illustrated using a snippet
-of the <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes" class="external-link">UK
-CPI microdata</a>.</p>
+<p><strong>Data validation</strong> is carried out to confirm the
+validity of price statistics at various levels of aggregation, from the
+initial item-level price quotes to the basic heading level and upwards,
+as well as comparing household expenditure weights across regions.</p>
+<p>The process aligns with current recommendations; see <span class="citation">ICP (2021)</span>, [p. 26], <span class="citation">World Bank (2013, 249)</span> and <span class="citation">European Union/OECD (2024)</span> for more
+information.</p>
+<p><strong>The validation steps</strong> are:</p>
+<ol style="list-style-type: decimal">
+<li>
+<a href="#sec-intraregional">Intra-regional validation</a> analyses
+individual and aggregate price quotes within the <em>same region and
+across regions of the same country</em>
+</li>
+<li>
+<a href="#sec-interregional">Inter-regional validation</a> performs
+prices validation <em>across all</em> regions and countries, ensuring
+that average prices are based on comparable products in regions across
+countries and that products have been accurately priced.</li>
+<li>
+<a href="#sec-alternative">Validation of alternative data
+sources</a> describes the validation process of alternative data
+sources</li>
+<li>
+<a href="#sec-tobh">Validation at basic-heading level</a> covers the
+validation of price indices at the basing-heading level</li>
+<li>
+<a href="#sec-exweights">Expenditure weights validation</a>
+describes the validation of household consumption expenditure</li>
+<li>
+<a href="#sec-beyondbh">Validation beyond basic-heading level</a>
+concerns the validation of price indices beyond the basing-heading
+level</li>
+</ol>
+<p><strong>Data</strong> used in this vignette is taken from the
+official UK microdata from the United Kingdom Office for National
+Statistics (ONS). Similar data was recently used in <span class="citation">Hearne and Bailey (2025)</span> and is publicly
+available:</p>
+<ul>
+<li>
+<code><a href="../reference/uk_cpi.html">uk_cpi()</a></code> is a snipped of the <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes" class="external-link">UK
+CPI microdata</a> containing two products: White sliced loaf branded 750
+grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
+</ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_cpi</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_cpi</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`COICOP5`</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -541,11 +583,7 @@ CPI microdata</a>.</p>
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Year">Year</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Date-of-quote">Date of quote</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="COICOP5">COICOP5</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Product-code">Product code</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Product-description">Product description</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Date-of-quote">Date of quote</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reference-quantity">Reference quantity</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Unit-of-reference-quantity">Unit of reference quantity</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Region">Region</th>
@@ -557,72 +595,52 @@ CPI microdata</a>.</p>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reference-quantity-price">Reference quantity price</th>
     </tr></thead>
 <tbody class="gt_table_body">
-<tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Date of quote" class="gt_row gt_right">201801</td>
-<td headers="COICOP5" class="gt_row gt_right">1010103</td>
-<td headers="Product code" class="gt_row gt_right">210111</td>
-<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
-<td headers="Reference quantity" class="gt_row gt_right">750</td>
-<td headers="Unit of reference quantity" class="gt_row gt_right">1</td>
-<td headers="Region" class="gt_row gt_left">South East</td>
-<td headers="Shop identifier" class="gt_row gt_right">1</td>
-<td headers="Type of shop" class="gt_row gt_left">Multiple</td>
-<td headers="Quantity observed" class="gt_row gt_right">750</td>
-<td headers="Unit of observed quantity" class="gt_row gt_right">1</td>
-<td headers="Price observed" class="gt_row gt_right">1.00</td>
-<td headers="Reference quantity price" class="gt_row gt_right">1.00</td>
+<tr class="gt_group_heading_row">
+<th colspan="10" class="gt_group_heading" scope="colgroup" id="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G">2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G</th>
+    </tr>
+<tr class="gt_row_group_first">
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote" class="gt_row gt_right">201801</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity" class="gt_row gt_right">750</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region" class="gt_row gt_left">South East</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop" class="gt_row gt_left">Multiple</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed" class="gt_row gt_right">750</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed" class="gt_row gt_right">1.00</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.00</td>
 </tr>
 <tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Date of quote" class="gt_row gt_right">201801</td>
-<td headers="COICOP5" class="gt_row gt_right">1010103</td>
-<td headers="Product code" class="gt_row gt_right">210111</td>
-<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
-<td headers="Reference quantity" class="gt_row gt_right">750</td>
-<td headers="Unit of reference quantity" class="gt_row gt_right">1</td>
-<td headers="Region" class="gt_row gt_left">South East</td>
-<td headers="Shop identifier" class="gt_row gt_right">1</td>
-<td headers="Type of shop" class="gt_row gt_left">Multiple</td>
-<td headers="Quantity observed" class="gt_row gt_right">750</td>
-<td headers="Unit of observed quantity" class="gt_row gt_right">1</td>
-<td headers="Price observed" class="gt_row gt_right">1.00</td>
-<td headers="Reference quantity price" class="gt_row gt_right">1.00</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote" class="gt_row gt_right">201801</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity" class="gt_row gt_right">750</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region" class="gt_row gt_left">South East</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop" class="gt_row gt_left">Multiple</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed" class="gt_row gt_right">750</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed" class="gt_row gt_right">1.00</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.00</td>
 </tr>
 <tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Date of quote" class="gt_row gt_right">201801</td>
-<td headers="COICOP5" class="gt_row gt_right">1010103</td>
-<td headers="Product code" class="gt_row gt_right">210111</td>
-<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
-<td headers="Reference quantity" class="gt_row gt_right">750</td>
-<td headers="Unit of reference quantity" class="gt_row gt_right">1</td>
-<td headers="Region" class="gt_row gt_left">North West</td>
-<td headers="Shop identifier" class="gt_row gt_right">1</td>
-<td headers="Type of shop" class="gt_row gt_left">Multiple</td>
-<td headers="Quantity observed" class="gt_row gt_right">750</td>
-<td headers="Unit of observed quantity" class="gt_row gt_right">1</td>
-<td headers="Price observed" class="gt_row gt_right">1.45</td>
-<td headers="Reference quantity price" class="gt_row gt_right">1.45</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote" class="gt_row gt_right">201801</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity" class="gt_row gt_right">750</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region" class="gt_row gt_left">North West</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop" class="gt_row gt_left">Multiple</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed" class="gt_row gt_right">750</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity" class="gt_row gt_right">1</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed" class="gt_row gt_right">1.45</td>
+<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.45</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The validation covers different dimensions, following international
-recommendations <span class="citation">(ICP 2021, 26)</span> and <span class="citation">(World Bank 2013, 249)</span> and are adapted to the
-subnational context</p>
-<ul>
-<li><p>Intra-regional validation analyses individual and aggregate price
-quotes within the <em>same region and across regions of the same
-country</em></p></li>
-<li><p>Inter-region validation: prices validation <em>across all</em>
-regions and countries, ensuring that average prices are based on
-comparable products in regions across countries and that products have
-been accurately priced.</p></li>
-</ul>
+<!-- - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) -->
 </div>
 <div class="section level2">
-<h2 id="intra-regional-validation">Intra-regional validation<a class="anchor" aria-label="anchor" href="#intra-regional-validation"></a>
+<h2 id="sec-intraregional">Intra-regional validation<a class="anchor" aria-label="anchor" href="#sec-intraregional"></a>
 </h2>
 <p>Intra-region validation establishes that price collectors within the
 <em>same region and across regions of the same country</em> have priced
@@ -633,52 +651,45 @@ aggregates.</p>
 <div class="section level3">
 <h3 id="individual-price-outlier-statistcs">Individual price outlier statistcs<a class="anchor" aria-label="anchor" href="#individual-price-outlier-statistcs"></a>
 </h3>
-<ul>
-<li><p>For each product, a <strong>Price Observation Table</strong> is
+<p>For each product, a <strong>Price Observation Table</strong> is
 obtained, containing a characterisation of the individual product as
 well as two <em>individual price outlier statistics</em>, the
 <em>Ratio-to-average price test</em> and the <em>t-value test</em>; see
 <span class="citation">World Bank (2013)</span>, table 9.1a for an
-extensive example.</p></li>
-<li><p><em>Ratio-to-average price test</em>: The ratio of an individual
-price observation <span class="math inline">\(i\)</span>, <span class="math inline">\(P_{i}\)</span>, of a specific product <span class="math inline">\(j\)</span> and the observed average price for the
+extensive example.</p>
+<p><strong>Ratio-to-average price test:</strong> The ratio of an
+individual price observation <span class="math inline">\(i\)</span>,
+<span class="math inline">\(P_{i}\)</span>, of a specific product <span class="math inline">\(j\)</span> and the observed average price for the
 product, <span class="math inline">\(\mu_j\)</span>. An observed price
 passes the this test if the ratio is between 0.5 and 1.5, meaning it is
 no less than half or no more than double the mean price. This simple
 check flags extreme values without relying on standard deviation, which
 can itself be distorted by outliers <span class="citation">(World Bank
-2013, 251)</span>.</p></li>
-</ul>
+2013, 251)</span>.</p>
 <p><span class="math display">\[
 ratio-to-average = p_{ij}/\mu_j
 \]</span></p>
-<ul>
-<li>
-<em>t-value test</em>: The ratio of the deviation of an individual
-price observation from the average reference quantity price for the
-product and the standard deviation of the product. To pass the test, the
-ratio must be 2.0 or less (any value greater than 2.0 is suspect because
-it falls outside the 95 percent confidence interval).</li>
-</ul>
+<p><strong>T-value test:</strong> The ratio of the deviation of an
+individual price observation from the average reference quantity price
+for the product and the standard deviation of the product. To pass the
+test, the ratio must be 2.0 or less (any value greater than 2.0 is
+suspect because it falls outside the 95 percent confidence
+interval).</p>
 <p><span class="math display">\[
 t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
 \]</span></p>
-<ul>
-<li>Individual price quotes that do not pass these tests are flagged in
-the price observation table. The two statistics are implemented in the
-OECD price statistics package <code>OECD_SPPP</code>. The price
-observation table is generated with the function
-<code><a href="../reference/valid_pot.html">valid_pot()</a></code>, which calls <code>valid_r2a</code> and
-<code>valid_tval</code>.</li>
-</ul>
+<p>Individual price quotes that do not pass these tests are flagged in
+the <strong>price observation table</strong>. The price observation
+table is generated with the function <code><a href="../reference/valid_pot.html">valid_pot()</a></code>.</p>
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Price Observation Table</span></span>
+<code class="sourceCode R"><span><span class="co"># Price Observation Table  ---------</span></span>
 <span><span class="va">uk_pot</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_pot</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1145,13 +1156,16 @@ observation table is generated with the function
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_title gt_font_normal" style><span class="gt_from_md"><strong>Price Observation Table</strong></span></td>
+<td colspan="8" class="gt_heading gt_title gt_font_normal" style><span class="gt_from_md"><strong>Price Observation Table</strong></span></td>
     </tr>
 <tr class="gt_heading">
-<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style><span class="gt_from_md">Example for <code>item_id</code> = 210111</span></td>
+<td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style><span class="gt_from_md">Example for <code>item_id</code> = 210111</span></td>
     </tr>
 <tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reference-quantity-price">Reference quantity price</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Year">Year</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Product-code">Product code</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Product-description">Product description</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reference-quantity-price">Reference quantity price</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ratio-to-average-price-test">Ratio-to-average price test</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="T-value-test">T-value test</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Ratio-to-average-price-test-FLAG">Ratio-to-average price test FLAG</th>
@@ -1159,35 +1173,41 @@ observation table is generated with the function
     </tr>
 </thead>
 <tbody class="gt_table_body">
-<tr class="gt_group_heading_row">
-<th colspan="5" class="gt_group_heading" scope="colgroup" id="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G">2018 - 210111 - WHITE SLICED LOAF BRANDED 750G</th>
-    </tr>
-<tr class="gt_row_group_first">
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.00</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Ratio-to-average price test" class="gt_row gt_right">1.0</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  T-value test" class="gt_row gt_right">−0.2</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  T-value test FLAG" class="gt_row gt_center">FALSE</td>
+<tr>
+<td headers="Year" class="gt_row gt_right">2018</td>
+<td headers="Product code" class="gt_row gt_right">210111</td>
+<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
+<td headers="Reference quantity price" class="gt_row gt_right">1.00</td>
+<td headers="Ratio-to-average price test" class="gt_row gt_right">1.0</td>
+<td headers="T-value test" class="gt_row gt_right">−0.2</td>
+<td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
+<td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
 </tr>
 <tr>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.00</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Ratio-to-average price test" class="gt_row gt_right">1.0</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  T-value test" class="gt_row gt_right">−0.2</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  T-value test FLAG" class="gt_row gt_center">FALSE</td>
+<td headers="Year" class="gt_row gt_right">2018</td>
+<td headers="Product code" class="gt_row gt_right">210111</td>
+<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
+<td headers="Reference quantity price" class="gt_row gt_right">1.00</td>
+<td headers="Ratio-to-average price test" class="gt_row gt_right">1.0</td>
+<td headers="T-value test" class="gt_row gt_right">−0.2</td>
+<td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
+<td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
 </tr>
 <tr>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.45</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Ratio-to-average price test" class="gt_row gt_right">1.4</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  T-value test" class="gt_row gt_right">1.8</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  T-value test FLAG" class="gt_row gt_center">FALSE</td>
+<td headers="Year" class="gt_row gt_right">2018</td>
+<td headers="Product code" class="gt_row gt_right">210111</td>
+<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
+<td headers="Reference quantity price" class="gt_row gt_right">1.45</td>
+<td headers="Ratio-to-average price test" class="gt_row gt_right">1.4</td>
+<td headers="T-value test" class="gt_row gt_right">1.8</td>
+<td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
+<td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<code class="sourceCode R"><span><span class="co"># Visualisation of price distribution ---------</span></span>
 <span><span class="va">uk_pot</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">`Product code`</span>,</span>
@@ -1203,25 +1223,23 @@ observation table is generated with the function
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">value</span>, fill <span class="op">=</span> <span class="va">is.outlier</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">name</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Individual price outlier statistcs"</span>,</span>
 <span>    subtitle <span class="op">=</span> <span class="st">"White sliced loaf branded 750G, 2018"</span>,</span>
 <span>    x <span class="op">=</span> <span class="st">""</span>,</span>
 <span>    fill <span class="op">=</span> <span class="st">""</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Adding missing grouping variables: `Year`, `Product description`</span></span>
-<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#a3bbdd"</span>, <span class="st">"#2a4691"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Validation_files/figure-html/uk_pot-1.png" class="r-plt" width="700"></p>
 <hr>
 </div>
 <div class="section level3">
 <h3 id="aggregate-price-statistics">Aggregate price statistics<a class="anchor" aria-label="anchor" href="#aggregate-price-statistics"></a>
 </h3>
-<ul>
-<li><p>This stage involves identifying extreme values among the average
+<p>This stage involves identifying extreme values among the average
 prices of the products listed in the average price table. An extreme
 value is defined as an individual price or average price that for a
 given test scores a value that falls outside a predetermined critical
@@ -1230,36 +1248,31 @@ which are summarised in the <strong>Average Price table</strong>; see
 <span class="citation">World Bank (2013)</span>, table 9.2a and 9.2b for
 an extensive example. The two statisticis contained in this table are
 the <em>max-min ratio test</em> and the <em>coefficient to
-variation</em> test.</p></li>
-<li><p><em>Max-min ratio test</em>: The ratio between the maximal and
-minimal observed price for product <span class="math inline">\(j\)</span>. Products where the maximal observed
-price is more than twice as big as the minimum are flagged</p></li>
-</ul>
+variation</em> test.</p>
+<p><strong>Max-min ratio test:</strong> The ratio between the maximal
+and minimal observed price for product <span class="math inline">\(j\)</span>. Products where the maximal observed
+price is more than twice as big as the minimum are flagged</p>
 <p><span class="math display">\[
 max-min~ratio = max(p_j)/min(p_j)
 \]</span></p>
-<ul>
-<li>
-<em>Coefficient to variation test</em>: The standard deviation for
-the product expressed as a percentage of the average price for the
-product. Products with a coefficient of variation greater than 20% will
-be flagged.</li>
-</ul>
+<p><strong>Coefficient to variation test:</strong> The standard
+deviation for the product expressed as a percentage of the average price
+for the product. Products with a coefficient of variation greater than
+20% will be flagged.</p>
 <p><span class="math display">\[
 coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}
 \]</span></p>
-<ul>
-<li>Product price quotes that do not pass these tests are flagged in the
-<em>average price table</em> and is created using function
-<code>valid_apt</code> in the OECD_SPPPs package.</li>
-</ul>
+<p>Aggregate price quotes that do not pass these tests are flagged in
+the <strong>average price table</strong>. The price observation table is
+generated with the function <code><a href="../reference/valid_apt.html">valid_apt()</a></code>.</p>
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Average Price Table</span></span>
+<code class="sourceCode R"><span><span class="co"># Average Price Table -------</span></span>
 <span><span class="va">uk_apt</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>,<span class="va">Region</span>, <span class="va">`Product code`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span>  <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>,<span class="va">Region</span>, <span class="va">`Product code`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, </span>
+<span>         <span class="va">`Product code`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, <span class="va">`Product code`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/valid_apt.html">valid_apt</a></span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_apt</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1785,11 +1798,17 @@ quantity and price. In the case of the selected product, a bimodal
 distribution was observed after outliers were removed.</p>
 <p>Once these outliers are eliminated, the selected item passes all
 intra-regional validation checks.</p>
+<hr>
+<p><strong>Example using UK CPI microdata</strong></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">uk_irv</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>,<span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="co"># Example for linked production pipeline  -------</span></span>
+<span><span class="va">uk_irv</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, </span>
+<span>         <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, </span>
+<span>         <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># Apply individual price outlier check</span></span>
+<span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Condition on price quotes which pass the Price Observation Table tests</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">`Ratio-to-average price test FLAG`</span> <span class="op">&amp;</span> <span class="op">!</span><span class="va">`T-value test FLAG`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Remove bimodal distribution</span></span>
@@ -1798,7 +1817,7 @@ intra-regional validation checks.</p>
 <span>  <span class="fu"><a href="../reference/valid_apt.html">valid_apt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_irv</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"**Average Price Table**"</span><span class="op">)</span>,</span>
@@ -2340,7 +2359,7 @@ intra-regional validation checks.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="inter-regional-validation">Inter-regional validation<a class="anchor" aria-label="anchor" href="#inter-regional-validation"></a>
+<h2 id="sec-interregional">Inter-regional validation<a class="anchor" aria-label="anchor" href="#sec-interregional"></a>
 </h2>
 <p>Inter-regional validation involves verifying prices across all
 regions and countries to ensure that average prices are derived from
@@ -2356,25 +2375,24 @@ the cross-country <em>standardised price ratio (SPR)</em>.</p>
 <span class="math inline">\(A\)</span>, the SPR is defined as:</p>
 <p><span class="math display">\[
 SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N}
-\mu^*_{1n}  \right)^{\frac{1}{N}} \times 100
+\mu^*_{1n}  \right)^{\frac{1}{N}} \times 100,
 \]</span></p>
-<p>, where <span class="math inline">\(\mu^*_{1A}\)</span> represents
-the <strong>average converted price</strong> of product <span class="math inline">\(1\)</span> in country–region <span class="math inline">\(A\)</span>, and <span class="math inline">\(N\)</span> is the total number of
-country–regions.</p>
-<p>Two conversions are applied to make country–region prices comparable
+<p>where <span class="math inline">\(\mu^*_{1A}\)</span> represents the
+<strong>average converted price</strong> of product <span class="math inline">\(1\)</span> in country–region <span class="math inline">\(A\)</span>, and <span class="math inline">\(N\)</span> is the total number of country–regions.
+Two conversions are applied to make country–region prices comparable
 across countries: exchange rates and purchasing power parities (PPPs)
-<span class="citation">(World Bank 2013, 258)</span>.</p>
-<ul>
+<span class="citation">(World Bank 2013, 258)</span>:</p>
+<ol style="list-style-type: decimal">
 <li>SPRs derived from exchange rate–converted prices are referred to as
-<em>XR-ratios</em>.</li>
+<strong>XR-ratios</strong>.</li>
 <li>SPRs based on PPP-converted prices are referred to as
-<em>PPP-ratios</em>.</li>
-</ul>
+<strong>PPP-ratios</strong>.</li>
+</ol>
 <p>Both types of SPRs are used for validation; however, only PPP-ratios
 are employed to measure dispersion. XR-ratios are considered more
-reliable during the initial stage of cross-country validation.</p>
-<p>XR- and PPP-ratios that fall outside the 80–125 range are flagged as
-extreme values requiring verification.</p>
+reliable during the initial stage of cross-country validation. XR- and
+PPP-ratios that fall outside the 80–125 range are flagged as extreme
+values requiring verification.</p>
 <div class="section level3">
 <h3 id="the-xr-ratio">The XR-ratio<a class="anchor" aria-label="anchor" href="#the-xr-ratio"></a>
 </h3>
@@ -2396,18 +2414,18 @@ across multiple countries is currently not available.</p>
 <span><span class="co">## UK data</span></span>
 <span><span class="va">uk_irv</span> <span class="op">&lt;-</span> <span class="va">uk_irv</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="st">"2018"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"UK - "</span>, <span class="va">Region</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Region</span>, <span class="va">Year</span>, <span class="va">`Product code`</span>, <span class="va">`Average price of product`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>`XR USD` <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Dummy CZ data</span></span>
 <span><span class="va">cz_irv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>  Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CZ01"</span>,<span class="st">"CZ02"</span><span class="op">)</span>,</span>
+<span>  Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CZ01"</span>, <span class="st">"CZ02"</span><span class="op">)</span>,</span>
 <span>  Year <span class="op">=</span> <span class="st">"2018"</span>,</span>
 <span>  `Product code` <span class="op">=</span> <span class="fl">210111</span>,</span>
-<span>  `Average price of product` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4.22</span>,<span class="fl">3.88</span><span class="op">)</span>,</span>
+<span>  `Average price of product` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4.22</span>, <span class="fl">3.88</span><span class="op">)</span>,</span>
 <span>  `XR USD` <span class="op">=</span> <span class="fl">.4</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -2416,7 +2434,7 @@ across multiple countries is currently not available.</p>
 <span>  Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DE01"</span>, <span class="st">"DE02"</span><span class="op">)</span>,</span>
 <span>  Year <span class="op">=</span> <span class="st">"2018"</span>,</span>
 <span>  `Product code` <span class="op">=</span> <span class="fl">210111</span>,</span>
-<span>  `Average price of product` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.44</span>,<span class="fl">1.23</span><span class="op">)</span>,</span>
+<span>  `Average price of product` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.44</span>, <span class="fl">1.23</span><span class="op">)</span>,</span>
 <span>  `XR USD` <span class="op">=</span> <span class="fl">0.9</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -2424,9 +2442,11 @@ across multiple countries is currently not available.</p>
 <span><span class="va">df_xr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">uk_irv</span>, <span class="va">cz_irv</span>, <span class="va">de_irv</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df_xrr</span> <span class="op">&lt;-</span> <span class="va">df_xr</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/valid_XRratio.html">valid_XRratio</a></span><span class="op">(</span>average_price <span class="op">=</span> <span class="st">"Average price of product"</span>,</span>
-<span>                xr_usd <span class="op">=</span> <span class="st">"XR USD"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/valid_XRratio.html">valid_XRratio</a></span><span class="op">(</span></span>
+<span>    average_price <span class="op">=</span> <span class="st">"Average price of product"</span>,</span>
+<span>    xr_usd <span class="op">=</span> <span class="st">"XR USD"</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">df_xrr</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -2958,9 +2978,9 @@ function, which calculates the PPP-ratio; see Table 9.3b in <span class="citatio
 variation is used to assess variability across products and countries;
 coefficients exceeding 33% are considered extreme and may indicate the
 need for further verification of the underlying data.</p>
-<p>Within each block, PPP-ratios—computed as the PPP-converted price
-divided by the geometric mean of the product price—reflect the degree of
-variability both across country-regions and across products.</p>
+<p>Within each block, PPP-ratios, computed as the PPP-converted price
+divided by the geometric mean of the product price, reflect the degree
+of variability both across country-regions and across products.</p>
 <p>The country variation coefficient (row measure) represents the
 standard deviation of product PPPs within country-regions, thereby
 identifying countries exhibiting the greatest price variability.
@@ -2987,11 +3007,13 @@ across multiple countries is currently not available.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">`XR USD`</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Calculations</span></span>
-<span><span class="va">df_out</span> <span class="op">&lt;-</span> <span class="va">df_xr2</span> <span class="op">|&gt;</span> </span>
-<span><span class="fu"><a href="../reference/valid_PPPratio.html">valid_PPPratio</a></span><span class="op">(</span>Year <span class="op">=</span> <span class="st">"Year"</span>,</span>
-<span>                           `Product code` <span class="op">=</span> <span class="st">"Product code"</span>,</span>
-<span>                           Region <span class="op">=</span> <span class="st">"Region"</span>,</span>
-<span>                           `Average price of product` <span class="op">=</span> <span class="st">"Average price of product"</span><span class="op">)</span> </span>
+<span><span class="va">df_out</span> <span class="op">&lt;-</span> <span class="va">df_xr2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/valid_PPPratio.html">valid_PPPratio</a></span><span class="op">(</span></span>
+<span>    Year <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>    `Product code` <span class="op">=</span> <span class="st">"Product code"</span>,</span>
+<span>    Region <span class="op">=</span> <span class="st">"Region"</span>,</span>
+<span>    `Average price of product` <span class="op">=</span> <span class="st">"Average price of product"</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Final table</span></span>
 <span><span class="va">df_out</span> <span class="op">|&gt;</span></span>
@@ -3008,7 +3030,7 @@ across multiple countries is currently not available.</p>
 <span>    columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    rows <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    missing_text <span class="op">=</span> <span class="st">""</span></span>
-<span>  <span class="op">)</span> </span></code></pre></div>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div id="ncjrvketnv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ncjrvketnv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3519,7 +3541,7 @@ across multiple countries is currently not available.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="validation-of-alternative-data-sources">Validation of alternative data sources<a class="anchor" aria-label="anchor" href="#validation-of-alternative-data-sources"></a>
+<h2 id="sec-alternative">Validation of alternative data sources<a class="anchor" aria-label="anchor" href="#sec-alternative"></a>
 </h2>
 <p>When official data required for the calculation of SPPPs are
 unavailable, alternative data sources are employed. Examples include
@@ -3549,173 +3571,83 @@ feasible. In such instances, greater emphasis is placed on expert-led
 plausibility validation to ensure the integrity of the data used.</p>
 </div>
 <div class="section level2">
-<h2 id="basic-heading-sppps-validation">Basic heading SPPPs validation<a class="anchor" aria-label="anchor" href="#basic-heading-sppps-validation"></a>
+<h2 id="sec-tobh">Validation at basic-heading leveln<a class="anchor" aria-label="anchor" href="#sec-tobh"></a>
 </h2>
-<div class="section level3">
-<h3 id="numerical">Numerical<a class="anchor" aria-label="anchor" href="#numerical"></a>
-</h3>
-<ul>
-<li><p>Ensures that prices are consistent not only within basic headings
-but also at aggregate level <em>across</em> basic headings. This can,
-for example, help address cross-country measurement
-inconsistency</p></li>
-<li><p>This is done using Dikhanov tables <span class="citation">(World
-Bank 2013, 261/267)</span>, which consist of three parts:</p></li>
-<li><p><em>Part 1</em>: Summary information (PPPs, SDs, price level) by
-country for the aggregate</p></li>
-<li><p><em>Part 2</em>: Contained basic headings (same info as part
-1).</p></li>
-<li><p><em>Part 3</em>: CPD residuals and product variation coefficients
-for products within basic headings</p></li>
-<li><p><em>Part 1/2</em> Facilitates the comparisons of PPPs across
-basic headings; plausible variations in PPPs is expected across regions.
-Such variations would indicate that, say, alcoholic beverages in country
-A are x% higher than in country B.</p></li>
-<li><p><em>Part 3</em> Ensure that the aggregate PPP variations are not
-driven certain basic headings, or isolated products therein, but are
-more reflective of common price-level differences across
-regions/countries.</p></li>
-<li><p>Extreme values are identified based on CPD residuals and PPP
-ratio threshold values described in <span class="citation">(<strong>tbl-thresholds?</strong>)</span>; see also
-<span class="citation">(World Bank 2013, 261)</span>:</p></li>
-</ul>
-<table class="table">
-<caption>Threshold values: CPD residuals and PPP-ratios
-{#tbl-thresholds}</caption>
-<colgroup>
-<col width="45%">
-<col width="36%">
-<col width="18%">
-</colgroup>
-<thead><tr class="header">
-<th>CPD residuals</th>
-<th>PPP-ratios</th>
-<th>Flag</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Between −0.25 and 0.25</td>
-<td>Between 78 and 128</td>
-<td>OK</td>
-</tr>
-<tr class="even">
-<td>Between −0.75 and −0.25 or 0.25 and 0.75</td>
-<td>Between 47 and 78 or 128 and 212</td>
-<td><em>Flag 1</em></td>
-</tr>
-<tr class="odd">
-<td>Between −2.0 and −0.75 or 0.75 and 2.0</td>
-<td>Between 14 and 47 or 212 and 739</td>
-<td><strong>Fag 2</strong></td>
-</tr>
-<tr class="even">
-<td>Less than −2.0 or greater than 2.0</td>
-<td>Less than 14 or greater than 739</td>
-<td><strong><em>Flag 3</em></strong></td>
-</tr>
-</tbody>
-</table>
 <blockquote>
-<p>🚧 Code to be completed.</p>
+<p>🚧 Work in progress.</p>
 </blockquote>
-</div>
-<div class="section level3">
-<h3 id="visualisation">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation"></a>
-</h3>
-<ul>
-<li><p>Examines the basic heading PPPs within countries, and by country
-within each basic heading to point at countries/headings which may
-require further review <span class="citation">(World Bank 2013,
-279)</span>.</p></li>
-<li><p>Validation in this section is based on basic heading PPP
-estimates</p></li>
-</ul>
-<blockquote>
-<p>🚧 Code to be completed.</p>
-</blockquote>
-<ul>
-<li>Box plots of Price Level index (PLI), which is the ratio of a
-purchasing power parity (PPP) conversion factor to the corresponding
-market exchange rate between two countries by country and by basic
-heading.</li>
-</ul>
-</div>
+<!-- ## Numerical -->
+<!-- -   Ensures that prices are consistent not only within basic headings but also at aggregate level *across* basic headings. This can, for example, help address cross-country measurement inconsistency -->
+<!-- - This is done using Dikhanov tables [@worldbank2013, p.261/267], which consist of three parts: -->
+<!-- -   *Part 1*: Summary information (PPPs, SDs, price level) by country for the aggregate -->
+<!-- -   *Part 2*: Contained basic headings (same info as part 1). -->
+<!-- -   *Part 3*: CPD residuals and product variation coefficients for products within basic headings -->
+<!-- - *Part 1/2* Facilitates the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. -->
+<!-- - *Part 3* Ensure that the aggregate PPP variations are not driven certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. -->
+<!-- -   Extreme values are identified based on CPD residuals and PPP ratio threshold values described in @tbl-thresholds; see also [@worldbank2013, p.261]: -->
+<!-- | CPD residuals | PPP-ratios | Flag | -->
+<!-- |---------------|------------|------| -->
+<!-- | Between −0.25 and 0.25 | Between 78 and 128 | OK     | -->
+<!-- | Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1*     | -->
+<!-- | Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Fag 2**     | -->
+<!-- | Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3***     | -->
+<!-- : Threshold values: CPD residuals and PPP-ratios {#tbl-thresholds}  -->
+<!-- ## Visualisation  -->
+<!-- - Examines the basic heading PPPs within countries, and by country within each basic heading to point at countries/headings which may require further review [@worldbank2013, p.279]. -->
+<!-- - Validation in this section is based on basic heading PPP estimates -->
+<!-- - Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading. -->
 </div>
 <div class="section level2">
-<h2 id="expenditure-weights-validation">Expenditure weights validation<a class="anchor" aria-label="anchor" href="#expenditure-weights-validation"></a>
+<h2 id="sec-exweights">Expenditure weights validation<a class="anchor" aria-label="anchor" href="#sec-exweights"></a>
 </h2>
-<p>In line with <span class="citation">(World Bank 2013, 285)</span>,
-within-country basic heading expenditures and shares are reviewed for
-the following:</p>
-<ul>
-<li><p>Completeness – ensuring that, with few exceptions, expenditures
-are recorded for every basic heading.</p></li>
-<li><p>Plausibility – by comparing per capita values and expenditure
-shares across basic headings.</p></li>
-<li><p>Temporal consistency – by examining the coherence of expenditure
-breakdowns across different years.</p></li>
-</ul>
-<p>The review process includes the following checks:</p>
-<ul>
-<li><p>Calculating total and per capita expenditure values, deriving
-expenditure shares, and comparing these shares across countries, using
-Table 10.1 in <span class="citation">(World Bank 2013, 286)</span> as a
-reference.</p></li>
-<li><p>Comparing minimum, maximum, and median values at the basic
-heading level to identify potential anomalies or
-inconsistencies.</p></li>
-</ul>
 <blockquote>
-<p>🚧 Code to be completed.</p>
+<p>🚧 Work in progress.</p>
 </blockquote>
+<!-- In line with [@worldbank2013, p.285], within-country basic heading expenditures and shares are reviewed for the following: -->
+<!-- - Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading. -->
+<!-- - Plausibility – by comparing per capita values and expenditure shares across basic headings. -->
+<!-- - Temporal consistency – by examining the coherence of expenditure breakdowns across different years. -->
+<!-- The review process includes the following checks: -->
+<!-- - Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference. -->
+<!-- - Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies. -->
 </div>
 <div class="section level2">
-<h2 id="beyond-basic-heading-sppps-validation">Beyond Basic Heading SPPPs validation<a class="anchor" aria-label="anchor" href="#beyond-basic-heading-sppps-validation"></a>
+<h2 id="sec-beyondbh">Validation beyond basic-heading level<a class="anchor" aria-label="anchor" href="#sec-beyondbh"></a>
 </h2>
-<div class="section level3">
-<h3 id="bilateral-ppps">Bilateral PPPs<a class="anchor" aria-label="anchor" href="#bilateral-ppps"></a>
-</h3>
-<ul>
-<li><p>Next step of validation concerns validation of PPPs using
-expenditure weights together <span class="citation">(World Bank 2013,
-287)</span></p></li>
-<li><p>Objective is to check if there is a problem with the basic
-headings PPP and expenditures, or, in case the data is valid, there is
-an estimation issue.</p></li>
-<li><p><span class="citation">(World Bank 2013, 287)</span> discusses
-various validations steps that can be used to validate the Fisher
-PPPs.</p></li>
-<li><p>Validation using the Laspeyres and Paasche quantity index and
-Paasche-Laspeyres spread (PLS) following <span class="citation">(<strong>hill2011cluster?</strong>)</span>, who
-proposes computing upper and lower price and quantity relatives to
-determine whether the large values in the PLS are caused by PPPs or
-expenditure outliers. Basic headings with large upper or lower quantity
-or price relatives should be further examined.</p></li>
-</ul>
-<p><span class="math display">\[
-PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})}
-\]</span></p>
-<p><span class="math display">\[
-Q_L^{jk} = \frac{ \sum^n_{i=1} p_i^j \times q_i^k }{ \sum^n_{i=1} p_i^j
-\times q_i^j}
-\]</span></p>
-<p><span class="math display">\[
-Q_P^{jk} = \frac{ \sum^n_{i=1} p_i^k \times q_i^k }{ \sum^n_{i=1} p_i^k
-\times q_i^j}
-\]</span></p>
 <blockquote>
-<p>🚧 Code to be completed.</p>
+<p>🚧 Work in progress.</p>
 </blockquote>
-</div>
-</div>
-<div class="section level2">
-<h2 id="multilateral-ppps">Multilateral PPPs<a class="anchor" aria-label="anchor" href="#multilateral-ppps"></a>
-</h2>
+<!-- ## Bilateral PPPs -->
+<!-- - Next step of validation concerns validation of PPPs using expenditure weights together [@worldbank2013, p.287] -->
+<!-- - Objective is to check if there is a problem with the basic headings PPP and expenditures, or, in case the data is valid, there is an estimation issue. -->
+<!-- - [@worldbank2013, p.287] discusses various validations steps that can be used to validate the Fisher PPPs. -->
+<!-- - Validation using the Laspeyres and Paasche quantity index and Paasche-Laspeyres spread (PLS) following [@hillLinkingRegionsInternational2011], who proposes computing upper and lower price and quantity relatives to determine whether the large values in the PLS are caused by PPPs or expenditure outliers. Basic headings with large upper or lower quantity or price relatives should be further examined. -->
+<!-- $$ -->
+<!-- PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})} -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- Q_L^{jk} = \frac{ \sum^n_{i=1} p_i^j \times q_i^k }{ \sum^n_{i=1} p_i^j \times q_i^j} -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- Q_P^{jk} = \frac{ \sum^n_{i=1} p_i^k \times q_i^k }{ \sum^n_{i=1} p_i^k \times q_i^j} -->
+<!-- $$ -->
+<!-- > 🚧 Code to be completed.  -->
+<!-- # Multilateral PPPs -->
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-europeanunionEurostatOECDMethodologicalManual2024" class="csl-entry">
+European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological
+Manual</span> on <span>Purchasing Power Parities</span> (2023
+Edition)</em>. OECD Publishing, Paris. <a href="https://doi.org/10.2785/384854" class="external-link">https://doi.org/10.2785/384854</a>.
+</div>
+<div id="ref-hearne2025" class="csl-entry">
+Hearne, David, and David Bailey. 2025. <span>“Regional Prices
+Reconsidered.”</span> <em>Regional Studies, Regional Science</em> 12
+(1): 338–56. <a href="https://doi.org/10.1080/21681376.2025.2475115" class="external-link">https://doi.org/10.1080/21681376.2025.2475115</a>.
+</div>
 <div id="ref-icp2021" class="csl-entry">
 ICP. 2021. <span>“A Guide to the Compilation of Subnational Purchasing
 Power Parities (PPPs).”</span> <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.

@@ -4,11 +4,11 @@
 calculating two *individual price outlier statistics* for the individual
 item-level price quotes, the *ratio-to-average price test* and the
 *t-value test*; see World Bank (2013), ICP (2021) and European
-Union/OECD (2024) . All item-level price quotes that do not pass the two
-tests are flagged in columns `Ratio-to-average price test FLAG` and
-`T-value test FLAG`, respectively. The item-level price quotes should be
-based on the *reference quantity price*; see *Details* and World Bank
-(2013) , table 9.1a. for more information.
+Union/OECD et al. (2024) . All item-level price quotes that do not pass
+the two tests are flagged in columns `Ratio-to-average price test FLAG`
+and `T-value test FLAG`, respectively. The item-level price quotes
+should be based on the *reference quantity price*; see *Details* and
+World Bank (2013) , table 9.1a. for more information.
 
 ## Usage
 
@@ -55,9 +55,11 @@ falls outside the 95 percent confidence interval): \\t-val = (p\_{ij} -
 
 ## References
 
-European Union/OECD (2024). *Eurostat-OECD Methodological Manual on
-Purchasing Power Parities (2023 Edition)*. OECD Publishing, Paris.
-[doi:10.2785/384854](https://doi.org/10.2785/384854) .  
+European Union/OECD, Hearne D, Bailey D (2024). *Eurostat-OECD
+Methodological Manual on Purchasing Power Parities (2023 Edition)*,
+volume 12(1). OECD Publishing, Paris.
+[doi:10.2785/384854](https://doi.org/10.2785/384854) ,
+<https://doi.org/10.1080/21681376.2025.2475115>.  
   
 ICP (2021). “A Guide to the Compilation of Subnational Purchasing Power
 Parities (PPPs).” International Comparison Program.

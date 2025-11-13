@@ -4,7 +4,7 @@
 (XR-ratio), which is a region-country's XR-price Variability can be
 compared to highlight products in countries/regions that are most
 variable (high XR-ratio) across countries; see World Bank (2013), ICP
-(2021) and European Union/OECD (2024) .
+(2021) and European Union/OECD et al. (2024) .
 
 ## Usage
 
@@ -46,9 +46,11 @@ number of country–regions.
 
 ## References
 
-European Union/OECD (2024). *Eurostat-OECD Methodological Manual on
-Purchasing Power Parities (2023 Edition)*. OECD Publishing, Paris.
-[doi:10.2785/384854](https://doi.org/10.2785/384854) .  
+European Union/OECD, Hearne D, Bailey D (2024). *Eurostat-OECD
+Methodological Manual on Purchasing Power Parities (2023 Edition)*,
+volume 12(1). OECD Publishing, Paris.
+[doi:10.2785/384854](https://doi.org/10.2785/384854) ,
+<https://doi.org/10.1080/21681376.2025.2475115>.  
   
 ICP (2021). “A Guide to the Compilation of Subnational Purchasing Power
 Parities (PPPs).” International Comparison Program.
