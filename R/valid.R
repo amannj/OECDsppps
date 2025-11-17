@@ -21,16 +21,15 @@
 #' **Ratio-to-average price test:** The ratio of an individual price observation
 #' \mjseqn{i}, \mjseqn{P_{i}}, of a specific product \mjseqn{j} and the observed average
 #' price for the product, \mjseqn{\mu_j}. An observed price passes the this test
-#' if the ratio is between 0.5 and 1.5, meaning it is no less than half or no
-#' more than double the mean price. This simple check flags extreme values
+#' if the ratio is between 0.5 and 1.5. This simple check flags potential outlier values
 #' without relying on standard deviation, which can itself be distorted by outliers:
 #' \mjdeqn{ratio-to-average = p_{ij}/\mu_j}{ratio-to-average = p_{ij}/\mu_j}
 #'
 #'
 #' **T-value test**: The ratio of the deviation of an individual price observation
 #' from the average reference quantity price for the product and the standard
-#' deviation of the product. To pass the test, the ratio must be 2.0 or less
-#' (any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval):
+#' deviation of the product. To pass the test, the ratio must be between -2.0 and 2.0
+#' (any value outside that range is suspect because it falls outside the 95 percent confidence interval):
 #' \mjdeqn{t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}}{t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}}
 #'
 #' @param data A data frame or tibble containing at least one column with
@@ -68,7 +67,7 @@ valid_pot <- function(data,
     # Add flags for selection rules
     mutate(
       `Ratio-to-average price test FLAG` = ifelse(`Ratio-to-average price test` < 0.5 | `Ratio-to-average price test` > 1.5, TRUE, FALSE),
-      `T-value test FLAG` = ifelse(`T-value test` > 2, TRUE, FALSE)
+      `T-value test FLAG` = ifelse(`T-value test` > 2 | `T-value test` < -2, TRUE, FALSE)
     )
 }
 
@@ -98,7 +97,7 @@ valid_pot <- function(data,
 #' as big as the minimum are flagged in `Max-min ratio FLAG`:
 #' \mjdeqn{max-min~ratio = max(p_j)/min(p_j)}{max-min~ratio = max(p_j)/min(p_j)}
 #'
-#' **Coefficient to variation test:** The standard deviation \mjseqn{\sigma_{p_j}}
+#' **Coefficient-of-variation test:** The standard deviation \mjseqn{\sigma_{p_j}}
 #' of product  \mjseqn{j}'s price \mjseqn{p_j}
 #' expressed as a percentage of the average price for the product,  \mjseqn{\mu_{p_j}}. Products
 #' with a coefficient of variation greater than 20% will be flagged in `Coefficient of variation FLAG`:
