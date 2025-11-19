@@ -4,10 +4,10 @@
 \alias{valid_pot}
 \title{Create the "Price Observation Table"}
 \usage{
-valid_pot(data, price_quote = "Reference quantity price", ...)
+valid_pot(data, price_quote = "Reference quantity price")
 }
 \arguments{
-\item{data}{A data frame or tibble containing at least one column with
+\item{data}{Data frame or tibble containing at least one column with
 individual item-level price quotes.}
 
 \item{price_quote}{Column containing the individual item-level price quotes,

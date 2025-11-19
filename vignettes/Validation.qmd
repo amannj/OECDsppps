@@ -1,29 +1,28 @@
 ---
 title: "Validation"
-output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Validation}
   %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
 editor_options: 
   chunk_output_type: console
 bibliography: references.bib
 format: 
   html:
     toc: true
-    toc-depth: 4
-    number-sections: true
-    number-depth: 4    
+toc-depth: 4
+number-sections: true
+number-depth: 4   
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-```{r message=FALSE, warning=FALSE}
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
 library(dplyr)
 library(tidyr)
 library(gt)
@@ -31,11 +30,9 @@ library(ggplot2)
 library(OECDsppps)
 ```
 
-# Overview
+# Overview {.unnumbered}
 
-**Data validation** is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions.
-
-The process aligns with current recommendations; see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
+**Data validation** is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions. The process aligns with current recommendations; see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
 
 **The validation steps** are:
 
@@ -293,7 +290,7 @@ df_xrr <- df_xr |>
   group_by(Year, `Product code`) |>
   valid_XRratio(
     average_price = "Average price of product",
-    xr_usd = "XR USD"
+    exchange_rate = "XR USD"
   )
 
 df_xrr |>
@@ -341,10 +338,10 @@ df_xr2 <- rbind(
 # Calculations
 df_out <- df_xr2 |>
   valid_PPPratio(
-    Year = "Year",
-    `Product code` = "Product code",
-    Region = "Region",
-    `Average price of product` = "Average price of product"
+    year = "Year",
+    product_code = "Product code",
+    region = "Region",
+    average_price = "Average price of product"
   )
 
 # Final table
@@ -478,4 +475,4 @@ The use of alternative data sources depends on the type and availability of data
 
 <!-- # Multilateral PPPs -->
 
-# References
+# References {.unnumbered}

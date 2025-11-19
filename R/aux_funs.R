@@ -1,6 +1,6 @@
-#' Opposite of `%in%`
+#' `%not.in%`: opposite of `%in%`
 #'
-#' `%!in%` exclude rows with values specified in a vector.
+#' `%not.in%` exclude rows with values specified in a vector.
 #'
 #' @param x The first vector
 #' @param y The second vector
@@ -9,6 +9,6 @@
 #' @examples
 #'  x <- c(1,2,3)
 #'  y <-  c(2,3)
-#'  x %!in% y
+#'  x %not.in% y
 #' @export
-"%!in%" <- function(x, y){ !("%in%"(x, y))}
+"%not.in%" <- function(x, y){ !("%in%"(x, y))}

@@ -56,8 +56,7 @@
 #' @importFrom dplyr select
 #' @export
 valid_pot <- function(data,
-                      price_quote = "Reference quantity price",
-                      ...) {
+                      price_quote = "Reference quantity price") {
   data |>
     # Calculate individual price outlier statistics
     mutate(
@@ -129,8 +128,7 @@ valid_pot <- function(data,
 #' @importFrom dplyr summarise
 #' @export
 valid_apt <- function(data,
-                      price_quote = "Reference quantity price",
-                      ...) {
+                      price_quote = "Reference quantity price") {
   data |>
     ## Number of observations
     mutate(nobs = 1) |>
@@ -188,8 +186,7 @@ valid_apt <- function(data,
 #' @export
 valid_XRratio <- function(data,
                           average_price = "Average price of product",
-                          exchange_rate = "XR USD",
-                          ...) {
+                          exchange_rate = "XR USD") {
   data |>
     mutate(`XR Average price of product` = .data[[average_price]] * .data[[exchange_rate]]) |>
     # Calculate XR-Ratio
@@ -223,14 +220,12 @@ valid_XRratio <- function(data,
 #'
 #' @param data A data frame or tibble containing at least a column with the average country-region
 #'  prices and a region and product identifier.
-#' \describe{
-#'   \item{Year}{Year}
-#'   \item{`Product code`}{Product code identifier}
-#'   \item{Region}{Identifier for regions (within or across countries)}
-#'   \item{`Average price of product`}{Average country-region
+#' @param year Year
+#' @param product_code Product code identifier
+#' @param region Identifier for regions (within or across countries)
+#' @param average_price  Average country-region
 #'  prices of the individual item-level price quotes. Correspond to the
-#'  "Average price of product" obtained in `valid_apt()`}
-#' }
+#'  "Average price of product" obtained in `valid_apt()`
 #'
 #' @references
 #'   \insertAllCited{}
@@ -242,55 +237,54 @@ valid_XRratio <- function(data,
 #' @importFrom dplyr select
 #' @export
 valid_PPPratio <- function(data,
-                           Year = "Year",
-                           `Product code` = "Product code",
-                           Region = "Region",
-                           `Average price of product` = "Average price of product",
-                           ...) {
+                           year = "Year",
+                           product_code = "Product code",
+                           region = "Region",
+                           average_price = "Average price of product") {
   # Calculations
   tmp <- data |>
     # Calculate PPP price, first country is baseline
-    group_by(.data[[`Product code`]]) |>
+    group_by(.data[[product_code]]) |>
     mutate(
-      PPP_item = ifelse(row_number() == 1, `Average price of product`, NA),
+      PPP_item = ifelse(row_number() == 1, .data[[average_price]], NA),
       PPP_item = mean(PPP_item, na.rm = TRUE),
-      PPP_item = .data[[`Average price of product`]] / PPP_item
+      PPP_item = .data[[average_price]] / PPP_item
     ) |>
     # Calculate aggregate PPP
-    group_by(.data[[Region]]) |>
+    group_by(.data[[region]]) |>
     mutate(PPP_country = exp(mean(log(PPP_item)))) |>
     # Calculate PPP price relatives
-    mutate(PPP_pricerel = .data[[`Average price of product`]] / PPP_country) |>
+    mutate(PPP_pricerel = .data[[average_price]] / PPP_country) |>
     # Calculate geometric mean
-    group_by(.data[[`Product code`]]) |>
+    group_by(.data[[product_code]]) |>
     mutate(gmean = exp(mean(log(PPP_pricerel)))) |>
     ungroup() |>
     # Calculate PPP ratios
     mutate(PPP_ratio = PPP_pricerel / gmean * 100) |>
     ungroup() |>
     # Calculate variation coefficients
-    select({{ Year }}, {{ Region }}, {{ `Product code` }}, PPP_ratio) |>
-    mutate(`VC Product` = sd(PPP_ratio), .by = `Product code`) |>
+    select({{ year }}, {{ region }}, {{ product_code }}, PPP_ratio) |>
+    mutate(`VC Product` = sd(PPP_ratio), .by = product_code) |>
     mutate(`VC Region` = sd(PPP_ratio), .by = `Region`)
 
-  # Variation coefficicients
+  # Variation coefficients
   x1 <- tmp |>
-    select({{ Year }}, {{ `Product code` }}, `VC Product`) |>
+    select({{ year }}, {{ product_code }}, `VC Product`) |>
     distinct()
 
   x2 <- tmp |>
-    select({{ Year }}, {{ Region }}, `VC Region`) |>
+    select({{ year }}, {{ region }}, `VC Region`) |>
     distinct() |>
-    pivot_wider(names_from = {{ Region }}, values_from = `VC Region`) |>
-    mutate(`Product code` = "Region variation coefficients") |>
-    select(Year, {{ `Product code` }}, everything()) |>
+    pivot_wider(names_from = {{ region }}, values_from = `VC Region`) |>
+    mutate({{product_code}} := "Region variation coefficients") |>
+    select(Year, {{ product_code }}, everything()) |>
     mutate(`VC Product` = NA)
 
   # Final table
   tmp |>
     select(-contains("VC")) |>
-    pivot_wider(names_from = {{ Region }}, values_from = PPP_ratio) |>
-    left_join(x1, by = join_by(Year, `Product code`)) |>
+    pivot_wider(names_from = {{ region }}, values_from = PPP_ratio) |>
+    left_join(x1, by = join_by(Year, {{product_code}})) |>
     rbind(x2) |>
     rename("Product variation coefficients" = `VC Product`)
 }

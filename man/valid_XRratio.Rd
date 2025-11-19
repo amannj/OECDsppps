@@ -7,8 +7,7 @@
 valid_XRratio(
   data,
   average_price = "Average price of product",
-  exchange_rate = "XR USD",
-  ...
+  exchange_rate = "XR USD"
 )
 }
 \arguments{

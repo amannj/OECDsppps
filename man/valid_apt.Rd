@@ -4,7 +4,7 @@
 \alias{valid_apt}
 \title{Create "Average Price Table"}
 \usage{
-valid_apt(data, price_quote = "Reference quantity price", ...)
+valid_apt(data, price_quote = "Reference quantity price")
 }
 \arguments{
 \item{data}{A data frame or tibble containing at least one column with
