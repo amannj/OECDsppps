@@ -96,12 +96,12 @@ as well as comparing household expenditure weights across regions.</p>
 <ol style="list-style-type: decimal">
 <li>
 <a href="#sec-intraregional">Intra-regional validation</a> analyses
-individual and aggregate price quotes within the <em>same region and
-across regions of the same country</em>
+individual and aggregate price quotes within the <em>same region</em>
+and <em>across regions of the same country</em>
 </li>
 <li>
 <a href="#sec-interregional">Inter-regional validation</a> performs
-prices validation <em>across all</em> regions and countries, ensuring
+prices validation <em>across all regions and countries</em>, ensuring
 that average prices are based on comparable products in regions across
 countries and that products have been accurately priced.</li>
 <li>
@@ -119,10 +119,10 @@ describes the validation of household consumption expenditure</li>
 concerns the validation of price indices beyond the basing-heading
 level</li>
 </ol>
-<p><strong>Data</strong> used in this vignette is taken from the
-official UK microdata from the United Kingdom Office for National
-Statistics (ONS). Similar data was recently used in <span class="citation">Hearne and Bailey (2025)</span> and is publicly
-available:</p>
+<p><strong>Data</strong> used in this vignette is taken from official UK
+microdata from the United Kingdom Office for National Statistics (ONS).
+Similar data was recently used in <span class="citation">Hearne and
+Bailey (2025)</span> and is publicly available:</p>
 <ul>
 <li>
 <code><a href="../reference/uk_cpi.html">uk_cpi()</a></code> is a snipped of the <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes" class="external-link">UK
@@ -644,20 +644,19 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
 <h2 id="sec-intraregional">Intra-regional validation<a class="anchor" aria-label="anchor" href="#sec-intraregional"></a>
 </h2>
 <p>Intra-region validation establishes that price collectors within the
-<em>same region and across regions of the same country</em> have priced
-products that match the product specifications and that the prices they
-have reported are correct. This is done in two stages, which correspond
-to the outlier detection of (a) individual prices and (b) average price
-aggregates.</p>
+<em>same region</em> and <em>across regions of the same country</em>
+have priced products that match the product specifications and that the
+prices they have reported are correct. This is done in two stages, which
+correspond to the outlier detection of (a) individual prices and (b)
+average price aggregates.</p>
 <div class="section level3">
-<h3 id="individual-price-outlier-statistcs">Individual price outlier statistcs<a class="anchor" aria-label="anchor" href="#individual-price-outlier-statistcs"></a>
+<h3 id="individual-price-outlier-statistics">Individual price outlier statistics<a class="anchor" aria-label="anchor" href="#individual-price-outlier-statistics"></a>
 </h3>
-<p>For each product, a <strong>Price Observation Table</strong> is
-obtained, containing a characterisation of the individual product as
-well as two <em>individual price outlier statistics</em>, the
-<em>Ratio-to-average price test</em> and the <em>t-value test</em>; see
-<span class="citation">World Bank (2013)</span>, table 9.1a for an
-extensive example.</p>
+<p>For each product, a <em>Price Observation Table</em> is obtained,
+containing a characterisation of the individual product as well as two
+<em>individual price outlier statistics</em>, the <em>ratio-to-average
+price test</em> and the <em>t-value test</em>; see <span class="citation">World Bank (2013)</span>, table 9.1a for an extensive
+example.</p>
 <p><strong>Ratio-to-average price test:</strong> The ratio of an
 individual price observation <span class="math inline">\(i\)</span>,
 <span class="math inline">\(P_{i}\)</span>, of a specific product <span class="math inline">\(j\)</span> and the observed average price for the
@@ -678,8 +677,8 @@ interval.</p>
 t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
 \]</span></p>
 <p>Individual price quotes that do not pass these tests are flagged in
-the <strong>price observation table</strong>. The price observation
-table is generated with the function <code><a href="../reference/valid_pot.html">valid_pot()</a></code>.</p>
+the <em>Price Observation Table</em>. The price observation table is
+generated with the function <code><a href="../reference/valid_pot.html">valid_pot()</a></code>.</p>
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -1239,15 +1238,15 @@ table is generated with the function <code><a href="../reference/valid_pot.html"
 <h3 id="aggregate-price-statistics">Aggregate price statistics<a class="anchor" aria-label="anchor" href="#aggregate-price-statistics"></a>
 </h3>
 <p>This stage involves identifying extreme values among the average
-prices of the products listed in the average price table. An extreme
-value is defined as an individual price or average price that for a
-given test scores a value that falls outside a predetermined critical
-value and is build on two <em>average price outlier statistics</em>,
-which are summarised in the <strong>Average Price table</strong>; see
+prices of the products listed in the <em>Average Price Table</em>. An
+extreme value is defined as an individual price or average price that
+for a given test scores a value that falls outside a predetermined
+critical value and is build on two <em>average price outlier
+statistics</em>, which are summarised in the Average Price table; see
 <span class="citation">World Bank (2013)</span>, table 9.2a and 9.2b for
-an extensive example. The two statisticis contained in this table are
-the <em>max-min ratio test</em> and the <em>coefficient to
-variation</em> test.</p>
+an extensive example. The two statistics contained in this table are the
+<em>max-min ratio test</em> and the <em>coefficient to variation</em>
+test.</p>
 <p><strong>Max-min ratio test:</strong> The ratio between the maximal
 and minimal observed price for product <span class="math inline">\(j\)</span>. Products where the maximal observed
 price is more than twice as big as the minimum are flagged</p>
@@ -1262,7 +1261,7 @@ for the product. Products with a coefficient of variation greater than
 coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 \]</span></p>
 <p>Aggregate price quotes that do not pass these tests are flagged in
-the <strong>average price table</strong>. The price observation table is
+the <em>Average Price Table</em>. The price observation table is
 generated with the function <code><a href="../reference/valid_apt.html">valid_apt()</a></code>.</p>
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
@@ -2979,9 +2978,9 @@ function, which calculates the PPP-ratio; see Table 9.3b in <span class="citatio
 variation is used to assess variability across products and countries;
 coefficients exceeding 33% are considered extreme and may indicate the
 need for further verification of the underlying data.</p>
-<p>Within each block, PPP-ratios, computed as the PPP-converted price
-divided by the geometric mean of the product price, reflect the degree
-of variability both across country-regions and across products.</p>
+<p>Within each block, PPP-ratios—computed as the PPP-converted price
+divided by the geometric mean of the product price—reflect the degree of
+variability both across country-regions and across products.</p>
 <p>The country variation coefficient (row measure) represents the
 standard deviation of product PPPs within country-regions, thereby
 identifying countries exhibiting the greatest price variability.
@@ -3572,19 +3571,19 @@ feasible. In such instances, greater emphasis is placed on expert-led
 plausibility validation to ensure the integrity of the data used.</p>
 </div>
 <div class="section level2">
-<h2 id="sec-tobh">Validation at basic-heading leveln<a class="anchor" aria-label="anchor" href="#sec-tobh"></a>
+<h2 id="sec-tobh">Validation at basic-heading level<a class="anchor" aria-label="anchor" href="#sec-tobh"></a>
 </h2>
 <blockquote>
 <p>🚧 Work in progress.</p>
 </blockquote>
 <!-- ## Numerical -->
-<!-- -   Ensures that prices are consistent not only within basic headings but also at aggregate level *across* basic headings. This can, for example, help address cross-country measurement inconsistency -->
+<!-- -   Ensures that prices are consistent not only within basic headings but also at the aggregate level *across* basic headings. This can, for example, help address cross-country measurement inconsistency -->
 <!-- - This is done using Dikhanov tables [@worldbank2013, p.261/267], which consist of three parts: -->
 <!-- -   *Part 1*: Summary information (PPPs, SDs, price level) by country for the aggregate -->
 <!-- -   *Part 2*: Contained basic headings (same info as part 1). -->
 <!-- -   *Part 3*: CPD residuals and product variation coefficients for products within basic headings -->
 <!-- - *Part 1/2* Facilitates the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. -->
-<!-- - *Part 3* Ensure that the aggregate PPP variations are not driven certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. -->
+<!-- - *Part 3* Ensures that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. -->
 <!-- -   Extreme values are identified based on CPD residuals and PPP ratio threshold values described in @tbl-thresholds; see also [@worldbank2013, p.261]: -->
 <!-- | CPD residuals | PPP-ratios | Flag | -->
 <!-- |---------------|------------|------| -->
@@ -3594,7 +3593,7 @@ plausibility validation to ensure the integrity of the data used.</p>
 <!-- | Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3***     | -->
 <!-- : Threshold values: CPD residuals and PPP-ratios {#tbl-thresholds}  -->
 <!-- ## Visualisation  -->
-<!-- - Examines the basic heading PPPs within countries, and by country within each basic heading to point at countries/headings which may require further review [@worldbank2013, p.279]. -->
+<!-- - Examines the basic heading PPPs within countries and by country, within each basic heading, to point at countries/headings which may require further review [@worldbank2013, p.279]. -->
 <!-- - Validation in this section is based on basic heading PPP estimates -->
 <!-- - Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading. -->
 </div>
@@ -3606,8 +3605,8 @@ plausibility validation to ensure the integrity of the data used.</p>
 </blockquote>
 <!-- In line with [@worldbank2013, p.285], within-country basic heading expenditures and shares are reviewed for the following: -->
 <!-- - Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading. -->
-<!-- - Plausibility – by comparing per capita values and expenditure shares across basic headings. -->
-<!-- - Temporal consistency – by examining the coherence of expenditure breakdowns across different years. -->
+<!-- - Plausibility – comparing per capita values and expenditure shares across basic headings. -->
+<!-- - Temporal consistency – examining the coherence of expenditure breakdowns across different years. -->
 <!-- The review process includes the following checks: -->
 <!-- - Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference. -->
 <!-- - Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies. -->
@@ -3619,8 +3618,8 @@ plausibility validation to ensure the integrity of the data used.</p>
 <p>🚧 Work in progress.</p>
 </blockquote>
 <!-- ## Bilateral PPPs -->
-<!-- - Next step of validation concerns validation of PPPs using expenditure weights together [@worldbank2013, p.287] -->
-<!-- - Objective is to check if there is a problem with the basic headings PPP and expenditures, or, in case the data is valid, there is an estimation issue. -->
+<!-- - Next step of validation concerns the validation of PPPs using expenditure weights together [@worldbank2013, p.287] -->
+<!-- - The objective is to check if there is a problem with the basic headings PPP and expenditures, or—in case the data is valid—there is an estimation issue. -->
 <!-- - [@worldbank2013, p.287] discusses various validations steps that can be used to validate the Fisher PPPs. -->
 <!-- - Validation using the Laspeyres and Paasche quantity index and Paasche-Laspeyres spread (PLS) following [@hillLinkingRegionsInternational2011], who proposes computing upper and lower price and quantity relatives to determine whether the large values in the PLS are caused by PPPs or expenditure outliers. Basic headings with large upper or lower quantity or price relatives should be further examined. -->
 <!-- $$ -->

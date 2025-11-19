@@ -21,10 +21,10 @@ Bank (2013) and European Union/OECD (2024) for more information.
 **The validation steps** are:
 
 1.  [Intra-regional validation](#sec-intraregional) analyses individual
-    and aggregate price quotes within the *same region and across
+    and aggregate price quotes within the *same region* and *across
     regions of the same country*
 2.  [Inter-regional validation](#sec-interregional) performs prices
-    validation *across all* regions and countries, ensuring that average
+    validation *across all regions and countries*, ensuring that average
     prices are based on comparable products in regions across countries
     and that products have been accurately priced.
 3.  [Validation of alternative data sources](#sec-alternative) describes
@@ -36,10 +36,9 @@ Bank (2013) and European Union/OECD (2024) for more information.
 6.  [Validation beyond basic-heading level](#sec-beyondbh) concerns the
     validation of price indices beyond the basing-heading level
 
-**Data** used in this vignette is taken from the official UK microdata
-from the United Kingdom Office for National Statistics (ONS). Similar
-data was recently used in Hearne and Bailey (2025) and is publicly
-available:
+**Data** used in this vignette is taken from official UK microdata from
+the United Kingdom Office for National Statistics (ONS). Similar data
+was recently used in Hearne and Bailey (2025) and is publicly available:
 
 - [`uk_cpi()`](../reference/uk_cpi.md) is a snipped of the [UK CPI
   microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes)
@@ -62,17 +61,17 @@ head(uk_cpi, n = 3) |>
 ## Intra-regional validation
 
 Intra-region validation establishes that price collectors within the
-*same region and across regions of the same country* have priced
+*same region* and *across regions of the same country* have priced
 products that match the product specifications and that the prices they
 have reported are correct. This is done in two stages, which correspond
 to the outlier detection of (a) individual prices and (b) average price
 aggregates.
 
-### Individual price outlier statistcs
+### Individual price outlier statistics
 
-For each product, a **Price Observation Table** is obtained, containing
-a characterisation of the individual product as well as two *individual
-price outlier statistics*, the *Ratio-to-average price test* and the
+For each product, a *Price Observation Table* is obtained, containing a
+characterisation of the individual product as well as two *individual
+price outlier statistics*, the *ratio-to-average price test* and the
 *t-value test*; see World Bank (2013), table 9.1a for an extensive
 example.
 
@@ -95,8 +94,8 @@ suspect because it falls outside the 95 percent confidence interval.
 \\ t-val = (p\_{ij} - \mu\_{P_j}) / \sigma\_{P_j} \\
 
 Individual price quotes that do not pass these tests are flagged in the
-**price observation table**. The price observation table is generated
-with the function [`valid_pot()`](../reference/valid_pot.md).
+*Price Observation Table*. The price observation table is generated with
+the function [`valid_pot()`](../reference/valid_pot.md).
 
 ------------------------------------------------------------------------
 
@@ -169,13 +168,13 @@ uk_pot |>
 ### Aggregate price statistics
 
 This stage involves identifying extreme values among the average prices
-of the products listed in the average price table. An extreme value is
+of the products listed in the *Average Price Table*. An extreme value is
 defined as an individual price or average price that for a given test
 scores a value that falls outside a predetermined critical value and is
 build on two *average price outlier statistics*, which are summarised in
-the **Average Price table**; see World Bank (2013), table 9.2a and 9.2b
-for an extensive example. The two statisticis contained in this table
-are the *max-min ratio test* and the *coefficient to variation* test.
+the Average Price table; see World Bank (2013), table 9.2a and 9.2b for
+an extensive example. The two statistics contained in this table are the
+*max-min ratio test* and the *coefficient to variation* test.
 
 **Max-min ratio test:** The ratio between the maximal and minimal
 observed price for product \\j\\. Products where the maximal observed
@@ -191,8 +190,8 @@ flagged.
 \\ coefficient-of-variation: \sigma\_{p_j} / \mu\_{p_j} \\
 
 Aggregate price quotes that do not pass these tests are flagged in the
-**average price table**. The price observation table is generated with
-the function [`valid_apt()`](../reference/valid_apt.md).
+*Average Price Table*. The price observation table is generated with the
+function [`valid_apt()`](../reference/valid_apt.md).
 
 ------------------------------------------------------------------------
 
@@ -419,9 +418,9 @@ coefficient of variation is used to assess variability across products
 and countries; coefficients exceeding 33% are considered extreme and may
 indicate the need for further verification of the underlying data.
 
-Within each block, PPP-ratios, computed as the PPP-converted price
-divided by the geometric mean of the product price, reflect the degree
-of variability both across country-regions and across products.
+Within each block, PPP-ratios—computed as the PPP-converted price
+divided by the geometric mean of the product price—reflect the degree of
+variability both across country-regions and across products.
 
 The country variation coefficient (row measure) represents the standard
 deviation of product PPPs within country-regions, thereby identifying
@@ -511,7 +510,7 @@ validation may be limited—or, in exceptional cases, not feasible. In
 such instances, greater emphasis is placed on expert-led plausibility
 validation to ensure the integrity of the data used.
 
-## Validation at basic-heading leveln
+## Validation at basic-heading level
 
 > 🚧 Work in progress.
 
