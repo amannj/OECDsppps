@@ -20,7 +20,7 @@
 #'
 #' **Ratio-to-average price test:** The ratio of an individual price observation
 #' \mjseqn{i}, \mjseqn{P_{i}}, of a specific product \mjseqn{j} and the observed average
-#' price for the product, \mjseqn{\mu_j}. An observed price passes the this test
+#' price for the product, \mjseqn{\mu_j}. An observed price passes this test
 #' if the ratio is between 0.5 and 1.5, meaning it is no less than half or no
 #' more than double the mean price. This simple check flags extreme values
 #' without relying on standard deviation, which can itself be distorted by outliers:
@@ -33,7 +33,7 @@
 #' (any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval):
 #' \mjdeqn{t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}}{t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}}
 #'
-#' @param data A data frame or tibble containing at least one column with
+#' @param data Data frame or tibble containing at least one column with
 #' individual item-level price quotes.
 #' @param price_quote Column containing the individual item-level price quotes,
 #' which should be based on the

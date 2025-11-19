@@ -64,7 +64,7 @@ Intra-region validation establishes that price collectors within the *same regio
 
 ## Individual price outlier statistics
 
-For each product, a **Price Observation Table** is obtained, containing a characterisation of the individual product as well as two *individual price outlier statistics*, the *ratio-to-average price test* and the *t-value test*; see @worldbank2013, table 9.1a for an extensive example.
+For each product, a *Price Observation Table* is obtained, containing a characterisation of the individual product as well as two *individual price outlier statistics*, the *ratio-to-average price test* and the *t-value test*; see @worldbank2013, table 9.1a for an extensive example.
 
 **Ratio-to-average price test:** The ratio of an individual price observation $i$, $P_{i}$, of a specific product $j$ and the observed average price for the product, $\mu_j$. An observed price passes the this test if the ratio is between 0.5 and 1.5, meaning it is no less than half or no more than double the mean price. This simple check flags extreme values without relying on standard deviation, which can itself be distorted by outliers [@worldbank2013, p.251].
 
@@ -78,7 +78,7 @@ $$
 t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
 $$
 
-Individual price quotes that do not pass these tests are flagged in the **price observation table**. The price observation table is generated with the function `valid_pot()`.
+Individual price quotes that do not pass these tests are flagged in the *Price Observation Table*. The price observation table is generated with the function `valid_pot()`.
 
 ------------------------------------------------------------------------
 
@@ -137,7 +137,7 @@ uk_pot |>
 
 ## Aggregate price statistics
 
-This stage involves identifying extreme values among the average prices of the products listed in the average price table. An extreme value is defined as an individual price or average price that for a given test scores a value that falls outside a predetermined critical value and is build on two *average price outlier statistics*, which are summarised in the **Average Price table**; see @worldbank2013, table 9.2a and 9.2b for an extensive example. The two statistics contained in this table are the *max-min ratio test* and the *coefficient to variation* test.
+This stage involves identifying extreme values among the average prices of the products listed in the *Average Price Table*. An extreme value is defined as an individual price or average price that for a given test scores a value that falls outside a predetermined critical value and is build on two *average price outlier statistics*, which are summarised in the Average Price table; see @worldbank2013, table 9.2a and 9.2b for an extensive example. The two statistics contained in this table are the *max-min ratio test* and the *coefficient to variation* test.
 
 **Max-min ratio test:** The ratio between the maximal and minimal observed price for product $j$. Products where the maximal observed price is more than twice as big as the minimum are flagged
 
@@ -151,7 +151,7 @@ $$
 coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}
 $$
 
-Aggregate price quotes that do not pass these tests are flagged in the **Average Price table**. The price observation table is generated with the function `valid_apt()`.
+Aggregate price quotes that do not pass these tests are flagged in the *Average Price Table*. The price observation table is generated with the function `valid_apt()`.
 
 ------------------------------------------------------------------------
 
