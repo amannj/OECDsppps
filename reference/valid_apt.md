@@ -56,7 +56,7 @@ observed price for product \\j\\, \\p_j\\. Products where the maximal
 observed price is more than twice as big as the minimum are flagged in
 `Max-min ratio FLAG`: \\max-min~ratio = max(p_j)/min(p_j)\\
 
-**Coefficient to variation test:** The standard deviation
+**Coefficient-of-variation test:** The standard deviation
 \\\sigma\_{p_j}\\ of product \\j\\'s price \\p_j\\ expressed as a
 percentage of the average price for the product, \\\mu\_{p_j}\\.
 Products with a coefficient of variation greater than 20% will be

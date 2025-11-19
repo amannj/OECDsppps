@@ -89,8 +89,9 @@
 validity of price statistics at various levels of aggregation, from the
 initial item-level price quotes to the basic heading level and upwards,
 as well as comparing household expenditure weights across regions.</p>
-<p>The process aligns with current recommendations; see <span class="citation">ICP (2021)</span>, [p. 26], <span class="citation">World Bank (2013, 249)</span> and <span class="citation">European Union/OECD (2024)</span> for more
-information.</p>
+<p>The process aligns with current recommendations; see <span class="citation">ICP (2021)</span>, <span class="citation">World Bank
+(2013)</span> and <span class="citation">European Union/OECD
+(2024)</span> for more information.</p>
 <p><strong>The validation steps</strong> are:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -661,20 +662,18 @@ extensive example.</p>
 individual price observation <span class="math inline">\(i\)</span>,
 <span class="math inline">\(P_{i}\)</span>, of a specific product <span class="math inline">\(j\)</span> and the observed average price for the
 product, <span class="math inline">\(\mu_j\)</span>. An observed price
-passes the this test if the ratio is between 0.5 and 1.5, meaning it is
-no less than half or no more than double the mean price. This simple
-check flags extreme values without relying on standard deviation, which
-can itself be distorted by outliers <span class="citation">(World Bank
-2013, 251)</span>.</p>
+passes the this test if the ratio is between 0.5 and 1.5. This simple
+check flags potential outlier values values without relying on standard
+deviation, which can itself be distorted by outliers <span class="citation">(World Bank 2013, 251)</span>.</p>
 <p><span class="math display">\[
 ratio-to-average = p_{ij}/\mu_j
 \]</span></p>
 <p><strong>T-value test:</strong> The ratio of the deviation of an
 individual price observation from the average reference quantity price
 for the product and the standard deviation of the product. To pass the
-test, the ratio must be 2.0 or less (any value greater than 2.0 is
-suspect because it falls outside the 95 percent confidence
-interval).</p>
+test, the ratio must be 2.0 or less in absolute terms; any value greater
+than 2.0 is suspect because it falls outside the 95 percent confidence
+interval.</p>
 <p><span class="math display">\[
 t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
 \]</span></p>
@@ -688,7 +687,7 @@ table is generated with the function <code><a href="../reference/valid_pot.html"
 <span><span class="va">uk_pot</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_pot</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -702,7 +701,7 @@ table is generated with the function <code><a href="../reference/valid_pot.html"
 <span>      <span class="va">`Ratio-to-average price test`</span>,</span>
 <span>      <span class="va">`T-value test`</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    decimals <span class="op">=</span> <span class="fl">1</span></span>
+<span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div id="eexombwkke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#eexombwkke table {
@@ -1178,8 +1177,8 @@ table is generated with the function <code><a href="../reference/valid_pot.html"
 <td headers="Product code" class="gt_row gt_right">210111</td>
 <td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
 <td headers="Reference quantity price" class="gt_row gt_right">1.00</td>
-<td headers="Ratio-to-average price test" class="gt_row gt_right">1.0</td>
-<td headers="T-value test" class="gt_row gt_right">−0.2</td>
+<td headers="Ratio-to-average price test" class="gt_row gt_right">0.96</td>
+<td headers="T-value test" class="gt_row gt_right">−0.21</td>
 <td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
 <td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
 </tr>
@@ -1188,8 +1187,8 @@ table is generated with the function <code><a href="../reference/valid_pot.html"
 <td headers="Product code" class="gt_row gt_right">210111</td>
 <td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
 <td headers="Reference quantity price" class="gt_row gt_right">1.00</td>
-<td headers="Ratio-to-average price test" class="gt_row gt_right">1.0</td>
-<td headers="T-value test" class="gt_row gt_right">−0.2</td>
+<td headers="Ratio-to-average price test" class="gt_row gt_right">0.96</td>
+<td headers="T-value test" class="gt_row gt_right">−0.21</td>
 <td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
 <td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
 </tr>
@@ -1198,8 +1197,8 @@ table is generated with the function <code><a href="../reference/valid_pot.html"
 <td headers="Product code" class="gt_row gt_right">210111</td>
 <td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
 <td headers="Reference quantity price" class="gt_row gt_right">1.45</td>
-<td headers="Ratio-to-average price test" class="gt_row gt_right">1.4</td>
-<td headers="T-value test" class="gt_row gt_right">1.8</td>
+<td headers="Ratio-to-average price test" class="gt_row gt_right">1.39</td>
+<td headers="T-value test" class="gt_row gt_right">1.83</td>
 <td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
 <td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
 </tr>
@@ -1216,7 +1215,7 @@ table is generated with the function <code><a href="../reference/valid_pot.html"
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="va">`Ratio-to-average price test`</span><span class="op">:</span><span class="va">`T-value test`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    is.outlier <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span><span class="va">name</span> <span class="op">==</span> <span class="st">"Ratio-to-average price test"</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">value</span> <span class="op">&lt;</span> <span class="fl">0.5</span> <span class="op">|</span> <span class="va">value</span> <span class="op">&gt;</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Test not passed"</span>,</span>
-<span>      <span class="va">name</span> <span class="op">==</span> <span class="st">"T-value test"</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">value</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Test not passed"</span>,</span>
+<span>      <span class="va">name</span> <span class="op">==</span> <span class="st">"T-value test"</span> <span class="op">&amp;</span> <span class="op">(</span><span class="op">(</span><span class="va">value</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="va">value</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Test not passed"</span>,</span>
 <span>      .default <span class="op">=</span> <span class="st">"Test passed"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    is.outlier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">is.outlier</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Test passed"</span>, <span class="st">"Test not passed"</span><span class="op">)</span><span class="op">)</span></span>
@@ -1255,12 +1254,12 @@ price is more than twice as big as the minimum are flagged</p>
 <p><span class="math display">\[
 max-min~ratio = max(p_j)/min(p_j)
 \]</span></p>
-<p><strong>Coefficient to variation test:</strong> The standard
+<p><strong>Coefficient-of-variation test:</strong> The standard
 deviation for the product expressed as a percentage of the average price
 for the product. Products with a coefficient of variation greater than
 20% will be flagged.</p>
 <p><span class="math display">\[
-coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}
+coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 \]</span></p>
 <p>Aggregate price quotes that do not pass these tests are flagged in
 the <strong>average price table</strong>. The price observation table is
@@ -1270,8 +1269,10 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Average Price Table -------</span></span>
 <span><span class="va">uk_apt</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, </span>
-<span>         <span class="va">`Product code`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">Year</span>, <span class="va">Region</span>,</span>
+<span>    <span class="va">`Product code`</span>, <span class="va">`Reference quantity price`</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, <span class="va">`Product code`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/valid_apt.html">valid_apt</a></span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span></span>
 <span></span>
@@ -1283,7 +1284,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span></span>
 <span>    columns <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span><span class="op">)</span>,</span>
-<span>    decimals <span class="op">=</span> <span class="fl">1</span></span>
+<span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div id="ufivjubqtx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ufivjubqtx table {
@@ -1761,25 +1762,25 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
     </tr>
 <tr class="gt_row_group_first">
 <td headers="2018 - East Anglia  Product code" class="gt_row gt_right">210111</td>
-<td headers="2018 - East Anglia  Number of observations" class="gt_row gt_right">322.0</td>
-<td headers="2018 - East Anglia  Average price of product" class="gt_row gt_right">1.1</td>
-<td headers="2018 - East Anglia  Maximum price of product" class="gt_row gt_right">1.5</td>
-<td headers="2018 - East Anglia  Minimum price of product" class="gt_row gt_right">0.6</td>
-<td headers="2018 - East Anglia  Standard deviation" class="gt_row gt_right">0.3</td>
-<td headers="2018 - East Anglia  Max-min ratio" class="gt_row gt_right">2.8</td>
-<td headers="2018 - East Anglia  Coefficient of variation" class="gt_row gt_right">0.2</td>
+<td headers="2018 - East Anglia  Number of observations" class="gt_row gt_right">322.00</td>
+<td headers="2018 - East Anglia  Average price of product" class="gt_row gt_right">1.13</td>
+<td headers="2018 - East Anglia  Maximum price of product" class="gt_row gt_right">1.53</td>
+<td headers="2018 - East Anglia  Minimum price of product" class="gt_row gt_right">0.55</td>
+<td headers="2018 - East Anglia  Standard deviation" class="gt_row gt_right">0.26</td>
+<td headers="2018 - East Anglia  Max-min ratio" class="gt_row gt_right">2.78</td>
+<td headers="2018 - East Anglia  Coefficient of variation" class="gt_row gt_right">0.23</td>
 <td headers="2018 - East Anglia  Max-min ratio FLAG" class="gt_row gt_center">TRUE</td>
 <td headers="2018 - East Anglia  Coefficient of variation FLAG" class="gt_row gt_center">TRUE</td>
 </tr>
 <tr>
 <td headers="2018 - East Anglia  Product code" class="gt_row gt_right">410518</td>
-<td headers="2018 - East Anglia  Number of observations" class="gt_row gt_right">264.0</td>
-<td headers="2018 - East Anglia  Average price of product" class="gt_row gt_right">23.1</td>
-<td headers="2018 - East Anglia  Maximum price of product" class="gt_row gt_right">48.0</td>
-<td headers="2018 - East Anglia  Minimum price of product" class="gt_row gt_right">15.0</td>
-<td headers="2018 - East Anglia  Standard deviation" class="gt_row gt_right">8.4</td>
-<td headers="2018 - East Anglia  Max-min ratio" class="gt_row gt_right">3.2</td>
-<td headers="2018 - East Anglia  Coefficient of variation" class="gt_row gt_right">0.4</td>
+<td headers="2018 - East Anglia  Number of observations" class="gt_row gt_right">264.00</td>
+<td headers="2018 - East Anglia  Average price of product" class="gt_row gt_right">23.11</td>
+<td headers="2018 - East Anglia  Maximum price of product" class="gt_row gt_right">48.00</td>
+<td headers="2018 - East Anglia  Minimum price of product" class="gt_row gt_right">15.00</td>
+<td headers="2018 - East Anglia  Standard deviation" class="gt_row gt_right">8.43</td>
+<td headers="2018 - East Anglia  Max-min ratio" class="gt_row gt_right">3.20</td>
+<td headers="2018 - East Anglia  Coefficient of variation" class="gt_row gt_right">0.36</td>
 <td headers="2018 - East Anglia  Max-min ratio FLAG" class="gt_row gt_center">TRUE</td>
 <td headers="2018 - East Anglia  Coefficient of variation FLAG" class="gt_row gt_center">TRUE</td>
 </tr>
@@ -1793,19 +1794,19 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
 <p>The extent of validation required depends on the quality of the
 underlying microdata. When working with unconsolidated or raw data, more
 extensive revisions may be necessary.</p>
-<p>For instance, this may involve validating and verifying the reference
-quantity and price. In the case of the selected product, a bimodal
-distribution was observed after outliers were removed.</p>
-<p>Once these outliers are eliminated, the selected item passes all
-intra-regional validation checks.</p>
+<p>Using the two functions <code><a href="../reference/valid_pot.html">valid_pot()</a></code>, and
+<code><a href="../reference/valid_apt.html">valid_apt()</a></code> a simple production pipeline can be set up
+which operates conditional on the flags of the different tests.</p>
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example for linked production pipeline  -------</span></span>
 <span><span class="va">uk_irv</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, </span>
-<span>         <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, </span>
-<span>         <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">Year</span>, <span class="va">Region</span>,</span>
+<span>    <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>,</span>
+<span>    <span class="va">`Reference quantity price`</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Apply individual price outlier check</span></span>
 <span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>

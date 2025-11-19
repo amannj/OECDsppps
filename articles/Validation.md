@@ -15,9 +15,8 @@ statistics at various levels of aggregation, from the initial item-level
 price quotes to the basic heading level and upwards, as well as
 comparing household expenditure weights across regions.
 
-The process aligns with current recommendations; see ICP (2021),
-\[p. 26\], World Bank (2013, 249) and European Union/OECD (2024) for
-more information.
+The process aligns with current recommendations; see ICP (2021), World
+Bank (2013) and European Union/OECD (2024) for more information.
 
 **The validation steps** are:
 
@@ -80,18 +79,18 @@ example.
 **Ratio-to-average price test:** The ratio of an individual price
 observation \\i\\, \\P\_{i}\\, of a specific product \\j\\ and the
 observed average price for the product, \\\mu_j\\. An observed price
-passes the this test if the ratio is between 0.5 and 1.5, meaning it is
-no less than half or no more than double the mean price. This simple
-check flags extreme values without relying on standard deviation, which
-can itself be distorted by outliers (World Bank 2013, 251).
+passes the this test if the ratio is between 0.5 and 1.5. This simple
+check flags potential outlier values values without relying on standard
+deviation, which can itself be distorted by outliers (World Bank 2013,
+251).
 
 \\ ratio-to-average = p\_{ij}/\mu_j \\
 
 **T-value test:** The ratio of the deviation of an individual price
 observation from the average reference quantity price for the product
 and the standard deviation of the product. To pass the test, the ratio
-must be 2.0 or less (any value greater than 2.0 is suspect because it
-falls outside the 95 percent confidence interval).
+must be 2.0 or less in absolute terms; any value greater than 2.0 is
+suspect because it falls outside the 95 percent confidence interval.
 
 \\ t-val = (p\_{ij} - \mu\_{P_j}) / \sigma\_{P_j} \\
 
@@ -108,7 +107,7 @@ with the function [`valid_pot()`](../reference/valid_pot.md).
 uk_pot <- uk_cpi |>
   select(Year, `Product code`, , `Product description`, `Reference quantity price`) |>
   group_by(Year, `Product code`, `Product description`) |>
-  valid_pot(price_quote = "Reference quantity price") |> 
+  valid_pot(price_quote = "Reference quantity price") |>
   ungroup()
 
 head(uk_pot, n = 3) |>
@@ -122,7 +121,7 @@ head(uk_pot, n = 3) |>
       `Ratio-to-average price test`,
       `T-value test`
     ),
-    decimals = 1
+    decimals = 2
   )
 ```
 
@@ -130,9 +129,9 @@ head(uk_pot, n = 3) |>
 |--------------------------------|--------------|--------------------------------|--------------------------|-----------------------------|--------------|----------------------------------|-------------------|
 | Example for `item_id` = 210111 |              |                                |                          |                             |              |                                  |                   |
 | Year                           | Product code | Product description            | Reference quantity price | Ratio-to-average price test | T-value test | Ratio-to-average price test FLAG | T-value test FLAG |
-| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.00                     | 1.0                         | −0.2         | FALSE                            | FALSE             |
-| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.00                     | 1.0                         | −0.2         | FALSE                            | FALSE             |
-| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.45                     | 1.4                         | 1.8          | FALSE                            | FALSE             |
+| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.00                     | 0.96                        | −0.21        | FALSE                            | FALSE             |
+| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.00                     | 0.96                        | −0.21        | FALSE                            | FALSE             |
+| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.45                     | 1.39                        | 1.83         | FALSE                            | FALSE             |
 
 ``` r
 # Visualisation of price distribution ---------
@@ -144,7 +143,7 @@ uk_pot |>
   pivot_longer(`Ratio-to-average price test`:`T-value test`) |>
   mutate(
     is.outlier = case_when(name == "Ratio-to-average price test" & (value < 0.5 | value > 1.5) ~ "Test not passed",
-      name == "T-value test" & (value > 2) ~ "Test not passed",
+      name == "T-value test" & ((value > 2) | (value < -2)) ~ "Test not passed",
       .default = "Test passed"
     ),
     is.outlier = factor(is.outlier, levels = c("Test passed", "Test not passed"))
@@ -184,12 +183,12 @@ price is more than twice as big as the minimum are flagged
 
 \\ max-min~ratio = max(p_j)/min(p_j) \\
 
-**Coefficient to variation test:** The standard deviation for the
+**Coefficient-of-variation test:** The standard deviation for the
 product expressed as a percentage of the average price for the product.
 Products with a coefficient of variation greater than 20% will be
 flagged.
 
-\\ coefficient-to-variation: \sigma\_{p_j} / \mu\_{p_j} \\
+\\ coefficient-of-variation: \sigma\_{p_j} / \mu\_{p_j} \\
 
 Aggregate price quotes that do not pass these tests are flagged in the
 **average price table**. The price observation table is generated with
@@ -202,8 +201,10 @@ the function [`valid_apt()`](../reference/valid_apt.md).
 ``` r
 # Average Price Table -------
 uk_apt <- uk_cpi |>
-  select(Year, Region, 
-         `Product code`, `Reference quantity price`) |>
+  select(
+    Year, Region,
+    `Product code`, `Reference quantity price`
+  ) |>
   group_by(Year, Region, `Product code`) |>
   valid_apt(price_quote = "Reference quantity price")
 
@@ -215,7 +216,7 @@ head(uk_apt, 2) |>
   ) |>
   fmt_number(
     columns = -c(Year, `Product code`),
-    decimals = 1
+    decimals = 2
   )
 ```
 
@@ -224,8 +225,8 @@ head(uk_apt, 2) |>
 | Example for `item_id`s = 210111 & 410518, **pre-cleaning** |                        |                          |                          |                          |                    |               |                          |                    |                               |
 | Product code                                               | Number of observations | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
 | 2018 - East Anglia                                         |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| 210111                                                     | 322.0                  | 1.1                      | 1.5                      | 0.6                      | 0.3                | 2.8           | 0.2                      | TRUE               | TRUE                          |
-| 410518                                                     | 264.0                  | 23.1                     | 48.0                     | 15.0                     | 8.4                | 3.2           | 0.4                      | TRUE               | TRUE                          |
+| 210111                                                     | 322.00                 | 1.13                     | 1.53                     | 0.55                     | 0.26               | 2.78          | 0.23                     | TRUE               | TRUE                          |
+| 410518                                                     | 264.00                 | 23.11                    | 48.00                    | 15.00                    | 8.43               | 3.20          | 0.36                     | TRUE               | TRUE                          |
 
 ### Linking validation pipelines for intra-regional validation
 
@@ -233,12 +234,10 @@ The extent of validation required depends on the quality of the
 underlying microdata. When working with unconsolidated or raw data, more
 extensive revisions may be necessary.
 
-For instance, this may involve validating and verifying the reference
-quantity and price. In the case of the selected product, a bimodal
-distribution was observed after outliers were removed.
-
-Once these outliers are eliminated, the selected item passes all
-intra-regional validation checks.
+Using the two functions [`valid_pot()`](../reference/valid_pot.md), and
+[`valid_apt()`](../reference/valid_apt.md) a simple production pipeline
+can be set up which operates conditional on the flags of the different
+tests.
 
 ------------------------------------------------------------------------
 
@@ -247,9 +246,11 @@ intra-regional validation checks.
 ``` r
 # Example for linked production pipeline  -------
 uk_irv <- uk_cpi |>
-  select(Year, Region, 
-         `Product code`, , `Product description`, 
-         `Reference quantity price`) |>
+  select(
+    Year, Region,
+    `Product code`, , `Product description`,
+    `Reference quantity price`
+  ) |>
   group_by(Year, Region, `Product code`, `Product description`) |>
   # Apply individual price outlier check
   valid_pot() |>

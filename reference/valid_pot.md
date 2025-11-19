@@ -40,18 +40,17 @@ measurement unit of the reference quantity.
 **Ratio-to-average price test:** The ratio of an individual price
 observation \\i\\, \\P\_{i}\\, of a specific product \\j\\ and the
 observed average price for the product, \\\mu_j\\. An observed price
-passes the this test if the ratio is between 0.5 and 1.5, meaning it is
-no less than half or no more than double the mean price. This simple
-check flags extreme values without relying on standard deviation, which
-can itself be distorted by outliers: \\ratio-to-average =
-p\_{ij}/\mu_j\\
+passes the this test if the ratio is between 0.5 and 1.5. This simple
+check flags potential outlier values without relying on standard
+deviation, which can itself be distorted by outliers: \\ratio-to-average
+= p\_{ij}/\mu_j\\
 
 **T-value test**: The ratio of the deviation of an individual price
 observation from the average reference quantity price for the product
 and the standard deviation of the product. To pass the test, the ratio
-must be 2.0 or less (any value greater than 2.0 is suspect because it
-falls outside the 95 percent confidence interval): \\t-val = (p\_{ij} -
-\mu\_{P_j}) / \sigma\_{P_j}\\
+must be between -2.0 and 2.0 (any value outside that range is suspect
+because it falls outside the 95 percent confidence interval): \\t-val =
+(p\_{ij} - \mu\_{P_j}) / \sigma\_{P_j}\\
 
 ## References
 
