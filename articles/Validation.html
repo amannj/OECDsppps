@@ -21,7 +21,10 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Validation">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="Validation_files/libs/quarto-html/popper.min.js"></script><script src="Validation_files/libs/quarto-html/tippy.umd.min.js"></script><link href="Validation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Validation_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Validation">
+<meta property="og:image" content="/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -60,96 +63,78 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Validation</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/vignettes/Validation.Rmd" class="external-link"><code>vignettes/Validation.Rmd</code></a></small>
-      <div class="d-none name"><code>Validation.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/vignettes/Validation.qmd" class="external-link"><code>vignettes/Validation.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+
+
+
+
+
+    <div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amannj/OECDsppps" class="external-link">OECDsppps</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</div>
+<section class="section level2"><h2 class="unnumbered" id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><strong>Data validation</strong> is carried out to confirm the
-validity of price statistics at various levels of aggregation, from the
-initial item-level price quotes to the basic heading level and upwards,
-as well as comparing household expenditure weights across regions.</p>
-<p>The process aligns with current recommendations; see <span class="citation">ICP (2021)</span>, <span class="citation">World Bank
-(2013)</span> and <span class="citation">European Union/OECD
-(2024)</span> for more information.</p>
+<p><strong>Data validation</strong> is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions. The process aligns with current recommendations; see <span class="citation" data-cites="icp2021">ICP (<a href="#ref-icp2021" role="doc-biblioref">2021</a>)</span>, <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">European Union/OECD (<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">2024</a>)</span> for more information.</p>
 <p><strong>The validation steps</strong> are:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>
-<a href="#sec-intraregional">Intra-regional validation</a> analyses
-individual and aggregate price quotes within the <em>same region</em>
-and <em>across regions of the same country</em>
+<a href="#sec-intraregional">Intra-regional validation</a> analyses individual and aggregate price quotes within the <em>same region</em> and <em>across regions of the same country</em>
 </li>
 <li>
-<a href="#sec-interregional">Inter-regional validation</a> performs
-prices validation <em>across all regions and countries</em>, ensuring
-that average prices are based on comparable products in regions across
-countries and that products have been accurately priced.</li>
+<a href="#sec-interregional">Inter-regional validation</a> performs prices validation <em>across all regions and countries</em>, ensuring that average prices are based on comparable products in regions across countries and that products have been accurately priced.</li>
 <li>
-<a href="#sec-alternative">Validation of alternative data
-sources</a> describes the validation process of alternative data
-sources</li>
+<a href="#sec-alternative">Validation of alternative data sources</a> describes the validation process of alternative data sources</li>
 <li>
-<a href="#sec-tobh">Validation at basic-heading level</a> covers the
-validation of price indices at the basing-heading level</li>
+<a href="#sec-tobh">Validation at basic-heading level</a> covers the validation of price indices at the basing-heading level</li>
 <li>
-<a href="#sec-exweights">Expenditure weights validation</a>
-describes the validation of household consumption expenditure</li>
+<a href="#sec-exweights">Expenditure weights validation</a> describes the validation of household consumption expenditure</li>
 <li>
-<a href="#sec-beyondbh">Validation beyond basic-heading level</a>
-concerns the validation of price indices beyond the basing-heading
-level</li>
+<a href="#sec-beyondbh">Validation beyond basic-heading level</a> concerns the validation of price indices beyond the basing-heading level</li>
 </ol>
-<p><strong>Data</strong> used in this vignette is taken from official UK
-microdata from the United Kingdom Office for National Statistics (ONS).
-Similar data was recently used in <span class="citation">Hearne and
-Bailey (2025)</span> and is publicly available:</p>
+<p><strong>Data</strong> used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in <span class="citation" data-cites="hearne2025">Hearne and Bailey (<a href="#ref-hearne2025" role="doc-biblioref">2025</a>)</span> and is publicly available:</p>
 <ul>
 <li>
-<code><a href="../reference/uk_cpi.html">uk_cpi()</a></code> is a snipped of the <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes" class="external-link">UK
-CPI microdata</a> containing two products: White sliced loaf branded 750
-grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
+<code><a href="../reference/uk_cpi.html">uk_cpi()</a></code> is a snipped of the <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes" class="external-link">UK CPI microdata</a> containing two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_cpi</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`COICOP5`</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mwlefoodfi table {
+<div class="cell-output-display">
+<div id="sncvnxfqij" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sncvnxfqij table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#mwlefoodfi thead, #mwlefoodfi tbody, #mwlefoodfi tfoot, #mwlefoodfi tr, #mwlefoodfi td, #mwlefoodfi th {
+#sncvnxfqij thead, #sncvnxfqij tbody, #sncvnxfqij tfoot, #sncvnxfqij tr, #sncvnxfqij td, #sncvnxfqij th {
   border-style: none;
 }
 
-#mwlefoodfi p {
+#sncvnxfqij p {
   margin: 0;
   padding: 0;
 }
 
-#mwlefoodfi .gt_table {
+#sncvnxfqij .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -175,12 +160,12 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-left-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_caption {
+#sncvnxfqij .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#mwlefoodfi .gt_title {
+#sncvnxfqij .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -192,7 +177,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-bottom-width: 0;
 }
 
-#mwlefoodfi .gt_subtitle {
+#sncvnxfqij .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -204,7 +189,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-top-width: 0;
 }
 
-#mwlefoodfi .gt_heading {
+#sncvnxfqij .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -216,13 +201,13 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-right-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_bottom_border {
+#sncvnxfqij .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_col_headings {
+#sncvnxfqij .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -237,7 +222,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-right-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_col_heading {
+#sncvnxfqij .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -257,7 +242,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   overflow-x: hidden;
 }
 
-#mwlefoodfi .gt_column_spanner_outer {
+#sncvnxfqij .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -269,15 +254,15 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   padding-right: 4px;
 }
 
-#mwlefoodfi .gt_column_spanner_outer:first-child {
+#sncvnxfqij .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mwlefoodfi .gt_column_spanner_outer:last-child {
+#sncvnxfqij .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mwlefoodfi .gt_column_spanner {
+#sncvnxfqij .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -289,11 +274,11 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   width: 100%;
 }
 
-#mwlefoodfi .gt_spanner_row {
+#sncvnxfqij .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#mwlefoodfi .gt_group_heading {
+#sncvnxfqij .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -319,7 +304,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   text-align: left;
 }
 
-#mwlefoodfi .gt_empty_group_heading {
+#sncvnxfqij .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -334,15 +319,15 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   vertical-align: middle;
 }
 
-#mwlefoodfi .gt_from_md > :first-child {
+#sncvnxfqij .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mwlefoodfi .gt_from_md > :last-child {
+#sncvnxfqij .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mwlefoodfi .gt_row {
+#sncvnxfqij .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -361,7 +346,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   overflow-x: hidden;
 }
 
-#mwlefoodfi .gt_stub {
+#sncvnxfqij .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -374,7 +359,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   padding-right: 5px;
 }
 
-#mwlefoodfi .gt_stub_row_group {
+#sncvnxfqij .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -388,15 +373,15 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   vertical-align: top;
 }
 
-#mwlefoodfi .gt_row_group_first td {
+#sncvnxfqij .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#mwlefoodfi .gt_row_group_first th {
+#sncvnxfqij .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#mwlefoodfi .gt_summary_row {
+#sncvnxfqij .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -406,16 +391,16 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   padding-right: 5px;
 }
 
-#mwlefoodfi .gt_first_summary_row {
+#sncvnxfqij .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_first_summary_row.thick {
+#sncvnxfqij .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#mwlefoodfi .gt_last_summary_row {
+#sncvnxfqij .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -425,7 +410,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-bottom-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_grand_summary_row {
+#sncvnxfqij .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -435,7 +420,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   padding-right: 5px;
 }
 
-#mwlefoodfi .gt_first_grand_summary_row {
+#sncvnxfqij .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -445,7 +430,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-top-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_last_grand_summary_row_top {
+#sncvnxfqij .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -455,11 +440,11 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-bottom-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_striped {
+#sncvnxfqij .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mwlefoodfi .gt_table_body {
+#sncvnxfqij .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -468,7 +453,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-bottom-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_footnotes {
+#sncvnxfqij .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -482,7 +467,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-right-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_footnote {
+#sncvnxfqij .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -491,7 +476,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   padding-right: 5px;
 }
 
-#mwlefoodfi .gt_sourcenotes {
+#sncvnxfqij .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -505,7 +490,7 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   border-right-color: #D3D3D3;
 }
 
-#mwlefoodfi .gt_sourcenote {
+#sncvnxfqij .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -513,175 +498,155 @@ grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
   padding-right: 5px;
 }
 
-#mwlefoodfi .gt_left {
+#sncvnxfqij .gt_left {
   text-align: left;
 }
 
-#mwlefoodfi .gt_center {
+#sncvnxfqij .gt_center {
   text-align: center;
 }
 
-#mwlefoodfi .gt_right {
+#sncvnxfqij .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mwlefoodfi .gt_font_normal {
+#sncvnxfqij .gt_font_normal {
   font-weight: normal;
 }
 
-#mwlefoodfi .gt_font_bold {
+#sncvnxfqij .gt_font_bold {
   font-weight: bold;
 }
 
-#mwlefoodfi .gt_font_italic {
+#sncvnxfqij .gt_font_italic {
   font-style: italic;
 }
 
-#mwlefoodfi .gt_super {
+#sncvnxfqij .gt_super {
   font-size: 65%;
 }
 
-#mwlefoodfi .gt_footnote_marks {
+#sncvnxfqij .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#mwlefoodfi .gt_asterisk {
+#sncvnxfqij .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#mwlefoodfi .gt_indent_1 {
+#sncvnxfqij .gt_indent_1 {
   text-indent: 5px;
 }
 
-#mwlefoodfi .gt_indent_2 {
+#sncvnxfqij .gt_indent_2 {
   text-indent: 10px;
 }
 
-#mwlefoodfi .gt_indent_3 {
+#sncvnxfqij .gt_indent_3 {
   text-indent: 15px;
 }
 
-#mwlefoodfi .gt_indent_4 {
+#sncvnxfqij .gt_indent_4 {
   text-indent: 20px;
 }
 
-#mwlefoodfi .gt_indent_5 {
+#sncvnxfqij .gt_indent_5 {
   text-indent: 25px;
 }
 
-#mwlefoodfi .katex-display {
+#sncvnxfqij .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#mwlefoodfi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#sncvnxfqij div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Date-of-quote">Date of quote</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reference-quantity">Reference quantity</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Unit-of-reference-quantity">Unit of reference quantity</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Region">Region</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Shop-identifier">Shop identifier</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Type-of-shop">Type of shop</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Quantity-observed">Quantity observed</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Unit-of-observed-quantity">Unit of observed quantity</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Price-observed">Price observed</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reference-quantity-price">Reference quantity price</th>
-    </tr></thead>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="Date-of-quote" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Date of quote</th>
+<th id="Reference-quantity" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Reference quantity</th>
+<th id="Unit-of-reference-quantity" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Unit of reference quantity</th>
+<th id="Region" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Region</th>
+<th id="Shop-identifier" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Shop identifier</th>
+<th id="Type-of-shop" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Type of shop</th>
+<th id="Quantity-observed" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Quantity observed</th>
+<th id="Unit-of-observed-quantity" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Unit of observed quantity</th>
+<th id="Price-observed" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Price observed</th>
+<th id="Reference-quantity-price" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Reference quantity price</th>
+</tr></thead>
 <tbody class="gt_table_body">
-<tr class="gt_group_heading_row">
-<th colspan="10" class="gt_group_heading" scope="colgroup" id="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G">2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G</th>
-    </tr>
-<tr class="gt_row_group_first">
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote" class="gt_row gt_right">201801</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity" class="gt_row gt_right">750</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region" class="gt_row gt_left">South East</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop" class="gt_row gt_left">Multiple</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed" class="gt_row gt_right">750</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed" class="gt_row gt_right">1.00</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.00</td>
+<tr class="gt_group_heading_row odd">
+<th colspan="10" id="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G</th>
 </tr>
-<tr>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote" class="gt_row gt_right">201801</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity" class="gt_row gt_right">750</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region" class="gt_row gt_left">South East</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop" class="gt_row gt_left">Multiple</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed" class="gt_row gt_right">750</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed" class="gt_row gt_right">1.00</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.00</td>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote">201801</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity">750</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity">1</td>
+<td class="gt_row gt_left" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region">South East</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier">1</td>
+<td class="gt_row gt_left" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop">Multiple</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed">750</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity">1</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed">1.00</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price">1.00</td>
 </tr>
-<tr>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote" class="gt_row gt_right">201801</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity" class="gt_row gt_right">750</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region" class="gt_row gt_left">North West</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop" class="gt_row gt_left">Multiple</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed" class="gt_row gt_right">750</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity" class="gt_row gt_right">1</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed" class="gt_row gt_right">1.45</td>
-<td headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price" class="gt_row gt_right">1.45</td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote">201801</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity">750</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity">1</td>
+<td class="gt_row gt_left" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region">South East</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier">1</td>
+<td class="gt_row gt_left" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop">Multiple</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed">750</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity">1</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed">1.00</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Date of quote">201801</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity">750</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of reference quantity">1</td>
+<td class="gt_row gt_left" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region">North West</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Shop identifier">1</td>
+<td class="gt_row gt_left" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Type of shop">Multiple</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Quantity observed">750</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Unit of observed quantity">1</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Price observed">1.45</td>
+<td class="gt_row gt_right" headers="2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G  Reference quantity price">1.45</td>
 </tr>
 </tbody>
 </table>
 </div>
-<!-- - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) -->
 </div>
-<div class="section level2">
-<h2 id="sec-intraregional">Intra-regional validation<a class="anchor" aria-label="anchor" href="#sec-intraregional"></a>
+</div>
+<!-- - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) -->
+</section><section class="section level2" data-number="1"><h2 data-number="1" id="sec-intraregional">
+<span class="header-section-number">1</span> Intra-regional validation<a class="anchor" aria-label="anchor" href="#sec-intraregional"></a>
 </h2>
-<p>Intra-region validation establishes that price collectors within the
-<em>same region</em> and <em>across regions of the same country</em>
-have priced products that match the product specifications and that the
-prices they have reported are correct. This is done in two stages, which
-correspond to the outlier detection of (a) individual prices and (b)
-average price aggregates.</p>
-<div class="section level3">
-<h3 id="individual-price-outlier-statistics">Individual price outlier statistics<a class="anchor" aria-label="anchor" href="#individual-price-outlier-statistics"></a>
+<p>Intra-region validation establishes that price collectors within the <em>same region</em> and <em>across regions of the same country</em> have priced products that match the product specifications and that the prices they have reported are correct. This is done in two stages, which correspond to the outlier detection of (a) individual prices and (b) average price aggregates.</p>
+<section class="level2" data-number="1.1"><h3 data-number="1.1" id="individual-price-outlier-statistics">
+<span class="header-section-number">1.1</span> Individual price outlier statistics<a class="anchor" aria-label="anchor" href="#individual-price-outlier-statistics"></a>
 </h3>
-<p>For each product, a <em>Price Observation Table</em> is obtained,
-containing a characterisation of the individual product as well as two
-<em>individual price outlier statistics</em>, the <em>ratio-to-average
-price test</em> and the <em>t-value test</em>; see <span class="citation">World Bank (2013)</span>, table 9.1a for an extensive
-example.</p>
-<p><strong>Ratio-to-average price test:</strong> The ratio of an
-individual price observation <span class="math inline">\(i\)</span>,
-<span class="math inline">\(P_{i}\)</span>, of a specific product <span class="math inline">\(j\)</span> and the observed average price for the
-product, <span class="math inline">\(\mu_j\)</span>. An observed price
-passes the this test if the ratio is between 0.5 and 1.5. This simple
-check flags potential outlier values values without relying on standard
-deviation, which can itself be distorted by outliers <span class="citation">(World Bank 2013, 251)</span>.</p>
+<p>For each product, a <em>Price Observation Table</em> is obtained, containing a characterisation of the individual product as well as two <em>individual price outlier statistics</em>, the <em>ratio-to-average price test</em> and the <em>t-value test</em>; see <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span>, table 9.1a for an extensive example.</p>
+<p><strong>Ratio-to-average price test:</strong> The ratio of an individual price observation <span class="math inline">\(i\)</span>, <span class="math inline">\(P_{i}\)</span>, of a specific product <span class="math inline">\(j\)</span> and the observed average price for the product, <span class="math inline">\(\mu_j\)</span>. An observed price passes the this test if the ratio is between 0.5 and 1.5. This simple check flags potential outlier values values without relying on standard deviation, which can itself be distorted by outliers <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 251</a>)</span>.</p>
 <p><span class="math display">\[
 ratio-to-average = p_{ij}/\mu_j
 \]</span></p>
-<p><strong>T-value test:</strong> The ratio of the deviation of an
-individual price observation from the average reference quantity price
-for the product and the standard deviation of the product. To pass the
-test, the ratio must be 2.0 or less in absolute terms; any value greater
-than 2.0 is suspect because it falls outside the 95 percent confidence
-interval.</p>
+<p><strong>T-value test:</strong> The ratio of the deviation of an individual price observation from the average reference quantity price for the product and the standard deviation of the product. To pass the test, the ratio must be 2.0 or less in absolute terms; any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval.</p>
 <p><span class="math display">\[
 t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
 \]</span></p>
-<p>Individual price quotes that do not pass these tests are flagged in
-the <em>Price Observation Table</em>. The price observation table is
-generated with the function <code><a href="../reference/valid_pot.html">valid_pot()</a></code>.</p>
+<p>Individual price quotes that do not pass these tests are flagged in the <em>Price Observation Table</em>. The price observation table is generated with the function <code><a href="../reference/valid_pot.html">valid_pot()</a></code>.</p>
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Price Observation Table  ---------</span></span>
 <span><span class="va">uk_pot</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -702,23 +667,24 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
 <span>    <span class="op">)</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div id="eexombwkke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#eexombwkke table {
+<div class="cell-output-display">
+<div id="squkbqttan" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#squkbqttan table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#eexombwkke thead, #eexombwkke tbody, #eexombwkke tfoot, #eexombwkke tr, #eexombwkke td, #eexombwkke th {
+#squkbqttan thead, #squkbqttan tbody, #squkbqttan tfoot, #squkbqttan tr, #squkbqttan td, #squkbqttan th {
   border-style: none;
 }
 
-#eexombwkke p {
+#squkbqttan p {
   margin: 0;
   padding: 0;
 }
 
-#eexombwkke .gt_table {
+#squkbqttan .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -744,12 +710,12 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-left-color: #D3D3D3;
 }
 
-#eexombwkke .gt_caption {
+#squkbqttan .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#eexombwkke .gt_title {
+#squkbqttan .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -761,7 +727,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-bottom-width: 0;
 }
 
-#eexombwkke .gt_subtitle {
+#squkbqttan .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -773,7 +739,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-top-width: 0;
 }
 
-#eexombwkke .gt_heading {
+#squkbqttan .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -785,13 +751,13 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-right-color: #D3D3D3;
 }
 
-#eexombwkke .gt_bottom_border {
+#squkbqttan .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eexombwkke .gt_col_headings {
+#squkbqttan .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -806,7 +772,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-right-color: #D3D3D3;
 }
 
-#eexombwkke .gt_col_heading {
+#squkbqttan .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -826,7 +792,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   overflow-x: hidden;
 }
 
-#eexombwkke .gt_column_spanner_outer {
+#squkbqttan .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -838,15 +804,15 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   padding-right: 4px;
 }
 
-#eexombwkke .gt_column_spanner_outer:first-child {
+#squkbqttan .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eexombwkke .gt_column_spanner_outer:last-child {
+#squkbqttan .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eexombwkke .gt_column_spanner {
+#squkbqttan .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -858,11 +824,11 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   width: 100%;
 }
 
-#eexombwkke .gt_spanner_row {
+#squkbqttan .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#eexombwkke .gt_group_heading {
+#squkbqttan .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -888,7 +854,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   text-align: left;
 }
 
-#eexombwkke .gt_empty_group_heading {
+#squkbqttan .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -903,15 +869,15 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   vertical-align: middle;
 }
 
-#eexombwkke .gt_from_md > :first-child {
+#squkbqttan .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eexombwkke .gt_from_md > :last-child {
+#squkbqttan .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eexombwkke .gt_row {
+#squkbqttan .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -930,7 +896,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   overflow-x: hidden;
 }
 
-#eexombwkke .gt_stub {
+#squkbqttan .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -943,7 +909,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   padding-right: 5px;
 }
 
-#eexombwkke .gt_stub_row_group {
+#squkbqttan .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -957,15 +923,15 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   vertical-align: top;
 }
 
-#eexombwkke .gt_row_group_first td {
+#squkbqttan .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#eexombwkke .gt_row_group_first th {
+#squkbqttan .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#eexombwkke .gt_summary_row {
+#squkbqttan .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -975,16 +941,16 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   padding-right: 5px;
 }
 
-#eexombwkke .gt_first_summary_row {
+#squkbqttan .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#eexombwkke .gt_first_summary_row.thick {
+#squkbqttan .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#eexombwkke .gt_last_summary_row {
+#squkbqttan .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -994,7 +960,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-bottom-color: #D3D3D3;
 }
 
-#eexombwkke .gt_grand_summary_row {
+#squkbqttan .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1004,7 +970,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   padding-right: 5px;
 }
 
-#eexombwkke .gt_first_grand_summary_row {
+#squkbqttan .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1014,7 +980,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-top-color: #D3D3D3;
 }
 
-#eexombwkke .gt_last_grand_summary_row_top {
+#squkbqttan .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1024,11 +990,11 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-bottom-color: #D3D3D3;
 }
 
-#eexombwkke .gt_striped {
+#squkbqttan .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eexombwkke .gt_table_body {
+#squkbqttan .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1037,7 +1003,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-bottom-color: #D3D3D3;
 }
 
-#eexombwkke .gt_footnotes {
+#squkbqttan .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1051,7 +1017,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-right-color: #D3D3D3;
 }
 
-#eexombwkke .gt_footnote {
+#squkbqttan .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1060,7 +1026,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   padding-right: 5px;
 }
 
-#eexombwkke .gt_sourcenotes {
+#squkbqttan .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1074,7 +1040,7 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   border-right-color: #D3D3D3;
 }
 
-#eexombwkke .gt_sourcenote {
+#squkbqttan .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1082,129 +1048,130 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
   padding-right: 5px;
 }
 
-#eexombwkke .gt_left {
+#squkbqttan .gt_left {
   text-align: left;
 }
 
-#eexombwkke .gt_center {
+#squkbqttan .gt_center {
   text-align: center;
 }
 
-#eexombwkke .gt_right {
+#squkbqttan .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eexombwkke .gt_font_normal {
+#squkbqttan .gt_font_normal {
   font-weight: normal;
 }
 
-#eexombwkke .gt_font_bold {
+#squkbqttan .gt_font_bold {
   font-weight: bold;
 }
 
-#eexombwkke .gt_font_italic {
+#squkbqttan .gt_font_italic {
   font-style: italic;
 }
 
-#eexombwkke .gt_super {
+#squkbqttan .gt_super {
   font-size: 65%;
 }
 
-#eexombwkke .gt_footnote_marks {
+#squkbqttan .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#eexombwkke .gt_asterisk {
+#squkbqttan .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#eexombwkke .gt_indent_1 {
+#squkbqttan .gt_indent_1 {
   text-indent: 5px;
 }
 
-#eexombwkke .gt_indent_2 {
+#squkbqttan .gt_indent_2 {
   text-indent: 10px;
 }
 
-#eexombwkke .gt_indent_3 {
+#squkbqttan .gt_indent_3 {
   text-indent: 15px;
 }
 
-#eexombwkke .gt_indent_4 {
+#squkbqttan .gt_indent_4 {
   text-indent: 20px;
 }
 
-#eexombwkke .gt_indent_5 {
+#squkbqttan .gt_indent_5 {
   text-indent: 25px;
 }
 
-#eexombwkke .katex-display {
+#squkbqttan .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#eexombwkke div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#squkbqttan div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_heading">
-<td colspan="8" class="gt_heading gt_title gt_font_normal" style><span class="gt_from_md"><strong>Price Observation Table</strong></span></td>
-    </tr>
-<tr class="gt_heading">
-<td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style><span class="gt_from_md">Example for <code>item_id</code> = 210111</span></td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Year">Year</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Product-code">Product code</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Product-description">Product description</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reference-quantity-price">Reference quantity price</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Ratio-to-average-price-test">Ratio-to-average price test</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="T-value-test">T-value test</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Ratio-to-average-price-test-FLAG">Ratio-to-average price test FLAG</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="T-value-test-FLAG">T-value test FLAG</th>
-    </tr>
+<tr class="gt_heading header">
+<td colspan="8" class="gt_heading gt_title gt_font_normal"><strong>Price Observation Table</strong></td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Example for <code>item_id</code> = 210111</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Year</th>
+<th id="Product-code" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Product code</th>
+<th id="Product-description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Product description</th>
+<th id="Reference-quantity-price" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Reference quantity price</th>
+<th id="Ratio-to-average-price-test" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Ratio-to-average price test</th>
+<th id="T-value-test" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">T-value test</th>
+<th id="Ratio-to-average-price-test-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Ratio-to-average price test FLAG</th>
+<th id="T-value-test-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">T-value test FLAG</th>
+</tr>
 </thead>
 <tbody class="gt_table_body">
-<tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Product code" class="gt_row gt_right">210111</td>
-<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
-<td headers="Reference quantity price" class="gt_row gt_right">1.00</td>
-<td headers="Ratio-to-average price test" class="gt_row gt_right">0.96</td>
-<td headers="T-value test" class="gt_row gt_right">−0.21</td>
-<td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">2018</td>
+<td class="gt_row gt_right" headers="Product code">210111</td>
+<td class="gt_row gt_left" headers="Product description">WHITE SLICED LOAF BRANDED 750G</td>
+<td class="gt_row gt_right" headers="Reference quantity price">1.00</td>
+<td class="gt_row gt_right" headers="Ratio-to-average price test">0.96</td>
+<td class="gt_row gt_right" headers="T-value test">−0.21</td>
+<td class="gt_row gt_center" headers="Ratio-to-average price test FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="T-value test FLAG">FALSE</td>
 </tr>
-<tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Product code" class="gt_row gt_right">210111</td>
-<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
-<td headers="Reference quantity price" class="gt_row gt_right">1.00</td>
-<td headers="Ratio-to-average price test" class="gt_row gt_right">0.96</td>
-<td headers="T-value test" class="gt_row gt_right">−0.21</td>
-<td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">2018</td>
+<td class="gt_row gt_right" headers="Product code">210111</td>
+<td class="gt_row gt_left" headers="Product description">WHITE SLICED LOAF BRANDED 750G</td>
+<td class="gt_row gt_right" headers="Reference quantity price">1.00</td>
+<td class="gt_row gt_right" headers="Ratio-to-average price test">0.96</td>
+<td class="gt_row gt_right" headers="T-value test">−0.21</td>
+<td class="gt_row gt_center" headers="Ratio-to-average price test FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="T-value test FLAG">FALSE</td>
 </tr>
-<tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Product code" class="gt_row gt_right">210111</td>
-<td headers="Product description" class="gt_row gt_left">WHITE SLICED LOAF BRANDED 750G</td>
-<td headers="Reference quantity price" class="gt_row gt_right">1.45</td>
-<td headers="Ratio-to-average price test" class="gt_row gt_right">1.39</td>
-<td headers="T-value test" class="gt_row gt_right">1.83</td>
-<td headers="Ratio-to-average price test FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="T-value test FLAG" class="gt_row gt_center">FALSE</td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">2018</td>
+<td class="gt_row gt_right" headers="Product code">210111</td>
+<td class="gt_row gt_left" headers="Product description">WHITE SLICED LOAF BRANDED 750G</td>
+<td class="gt_row gt_right" headers="Reference quantity price">1.45</td>
+<td class="gt_row gt_right" headers="Ratio-to-average price test">1.39</td>
+<td class="gt_row gt_right" headers="T-value test">1.83</td>
+<td class="gt_row gt_center" headers="Ratio-to-average price test FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="T-value test FLAG">FALSE</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Visualisation of price distribution ---------</span></span>
 <span><span class="va">uk_pot</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
@@ -1231,41 +1198,30 @@ generated with the function <code><a href="../reference/valid_pot.html">valid_po
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#a3bbdd"</span>, <span class="st">"#2a4691"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Validation_files/figure-html/uk_pot-1.png" class="r-plt" width="700"></p>
-<hr>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="Validation_files/figure-html/uk_pot-1.png" width="672"></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="aggregate-price-statistics">Aggregate price statistics<a class="anchor" aria-label="anchor" href="#aggregate-price-statistics"></a>
+</div>
+</div>
+<hr></section><section class="level2" data-number="1.2"><h3 data-number="1.2" id="aggregate-price-statistics">
+<span class="header-section-number">1.2</span> Aggregate price statistics<a class="anchor" aria-label="anchor" href="#aggregate-price-statistics"></a>
 </h3>
-<p>This stage involves identifying extreme values among the average
-prices of the products listed in the <em>Average Price Table</em>. An
-extreme value is defined as an individual price or average price that
-for a given test scores a value that falls outside a predetermined
-critical value and is build on two <em>average price outlier
-statistics</em>, which are summarised in the Average Price table; see
-<span class="citation">World Bank (2013)</span>, table 9.2a and 9.2b for
-an extensive example. The two statistics contained in this table are the
-<em>max-min ratio test</em> and the <em>coefficient to variation</em>
-test.</p>
-<p><strong>Max-min ratio test:</strong> The ratio between the maximal
-and minimal observed price for product <span class="math inline">\(j\)</span>. Products where the maximal observed
-price is more than twice as big as the minimum are flagged</p>
+<p>This stage involves identifying extreme values among the average prices of the products listed in the <em>Average Price Table</em>. An extreme value is defined as an individual price or average price that for a given test scores a value that falls outside a predetermined critical value and is build on two <em>average price outlier statistics</em>, which are summarised in the Average Price table; see <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span>, table 9.2a and 9.2b for an extensive example. The two statistics contained in this table are the <em>max-min ratio test</em> and the <em>coefficient to variation</em> test.</p>
+<p><strong>Max-min ratio test:</strong> The ratio between the maximal and minimal observed price for product <span class="math inline">\(j\)</span>. Products where the maximal observed price is more than twice as big as the minimum are flagged</p>
 <p><span class="math display">\[
 max-min~ratio = max(p_j)/min(p_j)
 \]</span></p>
-<p><strong>Coefficient-of-variation test:</strong> The standard
-deviation for the product expressed as a percentage of the average price
-for the product. Products with a coefficient of variation greater than
-20% will be flagged.</p>
+<p><strong>Coefficient-of-variation test:</strong> The standard deviation for the product expressed as a percentage of the average price for the product. Products with a coefficient of variation greater than 20% will be flagged.</p>
 <p><span class="math display">\[
 coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 \]</span></p>
-<p>Aggregate price quotes that do not pass these tests are flagged in
-the <em>Average Price Table</em>. The price observation table is
-generated with the function <code><a href="../reference/valid_apt.html">valid_apt()</a></code>.</p>
+<p>Aggregate price quotes that do not pass these tests are flagged in the <em>Average Price Table</em>. The price observation table is generated with the function <code><a href="../reference/valid_apt.html">valid_apt()</a></code>.</p>
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Average Price Table -------</span></span>
 <span><span class="va">uk_apt</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
@@ -1285,23 +1241,24 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
 <span>    columns <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span><span class="op">)</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div id="ufivjubqtx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ufivjubqtx table {
+<div class="cell-output-display">
+<div id="orjxsyahjy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#orjxsyahjy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ufivjubqtx thead, #ufivjubqtx tbody, #ufivjubqtx tfoot, #ufivjubqtx tr, #ufivjubqtx td, #ufivjubqtx th {
+#orjxsyahjy thead, #orjxsyahjy tbody, #orjxsyahjy tfoot, #orjxsyahjy tr, #orjxsyahjy td, #orjxsyahjy th {
   border-style: none;
 }
 
-#ufivjubqtx p {
+#orjxsyahjy p {
   margin: 0;
   padding: 0;
 }
 
-#ufivjubqtx .gt_table {
+#orjxsyahjy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1327,12 +1284,12 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-left-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_caption {
+#orjxsyahjy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ufivjubqtx .gt_title {
+#orjxsyahjy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1344,7 +1301,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-bottom-width: 0;
 }
 
-#ufivjubqtx .gt_subtitle {
+#orjxsyahjy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1356,7 +1313,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-top-width: 0;
 }
 
-#ufivjubqtx .gt_heading {
+#orjxsyahjy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1368,13 +1325,13 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-right-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_bottom_border {
+#orjxsyahjy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_col_headings {
+#orjxsyahjy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1389,7 +1346,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-right-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_col_heading {
+#orjxsyahjy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1409,7 +1366,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   overflow-x: hidden;
 }
 
-#ufivjubqtx .gt_column_spanner_outer {
+#orjxsyahjy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1421,15 +1378,15 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   padding-right: 4px;
 }
 
-#ufivjubqtx .gt_column_spanner_outer:first-child {
+#orjxsyahjy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ufivjubqtx .gt_column_spanner_outer:last-child {
+#orjxsyahjy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ufivjubqtx .gt_column_spanner {
+#orjxsyahjy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1441,11 +1398,11 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   width: 100%;
 }
 
-#ufivjubqtx .gt_spanner_row {
+#orjxsyahjy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ufivjubqtx .gt_group_heading {
+#orjxsyahjy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1471,7 +1428,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   text-align: left;
 }
 
-#ufivjubqtx .gt_empty_group_heading {
+#orjxsyahjy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1486,15 +1443,15 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   vertical-align: middle;
 }
 
-#ufivjubqtx .gt_from_md > :first-child {
+#orjxsyahjy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ufivjubqtx .gt_from_md > :last-child {
+#orjxsyahjy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ufivjubqtx .gt_row {
+#orjxsyahjy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1513,7 +1470,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   overflow-x: hidden;
 }
 
-#ufivjubqtx .gt_stub {
+#orjxsyahjy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1526,7 +1483,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   padding-right: 5px;
 }
 
-#ufivjubqtx .gt_stub_row_group {
+#orjxsyahjy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1540,15 +1497,15 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   vertical-align: top;
 }
 
-#ufivjubqtx .gt_row_group_first td {
+#orjxsyahjy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ufivjubqtx .gt_row_group_first th {
+#orjxsyahjy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ufivjubqtx .gt_summary_row {
+#orjxsyahjy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1558,16 +1515,16 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   padding-right: 5px;
 }
 
-#ufivjubqtx .gt_first_summary_row {
+#orjxsyahjy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_first_summary_row.thick {
+#orjxsyahjy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ufivjubqtx .gt_last_summary_row {
+#orjxsyahjy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1577,7 +1534,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-bottom-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_grand_summary_row {
+#orjxsyahjy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1587,7 +1544,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   padding-right: 5px;
 }
 
-#ufivjubqtx .gt_first_grand_summary_row {
+#orjxsyahjy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1597,7 +1554,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-top-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_last_grand_summary_row_top {
+#orjxsyahjy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1607,11 +1564,11 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-bottom-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_striped {
+#orjxsyahjy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ufivjubqtx .gt_table_body {
+#orjxsyahjy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1620,7 +1577,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-bottom-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_footnotes {
+#orjxsyahjy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1634,7 +1591,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-right-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_footnote {
+#orjxsyahjy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1643,7 +1600,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   padding-right: 5px;
 }
 
-#ufivjubqtx .gt_sourcenotes {
+#orjxsyahjy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1657,7 +1614,7 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   border-right-color: #D3D3D3;
 }
 
-#ufivjubqtx .gt_sourcenote {
+#orjxsyahjy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1665,140 +1622,139 @@ generated with the function <code><a href="../reference/valid_apt.html">valid_ap
   padding-right: 5px;
 }
 
-#ufivjubqtx .gt_left {
+#orjxsyahjy .gt_left {
   text-align: left;
 }
 
-#ufivjubqtx .gt_center {
+#orjxsyahjy .gt_center {
   text-align: center;
 }
 
-#ufivjubqtx .gt_right {
+#orjxsyahjy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ufivjubqtx .gt_font_normal {
+#orjxsyahjy .gt_font_normal {
   font-weight: normal;
 }
 
-#ufivjubqtx .gt_font_bold {
+#orjxsyahjy .gt_font_bold {
   font-weight: bold;
 }
 
-#ufivjubqtx .gt_font_italic {
+#orjxsyahjy .gt_font_italic {
   font-style: italic;
 }
 
-#ufivjubqtx .gt_super {
+#orjxsyahjy .gt_super {
   font-size: 65%;
 }
 
-#ufivjubqtx .gt_footnote_marks {
+#orjxsyahjy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ufivjubqtx .gt_asterisk {
+#orjxsyahjy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ufivjubqtx .gt_indent_1 {
+#orjxsyahjy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ufivjubqtx .gt_indent_2 {
+#orjxsyahjy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ufivjubqtx .gt_indent_3 {
+#orjxsyahjy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ufivjubqtx .gt_indent_4 {
+#orjxsyahjy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ufivjubqtx .gt_indent_5 {
+#orjxsyahjy .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ufivjubqtx .katex-display {
+#orjxsyahjy .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ufivjubqtx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#orjxsyahjy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_heading">
-<td colspan="10" class="gt_heading gt_title gt_font_normal" style><span class="gt_from_md"><strong>Average Price Table</strong></span></td>
-    </tr>
-<tr class="gt_heading">
-<td colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style><span class="gt_from_md">Example for <code>item_id</code>s = 210111 &amp; 410518, <strong>pre-cleaning</strong></span></td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Product-code">Product code</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-observations">Number of observations</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Average-price-of-product">Average price of product</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Maximum-price-of-product">Maximum price of product</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Minimum-price-of-product">Minimum price of product</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Standard-deviation">Standard deviation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Max-min-ratio">Max-min ratio</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Coefficient-of-variation">Coefficient of variation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Max-min-ratio-FLAG">Max-min ratio FLAG</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Coefficient-of-variation-FLAG">Coefficient of variation FLAG</th>
-    </tr>
+<tr class="gt_heading header">
+<td colspan="10" class="gt_heading gt_title gt_font_normal"><strong>Average Price Table</strong></td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Example for <code>item_id</code>s = 210111 &amp; 410518, <strong>pre-cleaning</strong>
+</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Product-code" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Product code</th>
+<th id="Number-of-observations" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Number of observations</th>
+<th id="Average-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Average price of product</th>
+<th id="Maximum-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Maximum price of product</th>
+<th id="Minimum-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Minimum price of product</th>
+<th id="Standard-deviation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Standard deviation</th>
+<th id="Max-min-ratio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Max-min ratio</th>
+<th id="Coefficient-of-variation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Coefficient of variation</th>
+<th id="Max-min-ratio-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Max-min ratio FLAG</th>
+<th id="Coefficient-of-variation-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient of variation FLAG</th>
+</tr>
 </thead>
 <tbody class="gt_table_body">
-<tr class="gt_group_heading_row">
-<th colspan="10" class="gt_group_heading" scope="colgroup" id="2018 - East Anglia">2018 - East Anglia</th>
-    </tr>
-<tr class="gt_row_group_first">
-<td headers="2018 - East Anglia  Product code" class="gt_row gt_right">210111</td>
-<td headers="2018 - East Anglia  Number of observations" class="gt_row gt_right">322.00</td>
-<td headers="2018 - East Anglia  Average price of product" class="gt_row gt_right">1.13</td>
-<td headers="2018 - East Anglia  Maximum price of product" class="gt_row gt_right">1.53</td>
-<td headers="2018 - East Anglia  Minimum price of product" class="gt_row gt_right">0.55</td>
-<td headers="2018 - East Anglia  Standard deviation" class="gt_row gt_right">0.26</td>
-<td headers="2018 - East Anglia  Max-min ratio" class="gt_row gt_right">2.78</td>
-<td headers="2018 - East Anglia  Coefficient of variation" class="gt_row gt_right">0.23</td>
-<td headers="2018 - East Anglia  Max-min ratio FLAG" class="gt_row gt_center">TRUE</td>
-<td headers="2018 - East Anglia  Coefficient of variation FLAG" class="gt_row gt_center">TRUE</td>
+<tr class="gt_group_heading_row odd">
+<th colspan="10" id="2018 - East Anglia" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">2018 - East Anglia</th>
 </tr>
-<tr>
-<td headers="2018 - East Anglia  Product code" class="gt_row gt_right">410518</td>
-<td headers="2018 - East Anglia  Number of observations" class="gt_row gt_right">264.00</td>
-<td headers="2018 - East Anglia  Average price of product" class="gt_row gt_right">23.11</td>
-<td headers="2018 - East Anglia  Maximum price of product" class="gt_row gt_right">48.00</td>
-<td headers="2018 - East Anglia  Minimum price of product" class="gt_row gt_right">15.00</td>
-<td headers="2018 - East Anglia  Standard deviation" class="gt_row gt_right">8.43</td>
-<td headers="2018 - East Anglia  Max-min ratio" class="gt_row gt_right">3.20</td>
-<td headers="2018 - East Anglia  Coefficient of variation" class="gt_row gt_right">0.36</td>
-<td headers="2018 - East Anglia  Max-min ratio FLAG" class="gt_row gt_center">TRUE</td>
-<td headers="2018 - East Anglia  Coefficient of variation FLAG" class="gt_row gt_center">TRUE</td>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_right" headers="2018 - East Anglia  Product code">210111</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Number of observations">322.00</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Average price of product">1.13</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Maximum price of product">1.53</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Minimum price of product">0.55</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Standard deviation">0.26</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Max-min ratio">2.78</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Coefficient of variation">0.23</td>
+<td class="gt_row gt_center" headers="2018 - East Anglia  Max-min ratio FLAG">TRUE</td>
+<td class="gt_row gt_center" headers="2018 - East Anglia  Coefficient of variation FLAG">TRUE</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="2018 - East Anglia  Product code">410518</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Number of observations">264.00</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Average price of product">23.11</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Maximum price of product">48.00</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Minimum price of product">15.00</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Standard deviation">8.43</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Max-min ratio">3.20</td>
+<td class="gt_row gt_right" headers="2018 - East Anglia  Coefficient of variation">0.36</td>
+<td class="gt_row gt_center" headers="2018 - East Anglia  Max-min ratio FLAG">TRUE</td>
+<td class="gt_row gt_center" headers="2018 - East Anglia  Coefficient of variation FLAG">TRUE</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="section level3">
-<h3 id="linking-validation-pipelines-for-intra-regional-validation">Linking validation pipelines for intra-regional validation<a class="anchor" aria-label="anchor" href="#linking-validation-pipelines-for-intra-regional-validation"></a>
+</div>
+</section><section class="level2" data-number="1.3"><h3 data-number="1.3" id="linking-validation-pipelines-for-intra-regional-validation">
+<span class="header-section-number">1.3</span> Linking validation pipelines for intra-regional validation<a class="anchor" aria-label="anchor" href="#linking-validation-pipelines-for-intra-regional-validation"></a>
 </h3>
-<p>The extent of validation required depends on the quality of the
-underlying microdata. When working with unconsolidated or raw data, more
-extensive revisions may be necessary.</p>
-<p>Using the two functions <code><a href="../reference/valid_pot.html">valid_pot()</a></code>, and
-<code><a href="../reference/valid_apt.html">valid_apt()</a></code> a simple production pipeline can be set up
-which operates conditional on the flags of the different tests.</p>
+<p>The extent of validation required depends on the quality of the underlying microdata. When working with unconsolidated or raw data, more extensive revisions may be necessary.</p>
+<p>Using the two functions <code><a href="../reference/valid_pot.html">valid_pot()</a></code>, and <code><a href="../reference/valid_apt.html">valid_apt()</a></code> a simple production pipeline can be set up which operates conditional on the flags of the different tests.</p>
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example for linked production pipeline  -------</span></span>
 <span><span class="va">uk_irv</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
@@ -1827,23 +1783,24 @@ which operates conditional on the flags of the different tests.</p>
 <span>    columns <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span><span class="op">)</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div id="lspkzcbwjc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lspkzcbwjc table {
+<div class="cell-output-display">
+<div id="alginanvvg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#alginanvvg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lspkzcbwjc thead, #lspkzcbwjc tbody, #lspkzcbwjc tfoot, #lspkzcbwjc tr, #lspkzcbwjc td, #lspkzcbwjc th {
+#alginanvvg thead, #alginanvvg tbody, #alginanvvg tfoot, #alginanvvg tr, #alginanvvg td, #alginanvvg th {
   border-style: none;
 }
 
-#lspkzcbwjc p {
+#alginanvvg p {
   margin: 0;
   padding: 0;
 }
 
-#lspkzcbwjc .gt_table {
+#alginanvvg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1869,12 +1826,12 @@ which operates conditional on the flags of the different tests.</p>
   border-left-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_caption {
+#alginanvvg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lspkzcbwjc .gt_title {
+#alginanvvg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1886,7 +1843,7 @@ which operates conditional on the flags of the different tests.</p>
   border-bottom-width: 0;
 }
 
-#lspkzcbwjc .gt_subtitle {
+#alginanvvg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1898,7 +1855,7 @@ which operates conditional on the flags of the different tests.</p>
   border-top-width: 0;
 }
 
-#lspkzcbwjc .gt_heading {
+#alginanvvg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1910,13 +1867,13 @@ which operates conditional on the flags of the different tests.</p>
   border-right-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_bottom_border {
+#alginanvvg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_col_headings {
+#alginanvvg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1931,7 +1888,7 @@ which operates conditional on the flags of the different tests.</p>
   border-right-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_col_heading {
+#alginanvvg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1951,7 +1908,7 @@ which operates conditional on the flags of the different tests.</p>
   overflow-x: hidden;
 }
 
-#lspkzcbwjc .gt_column_spanner_outer {
+#alginanvvg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1963,15 +1920,15 @@ which operates conditional on the flags of the different tests.</p>
   padding-right: 4px;
 }
 
-#lspkzcbwjc .gt_column_spanner_outer:first-child {
+#alginanvvg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lspkzcbwjc .gt_column_spanner_outer:last-child {
+#alginanvvg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lspkzcbwjc .gt_column_spanner {
+#alginanvvg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1983,11 +1940,11 @@ which operates conditional on the flags of the different tests.</p>
   width: 100%;
 }
 
-#lspkzcbwjc .gt_spanner_row {
+#alginanvvg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lspkzcbwjc .gt_group_heading {
+#alginanvvg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2013,7 +1970,7 @@ which operates conditional on the flags of the different tests.</p>
   text-align: left;
 }
 
-#lspkzcbwjc .gt_empty_group_heading {
+#alginanvvg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2028,15 +1985,15 @@ which operates conditional on the flags of the different tests.</p>
   vertical-align: middle;
 }
 
-#lspkzcbwjc .gt_from_md > :first-child {
+#alginanvvg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lspkzcbwjc .gt_from_md > :last-child {
+#alginanvvg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lspkzcbwjc .gt_row {
+#alginanvvg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2055,7 +2012,7 @@ which operates conditional on the flags of the different tests.</p>
   overflow-x: hidden;
 }
 
-#lspkzcbwjc .gt_stub {
+#alginanvvg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2068,7 +2025,7 @@ which operates conditional on the flags of the different tests.</p>
   padding-right: 5px;
 }
 
-#lspkzcbwjc .gt_stub_row_group {
+#alginanvvg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2082,15 +2039,15 @@ which operates conditional on the flags of the different tests.</p>
   vertical-align: top;
 }
 
-#lspkzcbwjc .gt_row_group_first td {
+#alginanvvg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lspkzcbwjc .gt_row_group_first th {
+#alginanvvg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lspkzcbwjc .gt_summary_row {
+#alginanvvg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2100,16 +2057,16 @@ which operates conditional on the flags of the different tests.</p>
   padding-right: 5px;
 }
 
-#lspkzcbwjc .gt_first_summary_row {
+#alginanvvg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_first_summary_row.thick {
+#alginanvvg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lspkzcbwjc .gt_last_summary_row {
+#alginanvvg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2119,7 +2076,7 @@ which operates conditional on the flags of the different tests.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_grand_summary_row {
+#alginanvvg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2129,7 +2086,7 @@ which operates conditional on the flags of the different tests.</p>
   padding-right: 5px;
 }
 
-#lspkzcbwjc .gt_first_grand_summary_row {
+#alginanvvg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2139,7 +2096,7 @@ which operates conditional on the flags of the different tests.</p>
   border-top-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_last_grand_summary_row_top {
+#alginanvvg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2149,11 +2106,11 @@ which operates conditional on the flags of the different tests.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_striped {
+#alginanvvg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lspkzcbwjc .gt_table_body {
+#alginanvvg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2162,7 +2119,7 @@ which operates conditional on the flags of the different tests.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_footnotes {
+#alginanvvg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2176,7 +2133,7 @@ which operates conditional on the flags of the different tests.</p>
   border-right-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_footnote {
+#alginanvvg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2185,7 +2142,7 @@ which operates conditional on the flags of the different tests.</p>
   padding-right: 5px;
 }
 
-#lspkzcbwjc .gt_sourcenotes {
+#alginanvvg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2199,7 +2156,7 @@ which operates conditional on the flags of the different tests.</p>
   border-right-color: #D3D3D3;
 }
 
-#lspkzcbwjc .gt_sourcenote {
+#alginanvvg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2207,209 +2164,185 @@ which operates conditional on the flags of the different tests.</p>
   padding-right: 5px;
 }
 
-#lspkzcbwjc .gt_left {
+#alginanvvg .gt_left {
   text-align: left;
 }
 
-#lspkzcbwjc .gt_center {
+#alginanvvg .gt_center {
   text-align: center;
 }
 
-#lspkzcbwjc .gt_right {
+#alginanvvg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lspkzcbwjc .gt_font_normal {
+#alginanvvg .gt_font_normal {
   font-weight: normal;
 }
 
-#lspkzcbwjc .gt_font_bold {
+#alginanvvg .gt_font_bold {
   font-weight: bold;
 }
 
-#lspkzcbwjc .gt_font_italic {
+#alginanvvg .gt_font_italic {
   font-style: italic;
 }
 
-#lspkzcbwjc .gt_super {
+#alginanvvg .gt_super {
   font-size: 65%;
 }
 
-#lspkzcbwjc .gt_footnote_marks {
+#alginanvvg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lspkzcbwjc .gt_asterisk {
+#alginanvvg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lspkzcbwjc .gt_indent_1 {
+#alginanvvg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lspkzcbwjc .gt_indent_2 {
+#alginanvvg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lspkzcbwjc .gt_indent_3 {
+#alginanvvg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lspkzcbwjc .gt_indent_4 {
+#alginanvvg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lspkzcbwjc .gt_indent_5 {
+#alginanvvg .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lspkzcbwjc .katex-display {
+#alginanvvg .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lspkzcbwjc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#alginanvvg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_heading">
-<td colspan="10" class="gt_heading gt_title gt_font_normal" style><span class="gt_from_md"><strong>Average Price Table</strong></span></td>
-    </tr>
-<tr class="gt_heading">
-<td colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style><span class="gt_from_md">Example for <code>item_id</code>s = 210111 &amp; 410518, <strong>post-cleaning</strong></span></td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Region">Region</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Number-of-observations">Number of observations</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Average-price-of-product">Average price of product</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Maximum-price-of-product">Maximum price of product</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Minimum-price-of-product">Minimum price of product</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Standard-deviation">Standard deviation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Max-min-ratio">Max-min ratio</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Coefficient-of-variation">Coefficient of variation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Max-min-ratio-FLAG">Max-min ratio FLAG</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Coefficient-of-variation-FLAG">Coefficient of variation FLAG</th>
-    </tr>
+<tr class="gt_heading header">
+<td colspan="10" class="gt_heading gt_title gt_font_normal"><strong>Average Price Table</strong></td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Example for <code>item_id</code>s = 210111 &amp; 410518, <strong>post-cleaning</strong>
+</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Region" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Region</th>
+<th id="Number-of-observations" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Number of observations</th>
+<th id="Average-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Average price of product</th>
+<th id="Maximum-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Maximum price of product</th>
+<th id="Minimum-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Minimum price of product</th>
+<th id="Standard-deviation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Standard deviation</th>
+<th id="Max-min-ratio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Max-min ratio</th>
+<th id="Coefficient-of-variation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Coefficient of variation</th>
+<th id="Max-min-ratio-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Max-min ratio FLAG</th>
+<th id="Coefficient-of-variation-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient of variation FLAG</th>
+</tr>
 </thead>
 <tbody class="gt_table_body">
-<tr class="gt_group_heading_row">
-<th colspan="10" class="gt_group_heading" scope="colgroup" id="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G">2018 - 210111 - WHITE SLICED LOAF BRANDED 750G</th>
-    </tr>
-<tr class="gt_row_group_first">
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region" class="gt_row gt_left">East Anglia</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Number of observations" class="gt_row gt_right">276.0</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Average price of product" class="gt_row gt_right">1.2</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Maximum price of product" class="gt_row gt_right">1.5</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Minimum price of product" class="gt_row gt_right">0.9</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Standard deviation" class="gt_row gt_right">0.2</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Max-min ratio" class="gt_row gt_right">1.6</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Coefficient of variation" class="gt_row gt_right">0.2</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Max-min ratio FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Coefficient of variation FLAG" class="gt_row gt_center">FALSE</td>
+<tr class="gt_group_heading_row odd">
+<th colspan="10" id="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">2018 - 210111 - WHITE SLICED LOAF BRANDED 750G</th>
 </tr>
-<tr>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region" class="gt_row gt_left">East Midlands</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Number of observations" class="gt_row gt_right">228.0</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Average price of product" class="gt_row gt_right">1.1</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Maximum price of product" class="gt_row gt_right">1.1</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Minimum price of product" class="gt_row gt_right">1.0</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Standard deviation" class="gt_row gt_right">0.0</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Max-min ratio" class="gt_row gt_right">1.2</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Coefficient of variation" class="gt_row gt_right">0.0</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Max-min ratio FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Coefficient of variation FLAG" class="gt_row gt_center">FALSE</td>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region">East Anglia</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Number of observations">276.0</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Average price of product">1.2</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Maximum price of product">1.5</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Minimum price of product">0.9</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Standard deviation">0.2</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Max-min ratio">1.6</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Coefficient of variation">0.2</td>
+<td class="gt_row gt_center" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Max-min ratio FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Coefficient of variation FLAG">FALSE</td>
 </tr>
-<tr class="gt_group_heading_row">
-<th colspan="10" class="gt_group_heading" scope="colgroup" id="2018 - 410518 - CARPENTER HOURLY RATE">2018 - 410518 - CARPENTER HOURLY RATE</th>
-    </tr>
-<tr class="gt_row_group_first">
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Region" class="gt_row gt_left">East Anglia</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Number of observations" class="gt_row gt_right">168.0</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Average price of product" class="gt_row gt_right">22.3</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Maximum price of product" class="gt_row gt_right">27.0</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Minimum price of product" class="gt_row gt_right">20.0</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Standard deviation" class="gt_row gt_right">1.9</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Max-min ratio" class="gt_row gt_right">1.4</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Coefficient of variation" class="gt_row gt_right">0.1</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Max-min ratio FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Coefficient of variation FLAG" class="gt_row gt_center">FALSE</td>
+<tr class="odd">
+<td class="gt_row gt_left" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Region">East Midlands</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Number of observations">228.0</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Average price of product">1.1</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Maximum price of product">1.1</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Minimum price of product">1.0</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Standard deviation">0.0</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Max-min ratio">1.2</td>
+<td class="gt_row gt_right" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Coefficient of variation">0.0</td>
+<td class="gt_row gt_center" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Max-min ratio FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="2018 - 210111 - WHITE SLICED LOAF BRANDED 750G  Coefficient of variation FLAG">FALSE</td>
 </tr>
-<tr>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Region" class="gt_row gt_left">East Midlands</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Number of observations" class="gt_row gt_right">96.0</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Average price of product" class="gt_row gt_right">22.8</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Maximum price of product" class="gt_row gt_right">28.2</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Minimum price of product" class="gt_row gt_right">18.1</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Standard deviation" class="gt_row gt_right">4.0</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Max-min ratio" class="gt_row gt_right">1.6</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Coefficient of variation" class="gt_row gt_right">0.2</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Max-min ratio FLAG" class="gt_row gt_center">FALSE</td>
-<td headers="2018 - 410518 - CARPENTER HOURLY RATE  Coefficient of variation FLAG" class="gt_row gt_center">FALSE</td>
+<tr class="gt_group_heading_row even">
+<th colspan="10" id="2018 - 410518 - CARPENTER HOURLY RATE" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">2018 - 410518 - CARPENTER HOURLY RATE</th>
+</tr>
+<tr class="gt_row_group_first odd">
+<td class="gt_row gt_left" headers="2018 - 410518 - CARPENTER HOURLY RATE  Region">East Anglia</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Number of observations">168.0</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Average price of product">22.3</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Maximum price of product">27.0</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Minimum price of product">20.0</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Standard deviation">1.9</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Max-min ratio">1.4</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Coefficient of variation">0.1</td>
+<td class="gt_row gt_center" headers="2018 - 410518 - CARPENTER HOURLY RATE  Max-min ratio FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="2018 - 410518 - CARPENTER HOURLY RATE  Coefficient of variation FLAG">FALSE</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="2018 - 410518 - CARPENTER HOURLY RATE  Region">East Midlands</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Number of observations">96.0</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Average price of product">22.8</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Maximum price of product">28.2</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Minimum price of product">18.1</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Standard deviation">4.0</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Max-min ratio">1.6</td>
+<td class="gt_row gt_right" headers="2018 - 410518 - CARPENTER HOURLY RATE  Coefficient of variation">0.2</td>
+<td class="gt_row gt_center" headers="2018 - 410518 - CARPENTER HOURLY RATE  Max-min ratio FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="2018 - 410518 - CARPENTER HOURLY RATE  Coefficient of variation FLAG">FALSE</td>
 </tr>
 </tbody>
 </table>
 </div>
-<hr>
 </div>
 </div>
-<div class="section level2">
-<h2 id="sec-interregional">Inter-regional validation<a class="anchor" aria-label="anchor" href="#sec-interregional"></a>
+<hr></section></section><section class="section level2" data-number="2"><h2 data-number="2" id="sec-interregional">
+<span class="header-section-number">2</span> Inter-regional validation<a class="anchor" aria-label="anchor" href="#sec-interregional"></a>
 </h2>
-<p>Inter-regional validation involves verifying prices across all
-regions and countries to ensure that average prices are derived from
-comparable products and that these products have been accurately
-priced.</p>
-<p>The objective is to confirm that the average prices reflect genuine
-comparability of products across countries and regions, and that pricing
-accuracy has been maintained.</p>
-<p>This is achieved by comparing the average prices of identical
-products across multiple countries and identifying extreme values using
-the cross-country <em>standardised price ratio (SPR)</em>.</p>
-<p>For product <span class="math inline">\(1\)</span> and country–region
-<span class="math inline">\(A\)</span>, the SPR is defined as:</p>
+<p>Inter-regional validation involves verifying prices across all regions and countries to ensure that average prices are derived from comparable products and that these products have been accurately priced.</p>
+<p>The objective is to confirm that the average prices reflect genuine comparability of products across countries and regions, and that pricing accuracy has been maintained.</p>
+<p>This is achieved by comparing the average prices of identical products across multiple countries and identifying extreme values using the cross-country <em>standardised price ratio (SPR)</em>.</p>
+<p>For product <span class="math inline">\(1\)</span> and country–region <span class="math inline">\(A\)</span>, the SPR is defined as:</p>
 <p><span class="math display">\[
-SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N}
-\mu^*_{1n}  \right)^{\frac{1}{N}} \times 100,
+SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100,
 \]</span></p>
-<p>where <span class="math inline">\(\mu^*_{1A}\)</span> represents the
-<strong>average converted price</strong> of product <span class="math inline">\(1\)</span> in country–region <span class="math inline">\(A\)</span>, and <span class="math inline">\(N\)</span> is the total number of country–regions.
-Two conversions are applied to make country–region prices comparable
-across countries: exchange rates and purchasing power parities (PPPs)
-<span class="citation">(World Bank 2013, 258)</span>:</p>
-<ol style="list-style-type: decimal">
-<li>SPRs derived from exchange rate–converted prices are referred to as
-<strong>XR-ratios</strong>.</li>
-<li>SPRs based on PPP-converted prices are referred to as
-<strong>PPP-ratios</strong>.</li>
+<p>where <span class="math inline">\(\mu^*_{1A}\)</span> represents the <strong>average converted price</strong> of product <span class="math inline">\(1\)</span> in country–region <span class="math inline">\(A\)</span>, and <span class="math inline">\(N\)</span> is the total number of country–regions. Two conversions are applied to make country–region prices comparable across countries: exchange rates and purchasing power parities (PPPs) <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 258</a>)</span>:</p>
+<ol type="1">
+<li>SPRs derived from exchange rate–converted prices are referred to as <strong>XR-ratios</strong>.</li>
+<li>SPRs based on PPP-converted prices are referred to as <strong>PPP-ratios</strong>.</li>
 </ol>
-<p>Both types of SPRs are used for validation; however, only PPP-ratios
-are employed to measure dispersion. XR-ratios are considered more
-reliable during the initial stage of cross-country validation. XR- and
-PPP-ratios that fall outside the 80–125 range are flagged as extreme
-values requiring verification.</p>
-<div class="section level3">
-<h3 id="the-xr-ratio">The XR-ratio<a class="anchor" aria-label="anchor" href="#the-xr-ratio"></a>
+<p>Both types of SPRs are used for validation; however, only PPP-ratios are employed to measure dispersion. XR-ratios are considered more reliable during the initial stage of cross-country validation. XR- and PPP-ratios that fall outside the 80–125 range are flagged as extreme values requiring verification.</p>
+<section class="level2" data-number="2.1"><h3 data-number="2.1" id="the-xr-ratio">
+<span class="header-section-number">2.1</span> The XR-ratio<a class="anchor" aria-label="anchor" href="#the-xr-ratio"></a>
 </h3>
-<p>The function <code><a href="../reference/valid_XRratio.html">valid_XRratio()</a></code> computes the XR-ratio
-table, where a country–region’s XR price for a given product is divided
-by the geometric mean of that product’s price; see Table 9.3a in <span class="citation">(World Bank 2013, 257)</span>.</p>
-<p>In the resulting table, the degree of variability can be examined to
-identify products and country–region combinations with the highest XR
-ratios, that is, those showing the greatest variation across
-countries.</p>
+<p>The function <code><a href="../reference/valid_XRratio.html">valid_XRratio()</a></code> computes the XR-ratio table, where a country–region’s XR price for a given product is divided by the geometric mean of that product’s price; see Table 9.3a in <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 257</a>)</span>.</p>
+<p>In the resulting table, the degree of variability can be examined to identify products and country–region combinations with the highest XR ratios, that is, those showing the greatest variation across countries.</p>
 <hr>
 <p><strong>Example using CPI microdata</strong></p>
 <blockquote>
-<p>🚧 Mock-up code only as comprehensive list of average product prices
-across multiple countries is currently not available.</p>
+<p>🚧 Mock-up code only as comprehensive list of average product prices across multiple countries is currently not available.</p>
 </blockquote>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Build data ----------</span></span>
 <span><span class="co">## UK data</span></span>
 <span><span class="va">uk_irv</span> <span class="op">&lt;-</span> <span class="va">uk_irv</span> <span class="op">|&gt;</span></span>
@@ -2445,7 +2378,7 @@ across multiple countries is currently not available.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/valid_XRratio.html">valid_XRratio</a></span><span class="op">(</span></span>
 <span>    average_price <span class="op">=</span> <span class="st">"Average price of product"</span>,</span>
-<span>    xr_usd <span class="op">=</span> <span class="st">"XR USD"</span></span>
+<span>    exchange_rate <span class="op">=</span> <span class="st">"XR USD"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">df_xrr</span> <span class="op">|&gt;</span></span>
@@ -2458,23 +2391,24 @@ across multiple countries is currently not available.</p>
 <span>    columns <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span><span class="op">)</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div id="aglvijbfgl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#aglvijbfgl table {
+<div class="cell-output-display">
+<div id="ywngnuwvst" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ywngnuwvst table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#aglvijbfgl thead, #aglvijbfgl tbody, #aglvijbfgl tfoot, #aglvijbfgl tr, #aglvijbfgl td, #aglvijbfgl th {
+#ywngnuwvst thead, #ywngnuwvst tbody, #ywngnuwvst tfoot, #ywngnuwvst tr, #ywngnuwvst td, #ywngnuwvst th {
   border-style: none;
 }
 
-#aglvijbfgl p {
+#ywngnuwvst p {
   margin: 0;
   padding: 0;
 }
 
-#aglvijbfgl .gt_table {
+#ywngnuwvst .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2500,12 +2434,12 @@ across multiple countries is currently not available.</p>
   border-left-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_caption {
+#ywngnuwvst .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#aglvijbfgl .gt_title {
+#ywngnuwvst .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2517,7 +2451,7 @@ across multiple countries is currently not available.</p>
   border-bottom-width: 0;
 }
 
-#aglvijbfgl .gt_subtitle {
+#ywngnuwvst .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2529,7 +2463,7 @@ across multiple countries is currently not available.</p>
   border-top-width: 0;
 }
 
-#aglvijbfgl .gt_heading {
+#ywngnuwvst .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2541,13 +2475,13 @@ across multiple countries is currently not available.</p>
   border-right-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_bottom_border {
+#ywngnuwvst .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_col_headings {
+#ywngnuwvst .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2562,7 +2496,7 @@ across multiple countries is currently not available.</p>
   border-right-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_col_heading {
+#ywngnuwvst .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2582,7 +2516,7 @@ across multiple countries is currently not available.</p>
   overflow-x: hidden;
 }
 
-#aglvijbfgl .gt_column_spanner_outer {
+#ywngnuwvst .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2594,15 +2528,15 @@ across multiple countries is currently not available.</p>
   padding-right: 4px;
 }
 
-#aglvijbfgl .gt_column_spanner_outer:first-child {
+#ywngnuwvst .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aglvijbfgl .gt_column_spanner_outer:last-child {
+#ywngnuwvst .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aglvijbfgl .gt_column_spanner {
+#ywngnuwvst .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2614,11 +2548,11 @@ across multiple countries is currently not available.</p>
   width: 100%;
 }
 
-#aglvijbfgl .gt_spanner_row {
+#ywngnuwvst .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#aglvijbfgl .gt_group_heading {
+#ywngnuwvst .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2644,7 +2578,7 @@ across multiple countries is currently not available.</p>
   text-align: left;
 }
 
-#aglvijbfgl .gt_empty_group_heading {
+#ywngnuwvst .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2659,15 +2593,15 @@ across multiple countries is currently not available.</p>
   vertical-align: middle;
 }
 
-#aglvijbfgl .gt_from_md > :first-child {
+#ywngnuwvst .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aglvijbfgl .gt_from_md > :last-child {
+#ywngnuwvst .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aglvijbfgl .gt_row {
+#ywngnuwvst .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2686,7 +2620,7 @@ across multiple countries is currently not available.</p>
   overflow-x: hidden;
 }
 
-#aglvijbfgl .gt_stub {
+#ywngnuwvst .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2699,7 +2633,7 @@ across multiple countries is currently not available.</p>
   padding-right: 5px;
 }
 
-#aglvijbfgl .gt_stub_row_group {
+#ywngnuwvst .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2713,15 +2647,15 @@ across multiple countries is currently not available.</p>
   vertical-align: top;
 }
 
-#aglvijbfgl .gt_row_group_first td {
+#ywngnuwvst .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#aglvijbfgl .gt_row_group_first th {
+#ywngnuwvst .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#aglvijbfgl .gt_summary_row {
+#ywngnuwvst .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2731,16 +2665,16 @@ across multiple countries is currently not available.</p>
   padding-right: 5px;
 }
 
-#aglvijbfgl .gt_first_summary_row {
+#ywngnuwvst .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_first_summary_row.thick {
+#ywngnuwvst .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#aglvijbfgl .gt_last_summary_row {
+#ywngnuwvst .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2750,7 +2684,7 @@ across multiple countries is currently not available.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_grand_summary_row {
+#ywngnuwvst .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2760,7 +2694,7 @@ across multiple countries is currently not available.</p>
   padding-right: 5px;
 }
 
-#aglvijbfgl .gt_first_grand_summary_row {
+#ywngnuwvst .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2770,7 +2704,7 @@ across multiple countries is currently not available.</p>
   border-top-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_last_grand_summary_row_top {
+#ywngnuwvst .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2780,11 +2714,11 @@ across multiple countries is currently not available.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_striped {
+#ywngnuwvst .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#aglvijbfgl .gt_table_body {
+#ywngnuwvst .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2793,7 +2727,7 @@ across multiple countries is currently not available.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_footnotes {
+#ywngnuwvst .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2807,7 +2741,7 @@ across multiple countries is currently not available.</p>
   border-right-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_footnote {
+#ywngnuwvst .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2816,7 +2750,7 @@ across multiple countries is currently not available.</p>
   padding-right: 5px;
 }
 
-#aglvijbfgl .gt_sourcenotes {
+#ywngnuwvst .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2830,7 +2764,7 @@ across multiple countries is currently not available.</p>
   border-right-color: #D3D3D3;
 }
 
-#aglvijbfgl .gt_sourcenote {
+#ywngnuwvst .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2838,163 +2772,150 @@ across multiple countries is currently not available.</p>
   padding-right: 5px;
 }
 
-#aglvijbfgl .gt_left {
+#ywngnuwvst .gt_left {
   text-align: left;
 }
 
-#aglvijbfgl .gt_center {
+#ywngnuwvst .gt_center {
   text-align: center;
 }
 
-#aglvijbfgl .gt_right {
+#ywngnuwvst .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aglvijbfgl .gt_font_normal {
+#ywngnuwvst .gt_font_normal {
   font-weight: normal;
 }
 
-#aglvijbfgl .gt_font_bold {
+#ywngnuwvst .gt_font_bold {
   font-weight: bold;
 }
 
-#aglvijbfgl .gt_font_italic {
+#ywngnuwvst .gt_font_italic {
   font-style: italic;
 }
 
-#aglvijbfgl .gt_super {
+#ywngnuwvst .gt_super {
   font-size: 65%;
 }
 
-#aglvijbfgl .gt_footnote_marks {
+#ywngnuwvst .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#aglvijbfgl .gt_asterisk {
+#ywngnuwvst .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#aglvijbfgl .gt_indent_1 {
+#ywngnuwvst .gt_indent_1 {
   text-indent: 5px;
 }
 
-#aglvijbfgl .gt_indent_2 {
+#ywngnuwvst .gt_indent_2 {
   text-indent: 10px;
 }
 
-#aglvijbfgl .gt_indent_3 {
+#ywngnuwvst .gt_indent_3 {
   text-indent: 15px;
 }
 
-#aglvijbfgl .gt_indent_4 {
+#ywngnuwvst .gt_indent_4 {
   text-indent: 20px;
 }
 
-#aglvijbfgl .gt_indent_5 {
+#ywngnuwvst .gt_indent_5 {
   text-indent: 25px;
 }
 
-#aglvijbfgl .katex-display {
+#ywngnuwvst .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#aglvijbfgl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ywngnuwvst div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_heading">
-<td colspan="4" class="gt_heading gt_title gt_font_normal" style><span class="gt_from_md"><strong>XR-ratio Table</strong></span></td>
-    </tr>
-<tr class="gt_heading">
-<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style><span class="gt_from_md">Example for two items, <strong>DE, UK, CZ</strong></span></td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Region">Region</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Average-price-of-product">Average price of product</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="XR-USD">XR USD</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="XR-ratio">XR-ratio</th>
-    </tr>
+<tr class="gt_heading header">
+<td colspan="4" class="gt_heading gt_title gt_font_normal"><strong>XR-ratio Table</strong></td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Example for two items, <strong>DE, UK, CZ</strong>
+</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Region" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Region</th>
+<th id="Average-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Average price of product</th>
+<th id="XR-USD" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">XR USD</th>
+<th id="XR-ratio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">XR-ratio</th>
+</tr>
 </thead>
 <tbody class="gt_table_body">
-<tr class="gt_group_heading_row">
-<th colspan="4" class="gt_group_heading" scope="colgroup" id="2018 - 210111">2018 - 210111</th>
-    </tr>
-<tr class="gt_row_group_first">
-<td headers="2018 - 210111  Region" class="gt_row gt_left">UK - East Anglia</td>
-<td headers="2018 - 210111  Average price of product" class="gt_row gt_right">1.2</td>
-<td headers="2018 - 210111  XR USD" class="gt_row gt_right">1.2</td>
-<td headers="2018 - 210111  XR-ratio" class="gt_row gt_right">107.4</td>
+<tr class="gt_group_heading_row odd">
+<th colspan="4" id="2018 - 210111" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">2018 - 210111</th>
 </tr>
-<tr>
-<td headers="2018 - 210111  Region" class="gt_row gt_left">UK - East Midlands</td>
-<td headers="2018 - 210111  Average price of product" class="gt_row gt_right">1.1</td>
-<td headers="2018 - 210111  XR USD" class="gt_row gt_right">1.2</td>
-<td headers="2018 - 210111  XR-ratio" class="gt_row gt_right">94.3</td>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="2018 - 210111  Region">UK - East Anglia</td>
+<td class="gt_row gt_right" headers="2018 - 210111  Average price of product">1.2</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR USD">1.2</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR-ratio">107.4</td>
 </tr>
-<tr>
-<td headers="2018 - 210111  Region" class="gt_row gt_left">CZ01</td>
-<td headers="2018 - 210111  Average price of product" class="gt_row gt_right">4.2</td>
-<td headers="2018 - 210111  XR USD" class="gt_row gt_right">0.4</td>
-<td headers="2018 - 210111  XR-ratio" class="gt_row gt_right">120.8</td>
+<tr class="odd">
+<td class="gt_row gt_left" headers="2018 - 210111  Region">UK - East Midlands</td>
+<td class="gt_row gt_right" headers="2018 - 210111  Average price of product">1.1</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR USD">1.2</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR-ratio">94.3</td>
 </tr>
-<tr>
-<td headers="2018 - 210111  Region" class="gt_row gt_left">CZ02</td>
-<td headers="2018 - 210111  Average price of product" class="gt_row gt_right">3.9</td>
-<td headers="2018 - 210111  XR USD" class="gt_row gt_right">0.4</td>
-<td headers="2018 - 210111  XR-ratio" class="gt_row gt_right">111.1</td>
+<tr class="even">
+<td class="gt_row gt_left" headers="2018 - 210111  Region">CZ01</td>
+<td class="gt_row gt_right" headers="2018 - 210111  Average price of product">4.2</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR USD">0.4</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR-ratio">120.8</td>
 </tr>
-<tr>
-<td headers="2018 - 210111  Region" class="gt_row gt_left">DE01</td>
-<td headers="2018 - 210111  Average price of product" class="gt_row gt_right">1.4</td>
-<td headers="2018 - 210111  XR USD" class="gt_row gt_right">0.9</td>
-<td headers="2018 - 210111  XR-ratio" class="gt_row gt_right">92.8</td>
+<tr class="odd">
+<td class="gt_row gt_left" headers="2018 - 210111  Region">CZ02</td>
+<td class="gt_row gt_right" headers="2018 - 210111  Average price of product">3.9</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR USD">0.4</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR-ratio">111.1</td>
 </tr>
-<tr>
-<td headers="2018 - 210111  Region" class="gt_row gt_left">DE02</td>
-<td headers="2018 - 210111  Average price of product" class="gt_row gt_right">1.2</td>
-<td headers="2018 - 210111  XR USD" class="gt_row gt_right">0.9</td>
-<td headers="2018 - 210111  XR-ratio" class="gt_row gt_right">79.3</td>
+<tr class="even">
+<td class="gt_row gt_left" headers="2018 - 210111  Region">DE01</td>
+<td class="gt_row gt_right" headers="2018 - 210111  Average price of product">1.4</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR USD">0.9</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR-ratio">92.8</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="2018 - 210111  Region">DE02</td>
+<td class="gt_row gt_right" headers="2018 - 210111  Average price of product">1.2</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR USD">0.9</td>
+<td class="gt_row gt_right" headers="2018 - 210111  XR-ratio">79.3</td>
 </tr>
 </tbody>
 </table>
 </div>
-<hr>
 </div>
-<div class="section level3">
-<h3 id="the-ppp-ratio">The PPP-ratio<a class="anchor" aria-label="anchor" href="#the-ppp-ratio"></a>
+</div>
+<hr></section><section class="level2" data-number="2.2"><h3 data-number="2.2" id="the-ppp-ratio">
+<span class="header-section-number">2.2</span> The PPP-ratio<a class="anchor" aria-label="anchor" href="#the-ppp-ratio"></a>
 </h3>
-<p>The next stage of data validation employs purchasing power parities
-(PPPs) to convert national product prices into a common currency,
-enabling comparison through PPP-ratios.</p>
-<p>This procedure is implemented using the <code><a href="../reference/valid_PPPratio.html">valid_PPPratio()</a></code>
-function, which calculates the PPP-ratio; see Table 9.3b in <span class="citation">(World Bank 2013, 258)</span>. The coefficient of
-variation is used to assess variability across products and countries;
-coefficients exceeding 33% are considered extreme and may indicate the
-need for further verification of the underlying data.</p>
-<p>Within each block, PPP-ratios—computed as the PPP-converted price
-divided by the geometric mean of the product price—reflect the degree of
-variability both across country-regions and across products.</p>
-<p>The country variation coefficient (row measure) represents the
-standard deviation of product PPPs within country-regions, thereby
-identifying countries exhibiting the greatest price variability.
-Conversely, the product variation coefficient (column measure)
-represents the standard deviation of PPP-ratios across country-regions,
-highlighting products with the most significant cross-country
-variation.</p>
+<p>The next stage of data validation employs purchasing power parities (PPPs) to convert national product prices into a common currency, enabling comparison through PPP-ratios.</p>
+<p>This procedure is implemented using the <code><a href="../reference/valid_PPPratio.html">valid_PPPratio()</a></code> function, which calculates the PPP-ratio; see Table 9.3b in <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 258</a>)</span>. The coefficient of variation is used to assess variability across products and countries; coefficients exceeding 33% are considered extreme and may indicate the need for further verification of the underlying data.</p>
+<p>Within each block, PPP-ratios—computed as the PPP-converted price divided by the geometric mean of the product price—reflect the degree of variability both across country-regions and across products.</p>
+<p>The country variation coefficient (row measure) represents the standard deviation of product PPPs within country-regions, thereby identifying countries exhibiting the greatest price variability. Conversely, the product variation coefficient (column measure) represents the standard deviation of PPP-ratios across country-regions, highlighting products with the most significant cross-country variation.</p>
 <hr>
 <p><strong>Example using CPI microdata</strong></p>
 <blockquote>
-<p>🚧 Mock-up code only as comprehensive list of average product prices
-across multiple countries is currently not available.</p>
+<p>🚧 Mock-up code only as comprehensive list of average product prices across multiple countries is currently not available.</p>
 </blockquote>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Random data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span><span class="va">df_xr2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
@@ -3009,10 +2930,10 @@ across multiple countries is currently not available.</p>
 <span><span class="co"># Calculations</span></span>
 <span><span class="va">df_out</span> <span class="op">&lt;-</span> <span class="va">df_xr2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/valid_PPPratio.html">valid_PPPratio</a></span><span class="op">(</span></span>
-<span>    Year <span class="op">=</span> <span class="st">"Year"</span>,</span>
-<span>    `Product code` <span class="op">=</span> <span class="st">"Product code"</span>,</span>
-<span>    Region <span class="op">=</span> <span class="st">"Region"</span>,</span>
-<span>    `Average price of product` <span class="op">=</span> <span class="st">"Average price of product"</span></span>
+<span>    year <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>    product_code <span class="op">=</span> <span class="st">"Product code"</span>,</span>
+<span>    region <span class="op">=</span> <span class="st">"Region"</span>,</span>
+<span>    average_price <span class="op">=</span> <span class="st">"Average price of product"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Final table</span></span>
@@ -3031,6 +2952,7 @@ across multiple countries is currently not available.</p>
 <span>    rows <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    missing_text <span class="op">=</span> <span class="st">""</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
 <div id="ncjrvketnv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ncjrvketnv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3480,98 +3402,90 @@ across multiple countries is currently not available.</p>
   height: 0px !important;
 }
 </style>
-<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
 <thead>
-<tr class="gt_heading">
-<td colspan="9" class="gt_heading gt_title gt_font_normal" style><span class="gt_from_md"><strong>PPP-ratio Table</strong></span></td>
-    </tr>
-<tr class="gt_heading">
-<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style><span class="gt_from_md">Example for two items, <strong>DE, UK, CZ</strong></span></td>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Year">Year</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Product-code">Product code</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="UK---East-Anglia">UK - East Anglia</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="UK---East-Midlands">UK - East Midlands</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="CZ01">CZ01</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="CZ02">CZ02</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="DE01">DE01</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="DE02">DE02</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Product-variation-coefficients">Product variation coefficients</th>
-    </tr>
+<tr class="gt_heading header">
+<td colspan="9" class="gt_heading gt_title gt_font_normal"><strong>PPP-ratio Table</strong></td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Example for two items, <strong>DE, UK, CZ</strong>
+</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Year</th>
+<th id="Product-code" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Product code</th>
+<th id="UK---East-Anglia" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">UK - East Anglia</th>
+<th id="UK---East-Midlands" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">UK - East Midlands</th>
+<th id="CZ01" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">CZ01</th>
+<th id="CZ02" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">CZ02</th>
+<th id="DE01" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">DE01</th>
+<th id="DE02" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">DE02</th>
+<th id="Product-variation-coefficients" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Product variation coefficients</th>
+</tr>
 </thead>
 <tbody class="gt_table_body">
-<tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Product code" class="gt_row gt_left">210111</td>
-<td headers="UK - East Anglia" class="gt_row gt_right">95.9</td>
-<td headers="UK - East Midlands" class="gt_row gt_right">84.1</td>
-<td headers="CZ01" class="gt_row gt_right">119.5</td>
-<td headers="CZ02" class="gt_row gt_right">119.6</td>
-<td headers="DE01" class="gt_row gt_right">92.2</td>
-<td headers="DE02" class="gt_row gt_right">94.2</td>
-<td headers="Product variation coefficients" class="gt_row gt_right">15.0</td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">2018</td>
+<td class="gt_row gt_left" headers="Product code">210111</td>
+<td class="gt_row gt_right" headers="UK - East Anglia">95.9</td>
+<td class="gt_row gt_right" headers="UK - East Midlands">84.1</td>
+<td class="gt_row gt_right" headers="CZ01">119.5</td>
+<td class="gt_row gt_right" headers="CZ02">119.6</td>
+<td class="gt_row gt_right" headers="DE01">92.2</td>
+<td class="gt_row gt_right" headers="DE02">94.2</td>
+<td class="gt_row gt_right" headers="Product variation coefficients">15.0</td>
 </tr>
-<tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Product code" class="gt_row gt_left">210121</td>
-<td headers="UK - East Anglia" class="gt_row gt_right">104.3</td>
-<td headers="UK - East Midlands" class="gt_row gt_right">119.0</td>
-<td headers="CZ01" class="gt_row gt_right">83.7</td>
-<td headers="CZ02" class="gt_row gt_right">83.6</td>
-<td headers="DE01" class="gt_row gt_right">108.5</td>
-<td headers="DE02" class="gt_row gt_right">106.1</td>
-<td headers="Product variation coefficients" class="gt_row gt_right">14.3</td>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">2018</td>
+<td class="gt_row gt_left" headers="Product code">210121</td>
+<td class="gt_row gt_right" headers="UK - East Anglia">104.3</td>
+<td class="gt_row gt_right" headers="UK - East Midlands">119.0</td>
+<td class="gt_row gt_right" headers="CZ01">83.7</td>
+<td class="gt_row gt_right" headers="CZ02">83.6</td>
+<td class="gt_row gt_right" headers="DE01">108.5</td>
+<td class="gt_row gt_right" headers="DE02">106.1</td>
+<td class="gt_row gt_right" headers="Product variation coefficients">14.3</td>
 </tr>
-<tr>
-<td headers="Year" class="gt_row gt_right">2018</td>
-<td headers="Product code" class="gt_row gt_left">Region variation coefficients</td>
-<td headers="UK - East Anglia" class="gt_row gt_right">6.0</td>
-<td headers="UK - East Midlands" class="gt_row gt_right">24.7</td>
-<td headers="CZ01" class="gt_row gt_right">25.3</td>
-<td headers="CZ02" class="gt_row gt_right">25.4</td>
-<td headers="DE01" class="gt_row gt_right">11.5</td>
-<td headers="DE02" class="gt_row gt_right">8.4</td>
-<td headers="Product variation coefficients" class="gt_row gt_right"><br></td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">2018</td>
+<td class="gt_row gt_left" headers="Product code">Region variation coefficients</td>
+<td class="gt_row gt_right" headers="UK - East Anglia">6.0</td>
+<td class="gt_row gt_right" headers="UK - East Midlands">24.7</td>
+<td class="gt_row gt_right" headers="CZ01">25.3</td>
+<td class="gt_row gt_right" headers="CZ02">25.4</td>
+<td class="gt_row gt_right" headers="DE01">11.5</td>
+<td class="gt_row gt_right" headers="DE02">8.4</td>
+<td class="gt_row gt_right" headers="Product variation coefficients"><br></td>
 </tr>
 </tbody>
 </table>
 </div>
-<hr>
 </div>
 </div>
-<div class="section level2">
-<h2 id="sec-alternative">Validation of alternative data sources<a class="anchor" aria-label="anchor" href="#sec-alternative"></a>
+<hr></section></section><section class="section level2" data-number="3"><h2 data-number="3" id="sec-alternative">
+<span class="header-section-number">3</span> Validation of alternative data sources<a class="anchor" aria-label="anchor" href="#sec-alternative"></a>
 </h2>
-<p>When official data required for the calculation of SPPPs are
-unavailable, alternative data sources are employed. Examples include
-historical price quotations obtained from private insurers’ websites and
-other relevant non-official datasets.</p>
-<p>The use of alternative data sources depends on the type and
-availability of data and may vary across cases and countries. Validation
-of such sources follows two main steps:</p>
+<p>When official data required for the calculation of SPPPs are unavailable, alternative data sources are employed. Examples include historical price quotations obtained from private insurers’ websites and other relevant non-official datasets.</p>
+<p>The use of alternative data sources depends on the type and availability of data and may vary across cases and countries. Validation of such sources follows two main steps:</p>
 <ul>
 <li><strong>Plausibility validation</strong></li>
 <li><strong>Statistical validation</strong></li>
 </ul>
-<p><strong>Plausibility validation</strong> assesses the credibility of
-the identified data source and the reasonableness of the information it
-contains. This process involves cross-referencing data with additional
-alternative or official sources. Once the the numerically most credible
-source is identified, its plausibility is further verified through
-expert consultation with project counterparts, researchers, and—most
-importantly—the national statistical offices (NSOs) of the respective
-countries. Only data sources deemed credible by experts proceed to the
-next stage of processing.</p>
-<p><strong>Statistical validation</strong> encompasses the analytical
-checks described in this vignette. However, depending on the nature,
-structure, and completeness of the alternative data source, the extent
-of statistical validation may be limited—or, in exceptional cases, not
-feasible. In such instances, greater emphasis is placed on expert-led
-plausibility validation to ensure the integrity of the data used.</p>
-</div>
-<div class="section level2">
-<h2 id="sec-tobh">Validation at basic-heading level<a class="anchor" aria-label="anchor" href="#sec-tobh"></a>
+<p><strong>Plausibility validation</strong> assesses the credibility of the identified data source and the reasonableness of the information it contains. This process involves cross-referencing data with additional alternative or official sources. Once the the numerically most credible source is identified, its plausibility is further verified through expert consultation with project counterparts, researchers, and—most importantly—the national statistical offices (NSOs) of the respective countries. Only data sources deemed credible by experts proceed to the next stage of processing.</p>
+<p><strong>Statistical validation</strong> encompasses the analytical checks described in this vignette. However, depending on the nature, structure, and completeness of the alternative data source, the extent of statistical validation may be limited—or, in exceptional cases, not feasible. In such instances, greater emphasis is placed on expert-led plausibility validation to ensure the integrity of the data used.</p>
+</section><section class="section level2" data-number="4"><h2 data-number="4" id="sec-tobh">
+<span class="header-section-number">4</span> Validation at basic-heading level<a class="anchor" aria-label="anchor" href="#sec-tobh"></a>
 </h2>
 <blockquote>
 <p>🚧 Work in progress.</p>
@@ -3596,9 +3510,8 @@ plausibility validation to ensure the integrity of the data used.</p>
 <!-- - Examines the basic heading PPPs within countries and by country, within each basic heading, to point at countries/headings which may require further review [@worldbank2013, p.279]. -->
 <!-- - Validation in this section is based on basic heading PPP estimates -->
 <!-- - Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading. -->
-</div>
-<div class="section level2">
-<h2 id="sec-exweights">Expenditure weights validation<a class="anchor" aria-label="anchor" href="#sec-exweights"></a>
+</section><section class="section level2" data-number="5"><h2 data-number="5" id="sec-exweights">
+<span class="header-section-number">5</span> Expenditure weights validation<a class="anchor" aria-label="anchor" href="#sec-exweights"></a>
 </h2>
 <blockquote>
 <p>🚧 Work in progress.</p>
@@ -3610,9 +3523,8 @@ plausibility validation to ensure the integrity of the data used.</p>
 <!-- The review process includes the following checks: -->
 <!-- - Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference. -->
 <!-- - Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies. -->
-</div>
-<div class="section level2">
-<h2 id="sec-beyondbh">Validation beyond basic-heading level<a class="anchor" aria-label="anchor" href="#sec-beyondbh"></a>
+</section><section class="section level2" data-number="6"><h2 data-number="6" id="sec-beyondbh">
+<span class="header-section-number">6</span> Validation beyond basic-heading level<a class="anchor" aria-label="anchor" href="#sec-beyondbh"></a>
 </h2>
 <blockquote>
 <p>🚧 Work in progress.</p>
@@ -3633,36 +3545,108 @@ plausibility validation to ensure the integrity of the data used.</p>
 <!-- $$ -->
 <!-- > 🚧 Code to be completed.  -->
 <!-- # Multilateral PPPs -->
-</div>
-<div class="section level2">
-<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-europeanunionEurostatOECDMethodologicalManual2024" class="csl-entry">
-European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological
-Manual</span> on <span>Purchasing Power Parities</span> (2023
-Edition)</em>. OECD Publishing, Paris. <a href="https://doi.org/10.2785/384854" class="external-link">https://doi.org/10.2785/384854</a>.
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-europeanunionEurostatOECDMethodologicalManual2024" class="csl-entry" role="listitem">
+European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological Manual</span> on <span>Purchasing Power Parities</span> (2023 Edition)</em>. OECD Publishing, Paris. <a href="https://doi.org/10.2785/384854" class="external-link">https://doi.org/10.2785/384854</a>.
 </div>
-<div id="ref-hearne2025" class="csl-entry">
-Hearne, David, and David Bailey. 2025. <span>“Regional Prices
-Reconsidered.”</span> <em>Regional Studies, Regional Science</em> 12
-(1): 338–56. <a href="https://doi.org/10.1080/21681376.2025.2475115" class="external-link">https://doi.org/10.1080/21681376.2025.2475115</a>.
+<div id="ref-hearne2025" class="csl-entry" role="listitem">
+Hearne, David, and David Bailey. 2025. <span>“Regional Prices Reconsidered.”</span> <em>Regional Studies, Regional Science</em> 12 (1): 338–56. <a href="https://doi.org/10.1080/21681376.2025.2475115" class="external-link">https://doi.org/10.1080/21681376.2025.2475115</a>.
 </div>
-<div id="ref-icp2021" class="csl-entry">
-ICP. 2021. <span>“A Guide to the Compilation of Subnational Purchasing
-Power Parities (PPPs).”</span> <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.
+<div id="ref-icp2021" class="csl-entry" role="listitem">
+ICP. 2021. <span>“A Guide to the Compilation of Subnational Purchasing Power Parities (PPPs).”</span> <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.
 </div>
-<div id="ref-worldbank2013" class="csl-entry">
-World Bank. 2013. <em>Measuring the Real Size of the World Economy: The
-Framework, Methodology, and Results of the International Comparison
-Program <span></span> ICP</em>. Washington DC: World Bank. <a href="https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf</a>.
+<div id="ref-worldbank2013" class="csl-entry" role="listitem">
+World Bank. 2013. <em>Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program <span></span> ICP</em>. Washington DC: World Bank. <a href="https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf</a>.
 </div>
 </div>
-</div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
     <footer><div class="pkgdown-footer-left">

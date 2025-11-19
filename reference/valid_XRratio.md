@@ -12,8 +12,7 @@ variable (high XR-ratio) across countries; see World Bank (2013), ICP
 valid_XRratio(
   data,
   average_price = "Average price of product",
-  exchange_rate = "XR USD",
-  ...
+  exchange_rate = "XR USD"
 )
 ```
 

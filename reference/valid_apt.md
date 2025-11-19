@@ -27,7 +27,7 @@ calculating: the
 ## Usage
 
 ``` r
-valid_apt(data, price_quote = "Reference quantity price", ...)
+valid_apt(data, price_quote = "Reference quantity price")
 ```
 
 ## Arguments

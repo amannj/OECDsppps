@@ -10,11 +10,10 @@ Union/OECD et al. (2024) .
 ``` r
 valid_PPPratio(
   data,
-  Year = "Year",
-  `Product code` = "Product code",
-  Region = "Region",
-  `Average price of product` = "Average price of product",
-  ...
+  year = "Year",
+  product_code = "Product code",
+  region = "Region",
+  average_price = "Average price of product"
 )
 ```
 
@@ -25,23 +24,23 @@ valid_PPPratio(
   A data frame or tibble containing at least a column with the average
   country-region prices and a region and product identifier.
 
+- year:
+
   Year
 
-  :   Year
+- product_code:
 
-  `Product code`
+  Product code identifier
 
-  :   Product code identifier
+- region:
 
-  Region
+  Identifier for regions (within or across countries)
 
-  :   Identifier for regions (within or across countries)
+- average_price:
 
-  `Average price of product`
-
-  :   Average country-region prices of the individual item-level price
-      quotes. Correspond to the "Average price of product" obtained in
-      [`valid_apt()`](valid_apt.md)
+  Average country-region prices of the individual item-level price
+  quotes. Correspond to the "Average price of product" obtained in
+  [`valid_apt()`](valid_apt.md)
 
 ## Details
 

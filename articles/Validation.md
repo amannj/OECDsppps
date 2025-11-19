@@ -13,10 +13,11 @@ library(OECDsppps)
 **Data validation** is carried out to confirm the validity of price
 statistics at various levels of aggregation, from the initial item-level
 price quotes to the basic heading level and upwards, as well as
-comparing household expenditure weights across regions.
-
-The process aligns with current recommendations; see ICP (2021), World
-Bank (2013) and European Union/OECD (2024) for more information.
+comparing household expenditure weights across regions. The process
+aligns with current recommendations; see ICP ([2021](#ref-icp2021)),
+World Bank ([2013](#ref-worldbank2013)) and European Union/OECD
+([2024](#ref-europeanunionEurostatOECDMethodologicalManual2024)) for
+more information.
 
 **The validation steps** are:
 
@@ -38,7 +39,8 @@ Bank (2013) and European Union/OECD (2024) for more information.
 
 **Data** used in this vignette is taken from official UK microdata from
 the United Kingdom Office for National Statistics (ONS). Similar data
-was recently used in Hearne and Bailey (2025) and is publicly available:
+was recently used in Hearne and Bailey ([2025](#ref-hearne2025)) and is
+publicly available:
 
 - [`uk_cpi()`](../reference/uk_cpi.md) is a snipped of the [UK CPI
   microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes)
@@ -58,7 +60,7 @@ head(uk_cpi, n = 3) |>
 | 201801                                                   | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
 | 201801                                                   | 750                | 1                          | North West | 1               | Multiple     | 750               | 1                         | 1.45           | 1.45                     |
 
-## Intra-regional validation
+## 1 Intra-regional validation
 
 Intra-region validation establishes that price collectors within the
 *same region* and *across regions of the same country* have priced
@@ -67,21 +69,21 @@ have reported are correct. This is done in two stages, which correspond
 to the outlier detection of (a) individual prices and (b) average price
 aggregates.
 
-### Individual price outlier statistics
+### 1.1 Individual price outlier statistics
 
 For each product, a *Price Observation Table* is obtained, containing a
 characterisation of the individual product as well as two *individual
 price outlier statistics*, the *ratio-to-average price test* and the
-*t-value test*; see World Bank (2013), table 9.1a for an extensive
-example.
+*t-value test*; see World Bank ([2013](#ref-worldbank2013)), table 9.1a
+for an extensive example.
 
 **Ratio-to-average price test:** The ratio of an individual price
 observation \\i\\, \\P\_{i}\\, of a specific product \\j\\ and the
 observed average price for the product, \\\mu_j\\. An observed price
 passes the this test if the ratio is between 0.5 and 1.5. This simple
 check flags potential outlier values values without relying on standard
-deviation, which can itself be distorted by outliers (World Bank 2013,
-251).
+deviation, which can itself be distorted by outliers ([World Bank 2013,
+251](#ref-worldbank2013)).
 
 \\ ratio-to-average = p\_{ij}/\mu_j \\
 
@@ -165,16 +167,17 @@ uk_pot |>
 
 ------------------------------------------------------------------------
 
-### Aggregate price statistics
+### 1.2 Aggregate price statistics
 
 This stage involves identifying extreme values among the average prices
 of the products listed in the *Average Price Table*. An extreme value is
 defined as an individual price or average price that for a given test
 scores a value that falls outside a predetermined critical value and is
 build on two *average price outlier statistics*, which are summarised in
-the Average Price table; see World Bank (2013), table 9.2a and 9.2b for
-an extensive example. The two statistics contained in this table are the
-*max-min ratio test* and the *coefficient to variation* test.
+the Average Price table; see World Bank ([2013](#ref-worldbank2013)),
+table 9.2a and 9.2b for an extensive example. The two statistics
+contained in this table are the *max-min ratio test* and the
+*coefficient to variation* test.
 
 **Max-min ratio test:** The ratio between the maximal and minimal
 observed price for product \\j\\. Products where the maximal observed
@@ -227,7 +230,7 @@ head(uk_apt, 2) |>
 | 210111                                                     | 322.00                 | 1.13                     | 1.53                     | 0.55                     | 0.26               | 2.78          | 0.23                     | TRUE               | TRUE                          |
 | 410518                                                     | 264.00                 | 23.11                    | 48.00                    | 15.00                    | 8.43               | 3.20          | 0.36                     | TRUE               | TRUE                          |
 
-### Linking validation pipelines for intra-regional validation
+### 1.3 Linking validation pipelines for intra-regional validation
 
 The extent of validation required depends on the quality of the
 underlying microdata. When working with unconsolidated or raw data, more
@@ -286,7 +289,7 @@ head(uk_irv, 4) |>
 
 ------------------------------------------------------------------------
 
-## Inter-regional validation
+## 2 Inter-regional validation
 
 Inter-regional validation involves verifying prices across all regions
 and countries to ensure that average prices are derived from comparable
@@ -309,7 +312,7 @@ where \\\mu^\*\_{1A}\\ represents the **average converted price** of
 product \\1\\ in country–region \\A\\, and \\N\\ is the total number of
 country–regions. Two conversions are applied to make country–region
 prices comparable across countries: exchange rates and purchasing power
-parities (PPPs) (World Bank 2013, 258):
+parities (PPPs) ([World Bank 2013, 258](#ref-worldbank2013)):
 
 1.  SPRs derived from exchange rate–converted prices are referred to as
     **XR-ratios**.
@@ -322,12 +325,12 @@ during the initial stage of cross-country validation. XR- and PPP-ratios
 that fall outside the 80–125 range are flagged as extreme values
 requiring verification.
 
-### The XR-ratio
+### 2.1 The XR-ratio
 
 The function [`valid_XRratio()`](../reference/valid_XRratio.md) computes
 the XR-ratio table, where a country–region’s XR price for a given
 product is divided by the geometric mean of that product’s price; see
-Table 9.3a in (World Bank 2013, 257).
+Table 9.3a in ([World Bank 2013, 257](#ref-worldbank2013)).
 
 In the resulting table, the degree of variability can be examined to
 identify products and country–region combinations with the highest XR
@@ -376,7 +379,7 @@ df_xrr <- df_xr |>
   group_by(Year, `Product code`) |>
   valid_XRratio(
     average_price = "Average price of product",
-    xr_usd = "XR USD"
+    exchange_rate = "XR USD"
   )
 
 df_xrr |>
@@ -405,7 +408,7 @@ df_xrr |>
 
 ------------------------------------------------------------------------
 
-### The PPP-ratio
+### 2.2 The PPP-ratio
 
 The next stage of data validation employs purchasing power parities
 (PPPs) to convert national product prices into a common currency,
@@ -413,10 +416,11 @@ enabling comparison through PPP-ratios.
 
 This procedure is implemented using the
 [`valid_PPPratio()`](../reference/valid_PPPratio.md) function, which
-calculates the PPP-ratio; see Table 9.3b in (World Bank 2013, 258). The
-coefficient of variation is used to assess variability across products
-and countries; coefficients exceeding 33% are considered extreme and may
-indicate the need for further verification of the underlying data.
+calculates the PPP-ratio; see Table 9.3b in ([World Bank 2013,
+258](#ref-worldbank2013)). The coefficient of variation is used to
+assess variability across products and countries; coefficients exceeding
+33% are considered extreme and may indicate the need for further
+verification of the underlying data.
 
 Within each block, PPP-ratios—computed as the PPP-converted price
 divided by the geometric mean of the product price—reflect the degree of
@@ -451,10 +455,10 @@ df_xr2 <- rbind(
 # Calculations
 df_out <- df_xr2 |>
   valid_PPPratio(
-    Year = "Year",
-    `Product code` = "Product code",
-    Region = "Region",
-    `Average price of product` = "Average price of product"
+    year = "Year",
+    product_code = "Product code",
+    region = "Region",
+    average_price = "Average price of product"
   )
 
 # Final table
@@ -479,7 +483,7 @@ df_out |>
 
 ------------------------------------------------------------------------
 
-## Validation of alternative data sources
+## 3 Validation of alternative data sources
 
 When official data required for the calculation of SPPPs are
 unavailable, alternative data sources are employed. Examples include
@@ -510,15 +514,15 @@ validation may be limited—or, in exceptional cases, not feasible. In
 such instances, greater emphasis is placed on expert-led plausibility
 validation to ensure the integrity of the data used.
 
-## Validation at basic-heading level
+## 4 Validation at basic-heading level
 
 > 🚧 Work in progress.
 
-## Expenditure weights validation
+## 5 Expenditure weights validation
 
 > 🚧 Work in progress.
 
-## Validation beyond basic-heading level
+## 6 Validation beyond basic-heading level
 
 > 🚧 Work in progress.
 

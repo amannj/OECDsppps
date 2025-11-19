@@ -2,9 +2,9 @@
 
 ## All functions
 
-- [`` `%!in%` ``](grapes-not-in-grapes.md) :
+- [`` `%not.in%` ``](grapes-not.in-grapes.md) :
 
-  Opposite of `%in%`
+  `%not.in%`: opposite of `%in%`
 
 - [`uk_cpi`](uk_cpi.md) : UK CPI microdata extract
 

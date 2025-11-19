@@ -13,14 +13,14 @@ World Bank (2013) , table 9.1a. for more information.
 ## Usage
 
 ``` r
-valid_pot(data, price_quote = "Reference quantity price", ...)
+valid_pot(data, price_quote = "Reference quantity price")
 ```
 
 ## Arguments
 
 - data:
 
-  A data frame or tibble containing at least one column with individual
+  Data frame or tibble containing at least one column with individual
   item-level price quotes.
 
 - price_quote:
