@@ -35,7 +35,7 @@ library(OECDsppps)
 
 **Data validation** is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions.
 
-The process aligns with current recommendations; see @icp2021 [p. 26], @worldbank2013 [p.249] and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
+The process aligns with current recommendations; see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
 
 **The validation steps** are:
 
@@ -66,13 +66,13 @@ Intra-region validation establishes that price collectors within the *same regio
 
 For each product, a *Price Observation Table* is obtained, containing a characterisation of the individual product as well as two *individual price outlier statistics*, the *ratio-to-average price test* and the *t-value test*; see @worldbank2013, table 9.1a for an extensive example.
 
-**Ratio-to-average price test:** The ratio of an individual price observation $i$, $P_{i}$, of a specific product $j$ and the observed average price for the product, $\mu_j$. An observed price passes the this test if the ratio is between 0.5 and 1.5, meaning it is no less than half or no more than double the mean price. This simple check flags extreme values without relying on standard deviation, which can itself be distorted by outliers [@worldbank2013, p.251].
+**Ratio-to-average price test:** The ratio of an individual price observation $i$, $P_{i}$, of a specific product $j$ and the observed average price for the product, $\mu_j$. An observed price passes the this test if the ratio is between 0.5 and 1.5. This simple check flags potential outlier values values without relying on standard deviation, which can itself be distorted by outliers [@worldbank2013, p.251].
 
 $$
 ratio-to-average = p_{ij}/\mu_j
 $$
 
-**T-value test:** The ratio of the deviation of an individual price observation from the average reference quantity price for the product and the standard deviation of the product. To pass the test, the ratio must be 2.0 or less (any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval).
+**T-value test:** The ratio of the deviation of an individual price observation from the average reference quantity price for the product and the standard deviation of the product. To pass the test, the ratio must be 2.0 or less in absolute terms; any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval.
 
 $$
 t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
@@ -89,7 +89,7 @@ Individual price quotes that do not pass these tests are flagged in the *Price O
 uk_pot <- uk_cpi |>
   select(Year, `Product code`, , `Product description`, `Reference quantity price`) |>
   group_by(Year, `Product code`, `Product description`) |>
-  valid_pot(price_quote = "Reference quantity price") |> 
+  valid_pot(price_quote = "Reference quantity price") |>
   ungroup()
 
 head(uk_pot, n = 3) |>
@@ -103,7 +103,7 @@ head(uk_pot, n = 3) |>
       `Ratio-to-average price test`,
       `T-value test`
     ),
-    decimals = 1
+    decimals = 2
   )
 # Visualisation of price distribution ---------
 uk_pot |>
@@ -114,7 +114,7 @@ uk_pot |>
   pivot_longer(`Ratio-to-average price test`:`T-value test`) |>
   mutate(
     is.outlier = case_when(name == "Ratio-to-average price test" & (value < 0.5 | value > 1.5) ~ "Test not passed",
-      name == "T-value test" & (value > 2) ~ "Test not passed",
+      name == "T-value test" & ((value > 2) | (value < -2)) ~ "Test not passed",
       .default = "Test passed"
     ),
     is.outlier = factor(is.outlier, levels = c("Test passed", "Test not passed"))
@@ -145,10 +145,10 @@ $$
 max-min~ratio = max(p_j)/min(p_j)
 $$
 
-**Coefficient to variation test:** The standard deviation for the product expressed as a percentage of the average price for the product. Products with a coefficient of variation greater than 20% will be flagged.
+**Coefficient-of-variation test:** The standard deviation for the product expressed as a percentage of the average price for the product. Products with a coefficient of variation greater than 20% will be flagged.
 
 $$
-coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}
+coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 $$
 
 Aggregate price quotes that do not pass these tests are flagged in the *Average Price Table*. The price observation table is generated with the function `valid_apt()`.
@@ -160,8 +160,10 @@ Aggregate price quotes that do not pass these tests are flagged in the *Average 
 ```{r}
 # Average Price Table -------
 uk_apt <- uk_cpi |>
-  select(Year, Region, 
-         `Product code`, `Reference quantity price`) |>
+  select(
+    Year, Region,
+    `Product code`, `Reference quantity price`
+  ) |>
   group_by(Year, Region, `Product code`) |>
   valid_apt(price_quote = "Reference quantity price")
 
@@ -173,7 +175,7 @@ head(uk_apt, 2) |>
   ) |>
   fmt_number(
     columns = -c(Year, `Product code`),
-    decimals = 1
+    decimals = 2
   )
 ```
 
@@ -181,9 +183,9 @@ head(uk_apt, 2) |>
 
 The extent of validation required depends on the quality of the underlying microdata. When working with unconsolidated or raw data, more extensive revisions may be necessary.
 
-For instance, this may involve validating and verifying the reference quantity and price. In the case of the selected product, a bimodal distribution was observed after outliers were removed.
+Using the two functions `valid_pot()`, and `valid_apt()` a simple production pipeline can be set up which operates conditional on the flags of the different tests.
 
-Once these outliers are eliminated, the selected item passes all intra-regional validation checks.
+
 
 ------------------------------------------------------------------------
 
@@ -192,9 +194,11 @@ Once these outliers are eliminated, the selected item passes all intra-regional 
 ```{r}
 # Example for linked production pipeline  -------
 uk_irv <- uk_cpi |>
-  select(Year, Region, 
-         `Product code`, , `Product description`, 
-         `Reference quantity price`) |>
+  select(
+    Year, Region,
+    `Product code`, , `Product description`,
+    `Reference quantity price`
+  ) |>
   group_by(Year, Region, `Product code`, `Product description`) |>
   # Apply individual price outlier check
   valid_pot() |>

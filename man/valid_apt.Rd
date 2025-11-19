@@ -42,7 +42,7 @@ for product \mjseqn{j}, \mjseqn{p_j}. Products where the maximal observed price 
 as big as the minimum are flagged in \verb{Max-min ratio FLAG}:
 \mjdeqn{max-min~ratio = max(p_j)/min(p_j)}{max-min~ratio = max(p_j)/min(p_j)}
 
-\strong{Coefficient to variation test:} The standard deviation \mjseqn{\sigma_{p_j}}
+\strong{Coefficient-of-variation test:} The standard deviation \mjseqn{\sigma_{p_j}}
 of product  \mjseqn{j}'s price \mjseqn{p_j}
 expressed as a percentage of the average price for the product,  \mjseqn{\mu_{p_j}}. Products
 with a coefficient of variation greater than 20\% will be flagged in \verb{Coefficient of variation FLAG}:
