@@ -32,7 +32,7 @@
 #' (any value outside that range is suspect because it falls outside the 95 percent confidence interval):
 #' \mjdeqn{t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}}{t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}}
 #'
-#' @param data A data frame or tibble containing at least one column with
+#' @param data Data frame or tibble containing at least one column with
 #' individual item-level price quotes.
 #' @param price_quote Column containing the individual item-level price quotes,
 #' which should be based on the
