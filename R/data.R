@@ -47,10 +47,10 @@
 #'   \item{bh_code}{Basic headings code}
 #'   \item{bh_name}{Basic headings description}
 #'   \item{type }{Type of concordance;
-#'   i.e., 1:1 concordance between ECOICOP1 and basic headings;
-#'   N:1 multiple ECOICOP1 onto 1 basic heading;
-#'   1:N one ECOICOP1 onto multiple basic headings;
-#'   NA not available}
+#'   i.e., 1:1 direct concordance between ECOICOP1 and basic headings;
+#'   N:1 multiple ECOICOP1 onto 1 basic heading: e.g. ECOICOP1 02.1.1.1-Spirits and liqueurs and02.1.1.2-Alcoholic soft drinks to BH A.02.1.1.0-Spirits;
+#'   1:N one ECOICOP1 (06.3-Hospital services) onto multiple basic headings (A.06.3.0.1-General hospitals,A.06.3.0.2-Mental health and substance abuse hospitals,A.06.3.0.3-Speciality hospitals and A.06.3.0.4-Nursing and residential care facilities);
+#'   NA not available: Basic Headings beyond the household consumption}
 #'   }
 #'
 #' @examples
@@ -58,5 +58,5 @@
 #' concordance_ecoicop2bh |> names()
 #' concordance_ecoicop2bh |> dplyr::distinct(type)
 #'
-#' @source to be completed.
+#' @source [Ecoicop](http://data.europa.eu/ed1/ecoicop/) and [PPP item list](https://ec.europa.eu/eurostat/web/purchasing-power-parities/information-data#PPPs%20and%20national%20accounts)
 "concordance_ecoicop2bh"
