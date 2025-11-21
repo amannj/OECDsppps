@@ -29,6 +29,9 @@ See tab **Articles** for detailed package documentation:
 
 ## All functions
 
+- [`concordance_ecoicop2bh`](concordance_ecoicop2bh.md) : Concordance
+  table from ECOICOP1 to Basic Headings
+
 - [`` `%not.in%` ``](grapes-not.in-grapes.md) :
 
   `%not.in%`: opposite of `%in%`

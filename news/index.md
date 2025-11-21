@@ -8,3 +8,4 @@
     validation](#sec-intraregional), [Inter-regional
     validation](#sec-interregional) and [Validation of alternative data
     sources](#sec-alternative).
+  - Conversion table from ECOICOP1 to BH.
