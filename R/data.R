@@ -34,4 +34,29 @@
 "uk_cpi"
 
 
-
+#' Concordance table from ECOICOP1 to Basic Headings
+#'
+#' A concordance table to map ECOICOP1 to basic headings
+#'
+#' @format ## `concordance_ecoicop2bh`
+#' A data frame with 358 rows and 5 columns containing the concordance to map ECOICOP1 to basic headings.
+#'
+#' \describe{
+#'   \item{ecoicop1_code}{ECOICOP1 code}
+#'   \item{ecoicop1_name}{ECOICOP1 description}
+#'   \item{bh_code}{Basic headings code}
+#'   \item{bh_name}{Basic headings description}
+#'   \item{type }{Type of concordance;
+#'   i.e., 1:1 concordance between ECOICOP1 and basic headings;
+#'   N:1 multiple ECOICOP1 onto 1 basic heading;
+#'   1:N one ECOICOP1 onto multiple basic headings;
+#'   NA not available}
+#'   }
+#'
+#' @examples
+#' concordance_ecoicop2bh |> dim()
+#' concordance_ecoicop2bh |> names()
+#' concordance_ecoicop2bh |> dplyr::distinct(type)
+#'
+#' @source to be completed.
+"concordance_ecoicop2bh"
