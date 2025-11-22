@@ -34,29 +34,36 @@
 "uk_cpi"
 
 
-#' Concordance table from ECOICOP1 to Basic Headings
+#' Concordance table from ECOICOP1 to Eurostat PPP Basic Headings
 #'
-#' A concordance table to map ECOICOP1 to basic headings
+#' A concordance table to map European Classification of Individual Consumption according to Purpose, version 1 (ECOICOP1) to Basic Headings (BH) of the Eurostat PPP list of products for consumer goods and services
 #'
 #' @format ## `concordance_ecoicop2bh`
-#' A data frame with 358 rows and 5 columns containing the concordance to map ECOICOP1 to basic headings.
+#' A data frame with 358 rows and 5 columns containing the concordance to map ECOICOP1s onto BHs.
 #'
 #' \describe{
 #'   \item{ecoicop1_code}{ECOICOP1 code}
 #'   \item{ecoicop1_name}{ECOICOP1 description}
 #'   \item{bh_code}{Basic headings code}
 #'   \item{bh_name}{Basic headings description}
-#'   \item{type }{Type of concordance;
-#'   i.e., 1:1 direct concordance between ECOICOP1 and basic headings;
-#'   N:1 multiple ECOICOP1 onto 1 basic heading: e.g. ECOICOP1 02.1.1.1-Spirits and liqueurs and02.1.1.2-Alcoholic soft drinks to BH A.02.1.1.0-Spirits;
-#'   1:N one ECOICOP1 (06.3-Hospital services) onto multiple basic headings (A.06.3.0.1-General hospitals,A.06.3.0.2-Mental health and substance abuse hospitals,A.06.3.0.3-Speciality hospitals and A.06.3.0.4-Nursing and residential care facilities);
-#'   NA not available: Basic Headings beyond the household consumption}
+#'   \item{type}{Type of concordance:}
 #'   }
+#'
+#' - `1:1` direct concordance between ECOICOP1 and BH
+#' - `N:1` multiple ECOICOP1 onto one BH:
+#'   - e.g. ECOICOP1s *02.1.1.1*-Spirits and liqueurs and *02.1.1.2*-Alcoholic
+#' soft drinks onto BH *A.02.1.1.0*-Spirits
+#' - `1:N` one ECOICOP1 onto multiple BHs:
+#'   - e.g. ECOICOP1 *06.3*-Hospital services onto BHs *A.06.3.0.1*-General hospitals
+#' *A.06.3.0.2*-Mental health and substance abuse hospitals;
+#' *A.06.3.0.3*-Speciality hospitals and *A.06.3.0.4*-Nursing and residential care facilities
+#' - `NA` not available: BHs go beyond household consumption
 #'
 #' @examples
 #' concordance_ecoicop2bh |> dim()
 #' concordance_ecoicop2bh |> names()
 #' concordance_ecoicop2bh |> dplyr::distinct(type)
 #'
-#' @source [Ecoicop](http://data.europa.eu/ed1/ecoicop/) and [PPP item list](https://ec.europa.eu/eurostat/web/purchasing-power-parities/information-data#PPPs%20and%20national%20accounts)
+#' @source [European Classification of Individual Consumption according to Purpose, version 1 (ECOICOP1)](https://showvoc.op.europa.eu/#/datasets/ESTAT_European_Classification_of_Individual_Consumption_according_to_Purpose_%28ECOICOP%29/data)
+#' and [Eurostat PPP list of products for consumer goods and services](https://ec.europa.eu/eurostat/web/purchasing-power-parities/methodology)
 "concordance_ecoicop2bh"
