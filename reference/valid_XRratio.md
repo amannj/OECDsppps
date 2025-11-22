@@ -27,7 +27,7 @@ valid_XRratio(
 
   Average country-region prices of the individual item-level price
   quotes. Correspond to the "Average price of product" obtained in
-  [`valid_apt()`](valid_apt.md).
+  [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md).
 
 - exchange_rate:
 

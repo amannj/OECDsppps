@@ -1,6 +1,9 @@
-# Concordance table from ECOICOP1 to Basic Headings
+# Concordance table from ECOICOP1 to Eurostat PPP Basic Headings
 
-A concordance table to map ECOICOP1 to basic headings
+A concordance table to map European Classification of Individual
+Consumption according to Purpose, version 1 (ECOICOP1) to Basic Headings
+(BH) of the Eurostat PPP list of products for consumer goods and
+services
 
 ## Usage
 
@@ -13,7 +16,7 @@ concordance_ecoicop2bh
 ### `concordance_ecoicop2bh`
 
 A data frame with 358 rows and 5 columns containing the concordance to
-map ECOICOP1 to basic headings.
+map ECOICOP1s onto BHs.
 
 - ecoicop1_code:
 
@@ -31,15 +34,35 @@ map ECOICOP1 to basic headings.
 
   Basic headings description
 
-- type :
+- type:
 
-  Type of concordance; i.e., 1:1 concordance between ECOICOP1 and basic
-  headings; N:1 multiple ECOICOP1 onto 1 basic heading; 1:N one ECOICOP1
-  onto multiple basic headings; NA not available
+  Type of concordance:
+
+&nbsp;
+
+- `1:1` direct concordance between ECOICOP1 and BH
+
+- `N:1` multiple ECOICOP1 onto one BH:
+
+  - e.g. ECOICOP1s *02.1.1.1*-Spirits and liqueurs and
+    *02.1.1.2*-Alcoholic soft drinks onto BH *A.02.1.1.0*-Spirits
+
+- `1:N` one ECOICOP1 onto multiple BHs:
+
+  - e.g. ECOICOP1 *06.3*-Hospital services onto BHs *A.06.3.0.1*-General
+    hospitals *A.06.3.0.2*-Mental health and substance abuse hospitals;
+    *A.06.3.0.3*-Speciality hospitals and *A.06.3.0.4*-Nursing and
+    residential care facilities
+
+- `NA` not available: BHs go beyond household consumption
 
 ## Source
 
-to be completed.
+[European Classification of Individual Consumption according to Purpose,
+version 1
+(ECOICOP1)](https://showvoc.op.europa.eu/#/datasets/ESTAT_European_Classification_of_Individual_Consumption_according_to_Purpose_%28ECOICOP%29/data)
+and [Eurostat PPP list of products for consumer goods and
+services](https://ec.europa.eu/eurostat/web/purchasing-power-parities/methodology)
 
 ## Examples
 

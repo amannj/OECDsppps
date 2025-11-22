@@ -42,7 +42,8 @@ the United Kingdom Office for National Statistics (ONS). Similar data
 was recently used in Hearne and Bailey ([2025](#ref-hearne2025)) and is
 publicly available:
 
-- [`uk_cpi()`](../reference/uk_cpi.md) is a snipped of the [UK CPI
+- [`uk_cpi()`](https://amannj.github.io/OECDsppps/reference/uk_cpi.md)
+  is a snipped of the [UK CPI
   microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes)
   containing two products: White sliced loaf branded 750 grams
   (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
@@ -97,7 +98,8 @@ suspect because it falls outside the 95 percent confidence interval.
 
 Individual price quotes that do not pass these tests are flagged in the
 *Price Observation Table*. The price observation table is generated with
-the function [`valid_pot()`](../reference/valid_pot.md).
+the function
+[`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md).
 
 ------------------------------------------------------------------------
 
@@ -194,7 +196,8 @@ flagged.
 
 Aggregate price quotes that do not pass these tests are flagged in the
 *Average Price Table*. The price observation table is generated with the
-function [`valid_apt()`](../reference/valid_apt.md).
+function
+[`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md).
 
 ------------------------------------------------------------------------
 
@@ -236,10 +239,12 @@ The extent of validation required depends on the quality of the
 underlying microdata. When working with unconsolidated or raw data, more
 extensive revisions may be necessary.
 
-Using the two functions [`valid_pot()`](../reference/valid_pot.md), and
-[`valid_apt()`](../reference/valid_apt.md) a simple production pipeline
-can be set up which operates conditional on the flags of the different
-tests.
+Using the two functions
+[`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md),
+and
+[`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md)
+a simple production pipeline can be set up which operates conditional on
+the flags of the different tests.
 
 ------------------------------------------------------------------------
 
@@ -327,10 +332,11 @@ requiring verification.
 
 ### 2.1 The XR-ratio
 
-The function [`valid_XRratio()`](../reference/valid_XRratio.md) computes
-the XR-ratio table, where a country–region’s XR price for a given
-product is divided by the geometric mean of that product’s price; see
-Table 9.3a in ([World Bank 2013, 257](#ref-worldbank2013)).
+The function
+[`valid_XRratio()`](https://amannj.github.io/OECDsppps/reference/valid_XRratio.md)
+computes the XR-ratio table, where a country–region’s XR price for a
+given product is divided by the geometric mean of that product’s price;
+see Table 9.3a in ([World Bank 2013, 257](#ref-worldbank2013)).
 
 In the resulting table, the degree of variability can be examined to
 identify products and country–region combinations with the highest XR
@@ -415,9 +421,9 @@ The next stage of data validation employs purchasing power parities
 enabling comparison through PPP-ratios.
 
 This procedure is implemented using the
-[`valid_PPPratio()`](../reference/valid_PPPratio.md) function, which
-calculates the PPP-ratio; see Table 9.3b in ([World Bank 2013,
-258](#ref-worldbank2013)). The coefficient of variation is used to
+[`valid_PPPratio()`](https://amannj.github.io/OECDsppps/reference/valid_PPPratio.md)
+function, which calculates the PPP-ratio; see Table 9.3b in ([World Bank
+2013, 258](#ref-worldbank2013)). The coefficient of variation is used to
 assess variability across products and countries; coefficients exceeding
 33% are considered extreme and may indicate the need for further
 verification of the underlying data.

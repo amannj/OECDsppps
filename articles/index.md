@@ -2,5 +2,5 @@
 
 ### Articles
 
-- [Validation](Validation.md):
-- [Estimation](Estimation.md):
+- [Validation](https://amannj.github.io/OECDsppps/articles/Validation.md):
+- [Estimation](https://amannj.github.io/OECDsppps/articles/Estimation.md):
