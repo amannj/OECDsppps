@@ -8,16 +8,16 @@ Development version.
 
 Initial testing
 
-## Addition:
+### Addition
 
   - Validation vignette sections: 
   *Intra-regional validation*,
   *Inter-regional validation* and
   *Validation of alternative data sources*
   
-## Improvements:
+### Improvements
 
-  - None.
+  - None
 
 ------------
 
@@ -25,11 +25,11 @@ Initial testing
 
 Estimation
 
-## Addition:
+### Addition
 
 - Estimation vignette sections:
 
-## Improvements:
+### Improvements
 
   - Readability of vignettes
   - Fix function bindings to pass checks
