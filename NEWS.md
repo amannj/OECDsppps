@@ -6,28 +6,25 @@ Development version.
 
 # Version `0.0.0.1`
 
-Initial testing
+Initial validation
 
-### Addition
+### Additions
 
   - Validation vignette sections: 
   *Intra-regional validation*,
   *Inter-regional validation* and
   *Validation of alternative data sources*
   
-### Improvements
-
-  - None
-
 ------------
 
 # Version `0.0.0.2`
 
-Estimation
+Initial estimation and extending validation
 
-### Addition
+### Additions
 
-- Estimation vignette sections:
+- Estimation vignette section: *Estimation of item-level prices to basic heading level*
+- Validation vignette section: *Validation at basic-heading level*
 
 ### Improvements
 
