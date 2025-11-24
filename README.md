@@ -23,5 +23,9 @@ devtools::install_github('amannj/OECDsppps')
 
 See tab **Articles** for detailed package documentation:
 
-- **Validation** - validate price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions
+- **Validation** - validate price statistics at various levels of aggregation, 
+from the initial item-level price quotes to the basic heading level and upwards, 
+as well as comparing household expenditure weights across regions
 
+- **Estimation** - estimating subnational purchasing power parities from item-level prices 
+at basic heading level and beyond 
