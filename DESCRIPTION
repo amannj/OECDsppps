@@ -10,7 +10,13 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Suggests: 
     quarto,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    data.table,
+    pricelevels,
+    ggplot2,
+    gt,
+    tidyr,
+    knitr
 Config/testthat/edition: 3
 Depends: 
     R (>= 3.5)
@@ -23,11 +29,6 @@ RdMacros:
     mathjaxr 
 Imports: 
     dplyr,
-    gt,
-    knitr,
-    ggplot2,
-    rmarkdown,
-    tidyr,
     Rdpack,
     mathjaxr,
     magrittr
