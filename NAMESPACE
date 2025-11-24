@@ -2,6 +2,7 @@
 
 export("%>%")
 export("%not.in%")
+export(estim_cpd)
 export(valid_PPPratio)
 export(valid_XRratio)
 export(valid_apt)
