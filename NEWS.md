@@ -1,4 +1,8 @@
-# OECDsppps (development version)
+# OECDsppps 
+
+Development version.
+
+------------
 
 # Version `0.0.0.1`
 
@@ -14,6 +18,8 @@ Initial testing
 ## Improvements:
 
   - None.
+
+------------
 
 # Version `0.0.0.2`
 

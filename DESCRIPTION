@@ -1,6 +1,6 @@
 Package: OECDsppps
 Title: Calculating subnational purchasing power parities (SPPPs) in OECD regions
-Version: 0.0.0.1
+Version: 0.0.0.2
 Authors@R: 
     person("", "OECD", , "juergen.amann@oecd.org", role = c("aut", "cre"))
 Description: R package to calculate subnational purchasing power parities in OECD regions.
