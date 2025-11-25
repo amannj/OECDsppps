@@ -34,7 +34,7 @@ library(data.table)
 
 # Overview {.unnumbered}
 
-The **estimation** of subnational PPPs starts with the item-level prices that are progressively aggregated to higher levels. In addition to aggregate subnational price indices, sub-indices—for example, at the COICOP division level—can highlight more granular regional price level differences. The process aligns with current recommendations (see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information)
+The **estimation** of subnational PPPs starts with the item-level prices that are progressively aggregated to higher levels. In addition to aggregate subnational price indices, sub-indices—for example, at the COICOP division level—can highlight more granular regional price level differences. This process aligns with current recommendations (see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information)
 
 ## Estimation steps {.unnumbered}
 
