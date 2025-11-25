@@ -26,6 +26,13 @@
 #' \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 #' "Std. Error", which returns the standard errors of the estimation;
 #' default is "SPPP"
+#'
+#' @return A tibble (scalar)  with estimated subnational
+#' purchasing purchasing power parities, that is,
+#' \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)}  if `output = "SPPS"` (default),
+#' or vector containing the standard errors of the estimation
+#' if `output = "Std. Error"`
+#'
 #' @references
 #'   \insertAllCited{}
 #'
@@ -42,6 +49,7 @@
 #'
 #' @importFrom Rdpack reprompt
 #' @importFrom mathjaxr preview_rd
+#' @importFrom rlang :=
 #' @export
 estim_cpd <- function(data,
                       region = "region",

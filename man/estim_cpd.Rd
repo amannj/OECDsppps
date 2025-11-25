@@ -35,6 +35,13 @@ purchasing purchasing power parities, that is,
 "Std. Error", which returns the standard errors of the estimation;
 default is "SPPP"}
 }
+\value{
+A tibble (scalar)  with estimated subnational
+purchasing purchasing power parities, that is,
+\mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)}  if \code{output = "SPPS"} (default),
+or vector containg the standard errors of the estimation
+if \code{output = "Std. Error"}
+}
 \description{
 \loadmathjax
 \code{estim_cpd} in  \pkg{OECDsppps} creates ...;

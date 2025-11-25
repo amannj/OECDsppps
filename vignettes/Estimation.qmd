@@ -36,36 +36,29 @@ library(data.table)
 
 **The estimation** subnational PPPs starts with the item-level prices that are progressively aggregated to higher levels. In addition to aggregate subnational price indices, sub-indices, for example, at the COICOP division level, can highlight more granular regional price level differences. The process aligns with current recommendations; see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
 
-## Estimation steps
+## Estimation steps {.unnumbered}
 
-**The estimation steps** are:
+The estimation steps are:
 
-1.  In the first stage, price data are aggregated up to the level of basic headings, generally without the use of expenditure weights unless such information is available, for instance, when retail scanner data provide detailed transaction-level records.
-2.  The second stage involves aggregation to higher levels of the classification hierarchy, at which point household expenditure data are accessible and can be applied as weighting factors
+1.  [Estimation of basic headings using item-level prices](#sec-step1), where price data are aggregated up to the level of basic headings, generally without the use of expenditure weights; unless such information is available, for instance, when retail scanner data provide detailed transaction-level records.
 
-Estimation of basic headings using item-level prices
+2.  [Estimation of higher level aggregates using basic heading indices](#sec-step2) to higher levels of the classification hierarchy, at which point household expenditure data are accessible and can be applied as weighting factors
 
-Estimation of higher level aggregates using basic heading indices
+## Estimation methods {.unnumbered}
 
-[Intra-regional validation](#sec-intraregional)
+The choice of estimation method depends on the availability of data and the analytical objectives of the subnational PPP exercise. When the aim is to ensure cross-country comparability and to exploit micro-level price information, the **Country-Product-Dummy (CPD) - Gini-Éltetö-Köves-Szulc (GEKS)** approach offers a flexible framework for estimating basic heading indices [@icp2021].
 
-@sec-step2
-
-## Estimation methods
-
-**The choice of estimation method** depends on the availability of data and the analytical objectives of the subnational PPP exercise. When the aim is to ensure cross-country comparability and to exploit micro-level price information, the *Country-Product-Dummy (CPD) - Gini-Éltetö-Köves-Szulc (GEKS)* approach offers a flexible framework for estimating basic heading indices [@icp2021].
-
-In contrast, the *Eurostat OECD method (Jevons-GEKS)* methodology employed at the national level imposes more stringent data requirements, which may be more difficult to meet in the context of deriving subnational PPPs based on existing microdata, particularly regarding the representativeness of individual products across all regions [@europeanunionEurostatOECDMethodologicalManual2024].
+In contrast, the **Eurostat OECD method (Jevons-GEKS)** methodology employed at the national level imposes more stringent data requirements, which may be more difficult to meet in the context of deriving subnational PPPs based on existing microdata, particularly regarding the representativeness of individual products across all regions [@europeanunionEurostatOECDMethodologicalManual2024].
 
 The estimation procedure in this vignette follows the CPD-GEKS approach and highlights its similarities and differences with the Jevons-GEKS approach whenever instructive. For a more comprehensive discussion on price indices see @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024.
 
-## Data used
+## Data used {.unnumbered}
 
-**Data** used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in @hearne2025 and is publicly available:
+Data used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in @hearne2025 and is publicly available:
 
 -   `uk_cpi()` is a snipped of the [UK CPI microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes) containing two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
 
--   `uk_hhx()` is a snipped of the regional UK household expenditure data ...
+-   `uk_hhx()` is a snipped of the regional UK household expenditure data ...🚧 work in progress....
 
 ------------------------------------------------------------------------
 
@@ -79,7 +72,7 @@ $$
 p_{ij} = PPP_j \times p_i \times \epsilon_{ij}
 $$ {#eq-ppp1}
 
-where $PPP_j$ is the purchasing power parity of region $j$ ($r = 1,...,j,...,R$), $p_i$ is the average regional price of commodity $i$ ($n = 1, ..., i, ... N$), and $\epsilon_{ij}$ is a independently and identically distributed random variable.[^1] Taking logs of @eq-ppp1 yields
+where $PPP_j$ is the purchasing power parity of an arbitrary region $j$, ($r = 1,...,j,...,R$), $p_i$ is the average regional price of an arbitrary commodity $i$, ($n = 1, ..., i, ... N$), and $\epsilon_{ij}$ is a independently and identically distributed random variable.[^1] Taking logs of @eq-ppp1 yields
 
 [^1]: Model @eq-ppp1 is not identified and requires parametrisation before it can be estimated.
 
@@ -90,7 +83,7 @@ ln p_{ij} & = ln PPP_j + ln p_i  + ln \epsilon_{ij} \\
 \end{aligned}
 $$ {#eq-ppp2}
 
-where $\alpha_j$ is the the price level of region $j$ relative to all other regions in the comparison. $\alpha_j$ can also be expressed relative to a reference region, for example, the national price level. In this case, $\alpha_j$ it represents the subnational purchasing power parity of region $j$ given by $PPP_j = exp(\hat{\alpha}_j)$.
+where $\alpha_j$ is the the price level of region $j$ relative to all other regions in the comparison. $\alpha_j$ can also be expressed relative to a reference region, for example, the national price level. Then, $\alpha_j$  represents the subnational purchasing power parity of region $j$ given by $\hat{PPP}_j = exp(\hat{\alpha}_j)$.
 
 ## Estimation
 
@@ -103,9 +96,9 @@ ln p_{ij}  = & \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 \end{aligned}
 $$ {#eq-ppp3}
 
-and $\varepsilon_{ij}$ are independently and identically (normally) distributed with a zero mean and variance $\sigma^2$, that is, $\varepsilon_{ij} \sim N(0, \sigma^2)$. The variables of interest, $PPP_r$, can be estimated through the parameters $\hat{\alpha}_r$ $(r = 1,...,j,...R)$ using ordinary least squares (OLS); see [Section 1.1.3 Implementation](#sec-implementation).
+and $\varepsilon_{ij}$ are independently and identically (normally) distributed with a zero mean and variance $\sigma^2$, that is, $\varepsilon_{ij} \sim N(0, \sigma^2)$. The variables of interest, $PPP_j$, can be estimated through the parameters $\hat{\alpha}_j$  using ordinary least squares (OLS); see [Section 1.1.3 Implementation](#sec-implementation).
 
-Because the estimated PPP ($PPP_j$) is a function of the underlying parameter estimates, it is possible to derive the standard errors associated with , that is $\hat{\alpha}_j$. These standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh) vignette.
+
 
 ## Implementation {#sec-implementation}
 
@@ -126,7 +119,7 @@ df1 <- data.table(
 )
 ```
 
-In the CPD, the intercept corresponds to the cross-regional average.
+In the CPD regression model, the intercept corresponds to the cross-regional average.
 
 ```{r}
 # Calculate cross-regional price average
@@ -147,7 +140,7 @@ df1 |>
 27 / 24
 ```
 
-The same results can be from the `pricelevels` package.
+The same results can be obtained using `cpd()` from the `pricelevels` package.
 
 ```{r}
 #| message: false
@@ -167,7 +160,7 @@ df1[, cpd(
 exp(-0.05889)
 ```
 
-And also with basic OLS.
+And also with standard OLS.
 
 ```{r}
 #| message: false
@@ -175,23 +168,23 @@ And also with basic OLS.
 # With OLS
 pdata <- df1
 
-## Model: add intercept to for price levels relative to base
+# Model: add intercept to for price levels relative to base
 cpd_mod <- log(price) ~ region + 1
 
-## Transformation: equiv to "mean centring" of continuous predictor: shifting
+# Transformation: equiv to "mean centring" of continuous predictor: shifting
 ## dummy encoding to -1/1 intercept is mean across all prices.
 ## Region1 is the 'main effect', i.e., the difference between levels of a given
 ## factor (region) across all other factors.
 contrasts(x = pdata$region) <- contr.sum(levels(pdata$region))
 colnames(contrasts(x = pdata$region)) <- levels(pdata$region)[-nlevels(pdata$region)]
 
-## OLS regression
+# OLS regression
 out <- lm(formula = cpd_mod, data = pdata)
 out
 exp(dummy.coef(out)[["region"]])
 ```
 
-### Example 2:Two products, two regions {#sec-example2 .unnumbered}
+### Example 2: Two products, two regions {#sec-example2 .unnumbered}
 
 The procedure is identical for the more general case.
 
@@ -240,9 +233,7 @@ exp(dummy.coef(out)[["region"]])
 
 ### Using `estim_cpd()`
 
-Additionally, the function `estim_cpd()` provides an alternative estimation approach to provide numerically identical SPPPs estimates with the option to export standard errors with argument `output` = "Std. Error" to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh)
-
-------------------------------------------------------------------------
+Additionally, the function `estim_cpd()` provides an alternative estimation approach to provide numerically identical SPPPs estimates.
 
 ### Example 3: Generic - Multiple products, and regions {#sec-example3 .unnumbered}
 
@@ -265,6 +256,20 @@ dt1 |>
     price = "price"
   ) |>
   pull("SPPP")
+```
+
+
+Function `estim_cpd()` also has the option to to export standard errors with argument `output = "Std. Error"`.hese standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh) vignette.
+
+```{r}
+# Estimating SPPPs with `estim_cpd()` and obtain standard errors ---------
+dt1 |>
+  estim_cpd(
+    region = "region",
+    product = "product",
+    price = "price",
+    output = "Std. Error"
+  ) 
 ```
 
 ### Example 4: UK microdata - Two products, multiple regions {#sec-example4 .unnumbered}
