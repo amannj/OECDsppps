@@ -30,3 +30,5 @@ Initial estimation and extending validation
 
   - Readability of vignettes
   - Fix function bindings to pass checks
+  - Fix `uk_cpi`: Region names; harmonise COICOP code formats  
+    

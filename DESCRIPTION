@@ -31,5 +31,6 @@ Imports:
     dplyr,
     Rdpack,
     mathjaxr,
-    magrittr
+    magrittr,
+    rlang
 BuildManual: TRUE

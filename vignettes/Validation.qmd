@@ -49,7 +49,7 @@ library(OECDsppps)
 
 ```{r}
 head(uk_cpi, n = 3) |>
-  group_by(Year, `COICOP5`, `Product code`, `Product description`) |>
+  group_by(Year, coicop_5d, `Product code`, `Product description`) |>
   gt()
 ```
 

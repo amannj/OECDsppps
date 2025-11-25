@@ -39,7 +39,7 @@ default is "SPPP"}
 A tibble (scalar)  with estimated subnational
 purchasing purchasing power parities, that is,
 \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)}  if \code{output = "SPPS"} (default),
-or vector containg the standard errors of the estimation
+or vector containing the standard errors of the estimation
 if \code{output = "Std. Error"}
 }
 \description{
