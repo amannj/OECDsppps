@@ -5,6 +5,9 @@
 - [`concordance_ecoicop2bh`](https://amannj.github.io/OECDsppps/reference/concordance_ecoicop2bh.md)
   : Concordance table from ECOICOP1 to Eurostat PPP Basic Headings
 
+- [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+  : Country Product Dummy (CPD) regression model
+
 - [`` `%not.in%` ``](https://amannj.github.io/OECDsppps/reference/grapes-not.in-grapes.md)
   :
 

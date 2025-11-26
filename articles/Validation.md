@@ -50,16 +50,16 @@ publicly available:
 
 ``` r
 head(uk_cpi, n = 3) |>
-  group_by(Year, `COICOP5`, `Product code`, `Product description`) |>
+  group_by(Year, coicop_5d, `Product code`, `Product description`) |>
   gt()
 ```
 
-| Date of quote                                            | Reference quantity | Unit of reference quantity | Region     | Shop identifier | Type of shop | Quantity observed | Unit of observed quantity | Price observed | Reference quantity price |
-|----------------------------------------------------------|--------------------|----------------------------|------------|-----------------|--------------|-------------------|---------------------------|----------------|--------------------------|
-| 2018 - 1010103 - 210111 - WHITE SLICED LOAF BRANDED 750G |                    |                            |            |                 |              |                   |                           |                |                          |
-| 201801                                                   | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
-| 201801                                                   | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
-| 201801                                                   | 750                | 1                          | North West | 1               | Multiple     | 750               | 1                         | 1.45           | 1.45                     |
+| Date of quote                                             | Reference quantity | Unit of reference quantity | Region     | Shop identifier | Type of shop | Quantity observed | Unit of observed quantity | Price observed | Reference quantity price |
+|-----------------------------------------------------------|--------------------|----------------------------|------------|-----------------|--------------|-------------------|---------------------------|----------------|--------------------------|
+| 2018 - 01.1.1.3 - 210111 - WHITE SLICED LOAF BRANDED 750G |                    |                            |            |                 |              |                   |                           |                |                          |
+| 201801                                                    | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
+| 201801                                                    | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
+| 201801                                                    | 750                | 1                          | North West | 1               | Multiple     | 750               | 1                         | 1.45           | 1.45                     |
 
 ## 1 Intra-regional validation
 
@@ -229,9 +229,9 @@ head(uk_apt, 2) |>
 |------------------------------------------------------------|------------------------|--------------------------|--------------------------|--------------------------|--------------------|---------------|--------------------------|--------------------|-------------------------------|
 | Example for `item_id`s = 210111 & 410518, **pre-cleaning** |                        |                          |                          |                          |                    |               |                          |                    |                               |
 | Product code                                               | Number of observations | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
-| 2018 - East Anglia                                         |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| 210111                                                     | 322.00                 | 1.13                     | 1.53                     | 0.55                     | 0.26               | 2.78          | 0.23                     | TRUE               | TRUE                          |
-| 410518                                                     | 264.00                 | 23.11                    | 48.00                    | 15.00                    | 8.43               | 3.20          | 0.36                     | TRUE               | TRUE                          |
+| 2018 - East Midlands                                       |                        |                          |                          |                          |                    |               |                          |                    |                               |
+| 210111                                                     | 258.00                 | 1.08                     | 1.30                     | 0.99                     | 0.08               | 1.31          | 0.07                     | FALSE              | FALSE                         |
+| 410518                                                     | 192.00                 | 20.29                    | 33.60                    | 8.00                     | 7.81               | 4.20          | 0.39                     | TRUE               | TRUE                          |
 
 ### 1.3 Linking validation pipelines for intra-regional validation
 
@@ -286,11 +286,11 @@ head(uk_irv, 4) |>
 | Example for `item_id`s = 210111 & 410518, **post-cleaning** |                        |                          |                          |                          |                    |               |                          |                    |                               |
 | Region                                                      | Number of observations | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
 | 2018 - 210111 - WHITE SLICED LOAF BRANDED 750G              |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| East Anglia                                                 | 276.0                  | 1.2                      | 1.5                      | 0.9                      | 0.2                | 1.6           | 0.2                      | FALSE              | FALSE                         |
 | East Midlands                                               | 228.0                  | 1.1                      | 1.1                      | 1.0                      | 0.0                | 1.2           | 0.0                      | FALSE              | FALSE                         |
+| East of England                                             | 276.0                  | 1.2                      | 1.5                      | 0.9                      | 0.2                | 1.6           | 0.2                      | FALSE              | FALSE                         |
 | 2018 - 410518 - CARPENTER HOURLY RATE                       |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| East Anglia                                                 | 168.0                  | 22.3                     | 27.0                     | 20.0                     | 1.9                | 1.4           | 0.1                      | FALSE              | FALSE                         |
 | East Midlands                                               | 96.0                   | 22.8                     | 28.2                     | 18.1                     | 4.0                | 1.6           | 0.2                      | FALSE              | FALSE                         |
+| East of England                                             | 168.0                  | 22.3                     | 27.0                     | 20.0                     | 1.9                | 1.4           | 0.1                      | FALSE              | FALSE                         |
 
 ------------------------------------------------------------------------
 
@@ -405,8 +405,8 @@ df_xrr |>
 | Example for two items, **DE, UK, CZ** |                          |        |          |
 | Region                                | Average price of product | XR USD | XR-ratio |
 | 2018 - 210111                         |                          |        |          |
-| UK - East Anglia                      | 1.2                      | 1.2    | 107.4    |
 | UK - East Midlands                    | 1.1                      | 1.2    | 94.3     |
+| UK - East of England                  | 1.2                      | 1.2    | 107.4    |
 | CZ01                                  | 4.2                      | 0.4    | 120.8    |
 | CZ02                                  | 3.9                      | 0.4    | 111.1    |
 | DE01                                  | 1.4                      | 0.9    | 92.8     |

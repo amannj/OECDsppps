@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,15 +86,346 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amannj/OECDsppps" class="external-link">OECDsppps</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amannj/OECDsppps" class="external-link">OECDsppps</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sweinand/pricelevels" class="external-link">pricelevels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
 </div>
+<section class="section level2"><h2 class="unnumbered" id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p><strong>The estimation</strong> of subnational PPPs starts with the item-level prices that are progressively aggregated to higher levels. In addition to aggregate subnational price indices, sub-indices, for example, at the COICOP division level, can highlight more granular regional price level differences. This process aligns with current recommendations; see <span class="citation" data-cites="icp2021">ICP (<a href="#ref-icp2021" role="doc-biblioref">2021</a>)</span>, <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">European Union/OECD (<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">2024</a>)</span> for more information.</p>
+<section class="level2 unnumbered"><h3 class="unnumbered" id="estimation-steps">Estimation steps<a class="anchor" aria-label="anchor" href="#estimation-steps"></a>
+</h3>
+<p>The estimation steps are:</p>
+<ol type="1">
+<li><p><a href="#sec-step1">Estimation of basic headings using item-level prices</a>, where price data are aggregated up to the level of basic headings, generally without the use of expenditure weights (unless such information is available, for instance, when retail scanner data provide detailed transaction-level records).</p></li>
+<li><p><a href="#sec-step2">Estimation of higher level aggregates using basic heading indices</a> to higher levels of the classification hierarchy, at which point household expenditure data are accessible and can be applied as weighting factors</p></li>
+</ol></section><section class="level2 unnumbered"><h3 class="unnumbered" id="estimation-methods">Estimation methods<a class="anchor" aria-label="anchor" href="#estimation-methods"></a>
+</h3>
+<p>The choice of estimation method depends on the availability of data and the analytical objectives of the subnational PPP exercise. When the aim is to ensure cross-country comparability and to exploit micro-level price information, the <strong>Country-Product-Dummy (CPD) - Gini-Éltetö-Köves-Szulc (GEKS)</strong> approach offers a flexible framework for estimating basic heading indices <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>.</p>
+<p>In contrast, the <strong>Eurostat OECD method (Jevons-GEKS)</strong> methodology employed at the national level imposes more stringent data requirements. Such requirements may be more difficult to meet in the context of deriving subnational PPPs based on existing microdata, particularly regarding the representativeness of individual products across all regions <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">(<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">European Union/OECD 2024</a>)</span>.</p>
+<p>The estimation procedure in this vignette follows the CPD-GEKS approach and highlights its similarities and differences with the Jevons-GEKS approach whenever instructive. For a more comprehensive discussion on price indices see <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">European Union/OECD (<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">2024</a>)</span>.</p>
+</section><section class="level2 unnumbered"><h3 class="unnumbered" id="data-used">Data used<a class="anchor" aria-label="anchor" href="#data-used"></a>
+</h3>
+<p>Data used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in <span class="citation" data-cites="hearne2025">Hearne and Bailey (<a href="#ref-hearne2025" role="doc-biblioref">2025</a>)</span> and is publicly available:</p>
+<ul>
+<li><p><code><a href="../reference/uk_cpi.html">uk_cpi()</a></code> is a snipped of the <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes" class="external-link">UK CPI microdata</a> containing two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</p></li>
+<li><p><code>uk_hhx()</code> is a snipped of the regional UK household expenditure data …🚧 work in progress….</p></li>
+</ul>
+<hr></section></section><section class="section level2" data-number="1"><h2 data-number="1" id="sec-step1">
+<span class="header-section-number">1</span> Estimation of basic headings using item-level prices<a class="anchor" aria-label="anchor" href="#sec-step1"></a>
+</h2>
+<section class="level2" data-number="1.1"><h3 data-number="1.1" id="overview-1">
+<span class="header-section-number">1.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-1"></a>
+</h3>
+<p>The CPD method is a regression-based approach for estimating price parities. The underlying statistical model is</p>
+<p><span id="eq-ppp1"><span class="math display">\[
+p_{ij} = PPP_j \times p_i \times \epsilon_{ij}
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(PPP_j\)</span> is the purchasing power parity of an arbitrary region <span class="math inline">\(j\)</span>, (<span class="math inline">\(r = 1,...,j,...,R\)</span>), <span class="math inline">\(p_i\)</span> is the average regional price of an arbitrary commodity <span class="math inline">\(i\)</span>, (<span class="math inline">\(n = 1, ..., i, ... N\)</span>), and <span class="math inline">\(\epsilon_{ij}\)</span> is a independently and identically distributed random variable.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Model &lt;a href="#eq-ppp1" class="quarto-xref"&gt;Equation 1&lt;/a&gt; is not identified and requires parametrisation before it can be estimated.&lt;/p&gt;'><sup>1</sup></a> Taking logs of <a href="#eq-ppp1" class="quarto-xref">Equation 1</a> yields</p>
+<p><span id="eq-ppp2"><span class="math display">\[
+\begin{aligned}
+ln p_{ij} &amp; = ln PPP_j + ln p_i  + ln \epsilon_{ij} \\
+&amp; = \alpha_j + \gamma_i + ln \varepsilon_{ij}
+\end{aligned}
+\tag{2}\]</span></span></p>
+<p>where <span class="math inline">\(\alpha_j\)</span> is the the price level of region <span class="math inline">\(j\)</span> relative to all other regions in the comparison. <span class="math inline">\(\alpha_j\)</span> can also be expressed relative to a reference region, for example, the national price level. Then, <span class="math inline">\(\alpha_j\)</span> represents the subnational purchasing power parity of region <span class="math inline">\(j\)</span> given by <span class="math inline">\(\hat{PPP}_j = exp(\hat{\alpha}_j)\)</span>.</p>
+</section><section class="level2" data-number="1.2"><h3 data-number="1.2" id="estimation">
+<span class="header-section-number">1.2</span> Estimation<a class="anchor" aria-label="anchor" href="#estimation"></a>
+</h3>
+<p>The CPD model in <a href="#eq-ppp2" class="quarto-xref">Equation 2</a> may be interpreted as a straightforward fixed-effects specification, in which country effects yield estimates of subnational purchasing power parities, while commodity-specific effects generate estimates of subnational price levels. The model can be written as a regression equation in which all explanatory variables take the form of dummy indicators for each region and commodity.</p>
+<p><span id="eq-ppp3"><span class="math display">\[
+\begin{aligned}
+ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
+&amp; \eta_1 \mathcal{D}_1 + ... + \eta_i \mathcal{D}_i + ... + \eta_N \mathcal{D}_N + \varepsilon_{ij}
+\end{aligned}
+\tag{3}\]</span></span></p>
+<p>and <span class="math inline">\(\varepsilon_{ij}\)</span> are independently and identically (normally) distributed with a zero mean and variance <span class="math inline">\(\sigma^2\)</span>, that is, <span class="math inline">\(\varepsilon_{ij} \sim N(0, \sigma^2)\)</span>. The variables of interest, <span class="math inline">\(PPP_j\)</span>, can be estimated through the parameters <span class="math inline">\(\hat{\alpha}_j\)</span> using ordinary least squares (OLS); see <a href="#sec-implementation">Section 1.1.3 Implementation</a>.</p>
+</section><section class="level2" data-number="1.3"><h3 data-number="1.3" id="sec-implementation">
+<span class="header-section-number">1.3</span> Implementation<a class="anchor" aria-label="anchor" href="#sec-implementation"></a>
+</h3>
+<section class="level3" data-number="1.3.1"><h4 data-number="1.3.1" id="using-pricelevels">
+<span class="header-section-number">1.3.1</span> Using <code>pricelevels</code>
+<a class="anchor" aria-label="anchor" href="#using-pricelevels"></a>
+</h4>
+<p>The <code>pricelevels</code> package <span class="citation" data-cites="pricelevels">(<a href="#ref-pricelevels" role="doc-biblioref">Weinand 2025</a>)</span> can be used to estimate subnational purchasing power parities, which can also be computed using standard OLS as outlined in examples <a href="#sec-example1">1</a> and <a href="#sec-example2">2</a>.</p>
+<hr></section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-example1">Example 1: One product, two regions<a class="anchor" aria-label="anchor" href="#sec-example1"></a>
+</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Data</span></span>
+<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<span>  region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">28</span>, <span class="fl">23</span>, <span class="fl">26</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>In the CPD regression model, the intercept corresponds to the cross-regional average.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate cross-regional price average</span></span>
+<span><span class="va">df1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 1</span></span>
+<span><span class="co">#&gt;   `mean(price)`</span></span>
+<span><span class="co">#&gt;           &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1          25.5</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">25.5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3.238678</span></span></code></pre></div>
+</div>
+<p>And the coefficient estimate is the price ratio of the average regional prices.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate regional price averages and price relative</span></span>
+<span><span class="va">df1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span><span class="co">#&gt;   region `mean(price)`</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;          &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 1                 24</span></span>
+<span><span class="co">#&gt; 2 2                 27</span></span>
+<span><span class="fl">27</span> <span class="op">/</span> <span class="fl">24</span></span>
+<span><span class="co">#&gt; [1] 1.125</span></span></code></pre></div>
+</div>
+<p>The same results can be obtained using <code><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd()</a></code> from the <code>pricelevels</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># With `pricelevels`- estimation with respect to regional average</span></span>
+<span><span class="va">df1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span>, q <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;        1        2 </span></span>
+<span><span class="co">#&gt; 0.942809 1.060660</span></span>
+<span><span class="fl">1.060660</span> <span class="op">/</span> <span class="fl">0.942809</span></span>
+<span><span class="co">#&gt; [1] 1.125</span></span>
+<span></span>
+<span><span class="co"># With `pricelevels`- estimation with respect to region 1</span></span>
+<span><span class="va">df1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span>, q <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;     1     2 </span></span>
+<span><span class="co">#&gt; 1.000 1.125</span></span>
+<span></span>
+<span><span class="co"># With `pricelevels`- estimation output</span></span>
+<span><span class="va">df1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span></span>
+<span>  p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span>, q <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  simplify <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; stats::lm(formula = cpd_mod, data = pdata, singular.ok = FALSE)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)        lnP.1  </span></span>
+<span><span class="co">#&gt;     3.23695     -0.05889</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05889</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.9428105</span></span></code></pre></div>
+</div>
+<p>And also with standard OLS.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># With OLS</span></span>
+<span><span class="va">pdata</span> <span class="op">&lt;-</span> <span class="va">df1</span></span>
+<span></span>
+<span><span class="co"># Model: add intercept to for price levels relative to base</span></span>
+<span><span class="va">cpd_mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span> <span class="op">~</span> <span class="va">region</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="co"># Transformation: equiv to "mean centring" of continuous predictor: shifting</span></span>
+<span><span class="co">## dummy encoding to -1/1 intercept is mean across all prices.</span></span>
+<span><span class="co">## Region1 is the 'main effect', i.e., the difference between levels of a given</span></span>
+<span><span class="co">## factor (region) across all other factors.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/contrast.html" class="external-link">contr.sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># OLS regression</span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">cpd_mod</span>, data <span class="op">=</span> <span class="va">pdata</span><span class="op">)</span></span>
+<span><span class="va">out</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = cpd_mod, data = pdata)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)      region1  </span></span>
+<span><span class="co">#&gt;     3.23617     -0.05898</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dummy.coef.html" class="external-link">dummy.coef</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[[</span><span class="st">"region"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        1        2 </span></span>
+<span><span class="co">#&gt; 0.942723 1.060757</span></span></code></pre></div>
+</div>
+</section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-example2">Example 2: Two products, two regions<a class="anchor" aria-label="anchor" href="#sec-example2"></a>
+</h4>
+<p>The procedure is identical for the more general case.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Data</span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<span>  region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">28</span>, <span class="fl">23</span>, <span class="fl">26</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># With `pricelevels` ------</span></span>
+<span><span class="co">## Estimation with respect to regional average</span></span>
+<span><span class="va">df2</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span>, q <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;        1        2 </span></span>
+<span><span class="co">#&gt; 0.942723 1.060757</span></span>
+<span><span class="fl">1.060757</span> <span class="op">/</span> <span class="fl">0.942723</span></span>
+<span><span class="co">#&gt; [1] 1.125205</span></span>
+<span></span>
+<span><span class="co">## Estimation with respect to region 1</span></span>
+<span><span class="va">df2</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span>, q <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;        1        2 </span></span>
+<span><span class="co">#&gt; 1.000000 1.125205</span></span>
+<span></span>
+<span><span class="co">## Estimation output</span></span>
+<span><span class="va">df2</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span></span>
+<span>  p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span>, q <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  simplify <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; stats::lm(formula = cpd_mod, data = pdata, singular.ok = FALSE)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;     pi.1      pi.2     lnP.1  </span></span>
+<span><span class="co">#&gt;  3.27554   3.19680  -0.05898</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05898</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.9427256</span></span>
+<span></span>
+<span><span class="co"># OLS ------</span></span>
+<span><span class="co">## Data</span></span>
+<span><span class="va">pdata</span> <span class="op">&lt;-</span> <span class="va">df2</span></span>
+<span><span class="co">## Model</span></span>
+<span><span class="va">cpd_mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span> <span class="op">~</span> <span class="va">product</span> <span class="op">+</span> <span class="va">region</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="co">## Transformation: equiv to "mean centring"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/contrast.html" class="external-link">contr.sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">pdata</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">## OLS regression</span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">cpd_mod</span>, data <span class="op">=</span> <span class="va">pdata</span><span class="op">)</span></span>
+<span><span class="va">out</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = cpd_mod, data = pdata)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; product1  product2   region1  </span></span>
+<span><span class="co">#&gt;  3.27554   3.19680  -0.05898</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dummy.coef.html" class="external-link">dummy.coef</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[[</span><span class="st">"region"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        1        2 </span></span>
+<span><span class="co">#&gt; 0.942723 1.060757</span></span></code></pre></div>
+</div>
+<hr></section><section class="level3" data-number="1.3.2"><h4 data-number="1.3.2" id="using-estim_cpd">
+<span class="header-section-number">1.3.2</span> Using <code>estim_cpd()</code>
+<a class="anchor" aria-label="anchor" href="#using-estim_cpd"></a>
+</h4>
+<p>Additionally, the function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> provides an alternative estimation approach to provide numerically identical SPPPs estimates.</p>
+</section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-example3">Example 3: Generic - Multiple products, and regions<a class="anchor" aria-label="anchor" href="#sec-example3"></a>
+</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate data with `pricelevels` -------</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">R</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of regions</span></span>
+<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of product groups</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of products</span></span>
+<span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu">pricelevels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/rdata.html" class="external-link">rdata</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="va">N</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Estimating SPPPs with `pricelevels` --------</span></span>
+<span><span class="va">dt1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;         1         2         3         4         5 </span></span>
+<span><span class="co">#&gt; 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137</span></span>
+<span></span>
+<span><span class="co"># Estimating SPPPs with `estim_cpd()` ---------</span></span>
+<span><span class="va">dt1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span></span>
+<span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>    product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>    price <span class="op">=</span> <span class="st">"price"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"SPPP"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         1         2         3         4         5 </span></span>
+<span><span class="co">#&gt; 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137</span></span></code></pre></div>
+</div>
+<p>The function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> also has the option to to export standard errors with argument <code>output = "Std. Error"</code>.hese standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see <a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh">Validation</a> vignette.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimating SPPPs with `estim_cpd()` and obtain standard errors ---------</span></span>
+<span><span class="va">dt1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span></span>
+<span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>    product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>    price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>    output <span class="op">=</span> <span class="st">"Std. Error"</span></span>
+<span>  <span class="op">)</span> </span>
+<span><span class="co">#&gt; [1] 0.0115062</span></span></code></pre></div>
+</div>
+</section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-example4">Example 4: UK microdata - Two products, multiple regions<a class="anchor" aria-label="anchor" href="#sec-example4"></a>
+</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Take UK CPI microdata ---------</span></span>
+<span><span class="va">red</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="st">"2018"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>    region <span class="op">=</span> <span class="st">"Region"</span>,</span>
+<span>    product <span class="op">=</span> <span class="st">"Product code"</span>,</span>
+<span>    price <span class="op">=</span> <span class="st">"Reference quantity price"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span>,</span>
+<span>    product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">product</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Estimating SPPPs with `estim_cpd()` ---------</span></span>
+<span><span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">red</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"SPPP"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Duplicated region-product pairs found in data: Data is aggregated by averaging across region-product pairs.</span></span>
+<span><span class="co">#&gt;             East Midlands           East of England                    London </span></span>
+<span><span class="co">#&gt;                 0.9291930                 1.0171431                 1.3164839 </span></span>
+<span><span class="co">#&gt;                     North                North West          Northern Ireland </span></span>
+<span><span class="co">#&gt;                 0.9631195                 0.9757530                 0.9888085 </span></span>
+<span><span class="co">#&gt;                  Scotland                South East                South West </span></span>
+<span><span class="co">#&gt;                 1.0521466                 0.9977087                 0.9331900 </span></span>
+<span><span class="co">#&gt;                     Wales             West Midlands Yorkshire and the Humberl </span></span>
+<span><span class="co">#&gt;                 0.8612814                 1.0457363                 0.9802726</span></span>
+<span></span>
+<span><span class="co"># Estimating SPPPs with `pricelevels` --------</span></span>
+<span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">red</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; Warning: Duplicated observations found and aggregated</span></span>
+<span><span class="co">#&gt;             East Midlands           East of England                    London </span></span>
+<span><span class="co">#&gt;                 0.9291930                 1.0171431                 1.3164839 </span></span>
+<span><span class="co">#&gt;                     North                North West          Northern Ireland </span></span>
+<span><span class="co">#&gt;                 0.9631195                 0.9757530                 0.9888085 </span></span>
+<span><span class="co">#&gt;                  Scotland                South East                South West </span></span>
+<span><span class="co">#&gt;                 1.0521466                 0.9977087                 0.9331900 </span></span>
+<span><span class="co">#&gt;                     Wales             West Midlands Yorkshire and the Humberl </span></span>
+<span><span class="co">#&gt;                 0.8612814                 1.0457363                 0.9802726</span></span></code></pre></div>
+</div>
+<hr></section></section></section><section class="section level2" data-number="2"><h2 data-number="2" id="sec-step2">
+<span class="header-section-number">2</span> Estimation of higher level aggregates using basic heading indices<a class="anchor" aria-label="anchor" href="#sec-step2"></a>
+</h2>
+<hr>
 <blockquote>
 <p>🚧 Work in progress.</p>
 </blockquote>
-
-
-
-<script id="quarto-html-after-body" type="application/javascript">
+</section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-europeanunionEurostatOECDMethodologicalManual2024" class="csl-entry" role="listitem">
+European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological Manual</span> on <span>Purchasing Power Parities</span> (2023 Edition)</em>. OECD Publishing, Paris. <a href="https://doi.org/10.2785/384854" class="external-link">https://doi.org/10.2785/384854</a>.
+</div>
+<div id="ref-hearne2025" class="csl-entry" role="listitem">
+Hearne, David, and David Bailey. 2025. <span>“Regional Prices Reconsidered.”</span> <em>Regional Studies, Regional Science</em> 12 (1): 338–56. <a href="https://doi.org/10.1080/21681376.2025.2475115" class="external-link">https://doi.org/10.1080/21681376.2025.2475115</a>.
+</div>
+<div id="ref-icp2021" class="csl-entry" role="listitem">
+ICP. 2021. <span>“A Guide to the Compilation of Subnational Purchasing Power Parities (PPPs).”</span> <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.
+</div>
+<div id="ref-pricelevels" class="csl-entry" role="listitem">
+Weinand, Sebastian. 2025. <em>Pricelevels: Spatial Price Level Comparisons</em>. <a href="https://doi.org/10.32614/CRAN.package.pricelevels" class="external-link">https://doi.org/10.32614/CRAN.package.pricelevels</a>.
+</div>
+<div id="ref-worldbank2013" class="csl-entry" role="listitem">
+World Bank. 2013. <em>Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program <span></span> ICP</em>. Washington DC: World Bank. <a href="https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf</a>.
+</div>
+</div>
+</section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -177,7 +508,8 @@
       }
     }
   });
-  </script></main>
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

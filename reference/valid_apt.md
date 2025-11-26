@@ -4,19 +4,24 @@
 calculating: the
 
 - `number of observations` - Number of observations by group as
-  specified by `group_by()`
+  specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
 - `average price of product`- Average price based on item-level price
-  quotes by group as specified by `group_by()`
+  quotes by group as specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
 - `maximum price of product`- Highest price based on item-level price
-  quotes by group as specified by `group_by()`
+  quotes by group as specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
 - `minimum price of product` - Lowest price based on item-level price
-  quotes by group as specified by `group_by()`
+  quotes by group as specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
 - `standard deviation` - Standard deviation based on item-level price
-  quotes by group as specified by `group_by()`
+  quotes by group as specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
 - `max-min ratio test` and `coefficient of variation test` - see
   *Details* for more information All item-level price quotes that do not
@@ -92,17 +97,17 @@ uk_cpi |>
   valid_apt(price_quote = "Reference quantity price") |>
   head(n = 2) |>
   t()
-#>                               [,1]          [,2]         
-#> Year                          "2018"        "2018"       
-#> Region                        "East Anglia" "East Anglia"
-#> Product code                  "210111"      "410518"     
-#> Number of observations        "322"         "264"        
-#> Average price of product      " 1.134596"   "23.106061"  
-#> Maximum price of product      " 1.53"       "48.00"      
-#> Minimum price of product      " 0.55"       "15.00"      
-#> Standard deviation            "0.261553"    "8.432021"   
-#> Max-min ratio                 "2.781818"    "3.200000"   
-#> Coefficient of variation      "0.2305252"   "0.3649268"  
-#> Max-min ratio FLAG            "TRUE"        "TRUE"       
-#> Coefficient of variation FLAG "TRUE"        "TRUE"       
+#>                               [,1]            [,2]           
+#> Year                          "2018"          "2018"         
+#> Region                        "East Midlands" "East Midlands"
+#> Product code                  "210111"        "410518"       
+#> Number of observations        "258"           "192"          
+#> Average price of product      " 1.078527"     "20.285417"    
+#> Maximum price of product      " 1.3"          "33.6"         
+#> Minimum price of product      "0.99"          "8.00"         
+#> Standard deviation            "0.08018559"    "7.81303085"   
+#> Max-min ratio                 "1.313131"      "4.200000"     
+#> Coefficient of variation      "0.07434731"    "0.38515506"   
+#> Max-min ratio FLAG            "FALSE"         "TRUE"         
+#> Coefficient of variation FLAG "FALSE"         "TRUE"         
 ```
