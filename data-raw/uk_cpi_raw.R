@@ -31,12 +31,12 @@ uk_cpi <- uk_cpi |>
     NA
   ))
 
-# Price Observation Table
+# Update variable names
 uk_cpi <- uk_cpi |>
   select(
     Year = year,
     `Date of quote` = quote_date,
-    COICOP5 = coicop5_id,
+    coicop_5d,
     `Product code` = item_id,
     `Product description` = item_desc,
     `Reference quantity` = ref_quant,
@@ -48,37 +48,6 @@ uk_cpi <- uk_cpi |>
     `Unit of observed quantity` = obs_quant_u,
     `Price observed` = price,
     `Reference quantity price` = ref_quant_p
-  )
-
-# Adjust regions and shop types
-uk_cpi <- uk_cpi |>
-  ## Regions
-  mutate(
-    Region = as.character(Region),
-    Region = case_when(
-      Region == "1" ~ "Catalogue collections",
-      Region == "2" ~ "London",
-      Region == "3" ~ "South East",
-      Region == "4" ~ "South West",
-      Region == "5" ~ "East Anglia",
-      Region == "6" ~ "East Midlands",
-      Region == "7" ~ "West Midlands",
-      Region == "8" ~ "Yorks & Humber",
-      Region == "9" ~ "North West",
-      Region == "10" ~ "North",
-      Region == "11" ~ "Wales",
-      Region == "12" ~ "Scotland",
-      Region == "13" ~ "Northern Ireland",
-      .default = Region
-    )
-  ) |>
-  ## Shop types
-  mutate(
-    `Type of shop` = as.character(`Type of shop`),
-    `Type of shop` = case_when(
-      `Type of shop` == 1 ~ "Multiple",
-      `Type of shop` == 2 ~ "Independents"
-    )
   )
 
 usethis::use_data(uk_cpi, overwrite = TRUE)

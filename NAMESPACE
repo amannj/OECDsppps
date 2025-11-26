@@ -2,6 +2,7 @@
 
 export("%>%")
 export("%not.in%")
+export(estim_cpd)
 export(valid_PPPratio)
 export(valid_XRratio)
 export(valid_apt)
@@ -13,3 +14,4 @@ importFrom(dplyr,select)
 importFrom(dplyr,summarise)
 importFrom(magrittr,"%>%")
 importFrom(mathjaxr,preview_rd)
+importFrom(rlang,":=")

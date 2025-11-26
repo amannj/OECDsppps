@@ -11,10 +11,14 @@ A data frame with 11,807 rows and 14 columns containing two products:
 \emph{White sliced loaf branded 750 grams} (COICOP 1010103) and
 \emph{carpenter hourly rate} (COICOP 410518).
 
+More information on COICOP classification can be found in the
+\href{https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/satelliteaccounts/methodologies/consumertrendsuk/classificationofhouseholdconsumptionheadings2014tcm772368742.pdf}{ONS Classification of household consumption headings} and in the
+\href{https://unstats.un.org/unsd/classifications/unsdclassifications/COICOP_2018_pre_copy_edit_publication.pdf}{UN Statistics Division’s COICOP 2018 statistical paper}.
+
 \describe{
 \item{Year}{Year}
 \item{Date of quote}{year and month of data collection (yyyymm)}
-\item{COICOP5}{COICOP 5-digit code}
+\item{coicop_5d}{COICOP 5-digit code}
 \item{Product code}{Identification of the item collected}
 \item{Product description}{Description of item collected}
 \item{Reference quantity}{Reference quantity of commodity that \emph{should} be surveyed}
@@ -37,7 +41,8 @@ It is defined as \verb{Price observed} / \verb{Quantity observed} * \verb{Refere
 uk_cpi
 }
 \description{
-A subset of the official UK CIP microdata set
+A subset of the official UK CIP microdata set published by the United
+Kingdom Office for National Statistics (ONS)
 }
 \examples{
 uk_cpi |> dim()
