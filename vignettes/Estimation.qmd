@@ -27,14 +27,14 @@ library(dplyr)
 library(tidyr)
 library(gt)
 library(ggplot2)
-library(OECDsppps)
+library(OECDsPPPs)
 library(pricelevels)
 library(data.table)
 ```
 
 # Overview {.unnumbered}
 
-**The estimation** of subnational PPPs starts with the item-level prices that are progressively aggregated to higher levels. In addition to aggregate subnational price indices, sub-indices, for example, at the COICOP division level, can highlight more granular regional price level differences. This process aligns with current recommendations; see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
+**The estimation** of subnational PPPs (sPPPs) starts with the item-level prices that are progressively aggregated to higher levels. In addition to aggregate subnational price indices, sub-indices, for example, at the COICOP division level, can highlight more granular regional price level differences. This process aligns with current recommendations; see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
 
 ## Estimation steps {.unnumbered}
 
@@ -235,7 +235,7 @@ exp(dummy.coef(out)[["region"]])
 
 ### Using `estim_cpd()`
 
-Additionally, the function `estim_cpd()` provides an alternative estimation approach to provide numerically identical SPPPs estimates.
+Additionally, the function `estim_cpd()` provides an alternative estimation approach to provide numerically identical sPPPs estimates.
 
 ### Example 3: Generic - Multiple products, and regions {#sec-example3 .unnumbered}
 
@@ -247,10 +247,10 @@ B <- 5 # number of product groups
 N <- 5 # number of products
 dt1 <- pricelevels::rdata(R = R, B = B, N = N)
 
-# Estimating SPPPs with `pricelevels` --------
+# Estimating sPPPs with `pricelevels` --------
 dt1[, cpd(p = price, r = region, n = product)]
 
-# Estimating SPPPs with `estim_cpd()` ---------
+# Estimating sPPPs with `estim_cpd()` ---------
 dt1 |>
   estim_cpd(
     region = "region",
@@ -261,10 +261,10 @@ dt1 |>
 ```
 
 
-The function `estim_cpd()` also has the option to to export standard errors with argument `output = "Std. Error"`.hese standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh) vignette.
+The function `estim_cpd()` also has the option to to export standard errors with argument `output = "Std. Error"`.hese standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh) vignette.
 
 ```{r}
-# Estimating SPPPs with `estim_cpd()` and obtain standard errors ---------
+# Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------
 dt1 |>
   estim_cpd(
     region = "region",
@@ -290,10 +290,10 @@ red <- uk_cpi |>
     product = as.factor(product)
   )
 
-# Estimating SPPPs with `estim_cpd()` ---------
+# Estimating sPPPs with `estim_cpd()` ---------
 estim_cpd(red) |> pull("SPPP")
 
-# Estimating SPPPs with `pricelevels` --------
+# Estimating sPPPs with `pricelevels` --------
 as.data.table(red)[, cpd(p = price, r = region, n = product)]
 ```
 

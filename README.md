@@ -5,7 +5,7 @@
 <!-- badges: end -->
 
 `OECDsppps` provides functionalities for calculating subnational 
-Purchasing Power Parities (SPPPs) in OECD regions.
+Purchasing Power Parities (sPPPs) in OECD regions.
 
 It describes the processing, validation, aggregation and 
 estimation of the multiple data sources for the purpose 

@@ -28,22 +28,16 @@
 #' @param region Identifier for regions (within or across countries)
 #' @param product Product identifier
 #' @param price Individual item-level price quotes; duplicated region-product
-#' pairs are aggregated by way of averaging across region-product pairs.
+#' pairs are aggregated by way of averaging across region-product pairs
 #' @param base.region A character specifying the base to which the estimated
-#' logarithmic regional price levels are expressed.
+#' logarithmic regional price levels are expressed
 #' When NULL, they refer to the (unweighted) regional average,
-#' similar to `contr.sum()`.
+#' similar to `contr.sum()`
 #' @param output Either "SPPP", which returns the estimated subnational
 #' purchasing purchasing power parities, that is,
 #' \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 #' "Std. Error", which returns the standard errors of the estimation;
 #' default is "SPPP"
-#'
-#' @return A tibble (scalar)  with estimated subnational
-#' purchasing purchasing power parities, that is,
-#' \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)}  if `output = "SPPS"` (default),
-#' or vector containing the standard errors of the estimation
-#' if `output = "Std. Error"`
 #'
 #' @references
 #'   \insertAllCited{}

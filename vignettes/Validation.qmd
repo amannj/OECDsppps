@@ -27,7 +27,7 @@ library(dplyr)
 library(tidyr)
 library(gt)
 library(ggplot2)
-library(OECDsppps)
+library(OECDsPPPs)
 ```
 
 # Overview {.unnumbered}
@@ -366,7 +366,7 @@ df_out |>
 
 # Validation of alternative data sources {#sec-alternative}
 
-When official data required for the calculation of SPPPs are unavailable, alternative data sources are employed. Examples include historical price quotations obtained from private insurers’ websites and other relevant non-official datasets.
+When official data required for the calculation of sPPPs are unavailable, alternative data sources are employed. Examples include historical price quotations obtained from private insurers’ websites and other relevant non-official datasets.
 
 The use of alternative data sources depends on the type and availability of data and may vary across cases and countries. Validation of such sources follows two main steps:
 

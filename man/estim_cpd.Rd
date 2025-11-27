@@ -22,25 +22,18 @@ columns identifying region, product and individual item-level price quotes}
 \item{product}{Product identifier}
 
 \item{price}{Individual item-level price quotes; duplicated region-product
-pairs are aggregated by way of averaging across region-product pairs.}
+pairs are aggregated by way of averaging across region-product pairs}
 
 \item{base.region}{A character specifying the base to which the estimated
-logarithmic regional price levels are expressed.
+logarithmic regional price levels are expressed
 When NULL, they refer to the (unweighted) regional average,
-similar to \code{contr.sum()}.}
+similar to \code{contr.sum()}}
 
 \item{output}{Either "SPPP", which returns the estimated subnational
 purchasing purchasing power parities, that is,
 \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 "Std. Error", which returns the standard errors of the estimation;
 default is "SPPP"}
-}
-\value{
-A tibble (scalar)  with estimated subnational
-purchasing purchasing power parities, that is,
-\mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)}  if \code{output = "SPPS"} (default),
-or vector containing the standard errors of the estimation
-if \code{output = "Std. Error"}
 }
 \description{
 \loadmathjax
