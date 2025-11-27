@@ -50,10 +50,22 @@ see \emph{Details} and
 for more information.
 }
 \details{
-\strong{detailed} description goes
-\mjseqn{i}, \mjseqn{P_{i}},
-here
-\mjdeqn{ratio-to-average = p_{ij}/\mu_j}{ratio-to-average = p_{ij}/\mu_j}
+The CPD method is a regression-based approach for estimating price parities.
+It is characterised by a fixed-effects specification, in which country effects
+yield estimates of subnational purchasing power parities,
+while commodity-specific effects generate estimates of subnational price
+levels. The model can be written as a regression equation in which all
+explanatory variables take the form of dummy indicators for each region
+and commodity:
+
+\mjdeqn{ln p_{ij}  = \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\ \eta_1 \mathcal{D}_1 + ... + \eta_i \mathcal{D}_i + ... + \eta_N \mathcal{D}_N + \varepsilon_{ij}}{ln p_{ij}  = \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\ \eta_1 \mathcal{D}_1 + ... + \eta_i \mathcal{D}_i + ... + \eta_N \mathcal{D}_N + \varepsilon_{ij}}
+
+where \mjseqn{\alpha_j} is the the price level of region \mjseqn{j} relative
+to all other regions in the comparison. \mjseqn{\alpha_j} can also be
+expressed relative to a reference region, for example, the national price
+level. Then, \mjseqn{\alpha_j}  represents the subnational purchasing power
+parity of region \mjseqn{j} given
+by \mjseqn{\hat{PPP}_j = exp(\hat{\alpha}_j)}.
 }
 \examples{
 suppressPackageStartupMessages(library(dplyr))
