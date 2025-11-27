@@ -87,7 +87,7 @@ where $\alpha_j$ is the the price level of region $j$ relative to all other regi
 
 ## Estimation
 
-The CPD model in @eq-ppp2 may be interpreted as a straightforward fixed-effects specification, in which country effects yield estimates of subnational purchasing power parities, while commodity-specific effects generate estimates of subnational price levels. The model can be written as a regression equation in which all explanatory variables take the form of dummy indicators for each region and commodity.
+The CPD model in @eq-ppp2 may be interpreted as a fixed-effects specification, in which country effects yield estimates of subnational purchasing power parities, while commodity-specific effects generate estimates of subnational price levels. The model can be written as a regression equation in which all explanatory variables take the form of dummy indicators for each region and commodity.
 
 $$
 \begin{aligned}
@@ -182,6 +182,8 @@ colnames(contrasts(x = pdata$region)) <- levels(pdata$region)[-nlevels(pdata$reg
 out <- lm(formula = cpd_mod, data = pdata)
 out
 exp(dummy.coef(out)[["region"]])
+exp(3.23617 - 0.05898)
+exp(3.23617 + 0.05898)
 ```
 
 ### Example 2: Two products, two regions {#sec-example2 .unnumbered}
@@ -269,7 +271,7 @@ dt1 |>
     product = "product",
     price = "price",
     output = "Std. Error"
-  ) 
+  )
 ```
 
 ### Example 4: UK microdata - Two products, multiple regions {#sec-example4 .unnumbered}
