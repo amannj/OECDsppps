@@ -27,7 +27,7 @@ library(dplyr)
 library(tidyr)
 library(gt)
 library(ggplot2)
-library(OECDsPPPs)
+library(OECDsppps)
 library(pricelevels)
 library(data.table)
 ```
