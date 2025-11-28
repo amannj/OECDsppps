@@ -51,7 +51,7 @@ for more information."><meta property="og:image" content="https://amannj.github.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Country Product Dummy (CPD) regression model</h1>
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/v0.0.0.2/R/estim.R" class="external-link"><code>R/estim.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/R/estim.R" class="external-link"><code>R/estim.R</code></a></small>
       <div class="d-none name"><code>estim_cpd.Rd</code></div>
     </div>
 
@@ -94,14 +94,14 @@ columns identifying region, product and individual item-level price quotes</p></
 
 <dt id="arg-price">price<a class="anchor" aria-label="anchor" href="#arg-price"></a></dt>
 <dd><p>Individual item-level price quotes; duplicated region-product
-pairs are aggregated by way of averaging across region-product pairs.</p></dd>
+pairs are aggregated by way of averaging across region-product pairs</p></dd>
 
 
 <dt id="arg-base-region">base.region<a class="anchor" aria-label="anchor" href="#arg-base-region"></a></dt>
 <dd><p>A character specifying the base to which the estimated
-logarithmic regional price levels are expressed.
+logarithmic regional price levels are expressed
 When NULL, they refer to the (unweighted) regional average,
-similar to <code><a href="https://rdrr.io/r/stats/contrast.html" class="external-link">contr.sum()</a></code>.</p></dd>
+similar to <code><a href="https://rdrr.io/r/stats/contrast.html" class="external-link">contr.sum()</a></code></p></dd>
 
 
 <dt id="arg-output">output<a class="anchor" aria-label="anchor" href="#arg-output"></a></dt>
@@ -113,19 +113,21 @@ default is "SPPP"</p></dd>
 
 </dl></div>
     <div class="section level2">
-    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A tibble (scalar)  with estimated subnational
-purchasing purchasing power parities, that is,
-<em></em>\(\hat{SPPP}_r = exp(\hat{\alpha}_r)\)  if <code>output = "SPPS"</code> (default),
-or vector containing the standard errors of the estimation
-if <code>output = "Std. Error"</code></p>
-    </div>
-    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><strong>detailed</strong> description goes
-<em></em>\(i\), <em></em>\(P_{i}\),
-here
-\[ratio-to-average = p_{ij}/\mu_j\]</p>
+    <p>The CPD method is a regression-based approach for estimating price parities.
+It is characterised by a fixed-effects specification, in which country effects
+yield estimates of subnational purchasing power parities,
+while commodity-specific effects generate estimates of subnational price
+levels. The model can be written as a regression equation in which all
+explanatory variables take the form of dummy indicators for each region
+and commodity:</p>
+<p>\[ln p_{ij}  = \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \ \eta_1 \mathcal{D}_1 + ... + \eta_i \mathcal{D}_i + ... + \eta_N \mathcal{D}_N + \varepsilon_{ij}\]</p>
+<p>where <em></em>\(\alpha_j\) is the the price level of region <em></em>\(j\) relative
+to all other regions in the comparison. <em></em>\(\alpha_j\) can also be
+expressed relative to a reference region, for example, the national price
+level. Then, <em></em>\(\alpha_j\)  represents the subnational purchasing power
+parity of region <em></em>\(j\) given
+by <em></em>\(\hat{PPP}_j = exp(\hat{\alpha}_j)\).</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

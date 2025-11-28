@@ -71,7 +71,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/v0.0.0.2/vignettes/Estimation.qmd" class="external-link"><code>vignettes/Estimation.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/vignettes/Estimation.qmd" class="external-link"><code>vignettes/Estimation.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -92,7 +92,7 @@
 </div>
 <section class="section level2"><h2 class="unnumbered" id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><strong>The estimation</strong> of subnational PPPs starts with the item-level prices that are progressively aggregated to higher levels. In addition to aggregate subnational price indices, sub-indices, for example, at the COICOP division level, can highlight more granular regional price level differences. This process aligns with current recommendations; see <span class="citation" data-cites="icp2021">ICP (<a href="#ref-icp2021" role="doc-biblioref">2021</a>)</span>, <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">European Union/OECD (<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">2024</a>)</span> for more information.</p>
+<p><strong>The estimation</strong> of subnational PPPs (sPPPs) starts with the item-level prices that are progressively aggregated to higher levels. In addition to aggregate subnational price indices, sub-indices, for example, at the COICOP division level, can highlight more granular regional price level differences. This process aligns with current recommendations; see <span class="citation" data-cites="icp2021">ICP (<a href="#ref-icp2021" role="doc-biblioref">2021</a>)</span>, <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">European Union/OECD (<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">2024</a>)</span> for more information.</p>
 <section class="level2 unnumbered"><h3 class="unnumbered" id="estimation-steps">Estimation steps<a class="anchor" aria-label="anchor" href="#estimation-steps"></a>
 </h3>
 <p>The estimation steps are:</p>
@@ -132,7 +132,7 @@ ln p_{ij} &amp; = ln PPP_j + ln p_i  + ln \epsilon_{ij} \\
 </section><section class="level2" data-number="1.2"><h3 data-number="1.2" id="estimation">
 <span class="header-section-number">1.2</span> Estimation<a class="anchor" aria-label="anchor" href="#estimation"></a>
 </h3>
-<p>The CPD model in <a href="#eq-ppp2" class="quarto-xref">Equation 2</a> may be interpreted as a straightforward fixed-effects specification, in which country effects yield estimates of subnational purchasing power parities, while commodity-specific effects generate estimates of subnational price levels. The model can be written as a regression equation in which all explanatory variables take the form of dummy indicators for each region and commodity.</p>
+<p>The CPD model in <a href="#eq-ppp2" class="quarto-xref">Equation 2</a> may be interpreted as a fixed-effects specification, in which country effects yield estimates of subnational purchasing power parities, while commodity-specific effects generate estimates of subnational price levels. The model can be written as a regression equation in which all explanatory variables take the form of dummy indicators for each region and commodity.</p>
 <p><span id="eq-ppp3"><span class="math display">\[
 \begin{aligned}
 ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
@@ -247,7 +247,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span><span class="co">#&gt;     3.23617     -0.05898</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dummy.coef.html" class="external-link">dummy.coef</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[[</span><span class="st">"region"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        1        2 </span></span>
-<span><span class="co">#&gt; 0.942723 1.060757</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.942723 1.060757</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">3.23617</span> <span class="op">-</span> <span class="fl">0.05898</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 23.97928</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">3.23617</span> <span class="op">+</span> <span class="fl">0.05898</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 26.98146</span></span></code></pre></div>
 </div>
 </section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-example2">Example 2: Two products, two regions<a class="anchor" aria-label="anchor" href="#sec-example2"></a>
 </h4>
@@ -317,7 +321,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span class="header-section-number">1.3.2</span> Using <code>estim_cpd()</code>
 <a class="anchor" aria-label="anchor" href="#using-estim_cpd"></a>
 </h4>
-<p>Additionally, the function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> provides an alternative estimation approach to provide numerically identical SPPPs estimates.</p>
+<p>Additionally, the function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> provides an alternative estimation approach to provide numerically identical sPPPs estimates.</p>
 </section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-example3">Example 3: Generic - Multiple products, and regions<a class="anchor" aria-label="anchor" href="#sec-example3"></a>
 </h4>
 <div class="cell">
@@ -329,12 +333,12 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of products</span></span>
 <span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu">pricelevels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/rdata.html" class="external-link">rdata</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="va">N</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Estimating SPPPs with `pricelevels` --------</span></span>
+<span><span class="co"># Estimating sPPPs with `pricelevels` --------</span></span>
 <span><span class="va">dt1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt;         1         2         3         4         5 </span></span>
 <span><span class="co">#&gt; 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137</span></span>
 <span></span>
-<span><span class="co"># Estimating SPPPs with `estim_cpd()` ---------</span></span>
+<span><span class="co"># Estimating sPPPs with `estim_cpd()` ---------</span></span>
 <span><span class="va">dt1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span></span>
 <span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
@@ -345,17 +349,17 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span><span class="co">#&gt;         1         2         3         4         5 </span></span>
 <span><span class="co">#&gt; 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137</span></span></code></pre></div>
 </div>
-<p>The function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> also has the option to to export standard errors with argument <code>output = "Std. Error"</code>.hese standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see <a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh">Validation</a> vignette.</p>
+<p>The function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> also has the option to to export standard errors with argument <code>output = "Std. Error"</code>.hese standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see <a href="https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh" class="external-link">Validation</a> vignette.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Estimating SPPPs with `estim_cpd()` and obtain standard errors ---------</span></span>
+<code class="sourceCode R"><span><span class="co"># Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------</span></span>
 <span><span class="va">dt1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span></span>
 <span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
 <span>    product <span class="op">=</span> <span class="st">"product"</span>,</span>
 <span>    price <span class="op">=</span> <span class="st">"price"</span>,</span>
 <span>    output <span class="op">=</span> <span class="st">"Std. Error"</span></span>
-<span>  <span class="op">)</span> </span>
+<span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.0115062</span></span></code></pre></div>
 </div>
 </section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-example4">Example 4: UK microdata - Two products, multiple regions<a class="anchor" aria-label="anchor" href="#sec-example4"></a>
@@ -375,7 +379,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>    product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">product</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Estimating SPPPs with `estim_cpd()` ---------</span></span>
+<span><span class="co"># Estimating sPPPs with `estim_cpd()` ---------</span></span>
 <span><span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">red</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"SPPP"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Duplicated region-product pairs found in data: Data is aggregated by averaging across region-product pairs.</span></span>
 <span><span class="co">#&gt;             East Midlands           East of England                    London </span></span>
@@ -387,7 +391,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span><span class="co">#&gt;                     Wales             West Midlands Yorkshire and the Humberl </span></span>
 <span><span class="co">#&gt;                 0.8612814                 1.0457363                 0.9802726</span></span>
 <span></span>
-<span><span class="co"># Estimating SPPPs with `pricelevels` --------</span></span>
+<span><span class="co"># Estimating sPPPs with `pricelevels` --------</span></span>
 <span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">red</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt; Warning: Duplicated observations found and aggregated</span></span>
 <span><span class="co">#&gt;             East Midlands           East of England                    London </span></span>

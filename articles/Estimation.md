@@ -12,13 +12,13 @@ library(data.table)
 
 ## Overview
 
-**The estimation** of subnational PPPs starts with the item-level prices
-that are progressively aggregated to higher levels. In addition to
-aggregate subnational price indices, sub-indices, for example, at the
-COICOP division level, can highlight more granular regional price level
-differences. This process aligns with current recommendations; see ICP
-([2021](#ref-icp2021)), World Bank ([2013](#ref-worldbank2013)) and
-European Union/OECD
+**The estimation** of subnational PPPs (sPPPs) starts with the
+item-level prices that are progressively aggregated to higher levels. In
+addition to aggregate subnational price indices, sub-indices, for
+example, at the COICOP division level, can highlight more granular
+regional price level differences. This process aligns with current
+recommendations; see ICP ([2021](#ref-icp2021)), World Bank
+([2013](#ref-worldbank2013)) and European Union/OECD
 ([2024](#ref-europeanunionEurostatOECDMethodologicalManual2024)) for
 more information.
 
@@ -107,12 +107,11 @@ region \\j\\ given by \\\hat{PPP}\_j = exp(\hat{\alpha}\_j)\\.
 ### 1.2 Estimation
 
 The CPD model in [Equation 2](#eq-ppp2) may be interpreted as a
-straightforward fixed-effects specification, in which country effects
-yield estimates of subnational purchasing power parities, while
-commodity-specific effects generate estimates of subnational price
-levels. The model can be written as a regression equation in which all
-explanatory variables take the form of dummy indicators for each region
-and commodity.
+fixed-effects specification, in which country effects yield estimates of
+subnational purchasing power parities, while commodity-specific effects
+generate estimates of subnational price levels. The model can be written
+as a regression equation in which all explanatory variables take the
+form of dummy indicators for each region and commodity.
 
 \\ \begin{aligned} ln p\_{ij} = & \alpha_1 D_1 + ... + \alpha_j D_j +
 ... +\alpha_R D_R + \\ & \eta_1 \mathcal{D}\_1 + ... + \eta_i
@@ -244,6 +243,10 @@ out
 exp(dummy.coef(out)[["region"]])
 #>        1        2 
 #> 0.942723 1.060757
+exp(3.23617 - 0.05898)
+#> [1] 23.97928
+exp(3.23617 + 0.05898)
+#> [1] 26.98146
 ```
 
 #### Example 2: Two products, two regions
@@ -318,7 +321,7 @@ exp(dummy.coef(out)[["region"]])
 Additionally, the function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 provides an alternative estimation approach to provide numerically
-identical SPPPs estimates.
+identical sPPPs estimates.
 
 #### Example 3: Generic - Multiple products, and regions
 
@@ -330,12 +333,12 @@ B <- 5 # number of product groups
 N <- 5 # number of products
 dt1 <- pricelevels::rdata(R = R, B = B, N = N)
 
-# Estimating SPPPs with `pricelevels` --------
+# Estimating sPPPs with `pricelevels` --------
 dt1[, cpd(p = price, r = region, n = product)]
 #>         1         2         3         4         5 
 #> 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137
 
-# Estimating SPPPs with `estim_cpd()` ---------
+# Estimating sPPPs with `estim_cpd()` ---------
 dt1 |>
   estim_cpd(
     region = "region",
@@ -352,18 +355,18 @@ The function
 also has the option to to export standard errors with argument
 `output = "Std. Error"`.hese standard errors are used to support the
 validation of CPD-based subnational PPPs at the basic-heading level; see
-[Validation](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh)
+[Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh)
 vignette.
 
 ``` r
-# Estimating SPPPs with `estim_cpd()` and obtain standard errors ---------
+# Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------
 dt1 |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price",
     output = "Std. Error"
-  ) 
+  )
 #> [1] 0.0115062
 ```
 
@@ -383,7 +386,7 @@ red <- uk_cpi |>
     product = as.factor(product)
   )
 
-# Estimating SPPPs with `estim_cpd()` ---------
+# Estimating sPPPs with `estim_cpd()` ---------
 estim_cpd(red) |> pull("SPPP")
 #> Duplicated region-product pairs found in data: Data is aggregated by averaging across region-product pairs.
 #>             East Midlands           East of England                    London 
@@ -395,7 +398,7 @@ estim_cpd(red) |> pull("SPPP")
 #>                     Wales             West Midlands Yorkshire and the Humberl 
 #>                 0.8612814                 1.0457363                 0.9802726
 
-# Estimating SPPPs with `pricelevels` --------
+# Estimating sPPPs with `pricelevels` --------
 as.data.table(red)[, cpd(p = price, r = region, n = product)]
 #> Warning: Duplicated observations found and aggregated
 #>             East Midlands           East of England                    London 

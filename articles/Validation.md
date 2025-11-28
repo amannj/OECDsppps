@@ -491,7 +491,7 @@ df_out |>
 
 ## 3 Validation of alternative data sources
 
-When official data required for the calculation of SPPPs are
+When official data required for the calculation of sPPPs are
 unavailable, alternative data sources are employed. Examples include
 historical price quotations obtained from private insurers’ websites and
 other relevant non-official datasets.

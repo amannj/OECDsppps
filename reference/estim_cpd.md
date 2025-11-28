@@ -34,14 +34,14 @@ estim_cpd(
 - price:
 
   Individual item-level price quotes; duplicated region-product pairs
-  are aggregated by way of averaging across region-product pairs.
+  are aggregated by way of averaging across region-product pairs
 
 - base.region:
 
   A character specifying the base to which the estimated logarithmic
-  regional price levels are expressed. When NULL, they refer to the
+  regional price levels are expressed When NULL, they refer to the
   (unweighted) regional average, similar to
-  [`contr.sum()`](https://rdrr.io/r/stats/contrast.html).
+  [`contr.sum()`](https://rdrr.io/r/stats/contrast.html)
 
 - output:
 
@@ -50,17 +50,25 @@ estim_cpd(
   exp(\hat{\alpha}\_r)\\ or "Std. Error", which returns the standard
   errors of the estimation; default is "SPPP"
 
-## Value
-
-A tibble (scalar) with estimated subnational purchasing purchasing power
-parities, that is, \\\hat{SPPP}\_r = exp(\hat{\alpha}\_r)\\ if
-`output = "SPPS"` (default), or vector containing the standard errors of
-the estimation if `output = "Std. Error"`
-
 ## Details
 
-**detailed** description goes \\i\\, \\P\_{i}\\, here \\ratio-to-average
-= p\_{ij}/\mu_j\\
+The CPD method is a regression-based approach for estimating price
+parities. It is characterised by a fixed-effects specification, in which
+country effects yield estimates of subnational purchasing power
+parities, while commodity-specific effects generate estimates of
+subnational price levels. The model can be written as a regression
+equation in which all explanatory variables take the form of dummy
+indicators for each region and commodity:
+
+\\ln p\_{ij} = \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R +
+\\ \eta_1 \mathcal{D}\_1 + ... + \eta_i \mathcal{D}\_i + ... + \eta_N
+\mathcal{D}\_N + \varepsilon\_{ij}\\
+
+where \\\alpha_j\\ is the the price level of region \\j\\ relative to
+all other regions in the comparison. \\\alpha_j\\ can also be expressed
+relative to a reference region, for example, the national price level.
+Then, \\\alpha_j\\ represents the subnational purchasing power parity of
+region \\j\\ given by \\\hat{PPP}\_j = exp(\hat{\alpha}\_j)\\.
 
 ## References
 
