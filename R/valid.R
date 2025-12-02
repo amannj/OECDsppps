@@ -52,8 +52,6 @@
 #' @importFrom Rdpack reprompt
 #' @importFrom mathjaxr preview_rd
 #' @importFrom dplyr mutate
-#' @importFrom dplyr group_by
-#' @importFrom dplyr select
 #' @export
 valid_pot <- function(data,
                       price_quote = "Reference quantity price") {
@@ -123,9 +121,9 @@ valid_pot <- function(data,
 #' @importFrom Rdpack reprompt
 #' @importFrom mathjaxr preview_rd
 #' @importFrom dplyr mutate
-#' @importFrom dplyr group_by
 #' @importFrom dplyr select
 #' @importFrom dplyr summarise
+#' @importFrom rlang .data
 #' @export
 valid_apt <- function(data,
                       price_quote = "Reference quantity price") {
@@ -181,18 +179,22 @@ valid_apt <- function(data,
 #' @importFrom Rdpack reprompt
 #' @importFrom mathjaxr preview_rd
 #' @importFrom dplyr mutate
-#' @importFrom dplyr group_by
 #' @importFrom dplyr select
+#' @importFrom rlang .data
 #' @export
 valid_XRratio <- function(data,
                           average_price = "Average price of product",
                           exchange_rate = "XR USD") {
   data |>
-    mutate(`XR Average price of product` = .data[[average_price]] * .data[[exchange_rate]]) |>
-    # Calculate XR-Ratio
-    mutate(`Geometric mean` = exp(mean(log(`XR Average price of product`)))) |>
-    # Calculate XR-ratios
-    mutate(`XR-ratio` = `XR Average price of product` / `Geometric mean` * 100) |>
+    mutate(
+      # Calculate exchange rate average price
+      `XR Average price of product` = .data[[average_price]] * .data[[exchange_rate]],
+      # Calculate XR-Ratio
+      `Geometric mean` = exp(mean(log(`XR Average price of product`))),
+      # Calculate XR-ratios
+      `XR-ratio` = `XR Average price of product` / `Geometric mean` * 100
+    ) |>
+    # Select variables
     select(-c(`XR Average price of product`, `Geometric mean`))
 }
 
@@ -234,7 +236,15 @@ valid_XRratio <- function(data,
 #' @importFrom mathjaxr preview_rd
 #' @importFrom dplyr mutate
 #' @importFrom dplyr group_by
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr distinct
 #' @importFrom dplyr select
+#' @importFrom dplyr left_join
+#' @importFrom dplyr row_number
+#' @importFrom tidyr pivot_wider
+#' @importFrom rlang .data
+#' @importFrom tidyselect everything
+#' @importFrom dplyr join_by
 #' @export
 valid_PPPratio <- function(data,
                            year = "Year",
@@ -276,15 +286,14 @@ valid_PPPratio <- function(data,
     select({{ year }}, {{ region }}, `VC Region`) |>
     distinct() |>
     pivot_wider(names_from = {{ region }}, values_from = `VC Region`) |>
-    mutate({{product_code}} := "Region variation coefficients") |>
-    select(Year, {{ product_code }}, everything()) |>
+    mutate({{ product_code }} := "Region variation coefficients") |>
+    select({{ year }}, {{ product_code }}, tidyselect::everything()) |>
     mutate(`VC Product` = NA)
 
   # Final table
   tmp |>
     select(-contains("VC")) |>
     pivot_wider(names_from = {{ region }}, values_from = PPP_ratio) |>
-    left_join(x1, by = join_by(Year, {{product_code}})) |>
-    rbind(x2) |>
-    rename("Product variation coefficients" = `VC Product`)
+    left_join(x1, by = join_by({{ year }}, {{ product_code }})) |>
+    rbind(x2)
 }
