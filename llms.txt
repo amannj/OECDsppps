@@ -28,6 +28,9 @@ See tab **Articles** for detailed package documentation:
 - **Estimation** - estimating subnational purchasing power parities from
   item-level prices at basic heading level and beyond
 
+- **Implementation** - discusses the production pipeline of of
+  *OECDsppps*
+
 # Package index
 
 ## All functions
@@ -64,3 +67,4 @@ See tab **Articles** for detailed package documentation:
 
 - [Validation](https://amannj.github.io/OECDsppps/articles/Validation.md):
 - [Estimation](https://amannj.github.io/OECDsppps/articles/Estimation.md):
+- [Implementation](https://amannj.github.io/OECDsppps/articles/Implementation.md):

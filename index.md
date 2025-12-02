@@ -27,3 +27,6 @@ See tab **Articles** for detailed package documentation:
 
 - **Estimation** - estimating subnational purchasing power parities from
   item-level prices at basic heading level and beyond
+
+- **Implementation** - discusses the production pipeline of of
+  *OECDsppps*

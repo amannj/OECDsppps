@@ -11,8 +11,10 @@ estim_cpd(
   region = "region",
   product = "product",
   price = "price",
+  weights = NULL,
+  weights_cpd = NULL,
   base.region = NULL,
-  output = "SPPP"
+  output = "sPPP"
 )
 ```
 
@@ -36,19 +38,37 @@ estim_cpd(
   Individual item-level price quotes; duplicated region-product pairs
   are aggregated by way of averaging across region-product pairs
 
+- weights:
+
+  An optional vector of weights to be used whenever duplicate
+  regional-product pairs are found in the data; default is `NULL`, in
+  which case data is aggregated to region-product pairs using unweighted
+  means. If weights are provided and duplicate regional-product pairs
+  are found, these weights are used as part of the aggregation of
+  average regional-product pairs; see stats
+  [`weighted.mean()`](https://rdrr.io/r/stats/weighted.mean.html)
+
+- weights_cpd:
+
+  An optional vector of weights to be used in the fitting process of the
+  CPD regression model; default is `NULL` and ordinary least squares is
+  used. If non-`NULL`, weighted least squares is used, with weights
+  \\w\\ provided by `weights`, to minimise \\\sum(w \times e^2)\\; see
+  'Details' of stats [`lm()`](https://rdrr.io/r/stats/lm.html)
+
 - base.region:
 
-  A character specifying the base to which the estimated logarithmic
-  regional price levels are expressed When NULL, they refer to the
-  (unweighted) regional average, similar to
+  An optional character specifying the base to which the estimated
+  logarithmic regional price levels are expressed When `NULL`, they
+  refer to the (unweighted) regional average, similar to
   [`contr.sum()`](https://rdrr.io/r/stats/contrast.html)
 
 - output:
 
-  Either "SPPP", which returns the estimated subnational purchasing
+  Either "sPPP", which returns the estimated subnational purchasing
   purchasing power parities, that is, \\\hat{SPPP}\_r =
-  exp(\hat{\alpha}\_r)\\ or "Std. Error", which returns the standard
-  errors of the estimation; default is "SPPP"
+  exp(\hat{\alpha}\_r)\\ or "Full", which summarises the key information
+  about the estimate CPD model in a tidy `tibble` using broom.
 
 ## Details
 
@@ -88,12 +108,17 @@ df <- tibble(
   price = c(25, 28, 23, 26)
 )
 
-estim_cpd(df)
+estim_cpd(df, output = "sPPP")
 #> # A tibble: 2 × 2
-#>   region  SPPP
+#>   region  sPPP
 #>   <chr>  <dbl>
 #> 1 1      0.943
 #> 2 2      1.06 
-estim_cpd(df, output = "Std. Error")
-#> [1] 0.002318409
+estim_cpd(df, output = "Full")
+#> # A tibble: 2 × 11
+#>   term     estimate std.error statistic p.value r.squared adj.r.squared    sigma
+#>   <chr>       <dbl>     <dbl>     <dbl>   <dbl>     <dbl>         <dbl>    <dbl>
+#> 1 1         -0.0590   0.00232     -25.4  0.0250    NA            NA     NA      
+#> 2 Aggrega…  NA       NA            NA   NA          1.000         1.000  0.00464
+#> # ℹ 3 more variables: df <dbl>, df.residual <int>, nobs <dbl>
 ```

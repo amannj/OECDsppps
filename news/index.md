@@ -21,6 +21,7 @@ Initial estimation and extending validation
 - Estimation vignette section: *Estimation of item-level prices to basic
   heading level*
 - Validation vignette section: *Validation at basic-heading level*
+- Implementation vignette section: *Overview*
 
 #### Improvements
 

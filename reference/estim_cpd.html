@@ -5,19 +5,19 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Country Product Dummy (CPD) regression model — estim_cpd"><meta name="description" content="
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Country Product Dummy (CPD) regression model — estim_cpd"><meta name="description" content='MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};
 
 estim_cpd in  OECDsppps creates ...;
 see Details and
 World Bank (2013)
 ,
-for more information."><meta property="og:description" content="
+for more information.'><meta property="og:description" content='MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};
 
 estim_cpd in  OECDsppps creates ...;
 see Details and
 World Bank (2013)
 ,
-for more information."><meta property="og:image" content="https://amannj.github.io/OECDsppps/logo.png"></head><body>
+for more information.'><meta property="og:image" content="https://amannj.github.io/OECDsppps/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -38,6 +38,7 @@ for more information."><meta property="og:image" content="https://amannj.github.
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Validation.html">Validation</a></li>
     <li><a class="dropdown-item" href="../articles/Estimation.html">Estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/Implementation.html">Implementation</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -56,7 +57,7 @@ for more information."><meta property="og:image" content="https://amannj.github.
     </div>
 
     <div class="ref-description section level2">
-    <p><script id="MathJax-script" async src="../../mathjaxr/doc/mathjax/es5/tex-chtml-full.js"></script><code>estim_cpd</code> in  <span class="pkg">OECDsppps</span> creates ...;
+    <p><script>MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};</script><script defer src="../../mathjaxr/doc/mathjax/tex-chtml.js"></script><code>estim_cpd</code> in  <span class="pkg">OECDsppps</span> creates ...;
 see <em>Details</em> and
 World Bank (2013)
 ,
@@ -70,8 +71,10 @@ for more information.</p>
 <span>  region <span class="op">=</span> <span class="st">"region"</span>,</span>
 <span>  product <span class="op">=</span> <span class="st">"product"</span>,</span>
 <span>  price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  weights_cpd <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base.region <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  output <span class="op">=</span> <span class="st">"SPPP"</span></span>
+<span>  output <span class="op">=</span> <span class="st">"sPPP"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -97,19 +100,36 @@ columns identifying region, product and individual item-level price quotes</p></
 pairs are aggregated by way of averaging across region-product pairs</p></dd>
 
 
+<dt id="arg-weights">weights<a class="anchor" aria-label="anchor" href="#arg-weights"></a></dt>
+<dd><p>An optional vector of weights to be used whenever duplicate
+regional-product pairs are found in the data; default is <code>NULL</code>, in which
+case data is aggregated to region-product pairs using unweighted means. If
+weights are provided and duplicate regional-product pairs are found,
+these weights are used as part of the aggregation of average regional-product
+pairs; see <span class="pkg">stats</span> <code><a href="https://rdrr.io/r/stats/weighted.mean.html" class="external-link">weighted.mean()</a></code></p></dd>
+
+
+<dt id="arg-weights-cpd">weights_cpd<a class="anchor" aria-label="anchor" href="#arg-weights-cpd"></a></dt>
+<dd><p>An optional vector of weights to be used in the fitting
+process of the CPD regression model; default is <code>NULL</code> and ordinary least
+squares is used. If non-<code>NULL</code>, weighted
+least squares is used, with weights <em></em>\(w\) provided by <code>weights</code>, to
+minimise <em></em>\(\sum(w \times e^2)\); see 'Details' of  <span class="pkg">stats</span> <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code></p></dd>
+
+
 <dt id="arg-base-region">base.region<a class="anchor" aria-label="anchor" href="#arg-base-region"></a></dt>
-<dd><p>A character specifying the base to which the estimated
+<dd><p>An optional character specifying the base to which the estimated
 logarithmic regional price levels are expressed
-When NULL, they refer to the (unweighted) regional average,
+When <code>NULL</code>, they refer to the (unweighted) regional average,
 similar to <code><a href="https://rdrr.io/r/stats/contrast.html" class="external-link">contr.sum()</a></code></p></dd>
 
 
 <dt id="arg-output">output<a class="anchor" aria-label="anchor" href="#arg-output"></a></dt>
-<dd><p>Either "SPPP", which returns the estimated subnational
+<dd><p>Either "sPPP", which returns the estimated subnational
 purchasing purchasing power parities, that is,
 <em></em>\(\hat{SPPP}_r = exp(\hat{\alpha}_r)\) or
-"Std. Error", which returns the standard errors of the estimation;
-default is "SPPP"</p></dd>
+"Full", which summarises the key information about the estimate CPD model
+in a tidy <code>tibble</code> using  <span class="pkg">broom</span>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -147,14 +167,19 @@ World Bank.
 <span class="r-in"><span>  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">28</span>, <span class="fl">23</span>, <span class="fl">26</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">estim_cpd</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">estim_cpd</span><span class="op">(</span><span class="va">df</span>, output <span class="op">=</span> <span class="st">"sPPP"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   region  SPPP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   region  sPPP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1      0.943</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2      1.06 </span>
-<span class="r-in"><span><span class="fu">estim_cpd</span><span class="op">(</span><span class="va">df</span>, output <span class="op">=</span> <span class="st">"Std. Error"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.002318409</span>
+<span class="r-in"><span><span class="fu">estim_cpd</span><span class="op">(</span><span class="va">df</span>, output <span class="op">=</span> <span class="st">"Full"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   term     estimate std.error statistic p.value r.squared adj.r.squared    sigma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1         -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">0</span>   0.002<span style="text-decoration: underline;">32</span>     -<span style="color: #BB0000;">25.4</span>  0.025<span style="text-decoration: underline;">0</span>    <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aggrega…  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>          1.000         1.000  0.004<span style="text-decoration: underline;">64</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 3 more variables: df &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

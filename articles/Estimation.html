@@ -49,6 +49,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/Validation.html">Validation</a></li>
     <li><a class="dropdown-item" href="../articles/Estimation.html">Estimation</a></li>
+    <li><a class="dropdown-item" href="../articles/Implementation.html">Implementation</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -333,39 +334,607 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of products</span></span>
 <span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu">pricelevels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/rdata.html" class="external-link">rdata</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="va">N</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Estimating sPPPs with `pricelevels` --------</span></span>
+<span><span class="co"># Estimating sPPPs with `pricelevels`, no weights --------</span></span>
 <span><span class="va">dt1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt;         1         2         3         4         5 </span></span>
 <span><span class="co">#&gt; 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137</span></span>
 <span></span>
-<span><span class="co"># Estimating sPPPs with `estim_cpd()` ---------</span></span>
+<span><span class="co"># Estimating sPPPs with `estim_cpd()`, no weights ---------</span></span>
 <span><span class="va">dt1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span></span>
 <span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
 <span>    product <span class="op">=</span> <span class="st">"product"</span>,</span>
 <span>    price <span class="op">=</span> <span class="st">"price"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"SPPP"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"sPPP"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         1         2         3         4         5 </span></span>
 <span><span class="co">#&gt; 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137</span></span></code></pre></div>
 </div>
-<p>The function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> also has the option to to export standard errors with argument <code>output = "Std. Error"</code>.hese standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see <a href="https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh" class="external-link">Validation</a> vignette.</p>
+<p>The behaviour of adding estimation weights is identical across both packages; see <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> for more information.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimating sPPPs with `pricelevels`, with weights --------</span></span>
+<span><span class="va">dt1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/cpd.html" class="external-link">cpd</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">price</span>, r <span class="op">=</span> <span class="va">region</span>, n <span class="op">=</span> <span class="va">product</span>, w <span class="op">=</span> <span class="va">weight</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;         1         2         3         4         5 </span></span>
+<span><span class="co">#&gt; 1.0187925 0.8460806 1.1784210 0.9964223 0.9880038</span></span>
+<span></span>
+<span><span class="co"># Estimating sPPPs with `estim_cpd()`, with weights ---------</span></span>
+<span><span class="va">dt1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span></span>
+<span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>    product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>    price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>    weights_cpd <span class="op">=</span> <span class="st">'weight'</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"sPPP"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         1         2         3         4         5 </span></span>
+<span><span class="co">#&gt; 1.0187925 0.8460806 1.1784210 0.9964223 0.9880038</span></span></code></pre></div>
+</div>
+<p>The function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> also has the option to export extended regression output of the CPD model with argument <code>output = "Full"</code>, which summarises the key information of the estimate CPD model in a tidy <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble()</a></code> using . Information in the extended regression output is used to support the validation of CPD-based subnational PPPs at the basic-heading level; see <a href="https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh" class="external-link">Validation</a> vignette.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------</span></span>
 <span><span class="va">dt1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span></span>
 <span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
 <span>    product <span class="op">=</span> <span class="st">"product"</span>,</span>
 <span>    price <span class="op">=</span> <span class="st">"price"</span>,</span>
-<span>    output <span class="op">=</span> <span class="st">"Std. Error"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.0115062</span></span></code></pre></div>
+<span>    output <span class="op">=</span> <span class="st">"Full"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>missing_text <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="tvuqxgoenv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tvuqxgoenv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#tvuqxgoenv thead, #tvuqxgoenv tbody, #tvuqxgoenv tfoot, #tvuqxgoenv tr, #tvuqxgoenv td, #tvuqxgoenv th {
+  border-style: none;
+}
+
+#tvuqxgoenv p {
+  margin: 0;
+  padding: 0;
+}
+
+#tvuqxgoenv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#tvuqxgoenv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tvuqxgoenv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tvuqxgoenv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tvuqxgoenv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tvuqxgoenv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tvuqxgoenv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tvuqxgoenv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tvuqxgoenv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#tvuqxgoenv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#tvuqxgoenv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tvuqxgoenv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tvuqxgoenv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tvuqxgoenv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tvuqxgoenv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvuqxgoenv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#tvuqxgoenv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#tvuqxgoenv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#tvuqxgoenv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvuqxgoenv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#tvuqxgoenv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvuqxgoenv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tvuqxgoenv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvuqxgoenv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tvuqxgoenv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvuqxgoenv .gt_left {
+  text-align: left;
+}
+
+#tvuqxgoenv .gt_center {
+  text-align: center;
+}
+
+#tvuqxgoenv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tvuqxgoenv .gt_font_normal {
+  font-weight: normal;
+}
+
+#tvuqxgoenv .gt_font_bold {
+  font-weight: bold;
+}
+
+#tvuqxgoenv .gt_font_italic {
+  font-style: italic;
+}
+
+#tvuqxgoenv .gt_super {
+  font-size: 65%;
+}
+
+#tvuqxgoenv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#tvuqxgoenv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#tvuqxgoenv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#tvuqxgoenv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#tvuqxgoenv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#tvuqxgoenv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#tvuqxgoenv .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#tvuqxgoenv .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#tvuqxgoenv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead><tr class="gt_col_headings header">
+<th id="term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term</th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">estimate</th>
+<th id="std.error" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std.error</th>
+<th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">statistic</th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p.value</th>
+<th id="r.squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">r.squared</th>
+<th id="adj.r.squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">adj.r.squared</th>
+<th id="sigma" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">sigma</th>
+<th id="df" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">df</th>
+<th id="df.residual" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">df.residual</th>
+<th id="nobs" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">nobs</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="term">1</td>
+<td class="gt_row gt_right" headers="estimate">0.0</td>
+<td class="gt_row gt_right" headers="std.error">0.0</td>
+<td class="gt_row gt_right" headers="statistic">1.4</td>
+<td class="gt_row gt_right" headers="p.value">0.2</td>
+<td class="gt_row gt_right" headers="r.squared"><br></td>
+<td class="gt_row gt_right" headers="adj.r.squared"><br></td>
+<td class="gt_row gt_right" headers="sigma"><br></td>
+<td class="gt_row gt_right" headers="df"><br></td>
+<td class="gt_row gt_right" headers="df.residual"><br></td>
+<td class="gt_row gt_right" headers="nobs">25.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="term">2</td>
+<td class="gt_row gt_right" headers="estimate">−0.2</td>
+<td class="gt_row gt_right" headers="std.error">0.0</td>
+<td class="gt_row gt_right" headers="statistic">−13.7</td>
+<td class="gt_row gt_right" headers="p.value">0.0</td>
+<td class="gt_row gt_right" headers="r.squared"><br></td>
+<td class="gt_row gt_right" headers="adj.r.squared"><br></td>
+<td class="gt_row gt_right" headers="sigma"><br></td>
+<td class="gt_row gt_right" headers="df"><br></td>
+<td class="gt_row gt_right" headers="df.residual"><br></td>
+<td class="gt_row gt_right" headers="nobs">25.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="term">3</td>
+<td class="gt_row gt_right" headers="estimate">0.2</td>
+<td class="gt_row gt_right" headers="std.error">0.0</td>
+<td class="gt_row gt_right" headers="statistic">13.4</td>
+<td class="gt_row gt_right" headers="p.value">0.0</td>
+<td class="gt_row gt_right" headers="r.squared"><br></td>
+<td class="gt_row gt_right" headers="adj.r.squared"><br></td>
+<td class="gt_row gt_right" headers="sigma"><br></td>
+<td class="gt_row gt_right" headers="df"><br></td>
+<td class="gt_row gt_right" headers="df.residual"><br></td>
+<td class="gt_row gt_right" headers="nobs">25.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="term">4</td>
+<td class="gt_row gt_right" headers="estimate">0.0</td>
+<td class="gt_row gt_right" headers="std.error">0.0</td>
+<td class="gt_row gt_right" headers="statistic">−0.4</td>
+<td class="gt_row gt_right" headers="p.value">0.7</td>
+<td class="gt_row gt_right" headers="r.squared"><br></td>
+<td class="gt_row gt_right" headers="adj.r.squared"><br></td>
+<td class="gt_row gt_right" headers="sigma"><br></td>
+<td class="gt_row gt_right" headers="df"><br></td>
+<td class="gt_row gt_right" headers="df.residual"><br></td>
+<td class="gt_row gt_right" headers="nobs">25.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="term">Aggregate summary statistics</td>
+<td class="gt_row gt_right" headers="estimate"><br></td>
+<td class="gt_row gt_right" headers="std.error"><br></td>
+<td class="gt_row gt_right" headers="statistic"><br></td>
+<td class="gt_row gt_right" headers="p.value"><br></td>
+<td class="gt_row gt_right" headers="r.squared">1.0</td>
+<td class="gt_row gt_right" headers="adj.r.squared">1.0</td>
+<td class="gt_row gt_right" headers="sigma">0.1</td>
+<td class="gt_row gt_right" headers="df">29.0</td>
+<td class="gt_row gt_right" headers="df.residual">96.0</td>
+<td class="gt_row gt_right" headers="nobs">126.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-example4">Example 4: UK microdata - Two products, multiple regions<a class="anchor" aria-label="anchor" href="#sec-example4"></a>
 </h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Take UK CPI microdata ---------</span></span>
 <span><span class="va">red</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="st">"2018"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -380,8 +949,8 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Estimating sPPPs with `estim_cpd()` ---------</span></span>
-<span><span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">red</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"SPPP"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Duplicated region-product pairs found in data: Data is aggregated by averaging across region-product pairs.</span></span>
+<span><span class="va">red</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"sPPP"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.</span></span>
 <span><span class="co">#&gt;             East Midlands           East of England                    London </span></span>
 <span><span class="co">#&gt;                 0.9291930                 1.0171431                 1.3164839 </span></span>
 <span><span class="co">#&gt;                     North                North West          Northern Ireland </span></span>
@@ -403,14 +972,45 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span><span class="co">#&gt;                     Wales             West Midlands Yorkshire and the Humberl </span></span>
 <span><span class="co">#&gt;                 0.8612814                 1.0457363                 0.9802726</span></span></code></pre></div>
 </div>
+<p>The function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> provides the option to add aggregation weight in case duplicate region-product pairs found in data through the <code>weights</code> argument; see <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> for more information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------</span></span>
+<span><span class="va">red</span>  <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>w <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span>weights <span class="op">=</span> <span class="st">"w"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"sPPP"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.</span></span>
+<span><span class="co">#&gt;             East Midlands           East of England                    London </span></span>
+<span><span class="co">#&gt;                 0.9291930                 1.0171431                 1.3164839 </span></span>
+<span><span class="co">#&gt;                     North                North West          Northern Ireland </span></span>
+<span><span class="co">#&gt;                 0.9631195                 0.9757530                 0.9888085 </span></span>
+<span><span class="co">#&gt;                  Scotland                South East                South West </span></span>
+<span><span class="co">#&gt;                 1.0521466                 0.9977087                 0.9331900 </span></span>
+<span><span class="co">#&gt;                     Wales             West Midlands Yorkshire and the Humberl </span></span>
+<span><span class="co">#&gt;                 0.8612814                 1.0457363                 0.9802726</span></span>
+<span></span>
+<span><span class="co"># Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">red</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="co">## Add random weights</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">red</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span>weights <span class="op">=</span> <span class="st">"w"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"sPPP"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.</span></span>
+<span><span class="co">#&gt;             East Midlands           East of England                    London </span></span>
+<span><span class="co">#&gt;                 0.9273710                 1.0071653                 1.3190512 </span></span>
+<span><span class="co">#&gt;                     North                North West          Northern Ireland </span></span>
+<span><span class="co">#&gt;                 0.9643659                 0.9701565                 0.9970916 </span></span>
+<span><span class="co">#&gt;                  Scotland                South East                South West </span></span>
+<span><span class="co">#&gt;                 1.0489943                 1.0051813                 0.9315536 </span></span>
+<span><span class="co">#&gt;                     Wales             West Midlands Yorkshire and the Humberl </span></span>
+<span><span class="co">#&gt;                 0.8701807                 1.0331752                 0.9852731</span></span></code></pre></div>
+</div>
 <hr></section></section></section><section class="section level2" data-number="2"><h2 data-number="2" id="sec-step2">
 <span class="header-section-number">2</span> Estimation of higher level aggregates using basic heading indices<a class="anchor" aria-label="anchor" href="#sec-step2"></a>
 </h2>
 <hr>
 <blockquote>
-<p>🚧 Work in progress.</p>
+<p>🚧 Additional sections remain work in progress.</p>
 </blockquote>
-</section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<hr></section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-europeanunionEurostatOECDMethodologicalManual2024" class="csl-entry" role="listitem">

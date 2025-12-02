@@ -333,27 +333,54 @@ B <- 5 # number of product groups
 N <- 5 # number of products
 dt1 <- pricelevels::rdata(R = R, B = B, N = N)
 
-# Estimating sPPPs with `pricelevels` --------
+# Estimating sPPPs with `pricelevels`, no weights --------
 dt1[, cpd(p = price, r = region, n = product)]
 #>         1         2         3         4         5 
 #> 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137
 
-# Estimating sPPPs with `estim_cpd()` ---------
+# Estimating sPPPs with `estim_cpd()`, no weights ---------
 dt1 |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price"
   ) |>
-  pull("SPPP")
+  pull("sPPP")
 #>         1         2         3         4         5 
 #> 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137
 ```
 
+The behaviour of adding estimation weights is identical across both
+packages; see
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+for more information.
+
+``` r
+# Estimating sPPPs with `pricelevels`, with weights --------
+dt1[, cpd(p = price, r = region, n = product, w = weight)]
+#>         1         2         3         4         5 
+#> 1.0187925 0.8460806 1.1784210 0.9964223 0.9880038
+
+# Estimating sPPPs with `estim_cpd()`, with weights ---------
+dt1 |>
+  estim_cpd(
+    region = "region",
+    product = "product",
+    price = "price",
+    weights_cpd = 'weight'
+  ) |>
+  pull("sPPP")
+#>         1         2         3         4         5 
+#> 1.0187925 0.8460806 1.1784210 0.9964223 0.9880038
+```
+
 The function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
-also has the option to to export standard errors with argument
-`output = "Std. Error"`.hese standard errors are used to support the
+also has the option to export extended regression output of the CPD
+model with argument `output = "Full"`, which summarises the key
+information of the estimate CPD model in a tidy
+[`tibble()`](https://tibble.tidyverse.org/reference/tibble.html) using .
+Information in the extended regression output is used to support the
 validation of CPD-based subnational PPPs at the basic-heading level; see
 [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh)
 vignette.
@@ -365,10 +392,13 @@ dt1 |>
     region = "region",
     product = "product",
     price = "price",
-    output = "Std. Error"
-  )
-#> [1] 0.0115062
+    output = "Full"
+  ) |> 
+  gt() |> 
+  fmt_number(decimals = 1) |> sub_missing(missing_text = "")
 ```
+
+[TABLE]
 
 #### Example 4: UK microdata - Two products, multiple regions
 
@@ -387,8 +417,8 @@ red <- uk_cpi |>
   )
 
 # Estimating sPPPs with `estim_cpd()` ---------
-estim_cpd(red) |> pull("SPPP")
-#> Duplicated region-product pairs found in data: Data is aggregated by averaging across region-product pairs.
+red |> estim_cpd() |> pull("sPPP")
+#> Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.
 #>             East Midlands           East of England                    London 
 #>                 0.9291930                 1.0171431                 1.3164839 
 #>                     North                North West          Northern Ireland 
@@ -411,13 +441,52 @@ as.data.table(red)[, cpd(p = price, r = region, n = product)]
 #>                 0.8612814                 1.0457363                 0.9802726
 ```
 
+The function
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+provides the option to add aggregation weight in case duplicate
+region-product pairs found in data through the `weights` argument; see
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+for more information.
+
+``` r
+# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+red  |> mutate(w = 1) |> estim_cpd(weights = "w") |> pull("sPPP")
+#> Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
+#>             East Midlands           East of England                    London 
+#>                 0.9291930                 1.0171431                 1.3164839 
+#>                     North                North West          Northern Ireland 
+#>                 0.9631195                 0.9757530                 0.9888085 
+#>                  Scotland                South East                South West 
+#>                 1.0521466                 0.9977087                 0.9331900 
+#>                     Wales             West Midlands Yorkshire and the Humberl 
+#>                 0.8612814                 1.0457363                 0.9802726
+
+# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+set.seed(123)
+red |> 
+  ## Add random weights
+  mutate(w = runif(nrow(red), 0, 1)) |> 
+  estim_cpd(weights = "w") |> pull("sPPP")
+#> Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
+#>             East Midlands           East of England                    London 
+#>                 0.9273710                 1.0071653                 1.3190512 
+#>                     North                North West          Northern Ireland 
+#>                 0.9643659                 0.9701565                 0.9970916 
+#>                  Scotland                South East                South West 
+#>                 1.0489943                 1.0051813                 0.9315536 
+#>                     Wales             West Midlands Yorkshire and the Humberl 
+#>                 0.8701807                 1.0331752                 0.9852731
+```
+
 ------------------------------------------------------------------------
 
 ## 2 Estimation of higher level aggregates using basic heading indices
 
 ------------------------------------------------------------------------
 
-> 🚧 Work in progress.
+> 🚧 Additional sections remain work in progress.
+
+------------------------------------------------------------------------
 
 ## References
 
