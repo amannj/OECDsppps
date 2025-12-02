@@ -32,5 +32,8 @@ Imports:
     Rdpack,
     mathjaxr,
     magrittr,
-    rlang
+    rlang,
+    broom,
+    tidyselect,
+    stringr
 BuildManual: TRUE
