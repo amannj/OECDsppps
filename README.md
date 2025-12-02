@@ -29,3 +29,6 @@ as well as comparing household expenditure weights across regions
 
 - **Estimation** - estimating subnational purchasing power parities from item-level prices 
 at basic heading level and beyond 
+
+
+- **Implementation** - discusses the production pipeline of of *OECDsppps*
