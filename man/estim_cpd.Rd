@@ -9,8 +9,10 @@ estim_cpd(
   region = "region",
   product = "product",
   price = "price",
+  weights = NULL,
+  weights_cpd = NULL,
   base.region = NULL,
-  output = "SPPP"
+  output = "sPPP"
 )
 }
 \arguments{
@@ -24,16 +26,29 @@ columns identifying region, product and individual item-level price quotes}
 \item{price}{Individual item-level price quotes; duplicated region-product
 pairs are aggregated by way of averaging across region-product pairs}
 
-\item{base.region}{A character specifying the base to which the estimated
+\item{weights}{An optional vector of weights to be used whenever duplicate
+regional-product pairs are found in the data; default is \code{NULL}, in which
+case data is aggregated to region-product pairs using unweighted means. If
+weights are provided and duplicate regional-product pairs are found,
+these weights are used as part of the aggregation of average regional-product
+pairs; see \pkg{stats} \code{weighted.mean()}}
+
+\item{weights_cpd}{An optional vector of weights to be used in the fitting
+process of the CPD regression model; default is \code{NULL} and ordinary least
+squares is used. If non-\code{NULL}, weighted
+least squares is used, with weights \mjseqn{w} provided by \code{weights}, to
+minimise \mjseqn{\sum(w \times e^2)}; see 'Details' of  \pkg{stats} \code{lm()}}
+
+\item{base.region}{An optional character specifying the base to which the estimated
 logarithmic regional price levels are expressed
-When NULL, they refer to the (unweighted) regional average,
+When \code{NULL}, they refer to the (unweighted) regional average,
 similar to \code{contr.sum()}}
 
-\item{output}{Either "SPPP", which returns the estimated subnational
+\item{output}{Either "sPPP", which returns the estimated subnational
 purchasing purchasing power parities, that is,
 \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
-"Std. Error", which returns the standard errors of the estimation;
-default is "SPPP"}
+"Full", which summarises the key information about the estimate CPD model
+in a tidy \code{tibble} using  \pkg{broom}.}
 }
 \description{
 \loadmathjax
@@ -68,8 +83,8 @@ df <- tibble(
   price = c(25, 28, 23, 26)
 )
 
-estim_cpd(df)
-estim_cpd(df, output = "Std. Error")
+estim_cpd(df, output = "sPPP")
+estim_cpd(df, output = "Full")
 
 }
 \references{
