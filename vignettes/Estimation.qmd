@@ -247,21 +247,38 @@ B <- 5 # number of product groups
 N <- 5 # number of products
 dt1 <- pricelevels::rdata(R = R, B = B, N = N)
 
-# Estimating sPPPs with `pricelevels` --------
+# Estimating sPPPs with `pricelevels`, no weights --------
 dt1[, cpd(p = price, r = region, n = product)]
 
-# Estimating sPPPs with `estim_cpd()` ---------
+# Estimating sPPPs with `estim_cpd()`, no weights ---------
 dt1 |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price"
   ) |>
-  pull("SPPP")
+  pull("sPPP")
 ```
 
+The behaviour of adding estimation weights is identical across both packages; see
+`estim_cpd()` for more information.
 
-The function `estim_cpd()` also has the option to to export standard errors with argument `output = "Std. Error"`.hese standard errors are used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh) vignette.
+```{r}
+# Estimating sPPPs with `pricelevels`, with weights --------
+dt1[, cpd(p = price, r = region, n = product, w = weight)]
+
+# Estimating sPPPs with `estim_cpd()`, with weights ---------
+dt1 |>
+  estim_cpd(
+    region = "region",
+    product = "product",
+    price = "price",
+    weights_cpd = 'weight'
+  ) |>
+  pull("sPPP")
+```
+
+The function `estim_cpd()` also has the option to export extended regression output of the CPD model with argument `output = "Full"`, which summarises the key information of the estimate CPD model in a tidy `tibble()` using  \pkg{broom}. Information in the extended regression output is used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh) vignette.
 
 ```{r}
 # Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------
@@ -270,11 +287,14 @@ dt1 |>
     region = "region",
     product = "product",
     price = "price",
-    output = "Std. Error"
-  )
+    output = "Full"
+  ) |> 
+  gt() |> 
+  fmt_number(decimals = 1) |> sub_missing(missing_text = "")
 ```
 
 ### Example 4: UK microdata - Two products, multiple regions {#sec-example4 .unnumbered}
+
 
 ```{r}
 # Take UK CPI microdata ---------
@@ -291,10 +311,25 @@ red <- uk_cpi |>
   )
 
 # Estimating sPPPs with `estim_cpd()` ---------
-estim_cpd(red) |> pull("SPPP")
+red |> estim_cpd() |> pull("sPPP")
 
 # Estimating sPPPs with `pricelevels` --------
 as.data.table(red)[, cpd(p = price, r = region, n = product)]
+```
+
+The function `estim_cpd()` provides the option to add aggregation weight in case duplicate 
+region-product pairs found in data through the `weights` argument; see `estim_cpd()` for more information.
+
+```{r}
+# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+red  |> mutate(w = 1) |> estim_cpd(weights = "w") |> pull("sPPP")
+
+# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+set.seed(123)
+red |> 
+  ## Add random weights
+  mutate(w = runif(nrow(red), 0, 1)) |> 
+  estim_cpd(weights = "w") |> pull("sPPP")
 ```
 
 ------------------------------------------------------------------------
@@ -303,6 +338,9 @@ as.data.table(red)[, cpd(p = price, r = region, n = product)]
 
 ------------------------------------------------------------------------
 
-> 🚧 Work in progress.
+> 🚧 Additional sections remain work in progress.
+
+------------------------------------------------------------------------
+
 
 # References {.unnumbered}
