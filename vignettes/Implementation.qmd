@@ -1,0 +1,50 @@
+---
+title: "Implementation"
+vignette: >
+  %\VignetteIndexEntry{Estimation}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{quarto::html}
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+format: 
+  html:
+    toc: true
+toc-depth: 4
+number-sections: true
+number-depth: 4   
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+library(OECDsppps)
+```
+
+# Overview {.unnumbered}
+
+This vignette provides a fully documented production pipeline, describing the data, processing, validation, aggregation and estimation of the multiple data sources for the purpose of constructing subnational PPPs in the testing countries. Data processing, validation, aggregation, and estimation follow the international recommendations [@worldbank2013, @europeanunionEurostatOECDMethodologicalManual2024, \@@icp2021].
+
+The production pipeline covers the country-level data validation, the aggregation and estimation of subnational purchasing power parities and the harmonisation of these estimates to make sPPP indicators comparable across countries (@tbl-implementation). Only the raw data validation, which derives a standard structure across all testing countries, remains country- and dataset-specific. The individual stages of the production pipeline are discussed in the subsequent paragraphs.
+
+|   | By whom | Using `OECDsppps` | Notes |
+|------------------|------------------|------------------|------------------|
+| Raw data processing (country by country) | OECD or country representative | No |  |
+| Data validation (country by country) | OECD or country representative | Yes |  |
+| Aggregation and estimation of subnational purchasing power parities (country by country | OECD | Yes |  |
+| Making subnational purchasing power parity indicators comparable across countries | OECD | Yes |  |
+
+: Implementation pipeline {#tbl-implementation}
+
+
+------------------------------------------------------------------------
+
+> 🚧 Additional sections remain work in progress.
+
+------------------------------------------------------------------------
+
+
+# References {.unnumbered}
