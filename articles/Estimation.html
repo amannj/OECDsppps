@@ -382,7 +382,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>    output <span class="op">=</span> <span class="st">"Full"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>missing_text <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>missing_text <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="tvuqxgoenv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#tvuqxgoenv table {
@@ -835,20 +835,22 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 </style>
 <table class="table gt_table caption-top" data-quarto-bootstrap="false">
 <colgroup>
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
 </colgroup>
 <thead><tr class="gt_col_headings header">
-<th id="term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term</th>
+<th id="region" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">region</th>
+<th id="sPPP" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">sPPP</th>
 <th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">estimate</th>
 <th id="std.error" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std.error</th>
 <th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">statistic</th>
@@ -862,69 +864,88 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 </tr></thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_left" headers="term">1</td>
-<td class="gt_row gt_right" headers="estimate">0.0</td>
-<td class="gt_row gt_right" headers="std.error">0.0</td>
-<td class="gt_row gt_right" headers="statistic">1.4</td>
-<td class="gt_row gt_right" headers="p.value">0.2</td>
+<td class="gt_row gt_left" headers="region">1</td>
+<td class="gt_row gt_right" headers="sPPP">1.02</td>
+<td class="gt_row gt_right" headers="estimate">0.02</td>
+<td class="gt_row gt_right" headers="std.error">0.01</td>
+<td class="gt_row gt_right" headers="statistic">1.41</td>
+<td class="gt_row gt_right" headers="p.value">0.16</td>
 <td class="gt_row gt_right" headers="r.squared"><br></td>
 <td class="gt_row gt_right" headers="adj.r.squared"><br></td>
 <td class="gt_row gt_right" headers="sigma"><br></td>
 <td class="gt_row gt_right" headers="df"><br></td>
 <td class="gt_row gt_right" headers="df.residual"><br></td>
-<td class="gt_row gt_right" headers="nobs">25.0</td>
+<td class="gt_row gt_right" headers="nobs">25.00</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="term">2</td>
-<td class="gt_row gt_right" headers="estimate">−0.2</td>
-<td class="gt_row gt_right" headers="std.error">0.0</td>
-<td class="gt_row gt_right" headers="statistic">−13.7</td>
-<td class="gt_row gt_right" headers="p.value">0.0</td>
+<td class="gt_row gt_left" headers="region">2</td>
+<td class="gt_row gt_right" headers="sPPP">0.85</td>
+<td class="gt_row gt_right" headers="estimate">−0.16</td>
+<td class="gt_row gt_right" headers="std.error">0.01</td>
+<td class="gt_row gt_right" headers="statistic">−13.68</td>
+<td class="gt_row gt_right" headers="p.value">0.00</td>
 <td class="gt_row gt_right" headers="r.squared"><br></td>
 <td class="gt_row gt_right" headers="adj.r.squared"><br></td>
 <td class="gt_row gt_right" headers="sigma"><br></td>
 <td class="gt_row gt_right" headers="df"><br></td>
 <td class="gt_row gt_right" headers="df.residual"><br></td>
-<td class="gt_row gt_right" headers="nobs">25.0</td>
+<td class="gt_row gt_right" headers="nobs">25.00</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="term">3</td>
-<td class="gt_row gt_right" headers="estimate">0.2</td>
-<td class="gt_row gt_right" headers="std.error">0.0</td>
-<td class="gt_row gt_right" headers="statistic">13.4</td>
-<td class="gt_row gt_right" headers="p.value">0.0</td>
+<td class="gt_row gt_left" headers="region">3</td>
+<td class="gt_row gt_right" headers="sPPP">1.17</td>
+<td class="gt_row gt_right" headers="estimate">0.15</td>
+<td class="gt_row gt_right" headers="std.error">0.01</td>
+<td class="gt_row gt_right" headers="statistic">13.40</td>
+<td class="gt_row gt_right" headers="p.value">0.00</td>
 <td class="gt_row gt_right" headers="r.squared"><br></td>
 <td class="gt_row gt_right" headers="adj.r.squared"><br></td>
 <td class="gt_row gt_right" headers="sigma"><br></td>
 <td class="gt_row gt_right" headers="df"><br></td>
 <td class="gt_row gt_right" headers="df.residual"><br></td>
-<td class="gt_row gt_right" headers="nobs">25.0</td>
+<td class="gt_row gt_right" headers="nobs">25.00</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="term">4</td>
-<td class="gt_row gt_right" headers="estimate">0.0</td>
-<td class="gt_row gt_right" headers="std.error">0.0</td>
-<td class="gt_row gt_right" headers="statistic">−0.4</td>
-<td class="gt_row gt_right" headers="p.value">0.7</td>
+<td class="gt_row gt_left" headers="region">4</td>
+<td class="gt_row gt_right" headers="sPPP">1.00</td>
+<td class="gt_row gt_right" headers="estimate">0.00</td>
+<td class="gt_row gt_right" headers="std.error">0.01</td>
+<td class="gt_row gt_right" headers="statistic">−0.43</td>
+<td class="gt_row gt_right" headers="p.value">0.67</td>
 <td class="gt_row gt_right" headers="r.squared"><br></td>
 <td class="gt_row gt_right" headers="adj.r.squared"><br></td>
 <td class="gt_row gt_right" headers="sigma"><br></td>
 <td class="gt_row gt_right" headers="df"><br></td>
 <td class="gt_row gt_right" headers="df.residual"><br></td>
-<td class="gt_row gt_right" headers="nobs">25.0</td>
+<td class="gt_row gt_right" headers="nobs">25.00</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="term">Aggregate summary statistics</td>
+<td class="gt_row gt_left" headers="region">5</td>
+<td class="gt_row gt_right" headers="sPPP">0.99</td>
 <td class="gt_row gt_right" headers="estimate"><br></td>
 <td class="gt_row gt_right" headers="std.error"><br></td>
 <td class="gt_row gt_right" headers="statistic"><br></td>
 <td class="gt_row gt_right" headers="p.value"><br></td>
-<td class="gt_row gt_right" headers="r.squared">1.0</td>
-<td class="gt_row gt_right" headers="adj.r.squared">1.0</td>
-<td class="gt_row gt_right" headers="sigma">0.1</td>
-<td class="gt_row gt_right" headers="df">29.0</td>
-<td class="gt_row gt_right" headers="df.residual">96.0</td>
-<td class="gt_row gt_right" headers="nobs">126.0</td>
+<td class="gt_row gt_right" headers="r.squared"><br></td>
+<td class="gt_row gt_right" headers="adj.r.squared"><br></td>
+<td class="gt_row gt_right" headers="sigma"><br></td>
+<td class="gt_row gt_right" headers="df"><br></td>
+<td class="gt_row gt_right" headers="df.residual"><br></td>
+<td class="gt_row gt_right" headers="nobs"><br></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="region">Aggregate summary statistics</td>
+<td class="gt_row gt_right" headers="sPPP"><br></td>
+<td class="gt_row gt_right" headers="estimate"><br></td>
+<td class="gt_row gt_right" headers="std.error"><br></td>
+<td class="gt_row gt_right" headers="statistic"><br></td>
+<td class="gt_row gt_right" headers="p.value"><br></td>
+<td class="gt_row gt_right" headers="r.squared">1.00</td>
+<td class="gt_row gt_right" headers="adj.r.squared">1.00</td>
+<td class="gt_row gt_right" headers="sigma">0.06</td>
+<td class="gt_row gt_right" headers="df">29.00</td>
+<td class="gt_row gt_right" headers="df.residual">96.00</td>
+<td class="gt_row gt_right" headers="nobs">126.00</td>
 </tr>
 </tbody>
 </table>

@@ -68,7 +68,9 @@ estim_cpd(
   Either "sPPP", which returns the estimated subnational purchasing
   purchasing power parities, that is, \\\hat{SPPP}\_r =
   exp(\hat{\alpha}\_r)\\ or "Full", which summarises the key information
-  about the estimate CPD model in a tidy `tibble` using broom.
+  about the estimate CPD model in a tidy `tibble` using broom, in
+  addition to the the estimated sPPPs returned when prompting
+  `output = 'sPPP'`.
 
 ## Details
 
@@ -115,10 +117,11 @@ estim_cpd(df, output = "sPPP")
 #> 1 1      0.943
 #> 2 2      1.06 
 estim_cpd(df, output = "Full")
-#> # A tibble: 2 × 11
-#>   term     estimate std.error statistic p.value r.squared adj.r.squared    sigma
-#>   <chr>       <dbl>     <dbl>     <dbl>   <dbl>     <dbl>         <dbl>    <dbl>
-#> 1 1         -0.0590   0.00232     -25.4  0.0250    NA            NA     NA      
-#> 2 Aggrega…  NA       NA            NA   NA          1.000         1.000  0.00464
-#> # ℹ 3 more variables: df <dbl>, df.residual <int>, nobs <dbl>
+#> # A tibble: 3 × 12
+#>   region       sPPP estimate std.error statistic p.value r.squared adj.r.squared
+#>   <chr>       <dbl>    <dbl>     <dbl>     <dbl>   <dbl>     <dbl>         <dbl>
+#> 1 1           0.943  -0.0590   0.00232     -25.4  0.0250    NA            NA    
+#> 2 2           1.06   NA       NA            NA   NA         NA            NA    
+#> 3 Aggregate… NA      NA       NA            NA   NA          1.000         1.000
+#> # ℹ 4 more variables: sigma <dbl>, df <dbl>, df.residual <int>, nobs <dbl>
 ```

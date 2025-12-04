@@ -395,7 +395,7 @@ dt1 |>
     output = "Full"
   ) |> 
   gt() |> 
-  fmt_number(decimals = 1) |> sub_missing(missing_text = "")
+  fmt_number(decimals = 2) |> sub_missing(missing_text = "")
 ```
 
 [TABLE]

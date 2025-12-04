@@ -129,7 +129,8 @@ similar to <code><a href="https://rdrr.io/r/stats/contrast.html" class="external
 purchasing purchasing power parities, that is,
 <em></em>\(\hat{SPPP}_r = exp(\hat{\alpha}_r)\) or
 "Full", which summarises the key information about the estimate CPD model
-in a tidy <code>tibble</code> using  <span class="pkg">broom</span>.</p></dd>
+in a tidy <code>tibble</code> using  <span class="pkg">broom</span>, in addition to the the estimated sPPPs
+returned when prompting <code>output = 'sPPP'</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -174,12 +175,13 @@ World Bank.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1      0.943</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2      1.06 </span>
 <span class="r-in"><span><span class="fu">estim_cpd</span><span class="op">(</span><span class="va">df</span>, output <span class="op">=</span> <span class="st">"Full"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 11</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   term     estimate std.error statistic p.value r.squared adj.r.squared    sigma</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1         -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">0</span>   0.002<span style="text-decoration: underline;">32</span>     -<span style="color: #BB0000;">25.4</span>  0.025<span style="text-decoration: underline;">0</span>    <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aggrega…  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>          1.000         1.000  0.004<span style="text-decoration: underline;">64</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 3 more variables: df &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 12</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   region       sPPP estimate std.error statistic p.value r.squared adj.r.squared</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1           0.943  -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">0</span>   0.002<span style="text-decoration: underline;">32</span>     -<span style="color: #BB0000;">25.4</span>  0.025<span style="text-decoration: underline;">0</span>    <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2           1.06   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aggregate… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>          1.000         1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: sigma &lt;dbl&gt;, df &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
