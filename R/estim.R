@@ -48,7 +48,8 @@
 #' purchasing purchasing power parities, that is,
 #' \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 #' "Full", which summarises the key information about the estimate CPD model
-#' in a tidy `tibble` using  \pkg{broom}.
+#' in a tidy `tibble` using  \pkg{broom}, in addition to the the estimated sPPPs
+#' returned when prompting `output = 'sPPP'`.
 #'
 #' @references
 #'   \insertAllCited{}
@@ -72,9 +73,11 @@
 #' @importFrom stringr str_remove_all
 #' @importFrom rlang .data
 #' @importFrom rlang sym
-#' @importFrom stats mean
 #' @importFrom stats weighted.mean
 #' @importFrom stats contrasts
+#' @importFrom dplyr tibble
+#' @importFrom dplyr rename
+#' @importFrom dplyr full_join
 #' @importFrom dplyr tally
 #' @importFrom dplyr mutate
 #' @importFrom dplyr group_by
@@ -110,19 +113,19 @@ estim_cpd <- function(data,
     nrow()
   ### Aggregate: no weights provided
   if (n_obs < n_obs_raw & is.null(weights)) {
-  data <- data |>
-    group_by(.data[[region]], .data[[product]]) |>
-    summarise({{ price }} := mean(.data[[price]], na.rm = T),
-      .groups = "drop"
-    )
-  message("Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.")
+    data <- data |>
+      group_by(.data[[region]], .data[[product]]) |>
+      summarise({{ price }} := mean(.data[[price]], na.rm = T),
+        .groups = "drop"
+      )
+    message("Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.")
   }
   ### Aggregate: weights provided
   if (n_obs < n_obs_raw & !is.null(weights)) {
     data <- data |>
       group_by(.data[[region]], .data[[product]]) |>
       summarise({{ price }} := stats::weighted.mean(.data[[price]], w = .data[[weights]], na.rm = T),
-                       .groups = "drop"
+        .groups = "drop"
       )
     message("Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
   }
@@ -172,36 +175,43 @@ estim_cpd <- function(data,
   }
 
   # Output
+  ## Regression output
+  reg_out <- tibble(
+    region = stats::dummy.coef(est_out)[[region]] |> names(),
+    "sPPP" = exp(stats::dummy.coef(est_out)[[{{ region }}]])
+  )
   if (output == "sPPP") {
-    out <- tibble(
-      region = stats::dummy.coef(est_out)[[region]] |> names(),
-      "sPPP" = exp(stats::dummy.coef(est_out)[[{{ region }}]])
-    )
+    return(reg_out)
   }
   if (output == "Full") {
     ## Observations by region
     reg_nobs <- data |>
       group_by(.data[[region]]) |>
-      tally(n = "nobs")
+      tally(name = "nobs")
 
     ## Reg model
     m <- summary(est_out)
 
     ## Regression output
-    out <- rbind(
-      broom::tidy(m) |>
-        dplyr::filter(grepl({{ region }}, term)) |>
-        dplyr::mutate(
-          term = stringr::str_remove_all(term, {{ region }}),
-          r.squared = NA, adj.r.squared = NA, sigma = NA, df = NA, df.residual = NA
-        ) |>
-        dplyr::left_join(reg_nobs, by = c("term" = {{ region }})),
-      broom::glance(m) |>
-        dplyr::mutate(
-          term = "Aggregate summary statistics",
-          estimate = NA, std.error = NA, statistic = NA, p.value = NA
-        )
-    )
+    out <-
+      rbind(
+        broom::tidy(m) |>
+          dplyr::filter(grepl({{ region }}, term)) |>
+          dplyr::mutate(
+            term = stringr::str_remove_all(term, {{ region }}),
+            r.squared = NA, adj.r.squared = NA, sigma = NA, df = NA, df.residual = NA
+          ) |>
+          dplyr::left_join(reg_nobs, by = c("term" = {{ region }})),
+        broom::glance(m) |>
+          dplyr::mutate(
+            term = "Aggregate summary statistics",
+            estimate = NA, std.error = NA, statistic = NA, p.value = NA
+          )
+      ) |>
+      rename("region" = term)
+
+    full_out <- reg_out |>
+      full_join(out, by = "region")
+    return(full_out)
   }
-  return(out)
 }

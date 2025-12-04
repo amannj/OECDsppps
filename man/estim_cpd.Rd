@@ -48,7 +48,8 @@ similar to \code{contr.sum()}}
 purchasing purchasing power parities, that is,
 \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 "Full", which summarises the key information about the estimate CPD model
-in a tidy \code{tibble} using  \pkg{broom}.}
+in a tidy \code{tibble} using  \pkg{broom}, in addition to the the estimated sPPPs
+returned when prompting \code{output = 'sPPP'}.}
 }
 \description{
 \loadmathjax

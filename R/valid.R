@@ -244,6 +244,7 @@ valid_XRratio <- function(data,
 #' @importFrom tidyr pivot_wider
 #' @importFrom rlang .data
 #' @importFrom tidyselect everything
+#' @importFrom tidyselect contains
 #' @importFrom dplyr join_by
 #' @export
 valid_PPPratio <- function(data,

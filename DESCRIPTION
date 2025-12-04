@@ -15,7 +15,6 @@ Suggests:
     pricelevels,
     ggplot2,
     gt,
-    tidyr,
     knitr
 Config/testthat/edition: 3
 Depends: 
@@ -35,5 +34,6 @@ Imports:
     rlang,
     broom,
     tidyselect,
-    stringr
+    stringr,
+    tidyr
 BuildManual: TRUE
