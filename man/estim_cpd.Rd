@@ -23,7 +23,7 @@ columns identifying region, product and individual item-level price quotes}
 
 \item{product}{Product identifier}
 
-\item{price}{Individual item-level price quotes; duplicated region-product
+\item{price}{Individual item-level price quotes; Duplicate region-product
 pairs are aggregated by way of averaging across region-product pairs}
 
 \item{weights}{An optional vector of weights to be used whenever duplicate

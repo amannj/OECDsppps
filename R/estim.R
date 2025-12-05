@@ -27,7 +27,7 @@
 #'  columns identifying region, product and individual item-level price quotes
 #' @param region Identifier for regions (within or across countries)
 #' @param product Product identifier
-#' @param price Individual item-level price quotes; duplicated region-product
+#' @param price Individual item-level price quotes; Duplicate region-product
 #' pairs are aggregated by way of averaging across region-product pairs
 #' @param weights An optional vector of weights to be used whenever duplicate
 #' regional-product pairs are found in the data; default is `NULL`, in which
@@ -99,7 +99,15 @@ estim_cpd <- function(data,
                       output = "sPPP") {
   # Checks
   ## To be implemented
-  ## change regions/products to factors
+  ## Change regions/products to factors
+  if (!is.factor(data[[{{ region }}]])) {
+    data <- data |> mutate({{ region }} := as.factor(.data[[region]]))
+    message("Variable `region` encoded to factor.")
+  }
+  if (!is.factor(data[[{{ product }}]])) {
+    data <- data |> mutate({{ product }} := as.factor(.data[[product]]))
+    message("Variable `product` encoded to factor.")
+  }
   ## check that prices are numeric
   ## no empty stuff
   if (output %not.in% c("sPPP", "Full")) stop("Field `output` incorrectly speciefied. Please choose eiterh 'sPPP', or 'Full'.")
@@ -118,7 +126,7 @@ estim_cpd <- function(data,
       summarise({{ price }} := mean(.data[[price]], na.rm = T),
         .groups = "drop"
       )
-    message("Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.")
+    message("Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.")
   }
   ### Aggregate: weights provided
   if (n_obs < n_obs_raw & !is.null(weights)) {
@@ -127,7 +135,7 @@ estim_cpd <- function(data,
       summarise({{ price }} := stats::weighted.mean(.data[[price]], w = .data[[weights]], na.rm = T),
         .groups = "drop"
       )
-    message("Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
+    message("Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
   }
 
   # Dimensions
