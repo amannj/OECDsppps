@@ -367,7 +367,7 @@ dt1 |>
     region = "region",
     product = "product",
     price = "price",
-    weights_cpd = 'weight'
+    weights_cpd = "weight"
   ) |>
   pull("sPPP")
 #>         1         2         3         4         5 
@@ -393,9 +393,10 @@ dt1 |>
     product = "product",
     price = "price",
     output = "Full"
-  ) |> 
-  gt() |> 
-  fmt_number(decimals = 2) |> sub_missing(missing_text = "")
+  ) |>
+  gt() |>
+  fmt_number(decimals = 2) |>
+  sub_missing(missing_text = "")
 ```
 
 [TABLE]
@@ -417,8 +418,10 @@ red <- uk_cpi |>
   )
 
 # Estimating sPPPs with `estim_cpd()` ---------
-red |> estim_cpd() |> pull("sPPP")
-#> Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.
+red |>
+  estim_cpd() |>
+  pull("sPPP")
+#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.
 #>             East Midlands           East of England                    London 
 #>                 0.9291930                 1.0171431                 1.3164839 
 #>                     North                North West          Northern Ireland 
@@ -450,8 +453,11 @@ for more information.
 
 ``` r
 # Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
-red  |> mutate(w = 1) |> estim_cpd(weights = "w") |> pull("sPPP")
-#> Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
+red |>
+  mutate(w = 1) |>
+  estim_cpd(weights = "w") |>
+  pull("sPPP")
+#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
 #>             East Midlands           East of England                    London 
 #>                 0.9291930                 1.0171431                 1.3164839 
 #>                     North                North West          Northern Ireland 
@@ -463,11 +469,12 @@ red  |> mutate(w = 1) |> estim_cpd(weights = "w") |> pull("sPPP")
 
 # Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
 set.seed(123)
-red |> 
+red |>
   ## Add random weights
-  mutate(w = runif(nrow(red), 0, 1)) |> 
-  estim_cpd(weights = "w") |> pull("sPPP")
-#> Duplicated region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
+  mutate(w = runif(nrow(red), 0, 1)) |>
+  estim_cpd(weights = "w") |>
+  pull("sPPP")
+#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
 #>             East Midlands           East of England                    London 
 #>                 0.9273710                 1.0071653                 1.3190512 
 #>                     North                North West          Northern Ireland 

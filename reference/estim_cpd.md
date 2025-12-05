@@ -35,8 +35,8 @@ estim_cpd(
 
 - price:
 
-  Individual item-level price quotes; duplicated region-product pairs
-  are aggregated by way of averaging across region-product pairs
+  Individual item-level price quotes; Duplicate region-product pairs are
+  aggregated by way of averaging across region-product pairs
 
 - weights:
 
