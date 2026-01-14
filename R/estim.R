@@ -143,7 +143,7 @@ estim_cpd <- function(data,
     distinct(.data[[region]]) |>
     nrow()
   n_product <- data |>
-    distinct(.data[[region]]) |>
+    distinct(.data[[product]]) |>
     nrow()
 
 
