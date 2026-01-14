@@ -9,14 +9,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/amannj/OECDsppps/blob/master/DESCRIPTION)
 
-OECD (2025). *OECDsppps: Calculating subnational purchasing power
+OECD (2026). *OECDsppps: Calculating subnational purchasing power
 parities (SPPPs) in OECD regions*. R package version 0.0.0.2,
 <https://github.com/amannj/OECDsppps>.
 
     @Manual{,
       title = {OECDsppps: Calculating subnational purchasing power parities (SPPPs) in OECD regions},
       author = {{OECD}},
-      year = {2025},
+      year = {2026},
       note = {R package version 0.0.0.2},
       url = {https://github.com/amannj/OECDsppps},
     }
