@@ -47,9 +47,9 @@
 #' @param output Either "sPPP", which returns the estimated subnational
 #' purchasing purchasing power parities, that is,
 #' \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
-#' "Full", which summarises the key information about the estimate CPD model
-#' in a tidy `tibble` using  \pkg{broom}, in addition to the the estimated sPPPs
-#' returned when prompting `output = 'sPPP'`.
+#' "Full", which summarises the key information of the estimate CPD model:
+#'  It provides the 'Regression output`as well as the individual 'Residuals'
+#'  of the CPD regression.
 #'
 #' @references
 #'   \insertAllCited{}
@@ -218,8 +218,18 @@ estim_cpd <- function(data,
       ) |>
       rename("region" = term)
 
-    full_out <- reg_out |>
-      full_join(out, by = "region")
+
+    ## Residuals
+    resids <- broom::augment(est_out) |>
+      select(product, region, .fitted, .resid, .std.resid)
+
+    ## Finalise output
+    full_out <- list(
+      "Regression output" = reg_out |>
+        full_join(out, by = "region"),
+      "Residuals" = resids
+    )
+
     return(full_out)
   }
 }

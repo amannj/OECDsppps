@@ -47,9 +47,9 @@ similar to \code{contr.sum()}}
 \item{output}{Either "sPPP", which returns the estimated subnational
 purchasing purchasing power parities, that is,
 \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
-"Full", which summarises the key information about the estimate CPD model
-in a tidy \code{tibble} using  \pkg{broom}, in addition to the the estimated sPPPs
-returned when prompting \code{output = 'sPPP'}.}
+"Full", which summarises the key information of the estimate CPD model:
+It provides the 'Regression output`as well as the individual 'Residuals'
+of the CPD regression.}
 }
 \description{
 \loadmathjax

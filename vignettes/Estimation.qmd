@@ -102,13 +102,20 @@ and $\varepsilon_{ij}$ are independently and identically (normally) distributed 
 
 ## Implementation {#sec-implementation}
 
-### Using `pricelevels`
 
-The `pricelevels` package [@pricelevels] can be used to estimate subnational purchasing power parities, which can also be computed using standard OLS as outlined in examples [1](#sec-example1) and [2](#sec-example2).
+This section describes the implementation of the CPD using different approaches
+from simple cross-tabulations, standard OLS as well as using the 
+`pricelevels` package [@pricelevels] and finally the function `estim_cpd()` of
+this package using examples [1](#sec-example1) and [2](#sec-example2).
+
+Examples [3](#sec-example3) to [6](#sec-example6) discuss further functionalities of
+`estim_cpd()`.
 
 ------------------------------------------------------------------------
 
 ### Example 1: One product, two regions {#sec-example1 .unnumbered}
+
+#### Using cross-tabulations
 
 ```{r}
 # Data
@@ -139,6 +146,8 @@ df1 |>
   summarise(mean(price))
 27 / 24
 ```
+
+#### Using `pricelevels`
 
 The same results can be obtained using `cpd()` from the `pricelevels` package.
 
@@ -237,7 +246,7 @@ exp(dummy.coef(out)[["region"]])
 
 Additionally, the function `estim_cpd()` provides an alternative estimation approach to provide numerically identical sPPPs estimates.
 
-### Example 3: Generic - Multiple products, and regions {#sec-example3 .unnumbered}
+#### Example 3: Generic - Multiple products, and regions {#sec-example3 .unnumbered}
 
 ```{r}
 # Generate data with `pricelevels` -------
@@ -278,23 +287,62 @@ dt1 |>
   pull("sPPP")
 ```
 
-The function `estim_cpd()` also has the option to export extended regression output of the CPD model with argument `output = "Full"`, which summarises the key information of the estimate CPD model in a tidy `tibble()` using  \pkg{broom}. Information in the extended regression output is used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh) vignette.
+
+#### Example 4: Complete regression output {#sec-example4 .unnumbered}
+
+
+The function `estim_cpd()` also has the option to export extended regression output of the CPD model with argument `output = "Full"`, which summarises the key information of the estimate CPD model: It provides the 'Regression output`
+as well as the individual 'Residuals' of the CPD regression. Information in the extended regression output is used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh) vignette.
 
 ```{r}
 # Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------
-dt1 |>
+full_est <- dt1 |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price",
     output = "Full"
-  ) |>
+  ) 
+
+## Regression output
+full_est[["Regression output"]] |> 
   gt() |>
   fmt_number(decimals = 2) |>
   sub_missing(missing_text = "")
+
+## Residuals
+full_est[["Residuals"]] |> 
+  head() |> 
+  gt() |>
+  fmt_number(decimals = 4) |>
+  sub_missing(missing_text = "")
 ```
 
-### Example 4: UK microdata - Two products, multiple regions {#sec-example4 .unnumbered}
+#### Example 5: Aggregation weights {#sec-example5 .unnumbered}
+
+
+The function `estim_cpd()` provides the option to add aggregation weight in case duplicate 
+region-product pairs found in data through the `weights` argument; see `estim_cpd()` for more information.
+
+```{r}
+# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+red |>
+  mutate(w = 1) |>
+  estim_cpd(weights = "w") |>
+  pull("sPPP")
+
+# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+set.seed(123)
+red |>
+  ## Add random weights
+  mutate(w = runif(nrow(red), 0, 1)) |>
+  estim_cpd(weights = "w") |>
+  pull("sPPP")
+```
+
+
+
+#### Example 6: UK microdata - Two products, multiple regions {#sec-example6 .unnumbered}
 
 
 ```{r}
@@ -320,24 +368,8 @@ red |>
 as.data.table(red)[, cpd(p = price, r = region, n = product)]
 ```
 
-The function `estim_cpd()` provides the option to add aggregation weight in case duplicate 
-region-product pairs found in data through the `weights` argument; see `estim_cpd()` for more information.
 
-```{r}
-# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
-red |>
-  mutate(w = 1) |>
-  estim_cpd(weights = "w") |>
-  pull("sPPP")
 
-# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
-set.seed(123)
-red |>
-  ## Add random weights
-  mutate(w = runif(nrow(red), 0, 1)) |>
-  estim_cpd(weights = "w") |>
-  pull("sPPP")
-```
 
 ------------------------------------------------------------------------
 
