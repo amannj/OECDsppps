@@ -127,16 +127,23 @@ Implementation](#sec-implementation).
 
 ### 1.3 Implementation
 
-#### 1.3.1 Using `pricelevels`
+This section describes the implementation of the CPD using different
+approaches from simple cross-tabulations, standard OLS as well as using
+the `pricelevels` package ([Weinand 2025](#ref-pricelevels)) and finally
+the function
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+of this package using examples [1](#sec-example1) and
+[2](#sec-example2).
 
-The `pricelevels` package ([Weinand 2025](#ref-pricelevels)) can be used
-to estimate subnational purchasing power parities, which can also be
-computed using standard OLS as outlined in examples [1](#sec-example1)
-and [2](#sec-example2).
+Examples [3](#sec-example3) to [6](#sec-example6) discuss further
+functionalities of
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md).
 
 ------------------------------------------------------------------------
 
 #### Example 1: One product, two regions
+
+##### 1.3.0.1 Using cross-tabulations
 
 ``` r
 # Data
@@ -180,6 +187,8 @@ df1 |>
 27 / 24
 #> [1] 1.125
 ```
+
+##### 1.3.0.2 Using `pricelevels`
 
 The same results can be obtained using
 [`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) from the
@@ -316,14 +325,14 @@ exp(dummy.coef(out)[["region"]])
 
 ------------------------------------------------------------------------
 
-#### 1.3.2 Using `estim_cpd()`
+#### 1.3.1 Using `estim_cpd()`
 
 Additionally, the function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 provides an alternative estimation approach to provide numerically
 identical sPPPs estimates.
 
-#### Example 3: Generic - Multiple products, and regions
+##### Example 3: Generic - Multiple products, and regions
 
 ``` r
 # Generate data with `pricelevels` -------
@@ -374,12 +383,14 @@ dt1 |>
 #> 1.0187925 0.8460806 1.1784210 0.9964223 0.9880038
 ```
 
+##### Example 4: Complete regression output
+
 The function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 also has the option to export extended regression output of the CPD
 model with argument `output = "Full"`, which summarises the key
-information of the estimate CPD model in a tidy
-[`tibble()`](https://tibble.tidyverse.org/reference/tibble.html) using .
+information of the estimate CPD model: It provides the ‘Regression
+output\` as well as the individual ’Residuals’ of the CPD regression.
 Information in the extended regression output is used to support the
 validation of CPD-based subnational PPPs at the basic-heading level; see
 [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh)
@@ -387,13 +398,16 @@ vignette.
 
 ``` r
 # Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------
-dt1 |>
+full_est <- dt1 |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price",
     output = "Full"
-  ) |>
+  ) 
+
+## Regression output
+full_est[["Regression output"]] |> 
   gt() |>
   fmt_number(decimals = 2) |>
   sub_missing(missing_text = "")
@@ -401,7 +415,26 @@ dt1 |>
 
 [TABLE]
 
-#### Example 4: UK microdata - Two products, multiple regions
+``` r
+
+## Residuals
+full_est[["Residuals"]] |> 
+  head() |> 
+  gt() |>
+  fmt_number(decimals = 4) |>
+  sub_missing(missing_text = "")
+```
+
+| product | region | .fitted | .resid  | .std.resid |
+|---------|--------|---------|---------|------------|
+| 01      | 1      | 2.7628  | −0.0022 | −0.0384    |
+| 01      | 2      | 2.5891  | 0.1242  | 2.2037     |
+| 01      | 3      | 2.9008  | −0.1351 | −2.3972    |
+| 01      | 4      | 2.7416  | 0.0063  | 0.1117     |
+| 01      | 5      | 2.7386  | 0.0068  | 0.1201     |
+| 02      | 1      | 2.9156  | −0.0076 | −0.1353    |
+
+##### Example 5: UK microdata - Two products, multiple regions
 
 ``` r
 # Take UK CPI microdata ---------
@@ -443,6 +476,8 @@ as.data.table(red)[, cpd(p = price, r = region, n = product)]
 #>                     Wales             West Midlands Yorkshire and the Humberl 
 #>                 0.8612814                 1.0457363                 0.9802726
 ```
+
+##### Example 6: Aggregation weights
 
 The function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)

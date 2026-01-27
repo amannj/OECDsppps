@@ -1,4 +1,4 @@
-# OECDsppps
+# OECDsPPPs
 
 `OECDsppps` provides functionalities for calculating subnational
 Purchasing Power Parities (sPPPs) in OECD regions.
@@ -29,7 +29,7 @@ See tab **Articles** for detailed package documentation:
   item-level prices at basic heading level and beyond
 
 - **Implementation** - discusses the production pipeline of of
-  *OECDsppps*
+  *OECDsPPPs*
 
 # Package index
 
@@ -37,6 +37,10 @@ See tab **Articles** for detailed package documentation:
 
 - [`concordance_ecoicop2bh`](https://amannj.github.io/OECDsppps/reference/concordance_ecoicop2bh.md)
   : Concordance table from ECOICOP1 to Eurostat PPP Basic Headings
+
+- [`ecoicop16_names`](https://amannj.github.io/OECDsppps/reference/ecoicop16_names.md)
+  : Classification of Individual Consumption According to Purpose
+  (ECOICOP)
 
 - [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
   : Country Product Dummy (CPD) regression model

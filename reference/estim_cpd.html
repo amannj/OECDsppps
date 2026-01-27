@@ -25,7 +25,7 @@ for more information.'><meta property="og:image" content="https://amannj.github.
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,9 +128,9 @@ similar to <code><a href="https://rdrr.io/r/stats/contrast.html" class="external
 <dd><p>Either "sPPP", which returns the estimated subnational
 purchasing purchasing power parities, that is,
 <em></em>\(\hat{SPPP}_r = exp(\hat{\alpha}_r)\) or
-"Full", which summarises the key information about the estimate CPD model
-in a tidy <code>tibble</code> using  <span class="pkg">broom</span>, in addition to the the estimated sPPPs
-returned when prompting <code>output = 'sPPP'</code>.</p></dd>
+"Full", which summarises the key information of the estimate CPD model:
+It provides the 'Regression output`as well as the individual 'Residuals'
+of the CPD regression.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -175,6 +175,7 @@ World Bank.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1      0.943</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2      1.06 </span>
 <span class="r-in"><span><span class="fu">estim_cpd</span><span class="op">(</span><span class="va">df</span>, output <span class="op">=</span> <span class="st">"Full"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Regression output`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   region       sPPP estimate std.error statistic p.value r.squared adj.r.squared</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -182,6 +183,16 @@ World Bank.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2           1.06   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aggregate… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>          1.000         1.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: sigma &lt;dbl&gt;, df &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Residuals</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   product region .fitted   .resid .std.resid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1       1         3.22  0.002<span style="text-decoration: underline;">32</span>      1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 1       2         3.33 -<span style="color: #BB0000;">0.002</span><span style="color: #BB0000; text-decoration: underline;">32</span>     -<span style="color: #BB0000;">1</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2       1         3.14 -<span style="color: #BB0000;">0.002</span><span style="color: #BB0000; text-decoration: underline;">32</span>     -<span style="color: #BB0000;">1</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 2       2         3.26  0.002<span style="text-decoration: underline;">32</span>      1    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -1,4 +1,4 @@
-# OECDsppps
+# OECDsPPPs
 
 `OECDsppps` provides functionalities for calculating subnational
 Purchasing Power Parities (sPPPs) in OECD regions.
@@ -29,4 +29,4 @@ See tab **Articles** for detailed package documentation:
   item-level prices at basic heading level and beyond
 
 - **Implementation** - discusses the production pipeline of of
-  *OECDsppps*
+  *OECDsPPPs*

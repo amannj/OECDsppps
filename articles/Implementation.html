@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,53 +95,153 @@ Table 1: Implementation pipeline
 </figcaption><div aria-describedby="tbl-implementation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table caption-top">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead><tr class="header">
-<th></th>
-<th>By whom</th>
-<th>Using <code>OECDsppps</code>
+<th>Step</th>
+<th>Counterpart</th>
+<th>Uses <code>OECDsppps</code>
 </th>
-<th>Notes</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Raw data processing (country by country)</td>
-<td>OECD or country representative</td>
+<td>Raw data processing</td>
+<td>OECD or country</td>
 <td>No</td>
-<td></td>
 </tr>
 <tr class="even">
-<td>Data validation (country by country)</td>
-<td>OECD or country representative</td>
+<td>Raw data validation</td>
+<td>OECD or country</td>
 <td>Yes</td>
-<td></td>
 </tr>
 <tr class="odd">
-<td>Aggregation and estimation of subnational purchasing power parities (country by country</td>
-<td>OECD</td>
+<td>Estimation at basic-heading level</td>
+<td>OECD or country</td>
 <td>Yes</td>
-<td></td>
 </tr>
 <tr class="even">
-<td>Making subnational purchasing power parity indicators comparable across countries</td>
+<td>Validation of estimation at basic-heading level</td>
+<td>OECD or country</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>Estimation beyond the basic-heading level</td>
 <td>OECD</td>
 <td>Yes</td>
-<td></td>
+</tr>
+<tr class="even">
+<td>Validation of estimation beyond the basic-heading level</td>
+<td>OECD</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>Comparability across countries and regions</td>
+<td>OECD</td>
+<td>Yes</td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<hr>
+</section><section class="section level2" data-number="1"><h2 data-number="1" id="raw-data-processing">
+<span class="header-section-number">1</span> Raw data processing<a class="anchor" aria-label="anchor" href="#raw-data-processing"></a>
+</h2>
+<p>The objective of the raw data processing is to derive a standard structure across all testing countries. Data are sourced primarily from official CPI programmes of National Statistical Offices (NSOs) and are country-specific. Consequently, data cleaning is country- and data-specific, and typically the most time-consuming part of the initial data work, as data can be available at different levels of granularity (spatial and product-related), content (available variables and information), and coverage (e.g., products, types of activity, etc.).</p>
+<p>The data processing takes the raw (unprocessed) CPI microdata. It ensures that product characteristics, as well as the observed quantities and measurement units of the observed price quotes, are harmonised, enabling a like-for-like comparison of products across regions. See <a href="#tbl-example" class="quarto-xref">Table 2</a> for a stylised example based on Weinand and Auer <span class="citation" data-cites="weinand2020">(<a href="#ref-weinand2020" role="doc-biblioref">Weinand and Auer 2020</a>)</span>.</p>
+<div id="tbl-example" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 2: Example of consumer price microdata based on Weinand and Auer <span class="citation" data-cites="weinand2020">Weinand and Auer (<a href="#ref-weinand2020" role="doc-biblioref">2020</a>)</span>
+</figcaption><div aria-describedby="tbl-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead><tr class="header">
+<th>Region</th>
+<th>Outlet</th>
+<th>Quantity observed</th>
+<th>Measurement unit of observed quantity</th>
+<th>Product characteristics</th>
+<th>Price observed</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Supermarket</td>
+<td>1</td>
+<td>Kilograms</td>
+<td>“Bens, basmati, bag”</td>
+<td>1.69</td>
+</tr>
+<tr class="even">
+<td>C</td>
+<td>Supermarket</td>
+<td>500</td>
+<td>Grams</td>
+<td>“Ben’s, basmati, bulk”</td>
+<td>0.79</td>
+</tr>
+<tr class="odd">
+<td>B</td>
+<td>Supermarket</td>
+<td>0.5</td>
+<td>Kilograms</td>
+<td>“Ben, basm., bulk”</td>
+<td>0.69</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>In addition to harmonising the individual price quotes, initial data processing also classifies the individual items or projects according to their respective COICOP subclasses. Once a common structure is established, harmonised data processing using <code>OECDsppps</code> commences with the data validation.</p>
+</section><section class="section level2" data-number="2"><h2 data-number="2" id="raw-data-validation">
+<span class="header-section-number">2</span> Raw Data validation<a class="anchor" aria-label="anchor" href="#raw-data-validation"></a>
+</h2>
+<p>Data validation is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions.</p>
+<p>Validation begins with analysing item-level prices within regions and involves outlier detections of single price quotes and average price aggregates. The two validation steps taken at this stage are described in the <a href="https://amannj.github.io/OECDsppps/articles/Validation.html">Validation vignette</a>:</p>
+<ol type="1">
+<li>
+<a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-intraregional">Intra-regional validation</a> analyses individual and aggregate price quotes within the same region and across regions of the same country</li>
+<li>
+<a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-interregional">Inter-regional validation</a> performs prices validation across all regions and countries, ensuring that average prices are based on comparable products in regions across countries and that products have been accurately priced.</li>
+</ol>
+<p>The raw data <a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-alternative">validation of alternative data sources</a> is also carried out at this stage</p>
+</section><section class="section level2" data-number="3"><h2 data-number="3" id="estimation-at-basic-heading-level">
+<span class="header-section-number">3</span> Estimation at basic-heading level<a class="anchor" aria-label="anchor" href="#estimation-at-basic-heading-level"></a>
+</h2>
+<p><a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-step1">Estimation of basic headings</a> using item-level prices, where price data are aggregated up to the level of basic headings, generally without the use of expenditure weights.</p>
+<p>The estimation is carried out using <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> with argument <code>output = "Full"</code>, which summarises the key information of the estimate CPD model: It provides the ‘Regression output` as well as the individual ’Residuals’ of the CPD regression; see EXAMPLE 4 in the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html">Estimation vignette</a>.</p>
+</section><section class="section level2" data-number="4"><h2 data-number="4" id="validation-of-estimation-at-basic-heading-level">
+<span class="header-section-number">4</span> Validation of estimation at basic-heading level<a class="anchor" aria-label="anchor" href="#validation-of-estimation-at-basic-heading-level"></a>
+</h2>
+</section><section class="section level2" data-number="5"><h2 data-number="5" id="validation-of-estimation-beyond-the-basic-heading-level">
+<span class="header-section-number">5</span> Validation of estimation beyond the basic-heading level<a class="anchor" aria-label="anchor" href="#validation-of-estimation-beyond-the-basic-heading-level"></a>
+</h2>
 <blockquote>
-<p>🚧 Additional sections remain work in progress.</p>
+<p>🚧 Work in progress.</p>
 </blockquote>
-<hr></section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</section><section class="section level2" data-number="6"><h2 data-number="6" id="estimation-beyond-the-basic-heading-level">
+<span class="header-section-number">6</span> Estimation beyond the basic-heading level<a class="anchor" aria-label="anchor" href="#estimation-beyond-the-basic-heading-level"></a>
+</h2>
+<blockquote>
+<p>🚧 Work in progress.</p>
+</blockquote>
+</section><section class="section level2" data-number="7"><h2 data-number="7" id="comparability-across-countries-and-regions">
+<span class="header-section-number">7</span> Comparability across countries and regions<a class="anchor" aria-label="anchor" href="#comparability-across-countries-and-regions"></a>
+</h2>
+<blockquote>
+<p>🚧 Work in progress.</p>
+</blockquote>
+</section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-europeanunionEurostatOECDMethodologicalManual2024" class="csl-entry" role="listitem">
@@ -149,6 +249,9 @@ European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological Manual</span> 
 </div>
 <div id="ref-icp2021" class="csl-entry" role="listitem">
 ICP. 2021. <span>“A Guide to the Compilation of Subnational Purchasing Power Parities (PPPs).”</span> <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.
+</div>
+<div id="ref-weinand2020" class="csl-entry" role="listitem">
+Weinand, Sebastian, and Ludwig von Auer. 2020. <span>“Anatomy of Regional Price Differentials: Evidence from Micro-Price Data.”</span> <em>Spatial Economic Analysis</em> 15 (4): 413–40. <a href="https://doi.org/10.1080/17421772.2020.1729998" class="external-link">https://doi.org/10.1080/17421772.2020.1729998</a>.
 </div>
 <div id="ref-worldbank2013" class="csl-entry" role="listitem">
 World Bank. 2013. <em>Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program <span></span> ICP</em>. Washington DC: World Bank. <a href="https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf</a>.
