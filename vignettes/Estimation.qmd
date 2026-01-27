@@ -318,31 +318,9 @@ full_est[["Residuals"]] |>
   sub_missing(missing_text = "")
 ```
 
-#### Example 5: Aggregation weights {#sec-example5 .unnumbered}
 
 
-The function `estim_cpd()` provides the option to add aggregation weight in case duplicate 
-region-product pairs found in data through the `weights` argument; see `estim_cpd()` for more information.
-
-```{r}
-# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
-red |>
-  mutate(w = 1) |>
-  estim_cpd(weights = "w") |>
-  pull("sPPP")
-
-# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
-set.seed(123)
-red |>
-  ## Add random weights
-  mutate(w = runif(nrow(red), 0, 1)) |>
-  estim_cpd(weights = "w") |>
-  pull("sPPP")
-```
-
-
-
-#### Example 6: UK microdata - Two products, multiple regions {#sec-example6 .unnumbered}
+#### Example 5: UK microdata - Two products, multiple regions {#sec-example5 .unnumbered}
 
 
 ```{r}
@@ -369,6 +347,27 @@ as.data.table(red)[, cpd(p = price, r = region, n = product)]
 ```
 
 
+#### Example 6: Aggregation weights {#sec-example6 .unnumbered}
+
+
+The function `estim_cpd()` provides the option to add aggregation weight in case duplicate 
+region-product pairs found in data through the `weights` argument; see `estim_cpd()` for more information.
+
+```{r}
+# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+red |>
+  mutate(w = 1) |>
+  estim_cpd(weights = "w") |>
+  pull("sPPP")
+
+# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+set.seed(123)
+red |>
+  ## Add random weights
+  mutate(w = runif(nrow(red), 0, 1)) |>
+  estim_cpd(weights = "w") |>
+  pull("sPPP")
+```
 
 
 ------------------------------------------------------------------------
