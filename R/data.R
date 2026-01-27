@@ -72,3 +72,30 @@
 #' @source [European Classification of Individual Consumption according to Purpose, version 1 (ECOICOP1)](https://showvoc.op.europa.eu/#/datasets/ESTAT_European_Classification_of_Individual_Consumption_according_to_Purpose_%28ECOICOP%29/data)
 #' and [Eurostat PPP list of products for consumer goods and services](https://ec.europa.eu/eurostat/web/purchasing-power-parities/methodology)
 "concordance_ecoicop2bh"
+
+
+#' Classification of Individual Consumption According to Purpose (ECOICOP)
+#'
+#' COICOP is  reference classification published by the United Nations Statistics Division (UNSD)
+#' used in National accounts, Household Budget surveys (HBS), Price Statistics (HICP) and Purchasing Power Parities (PPP).
+#' Eurostat introduced a harmonised and revision of COICOP, yielding a single harmonised COICOP classification at the five-digit level.
+#'
+#' @format ## `ecoicop16_names`
+#' A data frame with 479 rows and 3 columns containing the code and description of the ECOICOP classification at various levels of aggregation,
+#' from *division* (COICOP2, e.g., `01 Food and non-alcoholic beverages`) down to *subclasses* (COICOP5, e.g., `01.1.1.1 Rice`).
+#'
+#' \describe{
+#'   \item{code}{ECOICOP code}
+#'   \item{level}{Hierarchical level of ECOICOP classification}
+#'   \item{description}{ECOICOP description}
+#'   }
+#'
+#'
+#' @examples
+#' ecoicop16_names |> dim()
+#' ecoicop16_names |> names()
+#'
+#' @source [ Classification of Individual Consumption According to Purpose 1999 ](https://unstats.un.org/unsd/classifications/Family/Detail/5)
+#' and [eurostat Glossary:COICOP HICP](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:COICOP_HICP)
+"ecoicop16_names"
+
