@@ -33,3 +33,19 @@ Initial estimation and extending validation
   - Fix function bindings to pass checks
   - Fix `uk_cpi`: Region names; harmonise COICOP code formats  
     
+
+------------
+
+# Version `0.0.0.3`
+
+Completing estimation procedure for basic headings
+
+### Additions
+
+- Add COICOP is reference classification table `ecoicop16_names`
+- Add option to output residuals for CPD regression `estim_cpd()`
+- Describe workflow to derive initial CPD regression results at basic-heading level in [vignettes/Implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
+
+### Bug fixes
+
+- Fixed bug(s) in `estim_cpd()`

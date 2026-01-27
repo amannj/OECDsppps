@@ -1,5 +1,5 @@
 
-# OECDsppps
+# OECDsPPPs
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -31,4 +31,4 @@ as well as comparing household expenditure weights across regions
 at basic heading level and beyond 
 
 
-- **Implementation** - discusses the production pipeline of of *OECDsppps*
+- **Implementation** - discusses the production pipeline of of *OECDsPPPs*
