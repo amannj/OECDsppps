@@ -105,7 +105,7 @@ and $\varepsilon_{ij}$ are independently and identically (normally) distributed 
 
 This section describes the implementation of the CPD using different approaches
 from simple cross-tabulations, standard OLS as well as using the 
-`pricelevels` package [@pricelevels] and finally the function `estim_cpd()` of
+\pkg{pricelevels} package [@pricelevels] and finally the function `estim_cpd()` of
 this package using examples [1](#sec-example1) and [2](#sec-example2).
 
 Examples [3](#sec-example3) to [6](#sec-example6) discuss further functionalities of
@@ -115,7 +115,7 @@ Examples [3](#sec-example3) to [6](#sec-example6) discuss further functionalitie
 
 ### Example 1: One product, two regions {#sec-example1 .unnumbered}
 
-#### Using cross-tabulations
+### Using cross-tabulations
 
 ```{r}
 # Data
@@ -147,21 +147,21 @@ df1 |>
 27 / 24
 ```
 
-#### Using `pricelevels`
+### Using \pkg{pricelevels}
 
-The same results can be obtained using `cpd()` from the `pricelevels` package.
+The same results can be obtained using `cpd()` from the \pkg{pricelevels} package.
 
 ```{r}
 #| message: false
 #| warning: false
-# With `pricelevels`- estimation with respect to regional average
+# With \pkg{pricelevels}- estimation with respect to regional average
 df1[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 1.060660 / 0.942809
 
-# With `pricelevels`- estimation with respect to region 1
+# With \pkg{pricelevels}- estimation with respect to region 1
 df1[, cpd(p = price, r = region, n = product, q = NULL, base = "1")]
 
-# With `pricelevels`- estimation output
+# With \pkg{pricelevels}- estimation output
 df1[, cpd(
   p = price, r = region, n = product, q = NULL, base = NULL,
   simplify = FALSE
@@ -169,7 +169,9 @@ df1[, cpd(
 exp(-0.05889)
 ```
 
-And also with standard OLS.
+### Using standard OLS
+
+The same can be achieved with a simple OLS regression
 
 ```{r}
 #| message: false
@@ -208,8 +210,14 @@ df2 <- data.table(
   product = as.factor(c(1, 1, 2, 2)),
   price = c(25, 28, 23, 26)
 )
+```
 
-# With `pricelevels` ------
+### Using \pkg{pricelevels}
+
+```{r}
+#| message: false
+#| warning: false
+# With \pkg{pricelevels} ------
 ## Estimation with respect to regional average
 df2[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 1.060757 / 0.942723
@@ -223,7 +231,13 @@ df2[, cpd(
   simplify = FALSE
 )]
 exp(-0.05898)
+```
 
+### Using standard OLS
+
+```{r}
+#| message: false
+#| warning: false
 # OLS ------
 ## Data
 pdata <- df2
@@ -242,20 +256,32 @@ exp(dummy.coef(out)[["region"]])
 
 ------------------------------------------------------------------------
 
-### Using `estim_cpd()`
+### Integration in \pkg{OECDsppps}:  `estim_cpd()`
 
-Additionally, the function `estim_cpd()` provides an alternative estimation approach to provide numerically identical sPPPs estimates.
+\pkg{OECDsppps} provides the function `estim_cpd()` for CPD estimation. The 
+function provides nummerically identical results as the previously discussed
+estimations and provides further functionalities; see the examples below as
+well as the documentation of `estim_cpd()` for more information.
 
-#### Example 3: Generic - Multiple products, and regions {#sec-example3 .unnumbered}
+#### Example 3: Generic - Multiple products, and regions, with and without weights {#sec-example3 .unnumbered}
+
 
 ```{r}
-# Generate data with `pricelevels` -------
+#| message: false
+#| warning: false
+# Generate data with \pkg{pricelevels} -------
 set.seed(123)
 R <- 5 # number of regions
 B <- 5 # number of product groups
 N <- 5 # number of products
 dt1 <- pricelevels::rdata(R = R, B = B, N = N)
+```
 
+CPD with no weights using `cpd()` in \pkg{pricelevels} [@pricelevels] and `estim_cpd()`.
+
+```{r}
+#| message: false
+#| warning: false
 # Estimating sPPPs with `pricelevels`, no weights --------
 dt1[, cpd(p = price, r = region, n = product)]
 
@@ -269,8 +295,7 @@ dt1 |>
   pull("sPPP")
 ```
 
-The behaviour of adding estimation weights is identical across both packages; see
-`estim_cpd()` for more information.
+CPD with weights using `cpd()` in \pkg{pricelevels} [@pricelevels] and `estim_cpd()`.
 
 ```{r}
 # Estimating sPPPs with `pricelevels`, with weights --------
@@ -292,27 +317,29 @@ dt1 |>
 
 
 The function `estim_cpd()` also has the option to export extended regression output of the CPD model with argument `output = "Full"`, which summarises the key information of the estimate CPD model: It provides the 'Regression output`
-as well as the individual 'Residuals' of the CPD regression. Information in the extended regression output is used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh) vignette.
+as well as the individual 'Residuals' of the CPD regression. 
+
+Information in the extended regression output is used to support the validation of CPD-based subnational PPPs at the basic-heading level; see [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh) vignette.
 
 ```{r}
-# Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------
+# Estimating sPPPs with `estim_cpd()` ---------
 full_est <- dt1 |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price",
     output = "Full"
-  ) 
+  )
 
 ## Regression output
-full_est[["Regression output"]] |> 
+full_est[["Regression output"]] |>
   gt() |>
   fmt_number(decimals = 2) |>
   sub_missing(missing_text = "")
 
 ## Residuals
-full_est[["Residuals"]] |> 
-  head() |> 
+full_est[["Residuals"]] |>
+  head() |>
   gt() |>
   fmt_number(decimals = 4) |>
   sub_missing(missing_text = "")
@@ -320,11 +347,14 @@ full_est[["Residuals"]] |>
 
 
 
-#### Example 5: UK microdata - Two products, multiple regions {#sec-example5 .unnumbered}
+#### Example 5: Duplicate region-product price pairs defaults {#sec-example5 .unnumbered}
 
+By default, `estim_cpd()` aggregates the price quotes up to region-product pairs 
+using unweighted means whenever there are duplicate region-product pairs found in data 
+and no weights provided. This is identical to the bahaviour of `cpd` in \pkg{pricelevels}
 
 ```{r}
-# Take UK CPI microdata ---------
+# Take UK CPI microdata containing duplicate region-product pairs ---------
 red <- uk_cpi |>
   filter(Year == "2018") |>
   select(
@@ -347,24 +377,16 @@ as.data.table(red)[, cpd(p = price, r = region, n = product)]
 ```
 
 
-#### Example 6: Aggregation weights {#sec-example6 .unnumbered}
+#### Example 6: Duplicate region-product price pairs with aggregation weights {#sec-example6 .unnumbered}
 
 
-The function `estim_cpd()` provides the option to add aggregation weight in case duplicate 
+`estim_cpd()` also provides the option to add aggregation weight in case duplicate 
 region-product pairs found in data through the `weights` argument; see `estim_cpd()` for more information.
 
 ```{r}
 # Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
 red |>
   mutate(w = 1) |>
-  estim_cpd(weights = "w") |>
-  pull("sPPP")
-
-# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
-set.seed(123)
-red |>
-  ## Add random weights
-  mutate(w = runif(nrow(red), 0, 1)) |>
   estim_cpd(weights = "w") |>
   pull("sPPP")
 ```
