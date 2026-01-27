@@ -30,27 +30,27 @@ This vignette provides a fully documented production pipeline, describing the da
 
 The production pipeline covers the country-level data validation, the aggregation and estimation of subnational purchasing power parities and the harmonisation of these estimates to make sPPP indicators comparable across countries (@tbl-implementation). Only the raw data validation, which derives a standard structure across all testing countries, remains country- and dataset-specific. The individual stages of the production pipeline are discussed in the subsequent paragraphs.
 
-|   | By whom | Using `OECDsppps` | 
+| Step  | Counterpart | Uses `OECDsppps` | 
 |------------------|------------------|------------------|
-| Raw data processing | OECD or country representative | No |  
-| Raw data validation | OECD or country representative | Yes |  
-| Estimation at basic-heading level | OECD or country representative | Yes |
-| Validation of estimation at basic-heading level | OECD or country representative | Yes |  
+| Raw data processing | OECD or country | No |  
+| Raw data validation | OECD or country  | Yes |  
+| Estimation at basic-heading level | OECD or country  | Yes |
+| Validation of estimation at basic-heading level | OECD or country  | Yes |  
 | Estimation beyond the basic-heading level | OECD | Yes |
-| Validation of estimation beyond the basic-heading level | OECD or country representative | Yes | 
+| Validation of estimation beyond the basic-heading level | OECD | Yes | 
 | Comparability across countries and regions | OECD | Yes |  
 
 : Implementation pipeline {#tbl-implementation}
 
 
-## Raw data processing 
+# Raw data processing 
 
 The objective of the raw data processing is to derive a standard structure across all testing countries. Data are sourced primarily from official CPI programmes of National Statistical Offices (NSOs) and are country-specific. Consequently, data cleaning is country- and data-specific, and typically the most time-consuming part of the initial data work, as data can be available at different levels of granularity (spatial and product-related), content (available variables and information), and coverage (e.g., products, types of activity, etc.).
 
 The data processing takes the raw (unprocessed) CPI microdata. It ensures that product characteristics, as well as the observed quantities and measurement units of the observed price quotes, are harmonised, enabling a like-for-like comparison of products across regions. See @tbl-example for a stylised example based on Weinand and Auer [@weinand2020].
 
 | Region	| Outlet	| Quantity observed	| Measurement unit of observed quantity	| Product characteristics	| Price observed |
-
+|---|---|---|---|---|---|
 | A	| Supermarket	| 1	| Kilograms |	“Bens, basmati, bag”  |	1.69 | 
 | C	| Supermarket	| 500	| Grams |	“Ben’s, basmati, bulk” |	0.79 |
 | B	| Supermarket	| 0.5	| Kilograms |	“Ben, basm., bulk” |	0.69 |
@@ -60,7 +60,7 @@ The data processing takes the raw (unprocessed) CPI microdata. It ensures that p
 
 In addition to harmonising the individual price quotes, initial data processing also classifies the individual items or projects according to their respective COICOP subclasses. Once a common structure is established, harmonised data processing using `OECDsppps` commences with the data validation.
 
-## Raw Data validation
+# Raw Data validation
 
 Data validation is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions. 
 
@@ -72,23 +72,23 @@ in the [Validation vignette](https://amannj.github.io/OECDsppps/articles/Validat
 
 The raw data [validation of alternative data sources](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-alternative) is also carried out at this stage
 
-## Estimation at basic-heading level
+# Estimation at basic-heading level
 
 [Estimation of basic headings](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-step1) using item-level prices, where price data are aggregated up to the level of basic headings, generally without the use of expenditure weights.
 
 The estimation is carried out using `estim_cpd()` with argument `output = "Full"`, which summarises the key information of the estimate CPD model: It provides the 'Regression output` as well as the individual 'Residuals' of the CPD regression; see EXAMPLE 4 in the [Estimation vignette](https://amannj.github.io/OECDsppps/articles/Estimation.html).
 
-## Validation of estimation at basic-heading level
+# Validation of estimation at basic-heading level
 
-## Validation of estimation beyond the basic-heading level
-
-> 🚧 Work in progress.
-
-## Estimation beyond the basic-heading level
+# Validation of estimation beyond the basic-heading level
 
 > 🚧 Work in progress.
 
-## Comparability across countries and regions
+# Estimation beyond the basic-heading level
+
+> 🚧 Work in progress.
+
+# Comparability across countries and regions
 
 > 🚧 Work in progress.
 
