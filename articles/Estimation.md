@@ -129,8 +129,7 @@ Implementation](#sec-implementation).
 
 This section describes the implementation of the CPD using different
 approaches from simple cross-tabulations, standard OLS as well as using
-the `pricelevels` package ([Weinand 2025](#ref-pricelevels)) and finally
-the function
+the package ([Weinand 2025](#ref-pricelevels)) and finally the function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 of this package using examples [1](#sec-example1) and
 [2](#sec-example2).
@@ -143,7 +142,7 @@ functionalities of
 
 #### Example 1: One product, two regions
 
-##### 1.3.0.1 Using cross-tabulations
+#### 1.3.1 Using cross-tabulations
 
 ``` r
 # Data
@@ -188,26 +187,26 @@ df1 |>
 #> [1] 1.125
 ```
 
-##### 1.3.0.2 Using `pricelevels`
+#### 1.3.2 Using
 
 The same results can be obtained using
 [`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) from the
-`pricelevels` package.
+package.
 
 ``` r
-# With `pricelevels`- estimation with respect to regional average
+# With \pkg{pricelevels}- estimation with respect to regional average
 df1[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 #>        1        2 
 #> 0.942809 1.060660
 1.060660 / 0.942809
 #> [1] 1.125
 
-# With `pricelevels`- estimation with respect to region 1
+# With \pkg{pricelevels}- estimation with respect to region 1
 df1[, cpd(p = price, r = region, n = product, q = NULL, base = "1")]
 #>     1     2 
 #> 1.000 1.125
 
-# With `pricelevels`- estimation output
+# With \pkg{pricelevels}- estimation output
 df1[, cpd(
   p = price, r = region, n = product, q = NULL, base = NULL,
   simplify = FALSE
@@ -223,7 +222,9 @@ exp(-0.05889)
 #> [1] 0.9428105
 ```
 
-And also with standard OLS.
+#### 1.3.3 Using standard OLS
+
+The same can be achieved with a simple OLS regression
 
 ``` r
 # With OLS
@@ -269,8 +270,12 @@ df2 <- data.table(
   product = as.factor(c(1, 1, 2, 2)),
   price = c(25, 28, 23, 26)
 )
+```
 
-# With `pricelevels` ------
+#### 1.3.4 Using
+
+``` r
+# With \pkg{pricelevels} ------
 ## Estimation with respect to regional average
 df2[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 #>        1        2 
@@ -297,7 +302,11 @@ df2[, cpd(
 #>  3.27554   3.19680  -0.05898
 exp(-0.05898)
 #> [1] 0.9427256
+```
 
+#### 1.3.5 Using standard OLS
+
+``` r
 # OLS ------
 ## Data
 pdata <- df2
@@ -325,23 +334,33 @@ exp(dummy.coef(out)[["region"]])
 
 ------------------------------------------------------------------------
 
-#### 1.3.1 Using `estim_cpd()`
+#### 1.3.6 Integration in : `estim_cpd()`
 
-Additionally, the function
+provides the function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
-provides an alternative estimation approach to provide numerically
-identical sPPPs estimates.
+for CPD estimation. The function provides nummerically identical results
+as the previously discussed estimations and provides further
+functionalities; see the examples below as well as the documentation of
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+for more information.
 
-##### Example 3: Generic - Multiple products, and regions
+##### Example 3: Generic - Multiple products, and regions, with and without weights
 
 ``` r
-# Generate data with `pricelevels` -------
+# Generate data with \pkg{pricelevels} -------
 set.seed(123)
 R <- 5 # number of regions
 B <- 5 # number of product groups
 N <- 5 # number of products
 dt1 <- pricelevels::rdata(R = R, B = B, N = N)
+```
 
+CPD with no weights using
+[`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in ([Weinand
+2025](#ref-pricelevels)) and
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md).
+
+``` r
 # Estimating sPPPs with `pricelevels`, no weights --------
 dt1[, cpd(p = price, r = region, n = product)]
 #>         1         2         3         4         5 
@@ -359,10 +378,10 @@ dt1 |>
 #> 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137
 ```
 
-The behaviour of adding estimation weights is identical across both
-packages; see
-[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
-for more information.
+CPD with weights using
+[`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in ([Weinand
+2025](#ref-pricelevels)) and
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md).
 
 ``` r
 # Estimating sPPPs with `pricelevels`, with weights --------
@@ -391,23 +410,24 @@ also has the option to export extended regression output of the CPD
 model with argument `output = "Full"`, which summarises the key
 information of the estimate CPD model: It provides the ‘Regression
 output\` as well as the individual ’Residuals’ of the CPD regression.
+
 Information in the extended regression output is used to support the
 validation of CPD-based subnational PPPs at the basic-heading level; see
 [Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh)
 vignette.
 
 ``` r
-# Estimating sPPPs with `estim_cpd()` and obtain standard errors ---------
+# Estimating sPPPs with `estim_cpd()` ---------
 full_est <- dt1 |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price",
     output = "Full"
-  ) 
+  )
 
 ## Regression output
-full_est[["Regression output"]] |> 
+full_est[["Regression output"]] |>
   gt() |>
   fmt_number(decimals = 2) |>
   sub_missing(missing_text = "")
@@ -418,8 +438,8 @@ full_est[["Regression output"]] |>
 ``` r
 
 ## Residuals
-full_est[["Residuals"]] |> 
-  head() |> 
+full_est[["Residuals"]] |>
+  head() |>
   gt() |>
   fmt_number(decimals = 4) |>
   sub_missing(missing_text = "")
@@ -434,10 +454,16 @@ full_est[["Residuals"]] |>
 | 01      | 5      | 2.7386  | 0.0068  | 0.1201     |
 | 02      | 1      | 2.9156  | −0.0076 | −0.1353    |
 
-##### Example 5: UK microdata - Two products, multiple regions
+##### Example 5: Duplicate region-product price pairs defaults
+
+By default,
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+aggregates the price quotes up to region-product pairs using unweighted
+means whenever there are duplicate region-product pairs found in data
+and no weights provided. This is identical to the bahaviour of `cpd` in
 
 ``` r
-# Take UK CPI microdata ---------
+# Take UK CPI microdata containing duplicate region-product pairs ---------
 red <- uk_cpi |>
   filter(Year == "2018") |>
   select(
@@ -477,11 +503,10 @@ as.data.table(red)[, cpd(p = price, r = region, n = product)]
 #>                 0.8612814                 1.0457363                 0.9802726
 ```
 
-##### Example 6: Aggregation weights
+##### Example 6: Duplicate region-product price pairs with aggregation weights
 
-The function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
-provides the option to add aggregation weight in case duplicate
+also provides the option to add aggregation weight in case duplicate
 region-product pairs found in data through the `weights` argument; see
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 for more information.
@@ -501,23 +526,6 @@ red |>
 #>                 1.0521466                 0.9977087                 0.9331900 
 #>                     Wales             West Midlands Yorkshire and the Humberl 
 #>                 0.8612814                 1.0457363                 0.9802726
-
-# Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
-set.seed(123)
-red |>
-  ## Add random weights
-  mutate(w = runif(nrow(red), 0, 1)) |>
-  estim_cpd(weights = "w") |>
-  pull("sPPP")
-#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
-#>             East Midlands           East of England                    London 
-#>                 0.9273710                 1.0071653                 1.3190512 
-#>                     North                North West          Northern Ireland 
-#>                 0.9643659                 0.9701565                 0.9970916 
-#>                  Scotland                South East                South West 
-#>                 1.0489943                 1.0051813                 0.9315536 
-#>                     Wales             West Midlands Yorkshire and the Humberl 
-#>                 0.8701807                 1.0331752                 0.9852731
 ```
 
 ------------------------------------------------------------------------
