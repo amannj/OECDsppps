@@ -49,3 +49,20 @@ Completing estimation procedure for basic headings
 ### Bug fixes
 
 - Fixed bug(s) in `estim_cpd()`
+
+
+------------
+
+# Version `0.0.0.4`
+
+CPD regression update, household expenditure weight checks and bug fixes
+
+### Additions
+
+- Add option to run `estim_cpd()` with covariates and interactions
+- Validation checks for household expenditure weights added: `valid_axt()`
+- Describe workflow to derive initial CPD regression results at basic-heading level in [vignettes/Implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
+
+### Bug fixes
+
+- Fixed names in `ecoicop16_names`

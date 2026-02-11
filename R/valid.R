@@ -298,3 +298,72 @@ valid_PPPratio <- function(data,
     left_join(x1, by = join_by({{ year }}, {{ product_code }})) |>
     rbind(x2)
 }
+
+
+#' Create "Average Household Expenditure Share Table"
+#'
+#' \loadmathjax
+#' `valid_axt()` in  \pkg{OECDsppps} creates the "Average Household Expenditure Share Table" by
+#' calculating:
+#' - `Minimum`- Highest household expenditure share by group as specified by `group_by()`
+#' - `Lower quartile`- Lower quartile household expenditure share by group as specified by `group_by()`
+#' - `Average`- Average household expenditure share by group as specified by `group_by()`
+#' - `Median`- Median household expenditure share by group as specified by `group_by()`
+#' - `Upper quartile`- Upper quartile household expenditure share by group as specified by `group_by()`
+#' - `Maximum` - Lowest household expenditure share by group as specified by `group_by()`
+#' - `Standard Deviation` - Standard deviation household expenditure share by group as specified by `group_by()`
+#' - `max-min ratio test` and `coefficient of variation test` - see *Details* for more information
+#'  All household expenditure shares
+#'  that do not pass the two tests are flagged in columns
+#' `Max-min ratio FLAG` and`Coefficient of variation FLAG`, respectively;
+#' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
+#'
+#'
+#' **Max-min ratio test:** The ratio between the maximal and minimal observed expenditure share
+#'  \mjseqn{j}, \mjseqn{p_j}. Expenditure shares where the maximal observed share is more than twice
+#' as big as the minimum are flagged in `Max-min ratio FLAG`:
+#' \mjdeqn{max-min~ratio = max(p_j)/min(p_j)}{max-min~ratio = max(p_j)/min(p_j)}
+#'
+#' **Coefficient-of-variation test:** The standard deviation \mjseqn{\sigma_{p_j}}
+#' of expenditure group  \mjseqn{j}'s share \mjseqn{p_j}
+#' expressed as a percentage of the average share over time,  \mjseqn{\mu_{p_j}}. Expenditure shares
+#' with a coefficient of variation greater than 20% will be flagged in `Coefficient of variation FLAG`:
+#' \mjdeqn{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}
+#'
+#' @param data A data frame or tibble containing at least one column with
+#' expenditure shares.
+#' @param expenditure_share Column containing the individual expenditure shares.
+#' @references
+#'   \insertAllCited{}
+#'
+#'
+#' @importFrom Rdpack reprompt
+#' @importFrom mathjaxr preview_rd
+#' @importFrom dplyr mutate
+#' @importFrom dplyr select
+#' @importFrom dplyr summarise
+#' @importFrom rlang .data
+#' @export
+valid_axt <- function(data,
+                      expenditure_share = "expenditure_share") {
+  data |>
+    summarise(
+      Minimum = min(.data[[expenditure_share]]),
+      `Lower quartile` = quantile(.data[[expenditure_share]], probs = .25),
+      Mean = mean(.data[[expenditure_share]]),
+      Median = quantile(.data[[expenditure_share]], probs = 0.75),
+      `Upper quartile` = quantile(.data[[expenditure_share]], probs = 0.75),
+      Maximum = max(.data[[expenditure_share]]),
+      `Standard deviation` = sd(.data[[expenditure_share]])
+    ) |>
+    # Calculate individual outlier statistics
+    mutate(
+      `Max-min ratio` = Maximum / Minimum,
+      `Coefficient of variation` = `Standard deviation` / Mean
+    ) |>
+    # Add flags for selection rules
+    mutate(
+      `Max-min ratio FLAG` = `Max-min ratio` > 2,
+      `Coefficient of variation FLAG` = `Coefficient of variation` > .2
+    )
+}

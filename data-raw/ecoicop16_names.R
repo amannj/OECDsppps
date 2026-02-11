@@ -1,6 +1,3 @@
-ecoicop16_names <- readr::read_delim("V:/SUBNATIONAL_PRICES/sandbox/_General/klass-version-485-codes.csv",
-  delim = ";", escape_double = FALSE, trim_ws = TRUE
-) |>
-  select(code, level, name)
+ecoicop16_names <- readr::read_rds("V:/SUBNATIONAL_PRICES/sandbox/_General/ecoicop16_names.rds")
 
 usethis::use_data(ecoicop16_names, overwrite = TRUE)
