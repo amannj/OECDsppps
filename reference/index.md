@@ -29,5 +29,8 @@
 - [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md)
   : Create "Average Price Table"
 
+- [`valid_axt()`](https://amannj.github.io/OECDsppps/reference/valid_axt.md)
+  : Create "Average Household Expenditure Share Table"
+
 - [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md)
   : Create the "Price Observation Table"
