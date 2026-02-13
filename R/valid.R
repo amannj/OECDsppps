@@ -275,8 +275,8 @@ valid_PPPratio <- function(data,
     ungroup() |>
     # Calculate variation coefficients
     select({{ year }}, {{ region }}, {{ product_code }}, PPP_ratio) |>
-    mutate(`VC Product` = sd(PPP_ratio), .by = product_code) |>
-    mutate(`VC Region` = sd(PPP_ratio), .by = `Region`)
+    mutate(`VC Product` = sd(PPP_ratio), .by = {{ product_code }}) |>
+    mutate(`VC Region` = sd(PPP_ratio), .by = {{ region }})
 
   # Variation coefficients
   x1 <- tmp |>
