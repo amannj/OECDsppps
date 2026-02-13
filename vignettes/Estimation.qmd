@@ -154,14 +154,14 @@ The same results can be obtained using `cpd()` from the \pkg{pricelevels} packag
 ```{r}
 #| message: false
 #| warning: false
-# With \pkg{pricelevels}- estimation with respect to regional average
+# With pricelevels - estimation with respect to regional average
 df1[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 1.060660 / 0.942809
 
-# With \pkg{pricelevels}- estimation with respect to region 1
+# With pricelevels - estimation with respect to region 1
 df1[, cpd(p = price, r = region, n = product, q = NULL, base = "1")]
 
-# With \pkg{pricelevels}- estimation output
+# With pricelevels - estimation output
 df1[, cpd(
   p = price, r = region, n = product, q = NULL, base = NULL,
   simplify = FALSE
@@ -217,7 +217,7 @@ df2 <- data.table(
 ```{r}
 #| message: false
 #| warning: false
-# With \pkg{pricelevels} ------
+# With pricelevels} ------
 ## Estimation with respect to regional average
 df2[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 1.060757 / 0.942723
@@ -269,7 +269,7 @@ well as the documentation of `estim_cpd()` for more information.
 ```{r}
 #| message: false
 #| warning: false
-# Generate data with \pkg{pricelevels} -------
+# Generate data with pricelevels -------
 set.seed(123)
 R <- 5 # number of regions
 B <- 5 # number of product groups
