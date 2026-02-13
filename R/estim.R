@@ -153,12 +153,12 @@ estim_cpd <- function(data,
   # CPD regression formula
   ## Case 1: multiple regions, multiple products
   if (n_region > 1 & n_product > 1) {
-    formula <- paste0("log(",price,") ~ ",product, " + " , region," - 1")
+    formula <- paste0("log(", price, ") ~ ", product, " + ", region, " - 1")
   }
 
   ## Case 2: one product, multiple regions
   if (n_product == 1) {
-    formula <- paste0("log(",price,") ~ " , region," + 1")
+    formula <- paste0("log(", price, ") ~ ", region, " + 1")
   }
 
   ## Case 3: one regions
@@ -221,12 +221,12 @@ estim_cpd <- function(data,
 
     ## Residuals
     resids <- broom::augment(est_out) |>
-      select(product, region, .fitted, .resid, .std.resid)
+      select({{ region }}, .fitted, .resid, .std.resid)
 
     ## Finalise output
     full_out <- list(
       "Regression output" = reg_out |>
-        full_join(out, by = "region"),
+        full_join(out, by = {{ region }}),
       "Residuals" = resids
     )
 
