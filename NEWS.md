@@ -61,7 +61,6 @@ CPD regression update, household expenditure weight checks and bug fixes
 
 - Add option to run `estim_cpd()` with covariates and interactions
 - Validation checks for household expenditure weights added: `valid_axt()`
-- Describe workflow to derive initial CPD regression results at basic-heading level in [vignettes/Implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
 
 ### Bug fixes
 
