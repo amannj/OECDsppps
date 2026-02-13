@@ -336,7 +336,7 @@ df_xr2 <- rbind(
   select(-`XR USD`)
 
 # Calculations
-df_out <- df_xr2 |>
+df_out <- df_xr2 |> 
   valid_PPPratio(
     year = "Year",
     product_code = "Product code",
