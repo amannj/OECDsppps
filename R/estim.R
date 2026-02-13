@@ -153,12 +153,12 @@ estim_cpd <- function(data,
   # CPD regression formula
   ## Case 1: multiple regions, multiple products
   if (n_region > 1 & n_product > 1) {
-    formula <- log(price) ~ product + region - 1
+    formula <- paste0("log(",price,") ~ ",product, " + " , region," - 1")
   }
 
   ## Case 2: one product, multiple regions
   if (n_product == 1) {
-    formula <- log(price) ~  region + 1
+    formula <- paste0("log(",price,") ~ " , region," + 1")
   }
 
   ## Case 3: one regions
