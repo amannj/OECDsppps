@@ -126,12 +126,12 @@ estim_cpd(df, output = "Full")
 #> # ℹ 4 more variables: sigma <dbl>, df <dbl>, df.residual <int>, nobs <dbl>
 #> 
 #> $Residuals
-#> # A tibble: 4 × 5
-#>   product region .fitted   .resid .std.resid
-#>   <fct>   <fct>    <dbl>    <dbl>      <dbl>
-#> 1 1       1         3.22  0.00232      1.000
-#> 2 1       2         3.33 -0.00232     -1    
-#> 3 2       1         3.14 -0.00232     -1    
-#> 4 2       2         3.26  0.00232      1    
+#> # A tibble: 4 × 4
+#>   region .fitted   .resid .std.resid
+#>   <fct>    <dbl>    <dbl>      <dbl>
+#> 1 1         3.22  0.00232      1.000
+#> 2 2         3.33 -0.00232     -1    
+#> 3 1         3.14 -0.00232     -1    
+#> 4 2         3.26  0.00232      1    
 #> 
 ```

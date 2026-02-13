@@ -194,19 +194,19 @@ The same results can be obtained using
 package.
 
 ``` r
-# With \pkg{pricelevels}- estimation with respect to regional average
+# With pricelevels - estimation with respect to regional average
 df1[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 #>        1        2 
 #> 0.942809 1.060660
 1.060660 / 0.942809
 #> [1] 1.125
 
-# With \pkg{pricelevels}- estimation with respect to region 1
+# With pricelevels - estimation with respect to region 1
 df1[, cpd(p = price, r = region, n = product, q = NULL, base = "1")]
 #>     1     2 
 #> 1.000 1.125
 
-# With \pkg{pricelevels}- estimation output
+# With pricelevels - estimation output
 df1[, cpd(
   p = price, r = region, n = product, q = NULL, base = NULL,
   simplify = FALSE
@@ -275,7 +275,7 @@ df2 <- data.table(
 #### 1.3.4 Using
 
 ``` r
-# With \pkg{pricelevels} ------
+# With pricelevels} ------
 ## Estimation with respect to regional average
 df2[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 #>        1        2 
@@ -347,7 +347,7 @@ for more information.
 ##### Example 3: Generic - Multiple products, and regions, with and without weights
 
 ``` r
-# Generate data with \pkg{pricelevels} -------
+# Generate data with pricelevels -------
 set.seed(123)
 R <- 5 # number of regions
 B <- 5 # number of product groups
@@ -445,14 +445,14 @@ full_est[["Residuals"]] |>
   sub_missing(missing_text = "")
 ```
 
-| product | region | .fitted | .resid  | .std.resid |
-|---------|--------|---------|---------|------------|
-| 01      | 1      | 2.7628  | −0.0022 | −0.0384    |
-| 01      | 2      | 2.5891  | 0.1242  | 2.2037     |
-| 01      | 3      | 2.9008  | −0.1351 | −2.3972    |
-| 01      | 4      | 2.7416  | 0.0063  | 0.1117     |
-| 01      | 5      | 2.7386  | 0.0068  | 0.1201     |
-| 02      | 1      | 2.9156  | −0.0076 | −0.1353    |
+| region | .fitted | .resid  | .std.resid |
+|--------|---------|---------|------------|
+| 1      | 2.7628  | −0.0022 | −0.0384    |
+| 2      | 2.5891  | 0.1242  | 2.2037     |
+| 3      | 2.9008  | −0.1351 | −2.3972    |
+| 4      | 2.7416  | 0.0063  | 0.1117     |
+| 5      | 2.7386  | 0.0068  | 0.1201     |
+| 1      | 2.9156  | −0.0076 | −0.1353    |
 
 ##### Example 5: Duplicate region-product price pairs defaults
 

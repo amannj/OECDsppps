@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/amannj/OECDsppps/blob/v0.0.0.4/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/amannj/OECDsppps/blob/master/DESCRIPTION)
 
 OECD (2026). *OECDsppps: Calculating subnational purchasing power
 parities (SPPPs) in OECD regions*. R package version 0.0.0.4,
