@@ -179,7 +179,8 @@ estim_cpd <- function(data,
   if (is.null(weights_cpd)) {
     est_out <- stats::lm(formula = formula, data = data, singular.ok = FALSE)
   } else if (!is.null(weights_cpd)) {
-    est_out <- stats::lm(formula = formula, data = data, weights = eval(rlang::sym(weights_cpd)), singular.ok = FALSE)
+    data$`.weights_cpd` <- data[[weights_cpd]]
+    est_out <- stats::lm(formula = formula, data = data, weights = .weights_cpd, singular.ok = FALSE)
   }
 
   # Output
