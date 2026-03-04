@@ -7,12 +7,13 @@
 \format{
 \subsection{\code{ecoicop16_names}}{
 
-A data frame with 479 rows and 3 columns containing the code and description of the ECOICOP classification at various levels of aggregation,
+A data frame with 479 rows and 4 columns containing the code and description of the ECOICOP classification at various levels of aggregation,
 from \emph{division} (COICOP2, e.g., \verb{01 Food and non-alcoholic beverages}) down to \emph{subclasses} (COICOP5, e.g., \verb{01.1.1.1 Rice}).
 
 \describe{
 \item{code}{ECOICOP code}
-\item{level}{Hierarchical level of ECOICOP classification}
+\item{coicop_level}{Hierarchical level of ECOICOP classification, description}
+\item{coicop_level}{Hierarchical level of ECOICOP classification, code}
 \item{description}{ECOICOP description}
 }
 }
