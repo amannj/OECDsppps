@@ -81,12 +81,13 @@
 #' Eurostat introduced a harmonised and revision of COICOP, yielding a single harmonised COICOP classification at the five-digit level.
 #'
 #' @format ## `ecoicop16_names`
-#' A data frame with 479 rows and 3 columns containing the code and description of the ECOICOP classification at various levels of aggregation,
+#' A data frame with 479 rows and 4 columns containing the code and description of the ECOICOP classification at various levels of aggregation,
 #' from *division* (COICOP2, e.g., `01 Food and non-alcoholic beverages`) down to *subclasses* (COICOP5, e.g., `01.1.1.1 Rice`).
 #'
 #' \describe{
 #'   \item{code}{ECOICOP code}
-#'   \item{level}{Hierarchical level of ECOICOP classification}
+#'   \item{coicop_level}{Hierarchical level of ECOICOP classification, description}
+#'   \item{coicop_level}{Hierarchical level of ECOICOP classification, code}
 #'   \item{description}{ECOICOP description}
 #'   }
 #'
@@ -99,3 +100,22 @@
 #' and [eurostat Glossary:COICOP HICP](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:COICOP_HICP)
 "ecoicop16_names"
 
+
+#'  OECD Territorial correspondence table
+#'
+#' OECD Territorial correspondence table (Territorial Level 2024, TL-2024)
+#'
+#' @format
+#' A data frame with 3,750 rows and 17 columns containing names and different
+#' classifications; see [OECD Territorial correspondence table ](https://stats.oecd.org/wbos/fileview2.aspx?IDFile=db68c5c3-5fd5-465c-b25b-b50aa14c2da1)
+#' for more information.
+#'
+#'
+#'
+#' @examples
+#' oecd_tl |> dim()
+#' oecd_tl |> names()
+#'
+#' @source [ OECD Geographical Definitions ](https://www.oecd.org/en/data/datasets/oecd-geographical-definitions.html)
+#' and [Regions, cities and local statistics](http://oe.cd/geostats)
+"oecd_tl"
