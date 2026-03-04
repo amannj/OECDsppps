@@ -68,8 +68,12 @@ estim_cpd(
   Either "sPPP", which returns the estimated subnational purchasing
   purchasing power parities, that is, \\\hat{SPPP}\_r =
   exp(\hat{\alpha}\_r)\\ or "Full", which summarises the key information
-  of the estimate CPD model: It provides the 'Regression output\`as well
-  as the individual 'Residuals' of the CPD regression.
+  of the estimate CPD model: It provides the 'Regression
+  output`as well as the individual 'Residuals' of the CPD regression. Note that the column `sPPP`is derived from the factor term contrasts using`stats::dummy.coef()`. The values in the column `estimate`correspond to the column`sPPP`as`sPPP
+  = exp(estimate)\` for all factors except the 'missing' category, for
+  which they are zero. Consequently, the regression output for this
+  category is reported as NA, while the sPPP value is reported as
+  described above.
 
 ## Details
 
