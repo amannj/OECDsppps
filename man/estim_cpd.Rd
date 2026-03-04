@@ -48,8 +48,10 @@ similar to \code{contr.sum()}}
 purchasing purchasing power parities, that is,
 \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 "Full", which summarises the key information of the estimate CPD model:
-It provides the 'Regression output`as well as the individual 'Residuals'
-of the CPD regression.}
+It provides the 'Regression output\verb{as well as the individual 'Residuals' of the CPD regression. Note that the column }sPPP\verb{is derived from the factor term contrasts using}stats::dummy.coef()\verb{. The values in the column }estimate\verb{correspond to the column}sPPP\code{as}sPPP = exp(estimate)`
+for all factors except the 'missing' category, for which they are zero.
+Consequently, the regression output for this category is reported as NA,
+while the sPPP value is reported as described above.}
 }
 \description{
 \loadmathjax
