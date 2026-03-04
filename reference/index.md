@@ -17,6 +17,9 @@
 
   `%not.in%`: opposite of `%in%`
 
+- [`oecd_tl`](https://amannj.github.io/OECDsppps/reference/oecd_tl.md) :
+  OECD Territorial correspondence table
+
 - [`uk_cpi`](https://amannj.github.io/OECDsppps/reference/uk_cpi.md) :
   UK CPI microdata extract
 

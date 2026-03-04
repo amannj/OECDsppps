@@ -16,7 +16,7 @@ ecoicop16_names
 
 ### `ecoicop16_names`
 
-A data frame with 479 rows and 3 columns containing the code and
+A data frame with 479 rows and 4 columns containing the code and
 description of the ECOICOP classification at various levels of
 aggregation, from *division* (COICOP2, e.g.,
 `01 Food and non-alcoholic beverages`) down to *subclasses* (COICOP5,
@@ -26,9 +26,13 @@ e.g., `01.1.1.1 Rice`).
 
   ECOICOP code
 
-- level:
+- coicop_level:
 
-  Hierarchical level of ECOICOP classification
+  Hierarchical level of ECOICOP classification, description
+
+- coicop_level:
+
+  Hierarchical level of ECOICOP classification, code
 
 - description:
 
