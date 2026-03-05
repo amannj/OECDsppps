@@ -55,15 +55,16 @@ Completing estimation procedure for basic headings
 
 # Version `0.0.0.4`
 
-CPD regression update, checks for ~~CPD regression outputs and~~ household 
-expenditure weights, OECD Territorial correspondence table and various bug fixes
+CPD regression update, checks for basic-heading CPD regression outputs and household 
+expenditure weights, add OECD Territorial correspondence table and various bug fixes
 
 ### Additions
 
 - OECD Territorial correspondence table  `oecd_tl`
-- ~~Option to run `estim_cpd()` with covariates~~
-- ~~Validation checks for CPD regression output~~
-- Validation checks for household expenditure weights using `valid_axt()`
+- Option to run `estim_cpd()` with price-region pair duplicates in raw data 
+using option `weights = 'raw'`
+- Validation checks for CPD regression output and household expenditure 
+weights 
 
 ### Bug fixes
 

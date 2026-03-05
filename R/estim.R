@@ -30,11 +30,14 @@
 #' @param price Individual item-level price quotes; Duplicate region-product
 #' pairs are aggregated by way of averaging across region-product pairs
 #' @param weights An optional vector of weights to be used whenever duplicate
-#' regional-product pairs are found in the data; default is `NULL`, in which
-#' case data is aggregated to region-product pairs using unweighted means. If
-#' weights are provided and duplicate regional-product pairs are found,
+#' regional-product pairs are found in the data. Options:
+#' - Default is `NULL`, in which case data is aggregated to region-product
+#' pairs using unweighted means.
+#' - If weights are provided and duplicate regional-product pairs are found,
 #' these weights are used as part of the aggregation of average regional-product
-#' pairs; see \pkg{stats} `weighted.mean()`
+#' pairs; see \pkg{stats} `weighted.mean()`.
+#' - If `weights = 'raw'`, raw data is used with no additional aggregation to
+#' region-product pairs.
 #' @param weights_cpd An optional vector of weights to be used in the fitting
 #' process of the CPD regression model; default is `NULL` and ordinary least
 #' squares is used. If non-`NULL`, weighted
@@ -135,12 +138,21 @@ estim_cpd <- function(data,
   }
   ### Aggregate: weights provided
   if (n_obs < n_obs_raw & !is.null(weights)) {
-    data <- data |>
-      group_by(.data[[region]], .data[[product]]) |>
-      summarise({{ price }} := stats::weighted.mean(.data[[price]], w = .data[[weights]], na.rm = T),
-        .groups = "drop"
-      )
-    message("Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
+    if (weights != "raw") {
+      data <- data |>
+        group_by(.data[[region]], .data[[product]]) |>
+        summarise({{ price }} := stats::weighted.mean(.data[[price]], w = .data[[weights]], na.rm = T),
+          .groups = "drop"
+        )
+      message("Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
+    }
+  }
+  ### Aggregate: use raw data provided
+  if (!is.null(weights)) {
+    if (weights == "raw") {
+      data <- data
+      message("Duplicate region-product pairs found in data and `weights == 'raw'`: Raw data is used with no additional aggregation to region-product pairs.")
+    }
   }
 
   # Dimensions
@@ -222,7 +234,8 @@ estim_cpd <- function(data,
             estimate = NA, std.error = NA, statistic = NA, p.value = NA
           )
       ) |>
-      rename("region" = term)
+      rename("region" = term) |>
+      rename("Number of products per region" = nobs)
 
 
     ## Residuals

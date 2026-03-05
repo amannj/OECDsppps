@@ -4,13 +4,13 @@
 \alias{valid_apt}
 \title{Create "Average Price Table"}
 \usage{
-valid_apt(data, price_quote = "Reference quantity price")
+valid_apt(data, value = "Reference quantity price")
 }
 \arguments{
 \item{data}{A data frame or tibble containing at least one column with
 individual item-level price quotes.}
 
-\item{price_quote}{Column containing the individual item-level price quotes,
+\item{value}{Column containing the individual item-level price quotes,
 which should be based on the
 "reference quantity price"; see \emph{Details} for more information.}
 }
@@ -19,12 +19,12 @@ which should be based on the
 \code{valid_apt()} in  \pkg{OECDsppps} creates the "Average Price Table" by
 calculating: the
 \itemize{
-\item \verb{number of observations} - Number of observations by group as specified by \code{group_by()}
-\item \verb{average price of product}- Average price based on item-level price quotes by group as specified by \code{group_by()}
-\item \verb{maximum price of product}- Highest price based on item-level price quotes by group as specified by \code{group_by()}
-\item \verb{minimum price of product} - Lowest price based on item-level price quotes by group as specified by \code{group_by()}
-\item \verb{standard deviation} - Standard deviation based on item-level price quotes by group as specified by \code{group_by()}
-\item \verb{max-min ratio test} and \verb{coefficient of variation test} - see \emph{Details} for more information
+\item \verb{Number of observations} - Number of observations by group as specified by \code{group_by()}
+\item \code{Average}- Average price based on item-level price quotes by group as specified by \code{group_by()}
+\item \code{Maximum}- Highest price based on item-level price quotes by group as specified by \code{group_by()}
+\item \code{Minimum} - Lowest price based on item-level price quotes by group as specified by \code{group_by()}
+\item \verb{Standard deviation} - Standard deviation based on item-level price quotes by group as specified by \code{group_by()}
+\item \verb{mMx-min ratio test} and \verb{Coefficient of variation test} - see \emph{Details} for more information
 All item-level price
 quotes that do not pass the two tests are flagged in columns
 \verb{Max-min ratio FLAG} and\verb{Coefficient of variation FLAG}, respectively;
@@ -47,6 +47,13 @@ of product  \mjseqn{j}'s price \mjseqn{p_j}
 expressed as a percentage of the average price for the product,  \mjseqn{\mu_{p_j}}. Products
 with a coefficient of variation greater than 20\% will be flagged in \verb{Coefficient of variation FLAG}:
 \mjdeqn{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}
+
+\strong{Using the "Average Price Table" for additional validation:}
+In addition to the raw data validation, \code{valid_apt()} can be used to check for
+outliers in the \emph{household expenditure share} as well as price estimates
+from the \emph{CPD regression} model, in which cases the input argument \code{value}
+takes either the reported item-level household expenditure shares, or \code{sPPP}
+estimates, respectively.
 }
 \examples{
 suppressPackageStartupMessages(library(dplyr))
@@ -54,7 +61,7 @@ library(OECDsppps)
 uk_cpi |>
   select(Year, Region, `Product code`, `Reference quantity price`) |>
   group_by(Year, Region, `Product code`) |>
-  valid_apt(price_quote = "Reference quantity price") |>
+  valid_apt(value = "Reference quantity price") |>
   head(n = 2) |>
   t()
 

@@ -73,12 +73,12 @@ valid_pot <- function(data,
 #' \loadmathjax
 #' `valid_apt()` in  \pkg{OECDsppps} creates the "Average Price Table" by
 #' calculating: the
-#' - `number of observations` - Number of observations by group as specified by `group_by()`
-#' - `average price of product`- Average price based on item-level price quotes by group as specified by `group_by()`
-#' - `maximum price of product`- Highest price based on item-level price quotes by group as specified by `group_by()`
-#' - `minimum price of product` - Lowest price based on item-level price quotes by group as specified by `group_by()`
-#' - `standard deviation` - Standard deviation based on item-level price quotes by group as specified by `group_by()`
-#' - `max-min ratio test` and `coefficient of variation test` - see *Details* for more information
+#' - `Number of observations` - Number of observations by group as specified by `group_by()`
+#' - `Average`- Average price based on item-level price quotes by group as specified by `group_by()`
+#' - `Maximum`- Highest price based on item-level price quotes by group as specified by `group_by()`
+#' - `Minimum` - Lowest price based on item-level price quotes by group as specified by `group_by()`
+#' - `Standard deviation` - Standard deviation based on item-level price quotes by group as specified by `group_by()`
+#' - `mMx-min ratio test` and `Coefficient of variation test` - see *Details* for more information
 #'  All item-level price
 #' quotes that do not pass the two tests are flagged in columns
 #' `Max-min ratio FLAG` and`Coefficient of variation FLAG`, respectively;
@@ -100,9 +100,16 @@ valid_pot <- function(data,
 #' with a coefficient of variation greater than 20% will be flagged in `Coefficient of variation FLAG`:
 #' \mjdeqn{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}
 #'
+#' **Using the "Average Price Table" for additional validation:**
+#' In addition to the raw data validation, `valid_apt()` can be used to check for
+#' outliers in the *household expenditure share* as well as price estimates
+#' from the *CPD regression* model, in which cases the input argument `value`
+#' takes either the reported item-level household expenditure shares, or `sPPP`
+#' estimates, respectively.
+#'
 #' @param data A data frame or tibble containing at least one column with
 #' individual item-level price quotes.
-#' @param price_quote Column containing the individual item-level price quotes,
+#' @param value Column containing the individual item-level price quotes,
 #' which should be based on the
 #' "reference quantity price"; see *Details* for more information.
 #' @references
@@ -114,7 +121,7 @@ valid_pot <- function(data,
 #' uk_cpi |>
 #'   select(Year, Region, `Product code`, `Reference quantity price`) |>
 #'   group_by(Year, Region, `Product code`) |>
-#'   valid_apt(price_quote = "Reference quantity price") |>
+#'   valid_apt(value = "Reference quantity price") |>
 #'   head(n = 2) |>
 #'   t()
 #'
@@ -126,17 +133,17 @@ valid_pot <- function(data,
 #' @importFrom rlang .data
 #' @export
 valid_apt <- function(data,
-                      price_quote = "Reference quantity price") {
+                      value = "Reference quantity price") {
   data |>
     ## Number of observations
     mutate(nobs = 1) |>
     ## Summary stats
     summarise(
       `Number of observations` = sum(nobs),
-      `Average price of product` = mean(.data[[price_quote]]),
-      `Maximum price of product` = max(.data[[price_quote]]),
-      `Minimum price of product` = min(.data[[price_quote]]),
-      `Standard deviation` = sd(.data[[price_quote]])
+      `Average price of product` = mean(.data[[value]]),
+      `Maximum price of product` = max(.data[[value]]),
+      `Minimum price of product` = min(.data[[value]]),
+      `Standard deviation` = sd(.data[[value]])
     ) |>
     ## Calculate tests
     mutate(
@@ -297,73 +304,4 @@ valid_PPPratio <- function(data,
     pivot_wider(names_from = {{ region }}, values_from = PPP_ratio) |>
     left_join(x1, by = join_by({{ year }}, {{ product_code }})) |>
     rbind(x2)
-}
-
-
-#' Create "Average Household Expenditure Share Table"
-#'
-#' \loadmathjax
-#' `valid_axt()` in  \pkg{OECDsppps} creates the "Average Household Expenditure Share Table" by
-#' calculating:
-#' - `Minimum`- Highest household expenditure share by group as specified by `group_by()`
-#' - `Lower quartile`- Lower quartile household expenditure share by group as specified by `group_by()`
-#' - `Average`- Average household expenditure share by group as specified by `group_by()`
-#' - `Median`- Median household expenditure share by group as specified by `group_by()`
-#' - `Upper quartile`- Upper quartile household expenditure share by group as specified by `group_by()`
-#' - `Maximum` - Lowest household expenditure share by group as specified by `group_by()`
-#' - `Standard Deviation` - Standard deviation household expenditure share by group as specified by `group_by()`
-#' - `max-min ratio test` and `coefficient of variation test` - see *Details* for more information
-#'  All household expenditure shares
-#'  that do not pass the two tests are flagged in columns
-#' `Max-min ratio FLAG` and`Coefficient of variation FLAG`, respectively;
-#' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
-#'
-#'
-#' **Max-min ratio test:** The ratio between the maximal and minimal observed expenditure share
-#'  \mjseqn{j}, \mjseqn{p_j}. Expenditure shares where the maximal observed share is more than twice
-#' as big as the minimum are flagged in `Max-min ratio FLAG`:
-#' \mjdeqn{max-min~ratio = max(p_j)/min(p_j)}{max-min~ratio = max(p_j)/min(p_j)}
-#'
-#' **Coefficient-of-variation test:** The standard deviation \mjseqn{\sigma_{p_j}}
-#' of expenditure group  \mjseqn{j}'s share \mjseqn{p_j}
-#' expressed as a percentage of the average share over time,  \mjseqn{\mu_{p_j}}. Expenditure shares
-#' with a coefficient of variation greater than 20% will be flagged in `Coefficient of variation FLAG`:
-#' \mjdeqn{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}{coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}}
-#'
-#' @param data A data frame or tibble containing at least one column with
-#' expenditure shares.
-#' @param expenditure_share Column containing the individual expenditure shares.
-#' @references
-#'   \insertAllCited{}
-#'
-#'
-#' @importFrom Rdpack reprompt
-#' @importFrom mathjaxr preview_rd
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @importFrom dplyr summarise
-#' @importFrom rlang .data
-#' @export
-valid_axt <- function(data,
-                      expenditure_share = "expenditure_share") {
-  data |>
-    summarise(
-      Minimum = min(.data[[expenditure_share]]),
-      `Lower quartile` = quantile(.data[[expenditure_share]], probs = .25),
-      Mean = mean(.data[[expenditure_share]]),
-      Median = quantile(.data[[expenditure_share]], probs = 0.75),
-      `Upper quartile` = quantile(.data[[expenditure_share]], probs = 0.75),
-      Maximum = max(.data[[expenditure_share]]),
-      `Standard deviation` = sd(.data[[expenditure_share]])
-    ) |>
-    # Calculate individual outlier statistics
-    mutate(
-      `Max-min ratio` = Maximum / Minimum,
-      `Coefficient of variation` = `Standard deviation` / Mean
-    ) |>
-    # Add flags for selection rules
-    mutate(
-      `Max-min ratio FLAG` = `Max-min ratio` > 2,
-      `Coefficient of variation FLAG` = `Coefficient of variation` > .2
-    )
 }

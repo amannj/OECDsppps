@@ -105,7 +105,7 @@ and $\varepsilon_{ij}$ are independently and identically (normally) distributed 
 
 This section describes the implementation of the CPD using different approaches
 from simple cross-tabulations, standard OLS as well as using the 
-\pkg{pricelevels} package [@pricelevels] and finally the function `estim_cpd()` of
+`pricelevels` package [@pricelevels] and finally the function `estim_cpd()` of
 this package using examples [1](#sec-example1) and [2](#sec-example2).
 
 Examples [3](#sec-example3) to [6](#sec-example6) discuss further functionalities of
@@ -147,9 +147,9 @@ df1 |>
 27 / 24
 ```
 
-### Using \pkg{pricelevels}
+### Using `pricelevels`
 
-The same results can be obtained using `cpd()` from the \pkg{pricelevels} package.
+The same results can be obtained using `cpd()` from the `pricelevels` package.
 
 ```{r}
 #| message: false
@@ -212,7 +212,7 @@ df2 <- data.table(
 )
 ```
 
-### Using \pkg{pricelevels}
+### Using `pricelevels`
 
 ```{r}
 #| message: false
@@ -277,7 +277,7 @@ N <- 5 # number of products
 dt1 <- pricelevels::rdata(R = R, B = B, N = N)
 ```
 
-CPD with no weights using `cpd()` in \pkg{pricelevels} [@pricelevels] and `estim_cpd()`.
+CPD with no weights using `cpd()` in `pricelevels` [@pricelevels] and `estim_cpd()`.
 
 ```{r}
 #| message: false
@@ -295,7 +295,7 @@ dt1 |>
   pull("sPPP")
 ```
 
-CPD with weights using `cpd()` in \pkg{pricelevels} [@pricelevels] and `estim_cpd()`.
+CPD with weights using `cpd()` in `pricelevels` [@pricelevels] and `estim_cpd()`.
 
 ```{r}
 # Estimating sPPPs with `pricelevels`, with weights --------
@@ -351,7 +351,7 @@ full_est[["Residuals"]] |>
 
 By default, `estim_cpd()` aggregates the price quotes up to region-product pairs 
 using unweighted means whenever there are duplicate region-product pairs found in data 
-and no weights provided. This is identical to the bahaviour of `cpd` in \pkg{pricelevels}
+and no weights provided. This is identical to the bahaviour of `cpd()` in `pricelevels`
 
 ```{r}
 # Take UK CPI microdata containing duplicate region-product pairs ---------
@@ -385,12 +385,32 @@ region-product pairs found in data through the `weights` argument; see `estim_cp
 
 ```{r}
 # Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+## No weights
 red |>
   mutate(w = 1) |>
   estim_cpd(weights = "w") |>
   pull("sPPP")
+
+## Random weights
+set.seed(123)
+red |>
+  mutate(w = runif(nrow(red))) |>
+  estim_cpd(weights = "w") |>
+  pull("sPPP")
 ```
 
+#### Example 7: Duplicate region-product price pairs without aggregation {#sec-example7 .unnumbered}
+
+
+`estim_cpd()` also provides the option to run the CPD method on the raw data, 
+that is, keeping duplicate region-product pairs found in the raw data 
+by setting `weights = 'raw'` argument; see `estim_cpd()` for more information.
+
+```{r}
+red |>
+  estim_cpd(weights = "raw") |>
+  pull("sPPP")
+```
 
 ------------------------------------------------------------------------
 

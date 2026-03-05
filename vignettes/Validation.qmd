@@ -162,7 +162,7 @@ uk_apt <- uk_cpi |>
     `Product code`, `Reference quantity price`
   ) |>
   group_by(Year, Region, `Product code`) |>
-  valid_apt(price_quote = "Reference quantity price")
+  valid_apt(value = "Reference quantity price")
 
 head(uk_apt, 2) |>
   gt() |>
@@ -377,9 +377,53 @@ The use of alternative data sources depends on the type and availability of data
 
 **Statistical validation** encompasses the analytical checks described in this vignette. However, depending on the nature, structure, and completeness of the alternative data source, the extent of statistical validation may be limited—or, in exceptional cases, not feasible. In such instances, greater emphasis is placed on expert-led plausibility validation to ensure the integrity of the data used.
 
+
 # Validation at basic-heading level {#sec-tobh}
 
-> 🚧 Work in progress.
+The validation at the basic-heading level concerns the 
+reliability of the CPD estimates  as well as 
+their cross-regional comparability
+
+```{r}
+uk_red <- uk_cpi |>
+  filter(Year == "2018") |>
+  select(
+    region = "Region",
+    product = "Product code",
+    price = "Reference quantity price"
+  ) |>
+  mutate(
+    region = as.factor(region),
+    product = as.factor(product)
+  ) 
+```
+
+## Reliability of CPD estimates
+
+### Using the "Average Price Table"
+
+Function`valid_apt()` can be used to check for
+outliers in the price estimates
+from the *CPD regression* model, in which cases the input argument `value`
+takes takes the PPP estimates provided by `sPPP` as input arguments.
+
+```{r}
+# CPD estimation with `estim_cpd()` and validation with `valid_apt()` ---------
+uk_red |> 
+  estim_cpd() |> 
+  valid_apt(value = 'sPPP') |> 
+  gt() |>
+  tab_header(
+    title = md("**CPD Validation**"),
+    subtitle = md("Using the Average Price Table")
+  ) |>
+  fmt_number(
+    columns = -c(`Number of observations`),
+    decimals = 2
+  )
+```
+
+
 
 <!-- ## Numerical -->
 
@@ -423,21 +467,24 @@ The use of alternative data sources depends on the type and availability of data
 
 # Expenditure weights validation {#sec-exweights}
 
-> 🚧 Work in progress.
 
-<!-- In line with [@worldbank2013, p.285], within-country basic heading expenditures and shares are reviewed for the following: -->
+In line with [@worldbank2013, p.285], within-country basic heading expenditures and shares are reviewed for the following:
 
-<!-- - Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading. -->
+- Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading.
 
-<!-- - Plausibility – comparing per capita values and expenditure shares across basic headings. -->
+- Plausibility – comparing per capita values and expenditure shares across basic headings.
 
-<!-- - Temporal consistency – examining the coherence of expenditure breakdowns across different years. -->
+- Temporal consistency – examining the coherence of expenditure breakdowns across different years.
 
-<!-- The review process includes the following checks: -->
+The review process includes the following checks:
 
-<!-- - Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference. -->
+- Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference.
 
-<!-- - Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies. -->
+- Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies.
+
+Function `valid_apt()` can be used to check for outliers in the 
+*household expenditure share* , in which cases the input argument `value`
+takes either the reported item-level household expenditure shares.
 
 # Validation beyond basic-heading level {#sec-beyondbh}
 

@@ -27,11 +27,16 @@ columns identifying region, product and individual item-level price quotes}
 pairs are aggregated by way of averaging across region-product pairs}
 
 \item{weights}{An optional vector of weights to be used whenever duplicate
-regional-product pairs are found in the data; default is \code{NULL}, in which
-case data is aggregated to region-product pairs using unweighted means. If
-weights are provided and duplicate regional-product pairs are found,
+regional-product pairs are found in the data. Options:
+\itemize{
+\item Default is \code{NULL}, in which case data is aggregated to region-product
+pairs using unweighted means.
+\item If weights are provided and duplicate regional-product pairs are found,
 these weights are used as part of the aggregation of average regional-product
-pairs; see \pkg{stats} \code{weighted.mean()}}
+pairs; see \pkg{stats} \code{weighted.mean()}.
+\item If \code{weights = 'raw'}, raw data is used with no additional aggregation to
+region-product pairs.
+}}
 
 \item{weights_cpd}{An optional vector of weights to be used in the fitting
 process of the CPD regression model; default is \code{NULL} and ordinary least
