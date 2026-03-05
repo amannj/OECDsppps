@@ -3,27 +3,27 @@
 `valid_apt()` in OECDsppps creates the "Average Price Table" by
 calculating: the
 
-- `number of observations` - Number of observations by group as
+- `Number of observations` - Number of observations by group as
   specified by
   [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
-- `average price of product`- Average price based on item-level price
+- `Average`- Average price based on item-level price quotes by group as
+  specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
+
+- `Maximum`- Highest price based on item-level price quotes by group as
+  specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
+
+- `Minimum` - Lowest price based on item-level price quotes by group as
+  specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
+
+- `Standard deviation` - Standard deviation based on item-level price
   quotes by group as specified by
   [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
-- `maximum price of product`- Highest price based on item-level price
-  quotes by group as specified by
-  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
-
-- `minimum price of product` - Lowest price based on item-level price
-  quotes by group as specified by
-  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
-
-- `standard deviation` - Standard deviation based on item-level price
-  quotes by group as specified by
-  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
-
-- `max-min ratio test` and `coefficient of variation test` - see
+- `mMx-min ratio test` and `Coefficient of variation test` - see
   *Details* for more information All item-level price quotes that do not
   pass the two tests are flagged in columns `Max-min ratio FLAG`
   and`Coefficient of variation FLAG`, respectively; see World Bank
@@ -32,7 +32,7 @@ calculating: the
 ## Usage
 
 ``` r
-valid_apt(data, price_quote = "Reference quantity price")
+valid_apt(data, value = "Reference quantity price")
 ```
 
 ## Arguments
@@ -42,7 +42,7 @@ valid_apt(data, price_quote = "Reference quantity price")
   A data frame or tibble containing at least one column with individual
   item-level price quotes.
 
-- price_quote:
+- value:
 
   Column containing the individual item-level price quotes, which should
   be based on the "reference quantity price"; see *Details* for more
@@ -67,6 +67,13 @@ percentage of the average price for the product, \\\mu\_{p_j}\\.
 Products with a coefficient of variation greater than 20% will be
 flagged in `Coefficient of variation FLAG`: \\coefficient-to-variation:
 \sigma\_{p_j} / \mu\_{p_j}\\
+
+**Using the "Average Price Table" for additional validation:** In
+addition to the raw data validation, `valid_apt()` can be used to check
+for outliers in the *household expenditure share* as well as price
+estimates from the *CPD regression* model, in which cases the input
+argument `value` takes either the reported item-level household
+expenditure shares, or `sPPP` estimates, respectively.
 
 ## References
 
@@ -94,7 +101,7 @@ library(OECDsppps)
 uk_cpi |>
   select(Year, Region, `Product code`, `Reference quantity price`) |>
   group_by(Year, Region, `Product code`) |>
-  valid_apt(price_quote = "Reference quantity price") |>
+  valid_apt(value = "Reference quantity price") |>
   head(n = 2) |>
   t()
 #>                               [,1]            [,2]           

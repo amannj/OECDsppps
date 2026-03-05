@@ -211,7 +211,7 @@ uk_apt <- uk_cpi |>
     `Product code`, `Reference quantity price`
   ) |>
   group_by(Year, Region, `Product code`) |>
-  valid_apt(price_quote = "Reference quantity price")
+  valid_apt(value = "Reference quantity price")
 
 head(uk_apt, 2) |>
   gt() |>
@@ -522,11 +522,85 @@ validation to ensure the integrity of the data used.
 
 ## 4 Validation at basic-heading level
 
-> 🚧 Work in progress.
+The validation at the basic-heading level concerns the reliability of
+the CPD estimates as well as their cross-regional comparability
+
+``` r
+uk_red <- uk_cpi |>
+  filter(Year == "2018") |>
+  select(
+    region = "Region",
+    product = "Product code",
+    price = "Reference quantity price"
+  ) |>
+  mutate(
+    region = as.factor(region),
+    product = as.factor(product)
+  ) 
+```
+
+### 4.1 Reliability of CPD estimates
+
+#### 4.1.1 Using the “Average Price Table”
+
+Function[`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md)
+can be used to check for outliers in the price estimates from the *CPD
+regression* model, in which cases the input argument `value` takes takes
+the PPP estimates provided by `sPPP` as input arguments.
+
+``` r
+# CPD estimation with `estim_cpd()` and validation with `valid_apt()` ---------
+uk_red |> 
+  estim_cpd() |> 
+  valid_apt(value = 'sPPP') |> 
+  gt() |>
+  tab_header(
+    title = md("**CPD Validation**"),
+    subtitle = md("Using the Average Price Table")
+  ) |>
+  fmt_number(
+    columns = -c(`Number of observations`),
+    decimals = 2
+  )
+#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.
+```
+
+| **CPD Validation**            |                          |                          |                          |                    |               |                          |                    |                               |
+|-------------------------------|--------------------------|--------------------------|--------------------------|--------------------|---------------|--------------------------|--------------------|-------------------------------|
+| Using the Average Price Table |                          |                          |                          |                    |               |                          |                    |                               |
+| Number of observations        | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
+| 12                            | 1.01                     | 1.32                     | 0.86                     | 0.11               | 1.53          | 0.11                     | FALSE              | FALSE                         |
 
 ## 5 Expenditure weights validation
 
-> 🚧 Work in progress.
+In line with ([World Bank 2013, 285](#ref-worldbank2013)),
+within-country basic heading expenditures and shares are reviewed for
+the following:
+
+- Completeness – ensuring that, with few exceptions, expenditures are
+  recorded for every basic heading.
+
+- Plausibility – comparing per capita values and expenditure shares
+  across basic headings.
+
+- Temporal consistency – examining the coherence of expenditure
+  breakdowns across different years.
+
+The review process includes the following checks:
+
+- Calculating total and per capita expenditure values, deriving
+  expenditure shares, and comparing these shares across countries, using
+  Table 10.1 in ([World Bank 2013, 286](#ref-worldbank2013)) as a
+  reference.
+
+- Comparing minimum, maximum, and median values at the basic heading
+  level to identify potential anomalies or inconsistencies.
+
+Function
+[`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md)
+can be used to check for outliers in the *household expenditure share* ,
+in which cases the input argument `value` takes either the reported
+item-level household expenditure shares.
 
 ## 6 Validation beyond basic-heading level
 

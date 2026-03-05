@@ -9,12 +9,12 @@
 
 valid_apt() in  OECDsppps creates the "Average Price Table" by
 calculating: the
-number of observations - Number of observations by group as specified by group_by()
-average price of product- Average price based on item-level price quotes by group as specified by group_by()
-maximum price of product- Highest price based on item-level price quotes by group as specified by group_by()
-minimum price of product - Lowest price based on item-level price quotes by group as specified by group_by()
-standard deviation - Standard deviation based on item-level price quotes by group as specified by group_by()
-max-min ratio test and coefficient of variation test - see Details for more information
+Number of observations - Number of observations by group as specified by group_by()
+Average- Average price based on item-level price quotes by group as specified by group_by()
+Maximum- Highest price based on item-level price quotes by group as specified by group_by()
+Minimum - Lowest price based on item-level price quotes by group as specified by group_by()
+Standard deviation - Standard deviation based on item-level price quotes by group as specified by group_by()
+mMx-min ratio test and Coefficient of variation test - see Details for more information
 All item-level price
 quotes that do not pass the two tests are flagged in columns
 Max-min ratio FLAG andCoefficient of variation FLAG, respectively;
@@ -25,12 +25,12 @@ see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
 
 valid_apt() in  OECDsppps creates the "Average Price Table" by
 calculating: the
-number of observations - Number of observations by group as specified by group_by()
-average price of product- Average price based on item-level price quotes by group as specified by group_by()
-maximum price of product- Highest price based on item-level price quotes by group as specified by group_by()
-minimum price of product - Lowest price based on item-level price quotes by group as specified by group_by()
-standard deviation - Standard deviation based on item-level price quotes by group as specified by group_by()
-max-min ratio test and coefficient of variation test - see Details for more information
+Number of observations - Number of observations by group as specified by group_by()
+Average- Average price based on item-level price quotes by group as specified by group_by()
+Maximum- Highest price based on item-level price quotes by group as specified by group_by()
+Minimum - Lowest price based on item-level price quotes by group as specified by group_by()
+Standard deviation - Standard deviation based on item-level price quotes by group as specified by group_by()
+mMx-min ratio test and Coefficient of variation test - see Details for more information
 All item-level price
 quotes that do not pass the two tests are flagged in columns
 Max-min ratio FLAG andCoefficient of variation FLAG, respectively;
@@ -78,12 +78,12 @@ see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
 
     <div class="ref-description section level2">
     <p><script>MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};</script><script defer src="../../mathjaxr/doc/mathjax/tex-chtml.js"></script><code>valid_apt()</code> in  <span class="pkg">OECDsppps</span> creates the "Average Price Table" by
-calculating: the</p><ul><li><p><code>number of observations</code> - Number of observations by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
-<li><p><code>average price of product</code>- Average price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
-<li><p><code>maximum price of product</code>- Highest price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
-<li><p><code>minimum price of product</code> - Lowest price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
-<li><p><code>standard deviation</code> - Standard deviation based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
-<li><p><code>max-min ratio test</code> and <code>coefficient of variation test</code> - see <em>Details</em> for more information
+calculating: the</p><ul><li><p><code>Number of observations</code> - Number of observations by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
+<li><p><code>Average</code>- Average price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
+<li><p><code>Maximum</code>- Highest price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
+<li><p><code>Minimum</code> - Lowest price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
+<li><p><code>Standard deviation</code> - Standard deviation based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
+<li><p><code>mMx-min ratio test</code> and <code>Coefficient of variation test</code> - see <em>Details</em> for more information
 All item-level price
 quotes that do not pass the two tests are flagged in columns
 <code>Max-min ratio FLAG</code> and<code>Coefficient of variation FLAG</code>, respectively;
@@ -93,7 +93,7 @@ see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">valid_apt</span><span class="op">(</span><span class="va">data</span>, price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">valid_apt</span><span class="op">(</span><span class="va">data</span>, value <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -105,7 +105,7 @@ see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
 individual item-level price quotes.</p></dd>
 
 
-<dt id="arg-price-quote">price_quote<a class="anchor" aria-label="anchor" href="#arg-price-quote"></a></dt>
+<dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
 <dd><p>Column containing the individual item-level price quotes,
 which should be based on the
 "reference quantity price"; see <em>Details</em> for more information.</p></dd>
@@ -126,6 +126,12 @@ of product  <em></em>\(j\)'s price <em></em>\(p_j\)
 expressed as a percentage of the average price for the product,  <em></em>\(\mu_{p_j}\). Products
 with a coefficient of variation greater than 20% will be flagged in <code>Coefficient of variation FLAG</code>:
 \[coefficient-to-variation: \sigma_{p_j} / \mu_{p_j}\]</p>
+<p><strong>Using the "Average Price Table" for additional validation:</strong>
+In addition to the raw data validation, <code>valid_apt()</code> can be used to check for
+outliers in the <em>household expenditure share</em> as well as price estimates
+from the <em>CPD regression</em> model, in which cases the input argument <code>value</code>
+takes either the reported item-level household expenditure shares, or <code>sPPP</code>
+estimates, respectively.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -150,7 +156,7 @@ World Bank.
 <span class="r-in"><span><span class="va">uk_cpi</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, <span class="va">`Product code`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">Region</span>, <span class="va">`Product code`</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">valid_apt</span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">valid_apt</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                               [,1]            [,2]           </span>

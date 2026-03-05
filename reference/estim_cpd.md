@@ -41,12 +41,18 @@ estim_cpd(
 - weights:
 
   An optional vector of weights to be used whenever duplicate
-  regional-product pairs are found in the data; default is `NULL`, in
-  which case data is aggregated to region-product pairs using unweighted
-  means. If weights are provided and duplicate regional-product pairs
-  are found, these weights are used as part of the aggregation of
-  average regional-product pairs; see stats
-  [`weighted.mean()`](https://rdrr.io/r/stats/weighted.mean.html)
+  regional-product pairs are found in the data. Options:
+
+  - Default is `NULL`, in which case data is aggregated to
+    region-product pairs using unweighted means.
+
+  - If weights are provided and duplicate regional-product pairs are
+    found, these weights are used as part of the aggregation of average
+    regional-product pairs; see stats
+    [`weighted.mean()`](https://rdrr.io/r/stats/weighted.mean.html).
+
+  - If `weights = 'raw'`, raw data is used with no additional
+    aggregation to region-product pairs.
 
 - weights_cpd:
 
@@ -127,7 +133,8 @@ estim_cpd(df, output = "Full")
 #> 1 1           0.943  -0.0590   0.00232     -25.4  0.0250    NA            NA    
 #> 2 2           1.06   NA       NA            NA   NA         NA            NA    
 #> 3 Aggregate… NA      NA       NA            NA   NA          1.000         1.000
-#> # ℹ 4 more variables: sigma <dbl>, df <dbl>, df.residual <int>, nobs <dbl>
+#> # ℹ 4 more variables: sigma <dbl>, df <dbl>, df.residual <int>,
+#> #   `Number of products per region` <dbl>
 #> 
 #> $Residuals
 #> # A tibble: 4 × 4

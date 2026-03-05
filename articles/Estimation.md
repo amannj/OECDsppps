@@ -129,7 +129,8 @@ Implementation](#sec-implementation).
 
 This section describes the implementation of the CPD using different
 approaches from simple cross-tabulations, standard OLS as well as using
-the package ([Weinand 2025](#ref-pricelevels)) and finally the function
+the `pricelevels` package ([Weinand 2025](#ref-pricelevels)) and finally
+the function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 of this package using examples [1](#sec-example1) and
 [2](#sec-example2).
@@ -187,11 +188,11 @@ df1 |>
 #> [1] 1.125
 ```
 
-#### 1.3.2 Using
+#### 1.3.2 Using `pricelevels`
 
 The same results can be obtained using
 [`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) from the
-package.
+`pricelevels` package.
 
 ``` r
 # With pricelevels - estimation with respect to regional average
@@ -272,7 +273,7 @@ df2 <- data.table(
 )
 ```
 
-#### 1.3.4 Using
+#### 1.3.4 Using `pricelevels`
 
 ``` r
 # With pricelevels} ------
@@ -356,8 +357,8 @@ dt1 <- pricelevels::rdata(R = R, B = B, N = N)
 ```
 
 CPD with no weights using
-[`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in ([Weinand
-2025](#ref-pricelevels)) and
+[`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in `pricelevels`
+([Weinand 2025](#ref-pricelevels)) and
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md).
 
 ``` r
@@ -379,8 +380,8 @@ dt1 |>
 ```
 
 CPD with weights using
-[`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in ([Weinand
-2025](#ref-pricelevels)) and
+[`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in `pricelevels`
+([Weinand 2025](#ref-pricelevels)) and
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md).
 
 ``` r
@@ -460,7 +461,8 @@ By default,
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 aggregates the price quotes up to region-product pairs using unweighted
 means whenever there are duplicate region-product pairs found in data
-and no weights provided. This is identical to the bahaviour of `cpd` in
+and no weights provided. This is identical to the bahaviour of
+[`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in `pricelevels`
 
 ``` r
 # Take UK CPI microdata containing duplicate region-product pairs ---------
@@ -513,6 +515,7 @@ for more information.
 
 ``` r
 # Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
+## No weights
 red |>
   mutate(w = 1) |>
   estim_cpd(weights = "w") |>
@@ -526,6 +529,46 @@ red |>
 #>                 1.0521466                 0.9977087                 0.9331900 
 #>                     Wales             West Midlands Yorkshire and the Humberl 
 #>                 0.8612814                 1.0457363                 0.9802726
+
+## Random weights
+set.seed(123)
+red |>
+  mutate(w = runif(nrow(red))) |>
+  estim_cpd(weights = "w") |>
+  pull("sPPP")
+#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
+#>             East Midlands           East of England                    London 
+#>                 0.9273710                 1.0071653                 1.3190512 
+#>                     North                North West          Northern Ireland 
+#>                 0.9643659                 0.9701565                 0.9970916 
+#>                  Scotland                South East                South West 
+#>                 1.0489943                 1.0051813                 0.9315536 
+#>                     Wales             West Midlands Yorkshire and the Humberl 
+#>                 0.8701807                 1.0331752                 0.9852731
+```
+
+##### Example 7: Duplicate region-product price pairs without aggregation
+
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+also provides the option to run the CPD method on the raw data, that is,
+keeping duplicate region-product pairs found in the raw data by setting
+`weights = 'raw'` argument; see
+[`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+for more information.
+
+``` r
+red |>
+  estim_cpd(weights = "raw") |>
+  pull("sPPP")
+#> Duplicate region-product pairs found in data and `weights == 'raw'`: Raw data is used with no additional aggregation to region-product pairs.
+#>             East Midlands           East of England                    London 
+#>                 0.9462097                 1.0266122                 1.2122656 
+#>                     North                North West          Northern Ireland 
+#>                 0.9913797                 0.9667091                 0.9616980 
+#>                  Scotland                South East                South West 
+#>                 1.0780491                 1.0025071                 0.9247737 
+#>                     Wales             West Midlands Yorkshire and the Humberl 
+#>                 0.8891412                 1.0400253                 0.9969142
 ```
 
 ------------------------------------------------------------------------

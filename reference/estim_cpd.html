@@ -102,11 +102,14 @@ pairs are aggregated by way of averaging across region-product pairs</p></dd>
 
 <dt id="arg-weights">weights<a class="anchor" aria-label="anchor" href="#arg-weights"></a></dt>
 <dd><p>An optional vector of weights to be used whenever duplicate
-regional-product pairs are found in the data; default is <code>NULL</code>, in which
-case data is aggregated to region-product pairs using unweighted means. If
-weights are provided and duplicate regional-product pairs are found,
+regional-product pairs are found in the data. Options:</p><ul><li><p>Default is <code>NULL</code>, in which case data is aggregated to region-product
+pairs using unweighted means.</p></li>
+<li><p>If weights are provided and duplicate regional-product pairs are found,
 these weights are used as part of the aggregation of average regional-product
-pairs; see <span class="pkg">stats</span> <code><a href="https://rdrr.io/r/stats/weighted.mean.html" class="external-link">weighted.mean()</a></code></p></dd>
+pairs; see <span class="pkg">stats</span> <code><a href="https://rdrr.io/r/stats/weighted.mean.html" class="external-link">weighted.mean()</a></code>.</p></li>
+<li><p>If <code>weights = 'raw'</code>, raw data is used with no additional aggregation to
+region-product pairs.</p></li>
+</ul></dd>
 
 
 <dt id="arg-weights-cpd">weights_cpd<a class="anchor" aria-label="anchor" href="#arg-weights-cpd"></a></dt>
@@ -184,7 +187,8 @@ World Bank.
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1           0.943  -<span style="color: #BB0000;">0.059</span><span style="color: #BB0000; text-decoration: underline;">0</span>   0.002<span style="text-decoration: underline;">32</span>     -<span style="color: #BB0000;">25.4</span>  0.025<span style="text-decoration: underline;">0</span>    <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2           1.06   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aggregate… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>          1.000         1.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: sigma &lt;dbl&gt;, df &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: sigma &lt;dbl&gt;, df &lt;dbl&gt;, df.residual &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Number of products per region` &lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Residuals</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 4</span></span>
