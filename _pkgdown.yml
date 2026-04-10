@@ -6,6 +6,7 @@ articles:
 - title: Articles
   navbar: ~
   contents:
+  - Implementation
   - Validation
   - Estimation
-  - Implementation
+

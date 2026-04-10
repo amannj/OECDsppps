@@ -70,3 +70,14 @@ weights
 
 - Fixed names in `ecoicop16_names`
 - Fixed bugs in `estim_cpd()` and `valid_PPPratio()`
+
+------------
+
+# Version `0.0.0.5`
+
+Validate household expenditure data
+
+### Additions
+
+- Add function to validate household expenditure data `valid_est()`
+- Add snipped of UK [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) data

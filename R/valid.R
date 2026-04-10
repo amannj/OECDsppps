@@ -309,8 +309,9 @@ valid_PPPratio <- function(data,
 #' Create "Expenditure Shares Table"
 #'
 #' \loadmathjax
-#' `valid_est()` in  \pkg{OECDsppps} creates the "Expenditure Shares Table" by
-#' calculating: the
+#' `valid_est()` in  \pkg{OECDsppps} creates the "Expenditure Shares Table"
+#' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
+#' The function calculates the:
 #' - `Maximum`- Highest expenditure share based on expenditure shares by group as specified by `group_by()`
 #' - `Median` - Median expenditure share based on expenditure shares by group as specified by `group_by()`
 #' - `Minimum` - Lowest expenditure share based on expenditure shares by group as specified by `group_by()`
@@ -338,11 +339,10 @@ valid_PPPratio <- function(data,
 #' @examples
 #' suppressPackageStartupMessages(library(dplyr))
 #' library(OECDsppps)
-#' tibble(region = rep(LETTERS[1:5], each = 2),
-#' basic_heading = rep(letters[1:2], 5),
-#' shares = c(0.4, 0.6, .3, .7, .85, .15, .22, .78, .1, .9)) %>%
-#'   group_by(basic_heading) %>%
-#'   valid_rst(shares = "shares")
+#' uk_hhe |>
+#'  group_by(coicop_4d) |>
+#'  valid_est(shares = 'expenditure_share')
+#'
 #'
 #'
 #' @importFrom Rdpack reprompt

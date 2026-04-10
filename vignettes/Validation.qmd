@@ -45,7 +45,7 @@ library(OECDsppps)
 
 **Data** used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in @hearne2025 and is publicly available:
 
--   `uk_cpi()` is a snipped of the [UK CPI microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes) containing two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
+-   `uk_cpi()` is a snipped of the [UK CPI microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes) and contains price quotes for two products: White sliced loaf branded 750 grams (COICOP 01.1.1.3) and carpenter hourly rate (COICOP 04.3.2.5).
 
 ```{r}
 head(uk_cpi, n = 3) |>
@@ -53,7 +53,13 @@ head(uk_cpi, n = 3) |>
   gt()
 ```
 
-<!-- - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) -->
+- `uk_hhe()` is a snipped of the - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) and contains regional household expenditure shares for the same two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).^[Note that for both products, the UK regional household final consumption expenditures are available only at the *class* or four-digit level of the COICOP classification, specifically `01.1.1` and `04.3.2`. ]
+
+```{r}
+head(uk_hhe, n = 4) |>
+  gt()
+```
+
 
 # Intra-regional validation {#sec-intraregional}
 
@@ -336,7 +342,7 @@ df_xr2 <- rbind(
   select(-`XR USD`)
 
 # Calculations
-df_out <- df_xr2 |> 
+df_out <- df_xr2 |>
   valid_PPPratio(
     year = "Year",
     product_code = "Product code",
@@ -395,30 +401,27 @@ uk_red <- uk_cpi |>
   mutate(
     region = as.factor(region),
     product = as.factor(product)
-  ) 
+  )
 ```
 
 ## Reliability of CPD estimates
 
-### Using the "Average Price Table"
+### Using the "Expenditure Shares Table"
 
-Function`valid_apt()` can be used to check for
-outliers in the price estimates
-from the *CPD regression* model, in which cases the input argument `value`
-takes takes the PPP estimates provided by `sPPP` as input arguments.
+Function`valid_est()` can be used to check for
+outliers in the household expenditure shares.
 
 ```{r}
 # CPD estimation with `estim_cpd()` and validation with `valid_apt()` ---------
-uk_red |> 
-  estim_cpd() |> 
-  valid_apt(value = 'sPPP') |> 
+uk_hhe |>
+  group_by(coicop_4d) |>
+  valid_est(shares = "expenditure_share") |>
   gt() |>
   tab_header(
-    title = md("**CPD Validation**"),
-    subtitle = md("Using the Average Price Table")
+    title = md("**Household Expenditure Validation**"),
+    subtitle = md("Using the Expenditure Shares Table")
   ) |>
   fmt_number(
-    columns = -c(`Number of observations`),
     decimals = 2
   )
 ```
