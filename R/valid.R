@@ -305,3 +305,73 @@ valid_PPPratio <- function(data,
     left_join(x1, by = join_by({{ year }}, {{ product_code }})) |>
     rbind(x2)
 }
+
+#' Create "Expenditure Shares Table"
+#'
+#' \loadmathjax
+#' `valid_est()` in  \pkg{OECDsppps} creates the "Expenditure Shares Table" by
+#' calculating: the
+#' - `Maximum`- Highest expenditure share based on expenditure shares by group as specified by `group_by()`
+#' - `Median` - Median expenditure share based on expenditure shares by group as specified by `group_by()`
+#' - `Minimum` - Lowest expenditure share based on expenditure shares by group as specified by `group_by()`
+#' - `max-median ratio test` and `median-min ratio test` - see *Details* for more information
+#'  All expenditure shares that do not pass the two tests are flagged in columns
+#' `Max-median ratio FLAG` and`Median-min ratio FLAG`, respectively#'
+#'
+#' **Max-median ratio test:** The ratio between the maximal and median observed expenditure shares
+#' for product \mjseqn{j}, \mjseqn{w_j}. Basic headings where the maximal observed expenditure is more than 25 times
+#' as big as the median are flagged in `Max-median ratio FLAG`:
+#' \mjdeqn{max-median~ratio = max(w_j)/median(w_j)}{max-median~ratio = max(w_j)/median(w_j)}
+#'
+#' **Median-min ratio test:** The ratio between the median and minimal observed expenditure shares
+#' for product \mjseqn{j}, \mjseqn{w_j}. Basic headings where the median observed expenditure is more than 25 times
+#' as big as the minimum are flagged in `Median-min ratio FLAG`:
+#' \mjdeqn{median-min~ratio = median(w_j)/min(w_j)}{median-min~ratio = median(w_j)/min(w_j)}
+#'
+#'
+#' @param data A data frame or tibble containing at least one column with
+#' individual item-level expenditure shares.
+#' @param shares Column containing the individual item-level expenditure shares.
+#' @references
+#'   \insertAllCited{}
+#'
+#' @examples
+#' suppressPackageStartupMessages(library(dplyr))
+#' library(OECDsppps)
+#' tibble(region = rep(LETTERS[1:5], each = 2),
+#' basic_heading = rep(letters[1:2], 5),
+#' shares = c(0.4, 0.6, .3, .7, .85, .15, .22, .78, .1, .9)) %>%
+#'   group_by(basic_heading) %>%
+#'   valid_rst(shares = "shares")
+#'
+#'
+#' @importFrom Rdpack reprompt
+#' @importFrom mathjaxr preview_rd
+#' @importFrom dplyr mutate
+#' @importFrom dplyr select
+#' @importFrom dplyr summarise
+#' @importFrom rlang .data
+#' @export
+valid_est <- function(data,
+                      shares = "Expenditure shares for basic headings") {
+  data |>
+    ## Summary stats
+    summarise(
+      `Maximum expenditure share` = max(.data[[shares]]),
+      `Median expenditure share` = median(.data[[shares]]),
+      `Minimum expenditure share` = min(.data[[shares]])
+    ) |>
+    ## Calculate tests
+    mutate(
+      `Max-median ratio` = `Maximum expenditure share` / `Median expenditure share`,
+      `Median-min ratio` =  ifelse(`Minimum expenditure share` == 0,
+                                   NA,
+                                   `Median expenditure share` / `Minimum expenditure share`)
+    ) |>
+    # Add flags for selection rules
+    mutate(
+      `Max-median ratio FLAG` = `Max-median ratio` > 25,
+      `Median-min ratio FLAG` = `Median-min ratio` > 25
+    )
+}
+
