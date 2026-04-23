@@ -111,6 +111,8 @@ vignette](https://amannj.github.io/OECDsppps/articles/Estimation.html).
 
 ## 4 Validation of estimation at basic-heading level
 
+> 🚧 Work in progress.
+
 ## 5 Validation of estimation beyond the basic-heading level
 
 > 🚧 Work in progress.
@@ -129,8 +131,8 @@ European Union/OECD. 2024. *Eurostat-OECD Methodological Manual on
 Purchasing Power Parities (2023 Edition)*. OECD Publishing, Paris.
 <https://doi.org/10.2785/384854>.
 
-ICP. 2021. “A Guide to the Compilation of Subnational Purchasing Power
-Parities (PPPs).”
+ICP. 2021. *A Guide to the Compilation of Subnational Purchasing Power
+Parities (PPPs)*.
 <https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf>.
 
 Weinand, Sebastian, and Ludwig von Auer. 2020. “Anatomy of Regional
@@ -140,5 +142,5 @@ Analysis* 15 (4): 413–40.
 
 World Bank. 2013. *Measuring the Real Size of the World Economy: The
 Framework, Methodology, and Results of the International Comparison
-Program ICP*. Washington DC: World Bank.
+Program ICP*. World Bank.
 <https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf>.

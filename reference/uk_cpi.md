@@ -14,8 +14,8 @@ uk_cpi
 ### `uk_cpi`
 
 A data frame with 11,807 rows and 14 columns containing two products:
-*White sliced loaf branded 750 grams* (COICOP 1010103) and *carpenter
-hourly rate* (COICOP 410518).
+*White sliced loaf branded 750 grams* (COICOP 01.1.1.3) and *carpenter
+hourly rate* (COICOP 04.3.2.5).
 
 More information on COICOP classification can be found in the [ONS
 Classification of household consumption

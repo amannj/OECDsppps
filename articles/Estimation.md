@@ -591,8 +591,8 @@ Hearne, David, and David Bailey. 2025. “Regional Prices Reconsidered.”
 *Regional Studies, Regional Science* 12 (1): 338–56.
 <https://doi.org/10.1080/21681376.2025.2475115>.
 
-ICP. 2021. “A Guide to the Compilation of Subnational Purchasing Power
-Parities (PPPs).”
+ICP. 2021. *A Guide to the Compilation of Subnational Purchasing Power
+Parities (PPPs)*.
 <https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf>.
 
 Weinand, Sebastian. 2025. *Pricelevels: Spatial Price Level
@@ -600,7 +600,7 @@ Comparisons*. <https://doi.org/10.32614/CRAN.package.pricelevels>.
 
 World Bank. 2013. *Measuring the Real Size of the World Economy: The
 Framework, Methodology, and Results of the International Comparison
-Program ICP*. Washington DC: World Bank.
+Program ICP*. World Bank.
 <https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf>.
 
 ------------------------------------------------------------------------

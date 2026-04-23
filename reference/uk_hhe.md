@@ -1,0 +1,70 @@
+# UK Regional Household Final Consumption Expenditure data extract
+
+A subset of the official UK Regional Household Final Consumption
+Expenditure data set published by the United Kingdom Office for National
+Statistics (ONS)
+
+## Usage
+
+``` r
+uk_hhe
+```
+
+## Format
+
+### `uk_hhe`
+
+A data frame with 48 rows and 4 columns containing regional household
+final consumption expenditure shares for two products: *White sliced
+loaf branded 750 grams* (COICOP 01.1.1.3) and *carpenter hourly rate*
+(COICOP 04.3.2.5).
+
+Note that for both products, the UK regional household final consumption
+expenditures are available only at the *class* or four-digit level of
+the COICOP classification, specifically `01.1.1` and `04.3.2`.
+
+More information on COICOP classification can be found in the [ONS
+Classification of household consumption
+headings](https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/satelliteaccounts/methodologies/consumertrendsuk/classificationofhouseholdconsumptionheadings2014tcm772368742.pdf)
+and in the [UN Statistics Division’s COICOP 2018 statistical
+paper](https://unstats.un.org/unsd/classifications/unsdclassifications/COICOP_2018_pre_copy_edit_publication.pdf).
+\#'
+
+- Year:
+
+  Year
+
+- Region:
+
+  Region, following
+  [TL2](https://www.oecd.org/en/data/datasets/oecd-geographical-definitions.html)/[ITL1](https://www.ons.gov.uk/methodology/geography/ukgeographies/eurostat)
+  boundaries)
+
+- coicop_4d:
+
+  COICOP 4-digit code
+
+- expenditure_share:
+
+  Regional household final consumption expenditure share
+
+## Source
+
+[Regional household final consumption
+expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
+
+## Examples
+
+``` r
+uk_hhe |> dim()
+#> [1] 48  4
+uk_hhe |> dplyr::distinct(coicop_4d)
+#> # A tibble: 2 × 1
+#>   coicop_4d
+#>   <chr>    
+#> 1 01.1.1   
+#> 2 04.3.2   
+uk_hhe |> names()
+#> [1] "Year"              "Region"            "coicop_4d"        
+#> [4] "expenditure_share"
+```

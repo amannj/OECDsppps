@@ -45,8 +45,9 @@ publicly available:
 - [`uk_cpi()`](https://amannj.github.io/OECDsppps/reference/uk_cpi.md)
   is a snipped of the [UK CPI
   microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes)
-  containing two products: White sliced loaf branded 750 grams
-  (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
+  and contains price quotes for two products: White sliced loaf branded
+  750 grams (COICOP 01.1.1.3) and carpenter hourly rate (COICOP
+  04.3.2.5).
 
 ``` r
 head(uk_cpi, n = 3) |>
@@ -60,6 +61,25 @@ head(uk_cpi, n = 3) |>
 | 201801                                                    | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
 | 201801                                                    | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
 | 201801                                                    | 750                | 1                          | North West | 1               | Multiple     | 750               | 1                         | 1.45           | 1.45                     |
+
+- [`uk_hhe()`](https://amannj.github.io/OECDsppps/reference/uk_hhe.md)
+  is a snipped of the - [Regional household final consumption
+  expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
+  and contains regional household expenditure shares for the same two
+  products: White sliced loaf branded 750 grams (COICOP 1010103) and
+  carpenter hourly rate (COICOP 410518).[¹](#fn1)
+
+``` r
+head(uk_hhe, n = 4) |>
+  gt()
+```
+
+| Year | Region | coicop_4d | expenditure_share |
+|------|--------|-----------|-------------------|
+| 2018 | North  | 01.1.1    | 4.068826          |
+| 2018 | North  | 04.3.2    | 3.155881          |
+| 2020 | North  | 01.1.1    | 3.688157          |
+| 2020 | North  | 04.3.2    | 2.874433          |
 
 ## 1 Intra-regional validation
 
@@ -459,7 +479,7 @@ df_xr2 <- rbind(
   select(-`XR USD`)
 
 # Calculations
-df_out <- df_xr2 |> 
+df_out <- df_xr2 |>
   valid_PPPratio(
     year = "Year",
     product_code = "Product code",
@@ -522,54 +542,65 @@ validation to ensure the integrity of the data used.
 
 ## 4 Validation at basic-heading level
 
+> 🚧 Examples work in progress.
+
 The validation at the basic-heading level concerns the reliability of
-the CPD estimates as well as their cross-regional comparability
+the CPD estimates as well as their cross-sectional comparability.
 
-``` r
-uk_red <- uk_cpi |>
-  filter(Year == "2018") |>
-  select(
-    region = "Region",
-    product = "Product code",
-    price = "Reference quantity price"
-  ) |>
-  mutate(
-    region = as.factor(region),
-    product = as.factor(product)
-  ) 
-```
+### 4.1 Dikhanov tables for validation at basic-heading level
 
-### 4.1 Reliability of CPD estimates
+Ensures that prices are consistent not only within basic headings but
+also at the aggregate level *across* basic headings. This can, for
+example, help address cross-country measurement inconsistency. This is
+done using Dikhanov tables ([World Bank 2013,
+261](#ref-worldbank2013)/267), which consist of three parts:
 
-#### 4.1.1 Using the “Average Price Table”
+- *Part 1*: Summary information (PPPs, SDs, price level) by country for
+  the aggregate;
+- *Part 2*: Contained basic headings (same info as *Part 1*);
+- *Part 3*: CPD residuals and product variation coefficients for
+  products within basic headings.
 
-Function[`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md)
-can be used to check for outliers in the price estimates from the *CPD
-regression* model, in which cases the input argument `value` takes takes
-the PPP estimates provided by `sPPP` as input arguments.
+In the Dikhanov table, *Part 1 and 2* facilitate the comparisons of PPPs
+across basic headings; plausible variations in PPPs is expected across
+regions. Such variations would indicate that, say, alcoholic beverages
+in country A are x% higher than in country B. *Part 3* Ensures that the
+aggregate PPP variations are not driven by certain basic headings, or
+isolated products therein, but are more reflective of common price-level
+differences across regions/countries. Extreme values are identified
+based on CPD residuals and PPP ratio threshold values described in
+[Table 1](#tbl-thresholds); see also ([World Bank 2013,
+261](#ref-worldbank2013)).
 
-``` r
-# CPD estimation with `estim_cpd()` and validation with `valid_apt()` ---------
-uk_red |> 
-  estim_cpd() |> 
-  valid_apt(value = 'sPPP') |> 
-  gt() |>
-  tab_header(
-    title = md("**CPD Validation**"),
-    subtitle = md("Using the Average Price Table")
-  ) |>
-  fmt_number(
-    columns = -c(`Number of observations`),
-    decimals = 2
-  )
-#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.
-```
+| CPD residuals                            | PPP-ratios                       | Flag         |
+|------------------------------------------|----------------------------------|--------------|
+| Between −0.25 and 0.25                   | Between 78 and 128               | OK           |
+| Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1*     |
+| Between −2.0 and −0.75 or 0.75 and 2.0   | Between 14 and 47 or 212 and 739 | **Fag 2**    |
+| Less than −2.0 or greater than 2.0       | Less than 14 or greater than 739 | ***Flag 3*** |
 
-| **CPD Validation**            |                          |                          |                          |                    |               |                          |                    |                               |
-|-------------------------------|--------------------------|--------------------------|--------------------------|--------------------|---------------|--------------------------|--------------------|-------------------------------|
-| Using the Average Price Table |                          |                          |                          |                    |               |                          |                    |                               |
-| Number of observations        | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
-| 12                            | 1.01                     | 1.32                     | 0.86                     | 0.11               | 1.53          | 0.11                     | FALSE              | FALSE                         |
+Table 1: Threshold values: CPD residuals and PPP-ratios
+
+> 🚧 Examples work in progress.
+
+### 4.2 Visual validation at basic-heading level
+
+Examines the basic heading PPPs *within* and *across* countries to point
+at countries/headings which may require further review ([World Bank
+2013, 279](#ref-worldbank2013)).
+
+#### 4.2.1 Within country validation
+
+> 🚧 Examples work in progress.
+
+#### 4.2.2 Cross-country validation
+
+> 🚧 Examples work in progress.
+
+- Box plots of Price Level index (PLI), which is the ratio of a
+  purchasing power parity (PPP) conversion factor to the corresponding
+  market exchange rate between two countries by country and by basic
+  heading.
 
 ## 5 Expenditure weights validation
 
@@ -579,10 +610,8 @@ the following:
 
 - Completeness – ensuring that, with few exceptions, expenditures are
   recorded for every basic heading.
-
 - Plausibility – comparing per capita values and expenditure shares
   across basic headings.
-
 - Temporal consistency – examining the coherence of expenditure
   breakdowns across different years.
 
@@ -592,15 +621,38 @@ The review process includes the following checks:
   expenditure shares, and comparing these shares across countries, using
   Table 10.1 in ([World Bank 2013, 286](#ref-worldbank2013)) as a
   reference.
-
 - Comparing minimum, maximum, and median values at the basic heading
   level to identify potential anomalies or inconsistencies.
 
 Function
-[`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md)
-can be used to check for outliers in the *household expenditure share* ,
-in which cases the input argument `value` takes either the reported
-item-level household expenditure shares.
+[`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md)
+can be used to check for outliers in the household expenditure shares.
+The function calculates the median, maximum, and minimum expenditure
+shares for each basic heading across regions and identifies potential
+outliers based on the max-median and median-min ratios.
+
+``` r
+
+# CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------
+uk_hhe |>
+  group_by(coicop_4d) |>
+  valid_est(shares = "expenditure_share") |>
+  gt() |>
+  tab_header(
+    title = md("**Household Expenditure Validation**"),
+    subtitle = md("Using the Expenditure Shares Table")
+  ) |>
+  fmt_number(
+    decimals = 2
+  )
+```
+
+| **Household Expenditure Validation** |                           |                          |                           |                  |                  |                       |                       |
+|--------------------------------------|---------------------------|--------------------------|---------------------------|------------------|------------------|-----------------------|-----------------------|
+| Using the Expenditure Shares Table   |                           |                          |                           |                  |                  |                       |                       |
+| coicop_4d                            | Maximum expenditure share | Median expenditure share | Minimum expenditure share | Max-median ratio | Median-min ratio | Max-median ratio FLAG | Median-min ratio FLAG |
+| 01.1.1                               | 14.74                     | 8.38                     | 2.80                      | 1.76             | 2.99             | FALSE                 | FALSE                 |
+| 04.3.2                               | 17.79                     | 8.45                     | 1.59                      | 2.10             | 5.30             | FALSE                 | FALSE                 |
 
 ## 6 Validation beyond basic-heading level
 
@@ -616,11 +668,18 @@ Hearne, David, and David Bailey. 2025. “Regional Prices Reconsidered.”
 *Regional Studies, Regional Science* 12 (1): 338–56.
 <https://doi.org/10.1080/21681376.2025.2475115>.
 
-ICP. 2021. “A Guide to the Compilation of Subnational Purchasing Power
-Parities (PPPs).”
+ICP. 2021. *A Guide to the Compilation of Subnational Purchasing Power
+Parities (PPPs)*.
 <https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf>.
 
 World Bank. 2013. *Measuring the Real Size of the World Economy: The
 Framework, Methodology, and Results of the International Comparison
-Program ICP*. Washington DC: World Bank.
+Program ICP*. World Bank.
 <https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf>.
+
+------------------------------------------------------------------------
+
+1.  Note that for both products, the UK regional household final
+    consumption expenditures are available only at the *class* or
+    four-digit level of the COICOP classification, specifically `01.1.1`
+    and `04.3.2`.

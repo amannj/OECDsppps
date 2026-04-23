@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,9 +47,9 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/Validation.html">Validation</a></li>
+<li><a class="dropdown-item" href="../articles/Implementation.html">Implementation</a></li>
+    <li><a class="dropdown-item" href="../articles/Validation.html">Validation</a></li>
     <li><a class="dropdown-item" href="../articles/Estimation.html">Estimation</a></li>
-    <li><a class="dropdown-item" href="../articles/Implementation.html">Implementation</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -111,7 +111,7 @@
 <p><strong>Data</strong> used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in <span class="citation" data-cites="hearne2025">Hearne and Bailey (<a href="#ref-hearne2025" role="doc-biblioref">2025</a>)</span> and is publicly available:</p>
 <ul>
 <li>
-<code><a href="../reference/uk_cpi.html">uk_cpi()</a></code> is a snipped of the <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes" class="external-link">UK CPI microdata</a> containing two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).</li>
+<code><a href="../reference/uk_cpi.html">uk_cpi()</a></code> is a snipped of the <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes" class="external-link">UK CPI microdata</a> and contains price quotes for two products: White sliced loaf branded 750 grams (COICOP 01.1.1.3) and carpenter hourly rate (COICOP 04.3.2.5).</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
@@ -119,23 +119,23 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">coicop_5d</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="xiyswmpciy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xiyswmpciy table {
+<div id="pnlcohnpms" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pnlcohnpms table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xiyswmpciy thead, #xiyswmpciy tbody, #xiyswmpciy tfoot, #xiyswmpciy tr, #xiyswmpciy td, #xiyswmpciy th {
+#pnlcohnpms thead, #pnlcohnpms tbody, #pnlcohnpms tfoot, #pnlcohnpms tr, #pnlcohnpms td, #pnlcohnpms th {
   border-style: none;
 }
 
-#xiyswmpciy p {
+#pnlcohnpms p {
   margin: 0;
   padding: 0;
 }
 
-#xiyswmpciy .gt_table {
+#pnlcohnpms .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -161,12 +161,12 @@
   border-left-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_caption {
+#pnlcohnpms .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xiyswmpciy .gt_title {
+#pnlcohnpms .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -178,7 +178,7 @@
   border-bottom-width: 0;
 }
 
-#xiyswmpciy .gt_subtitle {
+#pnlcohnpms .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -190,7 +190,7 @@
   border-top-width: 0;
 }
 
-#xiyswmpciy .gt_heading {
+#pnlcohnpms .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -202,13 +202,13 @@
   border-right-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_bottom_border {
+#pnlcohnpms .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_col_headings {
+#pnlcohnpms .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -223,7 +223,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_col_heading {
+#pnlcohnpms .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -243,7 +243,7 @@
   overflow-x: hidden;
 }
 
-#xiyswmpciy .gt_column_spanner_outer {
+#pnlcohnpms .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -255,15 +255,15 @@
   padding-right: 4px;
 }
 
-#xiyswmpciy .gt_column_spanner_outer:first-child {
+#pnlcohnpms .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xiyswmpciy .gt_column_spanner_outer:last-child {
+#pnlcohnpms .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xiyswmpciy .gt_column_spanner {
+#pnlcohnpms .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -275,11 +275,11 @@
   width: 100%;
 }
 
-#xiyswmpciy .gt_spanner_row {
+#pnlcohnpms .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xiyswmpciy .gt_group_heading {
+#pnlcohnpms .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -305,7 +305,7 @@
   text-align: left;
 }
 
-#xiyswmpciy .gt_empty_group_heading {
+#pnlcohnpms .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -320,15 +320,15 @@
   vertical-align: middle;
 }
 
-#xiyswmpciy .gt_from_md > :first-child {
+#pnlcohnpms .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xiyswmpciy .gt_from_md > :last-child {
+#pnlcohnpms .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xiyswmpciy .gt_row {
+#pnlcohnpms .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -347,7 +347,7 @@
   overflow-x: hidden;
 }
 
-#xiyswmpciy .gt_stub {
+#pnlcohnpms .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -360,7 +360,7 @@
   padding-right: 5px;
 }
 
-#xiyswmpciy .gt_stub_row_group {
+#pnlcohnpms .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -374,15 +374,15 @@
   vertical-align: top;
 }
 
-#xiyswmpciy .gt_row_group_first td {
+#pnlcohnpms .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xiyswmpciy .gt_row_group_first th {
+#pnlcohnpms .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xiyswmpciy .gt_summary_row {
+#pnlcohnpms .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -392,16 +392,16 @@
   padding-right: 5px;
 }
 
-#xiyswmpciy .gt_first_summary_row {
+#pnlcohnpms .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_first_summary_row.thick {
+#pnlcohnpms .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xiyswmpciy .gt_last_summary_row {
+#pnlcohnpms .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -411,7 +411,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_grand_summary_row {
+#pnlcohnpms .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -421,7 +421,7 @@
   padding-right: 5px;
 }
 
-#xiyswmpciy .gt_first_grand_summary_row {
+#pnlcohnpms .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -431,7 +431,7 @@
   border-top-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_last_grand_summary_row_top {
+#pnlcohnpms .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -441,11 +441,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_striped {
+#pnlcohnpms .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xiyswmpciy .gt_table_body {
+#pnlcohnpms .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -454,7 +454,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_footnotes {
+#pnlcohnpms .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -468,7 +468,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_footnote {
+#pnlcohnpms .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -477,7 +477,7 @@
   padding-right: 5px;
 }
 
-#xiyswmpciy .gt_sourcenotes {
+#pnlcohnpms .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -491,7 +491,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xiyswmpciy .gt_sourcenote {
+#pnlcohnpms .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -499,72 +499,72 @@
   padding-right: 5px;
 }
 
-#xiyswmpciy .gt_left {
+#pnlcohnpms .gt_left {
   text-align: left;
 }
 
-#xiyswmpciy .gt_center {
+#pnlcohnpms .gt_center {
   text-align: center;
 }
 
-#xiyswmpciy .gt_right {
+#pnlcohnpms .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xiyswmpciy .gt_font_normal {
+#pnlcohnpms .gt_font_normal {
   font-weight: normal;
 }
 
-#xiyswmpciy .gt_font_bold {
+#pnlcohnpms .gt_font_bold {
   font-weight: bold;
 }
 
-#xiyswmpciy .gt_font_italic {
+#pnlcohnpms .gt_font_italic {
   font-style: italic;
 }
 
-#xiyswmpciy .gt_super {
+#pnlcohnpms .gt_super {
   font-size: 65%;
 }
 
-#xiyswmpciy .gt_footnote_marks {
+#pnlcohnpms .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xiyswmpciy .gt_asterisk {
+#pnlcohnpms .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xiyswmpciy .gt_indent_1 {
+#pnlcohnpms .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xiyswmpciy .gt_indent_2 {
+#pnlcohnpms .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xiyswmpciy .gt_indent_3 {
+#pnlcohnpms .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xiyswmpciy .gt_indent_4 {
+#pnlcohnpms .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xiyswmpciy .gt_indent_5 {
+#pnlcohnpms .gt_indent_5 {
   text-indent: 25px;
 }
 
-#xiyswmpciy .katex-display {
+#pnlcohnpms .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#xiyswmpciy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pnlcohnpms div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -626,66 +626,33 @@
 </div>
 </div>
 </div>
-<!-- - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) -->
-</section><section class="section level2" data-number="1"><h2 data-number="1" id="sec-intraregional">
-<span class="header-section-number">1</span> Intra-regional validation<a class="anchor" aria-label="anchor" href="#sec-intraregional"></a>
-</h2>
-<p>Intra-region validation establishes that price collectors within the <em>same region</em> and <em>across regions of the same country</em> have priced products that match the product specifications and that the prices they have reported are correct. This is done in two stages, which correspond to the outlier detection of (a) individual prices and (b) average price aggregates.</p>
-<section class="level2" data-number="1.1"><h3 data-number="1.1" id="individual-price-outlier-statistics">
-<span class="header-section-number">1.1</span> Individual price outlier statistics<a class="anchor" aria-label="anchor" href="#individual-price-outlier-statistics"></a>
-</h3>
-<p>For each product, a <em>Price Observation Table</em> is obtained, containing a characterisation of the individual product as well as two <em>individual price outlier statistics</em>, the <em>ratio-to-average price test</em> and the <em>t-value test</em>; see <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span>, table 9.1a for an extensive example.</p>
-<p><strong>Ratio-to-average price test:</strong> The ratio of an individual price observation <span class="math inline">\(i\)</span>, <span class="math inline">\(P_{i}\)</span>, of a specific product <span class="math inline">\(j\)</span> and the observed average price for the product, <span class="math inline">\(\mu_j\)</span>. An observed price passes the this test if the ratio is between 0.5 and 1.5. This simple check flags potential outlier values values without relying on standard deviation, which can itself be distorted by outliers <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 251</a>)</span>.</p>
-<p><span class="math display">\[
-ratio-to-average = p_{ij}/\mu_j
-\]</span></p>
-<p><strong>T-value test:</strong> The ratio of the deviation of an individual price observation from the average reference quantity price for the product and the standard deviation of the product. To pass the test, the ratio must be 2.0 or less in absolute terms; any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval.</p>
-<p><span class="math display">\[
-t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
-\]</span></p>
-<p>Individual price quotes that do not pass these tests are flagged in the <em>Price Observation Table</em>. The price observation table is generated with the function <code><a href="../reference/valid_pot.html">valid_pot()</a></code>.</p>
-<hr>
-<p><strong>Example using UK CPI microdata</strong></p>
+<ul>
+<li>
+<code><a href="../reference/uk_hhe.html">uk_hhe()</a></code> is a snipped of the - <a href="https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions" class="external-link">Regional household final consumption expenditure</a> and contains regional household expenditure shares for the same two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that for both products, the UK regional household final consumption expenditures are available only at the &lt;em&gt;class&lt;/em&gt; or four-digit level of the COICOP classification, specifically &lt;code&gt;01.1.1&lt;/code&gt; and &lt;code&gt;04.3.2&lt;/code&gt;.&lt;/p&gt;"><sup>1</sup></a>
+</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Price Observation Table  ---------</span></span>
-<span><span class="va">uk_pot</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_pot</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"**Price Observation Table**"</span><span class="op">)</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"Example for `item_id` = 210111"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span></span>
-<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>      <span class="va">`Ratio-to-average price test`</span>,</span>
-<span>      <span class="va">`T-value test`</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_hhe</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="cmdhivasjc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cmdhivasjc table {
+<div id="iubheazarh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iubheazarh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cmdhivasjc thead, #cmdhivasjc tbody, #cmdhivasjc tfoot, #cmdhivasjc tr, #cmdhivasjc td, #cmdhivasjc th {
+#iubheazarh thead, #iubheazarh tbody, #iubheazarh tfoot, #iubheazarh tr, #iubheazarh td, #iubheazarh th {
   border-style: none;
 }
 
-#cmdhivasjc p {
+#iubheazarh p {
   margin: 0;
   padding: 0;
 }
 
-#cmdhivasjc .gt_table {
+#iubheazarh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -711,12 +678,12 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-left-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_caption {
+#iubheazarh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cmdhivasjc .gt_title {
+#iubheazarh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -728,7 +695,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-bottom-width: 0;
 }
 
-#cmdhivasjc .gt_subtitle {
+#iubheazarh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -740,7 +707,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-top-width: 0;
 }
 
-#cmdhivasjc .gt_heading {
+#iubheazarh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -752,13 +719,13 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-right-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_bottom_border {
+#iubheazarh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_col_headings {
+#iubheazarh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -773,7 +740,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-right-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_col_heading {
+#iubheazarh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -793,7 +760,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   overflow-x: hidden;
 }
 
-#cmdhivasjc .gt_column_spanner_outer {
+#iubheazarh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -805,15 +772,15 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 4px;
 }
 
-#cmdhivasjc .gt_column_spanner_outer:first-child {
+#iubheazarh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cmdhivasjc .gt_column_spanner_outer:last-child {
+#iubheazarh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cmdhivasjc .gt_column_spanner {
+#iubheazarh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -825,11 +792,11 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   width: 100%;
 }
 
-#cmdhivasjc .gt_spanner_row {
+#iubheazarh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cmdhivasjc .gt_group_heading {
+#iubheazarh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -855,7 +822,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   text-align: left;
 }
 
-#cmdhivasjc .gt_empty_group_heading {
+#iubheazarh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -870,15 +837,15 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   vertical-align: middle;
 }
 
-#cmdhivasjc .gt_from_md > :first-child {
+#iubheazarh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cmdhivasjc .gt_from_md > :last-child {
+#iubheazarh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cmdhivasjc .gt_row {
+#iubheazarh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -897,7 +864,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   overflow-x: hidden;
 }
 
-#cmdhivasjc .gt_stub {
+#iubheazarh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -910,7 +877,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#cmdhivasjc .gt_stub_row_group {
+#iubheazarh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -924,15 +891,15 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   vertical-align: top;
 }
 
-#cmdhivasjc .gt_row_group_first td {
+#iubheazarh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cmdhivasjc .gt_row_group_first th {
+#iubheazarh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cmdhivasjc .gt_summary_row {
+#iubheazarh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -942,16 +909,16 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#cmdhivasjc .gt_first_summary_row {
+#iubheazarh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_first_summary_row.thick {
+#iubheazarh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cmdhivasjc .gt_last_summary_row {
+#iubheazarh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -961,7 +928,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-bottom-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_grand_summary_row {
+#iubheazarh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -971,7 +938,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#cmdhivasjc .gt_first_grand_summary_row {
+#iubheazarh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -981,7 +948,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-top-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_last_grand_summary_row_top {
+#iubheazarh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -991,11 +958,11 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-bottom-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_striped {
+#iubheazarh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cmdhivasjc .gt_table_body {
+#iubheazarh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1004,7 +971,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-bottom-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_footnotes {
+#iubheazarh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1018,7 +985,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-right-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_footnote {
+#iubheazarh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1027,7 +994,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#cmdhivasjc .gt_sourcenotes {
+#iubheazarh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1041,7 +1008,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-right-color: #D3D3D3;
 }
 
-#cmdhivasjc .gt_sourcenote {
+#iubheazarh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1049,72 +1016,600 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#cmdhivasjc .gt_left {
+#iubheazarh .gt_left {
   text-align: left;
 }
 
-#cmdhivasjc .gt_center {
+#iubheazarh .gt_center {
   text-align: center;
 }
 
-#cmdhivasjc .gt_right {
+#iubheazarh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cmdhivasjc .gt_font_normal {
+#iubheazarh .gt_font_normal {
   font-weight: normal;
 }
 
-#cmdhivasjc .gt_font_bold {
+#iubheazarh .gt_font_bold {
   font-weight: bold;
 }
 
-#cmdhivasjc .gt_font_italic {
+#iubheazarh .gt_font_italic {
   font-style: italic;
 }
 
-#cmdhivasjc .gt_super {
+#iubheazarh .gt_super {
   font-size: 65%;
 }
 
-#cmdhivasjc .gt_footnote_marks {
+#iubheazarh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cmdhivasjc .gt_asterisk {
+#iubheazarh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cmdhivasjc .gt_indent_1 {
+#iubheazarh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cmdhivasjc .gt_indent_2 {
+#iubheazarh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cmdhivasjc .gt_indent_3 {
+#iubheazarh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cmdhivasjc .gt_indent_4 {
+#iubheazarh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cmdhivasjc .gt_indent_5 {
+#iubheazarh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cmdhivasjc .katex-display {
+#iubheazarh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cmdhivasjc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#iubheazarh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="Year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Year</th>
+<th id="Region" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Region</th>
+<th id="coicop_4d" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">coicop_4d</th>
+<th id="expenditure_share" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">expenditure_share</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">2018</td>
+<td class="gt_row gt_left" headers="Region">North</td>
+<td class="gt_row gt_right" headers="coicop_4d">01.1.1</td>
+<td class="gt_row gt_right" headers="expenditure_share">4.068826</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">2018</td>
+<td class="gt_row gt_left" headers="Region">North</td>
+<td class="gt_row gt_right" headers="coicop_4d">04.3.2</td>
+<td class="gt_row gt_right" headers="expenditure_share">3.155881</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">2020</td>
+<td class="gt_row gt_left" headers="Region">North</td>
+<td class="gt_row gt_right" headers="coicop_4d">01.1.1</td>
+<td class="gt_row gt_right" headers="expenditure_share">3.688157</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">2020</td>
+<td class="gt_row gt_left" headers="Region">North</td>
+<td class="gt_row gt_right" headers="coicop_4d">04.3.2</td>
+<td class="gt_row gt_right" headers="expenditure_share">2.874433</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section class="section level2" data-number="1"><h2 data-number="1" id="sec-intraregional">
+<span class="header-section-number">1</span> Intra-regional validation<a class="anchor" aria-label="anchor" href="#sec-intraregional"></a>
+</h2>
+<p>Intra-region validation establishes that price collectors within the <em>same region</em> and <em>across regions of the same country</em> have priced products that match the product specifications and that the prices they have reported are correct. This is done in two stages, which correspond to the outlier detection of (a) individual prices and (b) average price aggregates.</p>
+<section class="level2" data-number="1.1"><h3 data-number="1.1" id="individual-price-outlier-statistics">
+<span class="header-section-number">1.1</span> Individual price outlier statistics<a class="anchor" aria-label="anchor" href="#individual-price-outlier-statistics"></a>
+</h3>
+<p>For each product, a <em>Price Observation Table</em> is obtained, containing a characterisation of the individual product as well as two <em>individual price outlier statistics</em>, the <em>ratio-to-average price test</em> and the <em>t-value test</em>; see <span class="citation" data-cites="worldbank2013">World Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span>, table 9.1a for an extensive example.</p>
+<p><strong>Ratio-to-average price test:</strong> The ratio of an individual price observation <span class="math inline">\(i\)</span>, <span class="math inline">\(P_{i}\)</span>, of a specific product <span class="math inline">\(j\)</span> and the observed average price for the product, <span class="math inline">\(\mu_j\)</span>. An observed price passes the this test if the ratio is between 0.5 and 1.5. This simple check flags potential outlier values values without relying on standard deviation, which can itself be distorted by outliers <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 251</a>)</span>.</p>
+<p><span class="math display">\[
+ratio-to-average = p_{ij}/\mu_j
+\]</span></p>
+<p><strong>T-value test:</strong> The ratio of the deviation of an individual price observation from the average reference quantity price for the product and the standard deviation of the product. To pass the test, the ratio must be 2.0 or less in absolute terms; any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval.</p>
+<p><span class="math display">\[
+t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
+\]</span></p>
+<p>Individual price quotes that do not pass these tests are flagged in the <em>Price Observation Table</em>. The price observation table is generated with the function <code><a href="../reference/valid_pot.html">valid_pot()</a></code>.</p>
+<hr>
+<p><strong>Example using UK CPI microdata</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Price Observation Table  ---------</span></span>
+<span><span class="va">uk_pot</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, , <span class="va">`Product description`</span>, <span class="va">`Reference quantity price`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/valid_pot.html">valid_pot</a></span><span class="op">(</span>price_quote <span class="op">=</span> <span class="st">"Reference quantity price"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_pot</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"**Price Observation Table**"</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"Example for `item_id` = 210111"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span></span>
+<span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="va">`Ratio-to-average price test`</span>,</span>
+<span>      <span class="va">`T-value test`</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="zpnaprfzjw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zpnaprfzjw table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zpnaprfzjw thead, #zpnaprfzjw tbody, #zpnaprfzjw tfoot, #zpnaprfzjw tr, #zpnaprfzjw td, #zpnaprfzjw th {
+  border-style: none;
+}
+
+#zpnaprfzjw p {
+  margin: 0;
+  padding: 0;
+}
+
+#zpnaprfzjw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zpnaprfzjw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zpnaprfzjw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zpnaprfzjw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zpnaprfzjw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zpnaprfzjw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zpnaprfzjw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zpnaprfzjw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zpnaprfzjw .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zpnaprfzjw .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zpnaprfzjw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zpnaprfzjw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zpnaprfzjw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zpnaprfzjw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zpnaprfzjw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zpnaprfzjw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zpnaprfzjw .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zpnaprfzjw .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zpnaprfzjw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zpnaprfzjw .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zpnaprfzjw .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zpnaprfzjw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zpnaprfzjw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zpnaprfzjw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zpnaprfzjw .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zpnaprfzjw .gt_left {
+  text-align: left;
+}
+
+#zpnaprfzjw .gt_center {
+  text-align: center;
+}
+
+#zpnaprfzjw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zpnaprfzjw .gt_font_normal {
+  font-weight: normal;
+}
+
+#zpnaprfzjw .gt_font_bold {
+  font-weight: bold;
+}
+
+#zpnaprfzjw .gt_font_italic {
+  font-style: italic;
+}
+
+#zpnaprfzjw .gt_super {
+  font-size: 65%;
+}
+
+#zpnaprfzjw .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zpnaprfzjw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zpnaprfzjw .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zpnaprfzjw .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zpnaprfzjw .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zpnaprfzjw .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zpnaprfzjw .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#zpnaprfzjw .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#zpnaprfzjw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1172,7 +1667,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
 </table>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Visualisation of price distribution ---------</span></span>
 <span><span class="va">uk_pot</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
@@ -1222,7 +1717,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Average Price Table -------</span></span>
 <span><span class="va">uk_apt</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
@@ -1243,23 +1738,23 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="flidgzrmoc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#flidgzrmoc table {
+<div id="szsmzlqrac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#szsmzlqrac table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#flidgzrmoc thead, #flidgzrmoc tbody, #flidgzrmoc tfoot, #flidgzrmoc tr, #flidgzrmoc td, #flidgzrmoc th {
+#szsmzlqrac thead, #szsmzlqrac tbody, #szsmzlqrac tfoot, #szsmzlqrac tr, #szsmzlqrac td, #szsmzlqrac th {
   border-style: none;
 }
 
-#flidgzrmoc p {
+#szsmzlqrac p {
   margin: 0;
   padding: 0;
 }
 
-#flidgzrmoc .gt_table {
+#szsmzlqrac .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1285,12 +1780,12 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-left-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_caption {
+#szsmzlqrac .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#flidgzrmoc .gt_title {
+#szsmzlqrac .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1302,7 +1797,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-width: 0;
 }
 
-#flidgzrmoc .gt_subtitle {
+#szsmzlqrac .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1314,7 +1809,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-top-width: 0;
 }
 
-#flidgzrmoc .gt_heading {
+#szsmzlqrac .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1326,13 +1821,13 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_bottom_border {
+#szsmzlqrac .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_col_headings {
+#szsmzlqrac .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1347,7 +1842,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_col_heading {
+#szsmzlqrac .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1367,7 +1862,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   overflow-x: hidden;
 }
 
-#flidgzrmoc .gt_column_spanner_outer {
+#szsmzlqrac .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1379,15 +1874,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 4px;
 }
 
-#flidgzrmoc .gt_column_spanner_outer:first-child {
+#szsmzlqrac .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#flidgzrmoc .gt_column_spanner_outer:last-child {
+#szsmzlqrac .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#flidgzrmoc .gt_column_spanner {
+#szsmzlqrac .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1399,11 +1894,11 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   width: 100%;
 }
 
-#flidgzrmoc .gt_spanner_row {
+#szsmzlqrac .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#flidgzrmoc .gt_group_heading {
+#szsmzlqrac .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1429,7 +1924,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   text-align: left;
 }
 
-#flidgzrmoc .gt_empty_group_heading {
+#szsmzlqrac .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1444,15 +1939,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   vertical-align: middle;
 }
 
-#flidgzrmoc .gt_from_md > :first-child {
+#szsmzlqrac .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#flidgzrmoc .gt_from_md > :last-child {
+#szsmzlqrac .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#flidgzrmoc .gt_row {
+#szsmzlqrac .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1471,7 +1966,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   overflow-x: hidden;
 }
 
-#flidgzrmoc .gt_stub {
+#szsmzlqrac .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1484,7 +1979,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#flidgzrmoc .gt_stub_row_group {
+#szsmzlqrac .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1498,15 +1993,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   vertical-align: top;
 }
 
-#flidgzrmoc .gt_row_group_first td {
+#szsmzlqrac .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#flidgzrmoc .gt_row_group_first th {
+#szsmzlqrac .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#flidgzrmoc .gt_summary_row {
+#szsmzlqrac .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1516,16 +2011,16 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#flidgzrmoc .gt_first_summary_row {
+#szsmzlqrac .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_first_summary_row.thick {
+#szsmzlqrac .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#flidgzrmoc .gt_last_summary_row {
+#szsmzlqrac .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1535,7 +2030,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_grand_summary_row {
+#szsmzlqrac .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1545,7 +2040,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#flidgzrmoc .gt_first_grand_summary_row {
+#szsmzlqrac .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1555,7 +2050,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-top-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_last_grand_summary_row_top {
+#szsmzlqrac .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1565,11 +2060,11 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_striped {
+#szsmzlqrac .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#flidgzrmoc .gt_table_body {
+#szsmzlqrac .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1578,7 +2073,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_footnotes {
+#szsmzlqrac .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1592,7 +2087,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_footnote {
+#szsmzlqrac .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1601,7 +2096,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#flidgzrmoc .gt_sourcenotes {
+#szsmzlqrac .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1615,7 +2110,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#flidgzrmoc .gt_sourcenote {
+#szsmzlqrac .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1623,72 +2118,72 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#flidgzrmoc .gt_left {
+#szsmzlqrac .gt_left {
   text-align: left;
 }
 
-#flidgzrmoc .gt_center {
+#szsmzlqrac .gt_center {
   text-align: center;
 }
 
-#flidgzrmoc .gt_right {
+#szsmzlqrac .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#flidgzrmoc .gt_font_normal {
+#szsmzlqrac .gt_font_normal {
   font-weight: normal;
 }
 
-#flidgzrmoc .gt_font_bold {
+#szsmzlqrac .gt_font_bold {
   font-weight: bold;
 }
 
-#flidgzrmoc .gt_font_italic {
+#szsmzlqrac .gt_font_italic {
   font-style: italic;
 }
 
-#flidgzrmoc .gt_super {
+#szsmzlqrac .gt_super {
   font-size: 65%;
 }
 
-#flidgzrmoc .gt_footnote_marks {
+#szsmzlqrac .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#flidgzrmoc .gt_asterisk {
+#szsmzlqrac .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#flidgzrmoc .gt_indent_1 {
+#szsmzlqrac .gt_indent_1 {
   text-indent: 5px;
 }
 
-#flidgzrmoc .gt_indent_2 {
+#szsmzlqrac .gt_indent_2 {
   text-indent: 10px;
 }
 
-#flidgzrmoc .gt_indent_3 {
+#szsmzlqrac .gt_indent_3 {
   text-indent: 15px;
 }
 
-#flidgzrmoc .gt_indent_4 {
+#szsmzlqrac .gt_indent_4 {
   text-indent: 20px;
 }
 
-#flidgzrmoc .gt_indent_5 {
+#szsmzlqrac .gt_indent_5 {
   text-indent: 25px;
 }
 
-#flidgzrmoc .katex-display {
+#szsmzlqrac .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#flidgzrmoc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#szsmzlqrac div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1755,7 +2250,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 <hr>
 <p><strong>Example using UK CPI microdata</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example for linked production pipeline  -------</span></span>
 <span><span class="va">uk_irv</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
@@ -1785,23 +2280,23 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 <span>    decimals <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="kteryakrin" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kteryakrin table {
+<div id="qbhwmxukvg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qbhwmxukvg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kteryakrin thead, #kteryakrin tbody, #kteryakrin tfoot, #kteryakrin tr, #kteryakrin td, #kteryakrin th {
+#qbhwmxukvg thead, #qbhwmxukvg tbody, #qbhwmxukvg tfoot, #qbhwmxukvg tr, #qbhwmxukvg td, #qbhwmxukvg th {
   border-style: none;
 }
 
-#kteryakrin p {
+#qbhwmxukvg p {
   margin: 0;
   padding: 0;
 }
 
-#kteryakrin .gt_table {
+#qbhwmxukvg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1827,12 +2322,12 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-left-color: #D3D3D3;
 }
 
-#kteryakrin .gt_caption {
+#qbhwmxukvg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kteryakrin .gt_title {
+#qbhwmxukvg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1844,7 +2339,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-width: 0;
 }
 
-#kteryakrin .gt_subtitle {
+#qbhwmxukvg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1856,7 +2351,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-top-width: 0;
 }
 
-#kteryakrin .gt_heading {
+#qbhwmxukvg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1868,13 +2363,13 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#kteryakrin .gt_bottom_border {
+#qbhwmxukvg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kteryakrin .gt_col_headings {
+#qbhwmxukvg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1889,7 +2384,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#kteryakrin .gt_col_heading {
+#qbhwmxukvg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1909,7 +2404,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   overflow-x: hidden;
 }
 
-#kteryakrin .gt_column_spanner_outer {
+#qbhwmxukvg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1921,15 +2416,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 4px;
 }
 
-#kteryakrin .gt_column_spanner_outer:first-child {
+#qbhwmxukvg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kteryakrin .gt_column_spanner_outer:last-child {
+#qbhwmxukvg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kteryakrin .gt_column_spanner {
+#qbhwmxukvg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1941,11 +2436,11 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   width: 100%;
 }
 
-#kteryakrin .gt_spanner_row {
+#qbhwmxukvg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kteryakrin .gt_group_heading {
+#qbhwmxukvg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1971,7 +2466,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   text-align: left;
 }
 
-#kteryakrin .gt_empty_group_heading {
+#qbhwmxukvg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1986,15 +2481,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   vertical-align: middle;
 }
 
-#kteryakrin .gt_from_md > :first-child {
+#qbhwmxukvg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kteryakrin .gt_from_md > :last-child {
+#qbhwmxukvg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kteryakrin .gt_row {
+#qbhwmxukvg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2013,7 +2508,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   overflow-x: hidden;
 }
 
-#kteryakrin .gt_stub {
+#qbhwmxukvg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2026,7 +2521,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#kteryakrin .gt_stub_row_group {
+#qbhwmxukvg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2040,15 +2535,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   vertical-align: top;
 }
 
-#kteryakrin .gt_row_group_first td {
+#qbhwmxukvg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kteryakrin .gt_row_group_first th {
+#qbhwmxukvg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kteryakrin .gt_summary_row {
+#qbhwmxukvg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2058,16 +2553,16 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#kteryakrin .gt_first_summary_row {
+#qbhwmxukvg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kteryakrin .gt_first_summary_row.thick {
+#qbhwmxukvg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kteryakrin .gt_last_summary_row {
+#qbhwmxukvg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2077,7 +2572,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#kteryakrin .gt_grand_summary_row {
+#qbhwmxukvg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2087,7 +2582,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#kteryakrin .gt_first_grand_summary_row {
+#qbhwmxukvg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2097,7 +2592,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-top-color: #D3D3D3;
 }
 
-#kteryakrin .gt_last_grand_summary_row_top {
+#qbhwmxukvg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2107,11 +2602,11 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#kteryakrin .gt_striped {
+#qbhwmxukvg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kteryakrin .gt_table_body {
+#qbhwmxukvg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2120,7 +2615,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#kteryakrin .gt_footnotes {
+#qbhwmxukvg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2134,7 +2629,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#kteryakrin .gt_footnote {
+#qbhwmxukvg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2143,7 +2638,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#kteryakrin .gt_sourcenotes {
+#qbhwmxukvg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2157,7 +2652,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#kteryakrin .gt_sourcenote {
+#qbhwmxukvg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2165,72 +2660,72 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#kteryakrin .gt_left {
+#qbhwmxukvg .gt_left {
   text-align: left;
 }
 
-#kteryakrin .gt_center {
+#qbhwmxukvg .gt_center {
   text-align: center;
 }
 
-#kteryakrin .gt_right {
+#qbhwmxukvg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kteryakrin .gt_font_normal {
+#qbhwmxukvg .gt_font_normal {
   font-weight: normal;
 }
 
-#kteryakrin .gt_font_bold {
+#qbhwmxukvg .gt_font_bold {
   font-weight: bold;
 }
 
-#kteryakrin .gt_font_italic {
+#qbhwmxukvg .gt_font_italic {
   font-style: italic;
 }
 
-#kteryakrin .gt_super {
+#qbhwmxukvg .gt_super {
   font-size: 65%;
 }
 
-#kteryakrin .gt_footnote_marks {
+#qbhwmxukvg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kteryakrin .gt_asterisk {
+#qbhwmxukvg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kteryakrin .gt_indent_1 {
+#qbhwmxukvg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kteryakrin .gt_indent_2 {
+#qbhwmxukvg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kteryakrin .gt_indent_3 {
+#qbhwmxukvg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kteryakrin .gt_indent_4 {
+#qbhwmxukvg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kteryakrin .gt_indent_5 {
+#qbhwmxukvg .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kteryakrin .katex-display {
+#qbhwmxukvg .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kteryakrin div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qbhwmxukvg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2343,7 +2838,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <p>🚧 Mock-up code only as comprehensive list of average product prices across multiple countries is currently not available.</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Build data ----------</span></span>
 <span><span class="co">## UK data</span></span>
 <span><span class="va">uk_irv</span> <span class="op">&lt;-</span> <span class="va">uk_irv</span> <span class="op">|&gt;</span></span>
@@ -2393,23 +2888,23 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <span>    decimals <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="snseahaofj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#snseahaofj table {
+<div id="arohhuvjlc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#arohhuvjlc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#snseahaofj thead, #snseahaofj tbody, #snseahaofj tfoot, #snseahaofj tr, #snseahaofj td, #snseahaofj th {
+#arohhuvjlc thead, #arohhuvjlc tbody, #arohhuvjlc tfoot, #arohhuvjlc tr, #arohhuvjlc td, #arohhuvjlc th {
   border-style: none;
 }
 
-#snseahaofj p {
+#arohhuvjlc p {
   margin: 0;
   padding: 0;
 }
 
-#snseahaofj .gt_table {
+#arohhuvjlc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2435,12 +2930,12 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-left-color: #D3D3D3;
 }
 
-#snseahaofj .gt_caption {
+#arohhuvjlc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#snseahaofj .gt_title {
+#arohhuvjlc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2452,7 +2947,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-bottom-width: 0;
 }
 
-#snseahaofj .gt_subtitle {
+#arohhuvjlc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2464,7 +2959,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-top-width: 0;
 }
 
-#snseahaofj .gt_heading {
+#arohhuvjlc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2476,13 +2971,13 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-right-color: #D3D3D3;
 }
 
-#snseahaofj .gt_bottom_border {
+#arohhuvjlc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#snseahaofj .gt_col_headings {
+#arohhuvjlc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2497,7 +2992,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-right-color: #D3D3D3;
 }
 
-#snseahaofj .gt_col_heading {
+#arohhuvjlc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2517,7 +3012,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   overflow-x: hidden;
 }
 
-#snseahaofj .gt_column_spanner_outer {
+#arohhuvjlc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2529,15 +3024,15 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 4px;
 }
 
-#snseahaofj .gt_column_spanner_outer:first-child {
+#arohhuvjlc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#snseahaofj .gt_column_spanner_outer:last-child {
+#arohhuvjlc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#snseahaofj .gt_column_spanner {
+#arohhuvjlc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2549,11 +3044,11 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   width: 100%;
 }
 
-#snseahaofj .gt_spanner_row {
+#arohhuvjlc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#snseahaofj .gt_group_heading {
+#arohhuvjlc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2579,7 +3074,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   text-align: left;
 }
 
-#snseahaofj .gt_empty_group_heading {
+#arohhuvjlc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2594,15 +3089,15 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   vertical-align: middle;
 }
 
-#snseahaofj .gt_from_md > :first-child {
+#arohhuvjlc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#snseahaofj .gt_from_md > :last-child {
+#arohhuvjlc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#snseahaofj .gt_row {
+#arohhuvjlc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2621,7 +3116,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   overflow-x: hidden;
 }
 
-#snseahaofj .gt_stub {
+#arohhuvjlc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2634,7 +3129,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#snseahaofj .gt_stub_row_group {
+#arohhuvjlc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2648,15 +3143,15 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   vertical-align: top;
 }
 
-#snseahaofj .gt_row_group_first td {
+#arohhuvjlc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#snseahaofj .gt_row_group_first th {
+#arohhuvjlc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#snseahaofj .gt_summary_row {
+#arohhuvjlc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2666,16 +3161,16 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#snseahaofj .gt_first_summary_row {
+#arohhuvjlc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#snseahaofj .gt_first_summary_row.thick {
+#arohhuvjlc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#snseahaofj .gt_last_summary_row {
+#arohhuvjlc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2685,7 +3180,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-bottom-color: #D3D3D3;
 }
 
-#snseahaofj .gt_grand_summary_row {
+#arohhuvjlc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2695,7 +3190,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#snseahaofj .gt_first_grand_summary_row {
+#arohhuvjlc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2705,7 +3200,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-top-color: #D3D3D3;
 }
 
-#snseahaofj .gt_last_grand_summary_row_top {
+#arohhuvjlc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2715,11 +3210,11 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-bottom-color: #D3D3D3;
 }
 
-#snseahaofj .gt_striped {
+#arohhuvjlc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#snseahaofj .gt_table_body {
+#arohhuvjlc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2728,7 +3223,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-bottom-color: #D3D3D3;
 }
 
-#snseahaofj .gt_footnotes {
+#arohhuvjlc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2742,7 +3237,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-right-color: #D3D3D3;
 }
 
-#snseahaofj .gt_footnote {
+#arohhuvjlc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2751,7 +3246,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#snseahaofj .gt_sourcenotes {
+#arohhuvjlc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2765,7 +3260,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-right-color: #D3D3D3;
 }
 
-#snseahaofj .gt_sourcenote {
+#arohhuvjlc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2773,72 +3268,72 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#snseahaofj .gt_left {
+#arohhuvjlc .gt_left {
   text-align: left;
 }
 
-#snseahaofj .gt_center {
+#arohhuvjlc .gt_center {
   text-align: center;
 }
 
-#snseahaofj .gt_right {
+#arohhuvjlc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#snseahaofj .gt_font_normal {
+#arohhuvjlc .gt_font_normal {
   font-weight: normal;
 }
 
-#snseahaofj .gt_font_bold {
+#arohhuvjlc .gt_font_bold {
   font-weight: bold;
 }
 
-#snseahaofj .gt_font_italic {
+#arohhuvjlc .gt_font_italic {
   font-style: italic;
 }
 
-#snseahaofj .gt_super {
+#arohhuvjlc .gt_super {
   font-size: 65%;
 }
 
-#snseahaofj .gt_footnote_marks {
+#arohhuvjlc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#snseahaofj .gt_asterisk {
+#arohhuvjlc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#snseahaofj .gt_indent_1 {
+#arohhuvjlc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#snseahaofj .gt_indent_2 {
+#arohhuvjlc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#snseahaofj .gt_indent_3 {
+#arohhuvjlc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#snseahaofj .gt_indent_4 {
+#arohhuvjlc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#snseahaofj .gt_indent_5 {
+#arohhuvjlc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#snseahaofj .katex-display {
+#arohhuvjlc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#snseahaofj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#arohhuvjlc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2916,7 +3411,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <p>🚧 Mock-up code only as comprehensive list of average product prices across multiple countries is currently not available.</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Random data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span><span class="va">df_xr2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
@@ -2929,7 +3424,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">`XR USD`</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Calculations</span></span>
-<span><span class="va">df_out</span> <span class="op">&lt;-</span> <span class="va">df_xr2</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">df_out</span> <span class="op">&lt;-</span> <span class="va">df_xr2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/valid_PPPratio.html">valid_PPPratio</a></span><span class="op">(</span></span>
 <span>    year <span class="op">=</span> <span class="st">"Year"</span>,</span>
 <span>    product_code <span class="op">=</span> <span class="st">"Product code"</span>,</span>
@@ -3488,44 +3983,115 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 </section><section class="section level2" data-number="4"><h2 data-number="4" id="sec-tobh">
 <span class="header-section-number">4</span> Validation at basic-heading level<a class="anchor" aria-label="anchor" href="#sec-tobh"></a>
 </h2>
-<p>The validation at the basic-heading level concerns the reliability of the CPD estimates as well as their cross-regional comparability</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">uk_red</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op">==</span> <span class="st">"2018"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
-<span>    region <span class="op">=</span> <span class="st">"Region"</span>,</span>
-<span>    product <span class="op">=</span> <span class="st">"Product code"</span>,</span>
-<span>    price <span class="op">=</span> <span class="st">"Reference quantity price"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span>,</span>
-<span>    product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">product</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> </span></code></pre></div>
-</div>
-<section class="level2" data-number="4.1"><h3 data-number="4.1" id="reliability-of-cpd-estimates">
-<span class="header-section-number">4.1</span> Reliability of CPD estimates<a class="anchor" aria-label="anchor" href="#reliability-of-cpd-estimates"></a>
+<blockquote>
+<p>🚧 Examples work in progress.</p>
+</blockquote>
+<p>The validation at the basic-heading level concerns the reliability of the CPD estimates as well as their cross-sectional comparability.</p>
+<section class="level2" data-number="4.1"><h3 data-number="4.1" id="dikhanov-tables-for-validation-at-basic-heading-level">
+<span class="header-section-number">4.1</span> Dikhanov tables for validation at basic-heading level<a class="anchor" aria-label="anchor" href="#dikhanov-tables-for-validation-at-basic-heading-level"></a>
 </h3>
-<section class="level3" data-number="4.1.1"><h4 data-number="4.1.1" id="using-the-average-price-table">
-<span class="header-section-number">4.1.1</span> Using the “Average Price Table”<a class="anchor" aria-label="anchor" href="#using-the-average-price-table"></a>
+<p>Ensures that prices are consistent not only within basic headings but also at the aggregate level <em>across</em> basic headings. This can, for example, help address cross-country measurement inconsistency. This is done using Dikhanov tables <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 261</a>/267)</span>, which consist of three parts:</p>
+<ul>
+<li>
+<em>Part 1</em>: Summary information (PPPs, SDs, price level) by country for the aggregate;</li>
+<li>
+<em>Part 2</em>: Contained basic headings (same info as <em>Part 1</em>);</li>
+<li>
+<em>Part 3</em>: CPD residuals and product variation coefficients for products within basic headings.</li>
+</ul>
+<p>In the Dikhanov table, <em>Part 1 and 2</em> facilitate the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. <em>Part 3</em> Ensures that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. Extreme values are identified based on CPD residuals and PPP ratio threshold values described in <a href="#tbl-thresholds" class="quarto-xref">Table 1</a>; see also <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 261</a>)</span>.</p>
+<div id="tbl-thresholds" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-thresholds-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 1: Threshold values: CPD residuals and PPP-ratios
+</figcaption><div aria-describedby="tbl-thresholds-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table caption-top">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 36%">
+<col style="width: 18%">
+</colgroup>
+<thead><tr class="header">
+<th>CPD residuals</th>
+<th>PPP-ratios</th>
+<th>Flag</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Between −0.25 and 0.25</td>
+<td>Between 78 and 128</td>
+<td>OK</td>
+</tr>
+<tr class="even">
+<td>Between −0.75 and −0.25 or 0.25 and 0.75</td>
+<td>Between 47 and 78 or 128 and 212</td>
+<td><em>Flag 1</em></td>
+</tr>
+<tr class="odd">
+<td>Between −2.0 and −0.75 or 0.75 and 2.0</td>
+<td>Between 14 and 47 or 212 and 739</td>
+<td><strong>Fag 2</strong></td>
+</tr>
+<tr class="even">
+<td>Less than −2.0 or greater than 2.0</td>
+<td>Less than 14 or greater than 739</td>
+<td><strong><em>Flag 3</em></strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<blockquote>
+<p>🚧 Examples work in progress.</p>
+</blockquote>
+</section><section class="level2" data-number="4.2"><h3 data-number="4.2" id="visual-validation-at-basic-heading-level">
+<span class="header-section-number">4.2</span> Visual validation at basic-heading level<a class="anchor" aria-label="anchor" href="#visual-validation-at-basic-heading-level"></a>
+</h3>
+<p>Examines the basic heading PPPs <em>within</em> and <em>across</em> countries to point at countries/headings which may require further review <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 279</a>)</span>.</p>
+<section class="level3" data-number="4.2.1"><h4 data-number="4.2.1" id="within-country-validation">
+<span class="header-section-number">4.2.1</span> Within country validation<a class="anchor" aria-label="anchor" href="#within-country-validation"></a>
 </h4>
-<p>Function<code><a href="../reference/valid_apt.html">valid_apt()</a></code> can be used to check for outliers in the price estimates from the <em>CPD regression</em> model, in which cases the input argument <code>value</code> takes takes the PPP estimates provided by <code>sPPP</code> as input arguments.</p>
+<blockquote>
+<p>🚧 Examples work in progress.</p>
+</blockquote>
+</section><section class="level3" data-number="4.2.2"><h4 data-number="4.2.2" id="cross-country-validation">
+<span class="header-section-number">4.2.2</span> Cross-country validation<a class="anchor" aria-label="anchor" href="#cross-country-validation"></a>
+</h4>
+<blockquote>
+<p>🚧 Examples work in progress.</p>
+</blockquote>
+<ul>
+<li>Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading.</li>
+</ul></section></section></section><section class="section level2" data-number="5"><h2 data-number="5" id="sec-exweights">
+<span class="header-section-number">5</span> Expenditure weights validation<a class="anchor" aria-label="anchor" href="#sec-exweights"></a>
+</h2>
+<p>In line with <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 285</a>)</span>, within-country basic heading expenditures and shares are reviewed for the following:</p>
+<ul>
+<li>Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading.</li>
+<li>Plausibility – comparing per capita values and expenditure shares across basic headings.</li>
+<li>Temporal consistency – examining the coherence of expenditure breakdowns across different years.</li>
+</ul>
+<p>The review process includes the following checks:</p>
+<ul>
+<li>Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 286</a>)</span> as a reference.</li>
+<li>Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies.</li>
+</ul>
+<p>Function <code><a href="../reference/valid_est.html">valid_est()</a></code> can be used to check for outliers in the household expenditure shares. The function calculates the median, maximum, and minimum expenditure shares for each basic heading across regions and identifies potential outliers based on the max-median and median-min ratios.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># CPD estimation with `estim_cpd()` and validation with `valid_apt()` ---------</span></span>
-<span><span class="va">uk_red</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/valid_apt.html">valid_apt</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">'sPPP'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------</span></span>
+<span><span class="va">uk_hhe</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">coicop_4d</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/valid_est.html">valid_est</a></span><span class="op">(</span>shares <span class="op">=</span> <span class="st">"expenditure_share"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"**CPD Validation**"</span><span class="op">)</span>,</span>
-<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"Using the Average Price Table"</span><span class="op">)</span></span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"**Household Expenditure Validation**"</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"Using the Expenditure Shares Table"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span></span>
-<span>    columns <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">`Number of observations`</span><span class="op">)</span>,</span>
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.</span></span></code></pre></div>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="gulojmgiij" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#gulojmgiij table {
@@ -3979,73 +4545,48 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <table class="table gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<td colspan="9" class="gt_heading gt_title gt_font_normal"><strong>CPD Validation</strong></td>
+<td colspan="8" class="gt_heading gt_title gt_font_normal"><strong>Household Expenditure Validation</strong></td>
 </tr>
 <tr class="gt_heading even">
-<td colspan="9" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Using the Average Price Table</td>
+<td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Using the Expenditure Shares Table</td>
 </tr>
 <tr class="gt_col_headings header">
-<th id="Number-of-observations" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Number of observations</th>
-<th id="Average-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Average price of product</th>
-<th id="Maximum-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Maximum price of product</th>
-<th id="Minimum-price-of-product" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Minimum price of product</th>
-<th id="Standard-deviation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Standard deviation</th>
-<th id="Max-min-ratio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Max-min ratio</th>
-<th id="Coefficient-of-variation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Coefficient of variation</th>
-<th id="Max-min-ratio-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Max-min ratio FLAG</th>
-<th id="Coefficient-of-variation-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Coefficient of variation FLAG</th>
+<th id="coicop_4d" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">coicop_4d</th>
+<th id="Maximum-expenditure-share" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Maximum expenditure share</th>
+<th id="Median-expenditure-share" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Median expenditure share</th>
+<th id="Minimum-expenditure-share" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Minimum expenditure share</th>
+<th id="Max-median-ratio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Max-median ratio</th>
+<th id="Median-min-ratio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Median-min ratio</th>
+<th id="Max-median-ratio-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Max-median ratio FLAG</th>
+<th id="Median-min-ratio-FLAG" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Median-min ratio FLAG</th>
 </tr>
 </thead>
-<tbody class="gt_table_body"><tr class="odd">
-<td class="gt_row gt_right" headers="Number of observations">12</td>
-<td class="gt_row gt_right" headers="Average price of product">1.01</td>
-<td class="gt_row gt_right" headers="Maximum price of product">1.32</td>
-<td class="gt_row gt_right" headers="Minimum price of product">0.86</td>
-<td class="gt_row gt_right" headers="Standard deviation">0.11</td>
-<td class="gt_row gt_right" headers="Max-min ratio">1.53</td>
-<td class="gt_row gt_right" headers="Coefficient of variation">0.11</td>
-<td class="gt_row gt_center" headers="Max-min ratio FLAG">FALSE</td>
-<td class="gt_row gt_center" headers="Coefficient of variation FLAG">FALSE</td>
-</tr></tbody>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="coicop_4d">01.1.1</td>
+<td class="gt_row gt_right" headers="Maximum expenditure share">14.74</td>
+<td class="gt_row gt_right" headers="Median expenditure share">8.38</td>
+<td class="gt_row gt_right" headers="Minimum expenditure share">2.80</td>
+<td class="gt_row gt_right" headers="Max-median ratio">1.76</td>
+<td class="gt_row gt_right" headers="Median-min ratio">2.99</td>
+<td class="gt_row gt_center" headers="Max-median ratio FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="Median-min ratio FLAG">FALSE</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="coicop_4d">04.3.2</td>
+<td class="gt_row gt_right" headers="Maximum expenditure share">17.79</td>
+<td class="gt_row gt_right" headers="Median expenditure share">8.45</td>
+<td class="gt_row gt_right" headers="Minimum expenditure share">1.59</td>
+<td class="gt_row gt_right" headers="Max-median ratio">2.10</td>
+<td class="gt_row gt_right" headers="Median-min ratio">5.30</td>
+<td class="gt_row gt_center" headers="Max-median ratio FLAG">FALSE</td>
+<td class="gt_row gt_center" headers="Median-min ratio FLAG">FALSE</td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
 </div>
-<!-- ## Numerical -->
-<!-- -   Ensures that prices are consistent not only within basic headings but also at the aggregate level *across* basic headings. This can, for example, help address cross-country measurement inconsistency -->
-<!-- - This is done using Dikhanov tables [@worldbank2013, p.261/267], which consist of three parts: -->
-<!-- -   *Part 1*: Summary information (PPPs, SDs, price level) by country for the aggregate -->
-<!-- -   *Part 2*: Contained basic headings (same info as part 1). -->
-<!-- -   *Part 3*: CPD residuals and product variation coefficients for products within basic headings -->
-<!-- - *Part 1/2* Facilitates the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. -->
-<!-- - *Part 3* Ensures that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. -->
-<!-- -   Extreme values are identified based on CPD residuals and PPP ratio threshold values described in @tbl-thresholds; see also [@worldbank2013, p.261]: -->
-<!-- | CPD residuals | PPP-ratios | Flag | -->
-<!-- |---------------|------------|------| -->
-<!-- | Between −0.25 and 0.25 | Between 78 and 128 | OK     | -->
-<!-- | Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1*     | -->
-<!-- | Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Fag 2**     | -->
-<!-- | Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3***     | -->
-<!-- : Threshold values: CPD residuals and PPP-ratios {#tbl-thresholds}  -->
-<!-- ## Visualisation  -->
-<!-- - Examines the basic heading PPPs within countries and by country, within each basic heading, to point at countries/headings which may require further review [@worldbank2013, p.279]. -->
-<!-- - Validation in this section is based on basic heading PPP estimates -->
-<!-- - Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading. -->
-</section></section></section><section class="section level2" data-number="5"><h2 data-number="5" id="sec-exweights">
-<span class="header-section-number">5</span> Expenditure weights validation<a class="anchor" aria-label="anchor" href="#sec-exweights"></a>
-</h2>
-<p>In line with <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 285</a>)</span>, within-country basic heading expenditures and shares are reviewed for the following:</p>
-<ul>
-<li><p>Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading.</p></li>
-<li><p>Plausibility – comparing per capita values and expenditure shares across basic headings.</p></li>
-<li><p>Temporal consistency – examining the coherence of expenditure breakdowns across different years.</p></li>
-</ul>
-<p>The review process includes the following checks:</p>
-<ul>
-<li><p>Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 286</a>)</span> as a reference.</p></li>
-<li><p>Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies.</p></li>
-</ul>
-<p>Function <code><a href="../reference/valid_apt.html">valid_apt()</a></code> can be used to check for outliers in the <em>household expenditure share</em> , in which cases the input argument <code>value</code> takes either the reported item-level household expenditure shares.</p>
 </section><section class="section level2" data-number="6"><h2 data-number="6" id="sec-beyondbh">
 <span class="header-section-number">6</span> Validation beyond basic-heading level<a class="anchor" aria-label="anchor" href="#sec-beyondbh"></a>
 </h2>
@@ -4070,7 +4611,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <!-- # Multilateral PPPs -->
 </section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-europeanunionEurostatOECDMethodologicalManual2024" class="csl-entry" role="listitem">
 European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological Manual</span> on <span>Purchasing Power Parities</span> (2023 Edition)</em>. OECD Publishing, Paris. <a href="https://doi.org/10.2785/384854" class="external-link">https://doi.org/10.2785/384854</a>.
 </div>
@@ -4078,10 +4619,10 @@ European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological Manual</span> 
 Hearne, David, and David Bailey. 2025. <span>“Regional Prices Reconsidered.”</span> <em>Regional Studies, Regional Science</em> 12 (1): 338–56. <a href="https://doi.org/10.1080/21681376.2025.2475115" class="external-link">https://doi.org/10.1080/21681376.2025.2475115</a>.
 </div>
 <div id="ref-icp2021" class="csl-entry" role="listitem">
-ICP. 2021. <span>“A Guide to the Compilation of Subnational Purchasing Power Parities (PPPs).”</span> <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.
+ICP. 2021. <em>A Guide to the Compilation of Subnational Purchasing Power Parities (PPPs)</em>. <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.
 </div>
 <div id="ref-worldbank2013" class="csl-entry" role="listitem">
-World Bank. 2013. <em>Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program <span></span> ICP</em>. Washington DC: World Bank. <a href="https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf</a>.
+World Bank. 2013. <em>Measuring the Real Size of the World Economy: The Framework, Methodology, and Results of the International Comparison Program <span></span> ICP</em>. World Bank. <a href="https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf</a>.
 </div>
 </div>
 </section><script id="quarto-html-after-body" type="application/javascript">

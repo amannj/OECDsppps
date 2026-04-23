@@ -74,3 +74,17 @@ table and various bug fixes
   [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
   and
   [`valid_PPPratio()`](https://amannj.github.io/OECDsppps/reference/valid_PPPratio.md)
+
+------------------------------------------------------------------------
+
+## Version `0.0.0.5`
+
+Validate household expenditure data
+
+#### Additions
+
+- Add function to validate household expenditure data
+  [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md)
+- Add snipped of UK [Regional household final consumption
+  expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
+  data
