@@ -45,7 +45,7 @@ library(OECDsppps)
 
 **Data** used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in @hearne2025 and is publicly available:
 
--   `uk_cpi()` is a snipped of the [UK CPI microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes) containing two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
+-   `uk_cpi()` is a snipped of the [UK CPI microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes) and contains price quotes for two products: White sliced loaf branded 750 grams (COICOP 01.1.1.3) and carpenter hourly rate (COICOP 04.3.2.5).
 
 ```{r}
 head(uk_cpi, n = 3) |>
@@ -53,7 +53,14 @@ head(uk_cpi, n = 3) |>
   gt()
 ```
 
-<!-- - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) -->
+-   `uk_hhe()` is a snipped of the - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) and contains regional household expenditure shares for the same two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).[^1]
+
+[^1]: Note that for both products, the UK regional household final consumption expenditures are available only at the *class* or four-digit level of the COICOP classification, specifically `01.1.1` and `04.3.2`.
+
+```{r}
+head(uk_hhe, n = 4) |>
+  gt()
+```
 
 # Intra-regional validation {#sec-intraregional}
 
@@ -181,8 +188,6 @@ head(uk_apt, 2) |>
 The extent of validation required depends on the quality of the underlying microdata. When working with unconsolidated or raw data, more extensive revisions may be necessary.
 
 Using the two functions `valid_pot()`, and `valid_apt()` a simple production pipeline can be set up which operates conditional on the flags of the different tests.
-
-
 
 ------------------------------------------------------------------------
 
@@ -336,7 +341,7 @@ df_xr2 <- rbind(
   select(-`XR USD`)
 
 # Calculations
-df_out <- df_xr2 |> 
+df_out <- df_xr2 |>
   valid_PPPratio(
     year = "Year",
     product_code = "Product code",
@@ -377,114 +382,82 @@ The use of alternative data sources depends on the type and availability of data
 
 **Statistical validation** encompasses the analytical checks described in this vignette. However, depending on the nature, structure, and completeness of the alternative data source, the extent of statistical validation may be limited—or, in exceptional cases, not feasible. In such instances, greater emphasis is placed on expert-led plausibility validation to ensure the integrity of the data used.
 
-
 # Validation at basic-heading level {#sec-tobh}
 
-The validation at the basic-heading level concerns the 
-reliability of the CPD estimates  as well as 
-their cross-regional comparability
+> 🚧 Examples work in progress.
 
-```{r}
-uk_red <- uk_cpi |>
-  filter(Year == "2018") |>
-  select(
-    region = "Region",
-    product = "Product code",
-    price = "Reference quantity price"
-  ) |>
-  mutate(
-    region = as.factor(region),
-    product = as.factor(product)
-  ) 
-```
-
-## Reliability of CPD estimates
-
-### Using the "Average Price Table"
-
-Function`valid_apt()` can be used to check for
-outliers in the price estimates
-from the *CPD regression* model, in which cases the input argument `value`
-takes takes the PPP estimates provided by `sPPP` as input arguments.
-
-```{r}
-# CPD estimation with `estim_cpd()` and validation with `valid_apt()` ---------
-uk_red |> 
-  estim_cpd() |> 
-  valid_apt(value = 'sPPP') |> 
-  gt() |>
-  tab_header(
-    title = md("**CPD Validation**"),
-    subtitle = md("Using the Average Price Table")
-  ) |>
-  fmt_number(
-    columns = -c(`Number of observations`),
-    decimals = 2
-  )
-```
+The validation at the basic-heading level concerns the reliability of the CPD estimates as well as their cross-sectional comparability.
 
 
 
-<!-- ## Numerical -->
+## Dikhanov tables for validation at basic-heading level
 
-<!-- -   Ensures that prices are consistent not only within basic headings but also at the aggregate level *across* basic headings. This can, for example, help address cross-country measurement inconsistency -->
+Ensures that prices are consistent not only within basic headings but also at the aggregate level *across* basic headings. This can, for example, help address cross-country measurement inconsistency. This is done using Dikhanov tables [@worldbank2013, p.261/267], which consist of three parts:
 
-<!-- - This is done using Dikhanov tables [@worldbank2013, p.261/267], which consist of three parts: -->
+-   *Part 1*: Summary information (PPPs, SDs, price level) by country for the aggregate;
+-   *Part 2*: Contained basic headings (same info as *Part 1*);
+-   *Part 3*: CPD residuals and product variation coefficients for products within basic headings.
 
-<!-- -   *Part 1*: Summary information (PPPs, SDs, price level) by country for the aggregate -->
+In the Dikhanov table, *Part 1 and 2* facilitate the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. *Part 3* Ensures that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. Extreme values are identified based on CPD residuals and PPP ratio threshold values described in @tbl-thresholds; see also [@worldbank2013, p.261].
 
-<!-- -   *Part 2*: Contained basic headings (same info as part 1). -->
 
-<!-- -   *Part 3*: CPD residuals and product variation coefficients for products within basic headings -->
+| CPD residuals | PPP-ratios | Flag |
+|---------------|------------|------|
+| Between −0.25 and 0.25 | Between 78 and 128 | OK     |
+| Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1*     |
+| Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Fag 2**     |
+| Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3***     |
+: Threshold values: CPD residuals and PPP-ratios {#tbl-thresholds}
 
-<!-- - *Part 1/2* Facilitates the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. -->
 
-<!-- - *Part 3* Ensures that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. -->
+> 🚧 Examples work in progress.
 
-<!-- -   Extreme values are identified based on CPD residuals and PPP ratio threshold values described in @tbl-thresholds; see also [@worldbank2013, p.261]: -->
 
-<!-- | CPD residuals | PPP-ratios | Flag | -->
+## Visual validation at basic-heading level
 
-<!-- |---------------|------------|------| -->
+Examines the basic heading PPPs *within* and *across* countries to point at countries/headings which may require further review [@worldbank2013, p.279].
 
-<!-- | Between −0.25 and 0.25 | Between 78 and 128 | OK     | -->
+### Within country validation
 
-<!-- | Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1*     | -->
+> 🚧 Examples work in progress.
 
-<!-- | Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Fag 2**     | -->
+### Cross-country validation
 
-<!-- | Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3***     | -->
+> 🚧 Examples work in progress.
 
-<!-- : Threshold values: CPD residuals and PPP-ratios {#tbl-thresholds}  -->
+- Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading.
 
-<!-- ## Visualisation  -->
-
-<!-- - Examines the basic heading PPPs within countries and by country, within each basic heading, to point at countries/headings which may require further review [@worldbank2013, p.279]. -->
-
-<!-- - Validation in this section is based on basic heading PPP estimates -->
-
-<!-- - Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading. -->
 
 # Expenditure weights validation {#sec-exweights}
 
-
 In line with [@worldbank2013, p.285], within-country basic heading expenditures and shares are reviewed for the following:
 
-- Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading.
-
-- Plausibility – comparing per capita values and expenditure shares across basic headings.
-
-- Temporal consistency – examining the coherence of expenditure breakdowns across different years.
+-   Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading.
+-   Plausibility – comparing per capita values and expenditure shares across basic headings.
+-   Temporal consistency – examining the coherence of expenditure breakdowns across different years.
 
 The review process includes the following checks:
 
-- Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference.
+-   Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference.
+-   Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies.
 
-- Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies.
+Function `valid_est()` can be used to check for outliers in the household expenditure shares. The function calculates the median, maximum, and minimum expenditure shares for each basic heading across regions and identifies potential outliers based on the max-median and median-min ratios.
 
-Function `valid_apt()` can be used to check for outliers in the 
-*household expenditure share* , in which cases the input argument `value`
-takes either the reported item-level household expenditure shares.
+```{r}
+
+# CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------
+uk_hhe |>
+  group_by(coicop_4d) |>
+  valid_est(shares = "expenditure_share") |>
+  gt() |>
+  tab_header(
+    title = md("**Household Expenditure Validation**"),
+    subtitle = md("Using the Expenditure Shares Table")
+  ) |>
+  fmt_number(
+    decimals = 2
+  )
+```
 
 # Validation beyond basic-heading level {#sec-beyondbh}
 

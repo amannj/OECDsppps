@@ -1,9 +1,9 @@
 ## code to prepare `uk_cpi` dataset
 library(tidyverse)
 
-loc_src <- "V:/SUBNATIONAL_PRICES/sandbox/UK/0_PulledfromSources"
+loc_src <- "V:/SUBNATIONAL_PRICES/sources/UK/0_PulledfromSources/"
 
-uk_cpi <- read_rds(paste0(loc_src, "/CPI microdata/CPI_monthly_yrs2018-20-23.rds")) |>
+uk_cpi <- read_rds(paste0(loc_src, "CPI microdata/CPI_monthly_yrs2018-20-23.rds")) |>
   # Picking random product
   filter(item_id %in% c(210111, 410518)) |>
   # Need to clean up the UK data to match the format

@@ -5,8 +5,8 @@
 #'
 #' @format ## `uk_cpi`
 #' A data frame with 11,807 rows and 14 columns containing two products:
-#' *White sliced loaf branded 750 grams* (COICOP 1010103) and
-#' *carpenter hourly rate* (COICOP 410518).
+#' *White sliced loaf branded 750 grams* (COICOP 01.1.1.3) and
+#' *carpenter hourly rate* (COICOP 04.3.2.5).
 #'
 #' More information on COICOP classification can be found in the
 #' [ONS Classification of household consumption headings](https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/satelliteaccounts/methodologies/consumertrendsuk/classificationofhouseholdconsumptionheadings2014tcm772368742.pdf) and in the
@@ -38,6 +38,41 @@
 #' @source [ONS Consumer price inflation consumption segment indices and price quotes ](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes), last access November 2025
 "uk_cpi"
 
+
+#' UK Regional Household Final Consumption Expenditure data extract
+#'
+#' A subset of the official UK Regional Household Final Consumption Expenditure
+#' data  set published by the United
+#' Kingdom Office for National Statistics (ONS)
+#'
+#' @format ## `uk_hhe`
+#' A data frame with 48 rows and 4 columns containing
+#' regional household final consumption expenditure shares for two products:
+#' *White sliced loaf branded 750 grams* (COICOP 01.1.1.3) and
+#' *carpenter hourly rate* (COICOP 04.3.2.5).
+#'
+#' Note that for both products, the UK regional household final consumption
+#' expenditures are available only at the *class* or four-digit level of the
+#' COICOP classification, specifically `01.1.1` and `04.3.2`.
+#'
+#' More information on COICOP classification can be found in the
+#' [ONS Classification of household consumption headings](https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/satelliteaccounts/methodologies/consumertrendsuk/classificationofhouseholdconsumptionheadings2014tcm772368742.pdf) and in the
+#' [UN Statistics Division’s COICOP 2018 statistical paper](https://unstats.un.org/unsd/classifications/unsdclassifications/COICOP_2018_pre_copy_edit_publication.pdf).
+#'#'
+#' \describe{
+#'   \item{Year}{Year}
+#'   \item{Region}{Region, following [TL2](https://www.oecd.org/en/data/datasets/oecd-geographical-definitions.html)/[ITL1](https://www.ons.gov.uk/methodology/geography/ukgeographies/eurostat) boundaries)}
+#'   \item{coicop_4d}{COICOP 4-digit code}
+#'   \item{expenditure_share}{Regional household final consumption expenditure share}
+#' }
+#'
+#' @examples
+#' uk_hhe |> dim()
+#' uk_hhe |> dplyr::distinct(coicop_4d)
+#' uk_hhe |> names()
+#'
+#' @source [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
+"uk_hhe"
 
 #' Concordance table from ECOICOP1 to Eurostat PPP Basic Headings
 #'

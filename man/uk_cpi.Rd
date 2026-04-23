@@ -8,8 +8,8 @@
 \subsection{\code{uk_cpi}}{
 
 A data frame with 11,807 rows and 14 columns containing two products:
-\emph{White sliced loaf branded 750 grams} (COICOP 1010103) and
-\emph{carpenter hourly rate} (COICOP 410518).
+\emph{White sliced loaf branded 750 grams} (COICOP 01.1.1.3) and
+\emph{carpenter hourly rate} (COICOP 04.3.2.5).
 
 More information on COICOP classification can be found in the
 \href{https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/satelliteaccounts/methodologies/consumertrendsuk/classificationofhouseholdconsumptionheadings2014tcm772368742.pdf}{ONS Classification of household consumption headings} and in the
