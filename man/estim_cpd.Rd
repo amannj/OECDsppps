@@ -2,7 +2,7 @@
 % Please edit documentation in R/estim.R
 \name{estim_cpd}
 \alias{estim_cpd}
-\title{Country Product Dummy (CPD) regression model}
+\title{The Country Product Dummy (CPD) regression model}
 \usage{
 estim_cpd(
   data,

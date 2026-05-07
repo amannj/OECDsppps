@@ -75,9 +75,21 @@ weights
 
 # Version `0.0.0.5`
 
-Validate household expenditure data
+Validate household expenditure data and add Laspeyres, Paasche, Fischer and GEKS index calculation
 
 ### Additions
 
 - Add function to validate household expenditure data `valid_est()`
 - Add snipped of UK [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) data
+
+------------
+
+# Version `0.0.0.6`
+
+Add Laspeyres, Paasche, Fischer and GEKS indices
+
+### Additions
+
+- Add function `index_laspeyres()`, `index_paasche()`, `index_fisher()` 
+and `index_geks()` for estimating subnational PPPs using Laspeyres, Paasche, 
+Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices 

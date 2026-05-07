@@ -6,9 +6,5 @@
 #' @param y The second vector
 #'
 #' @return Vector excluding values specified.
-#' @examples
-#'  x <- c(1,2,3)
-#'  y <-  c(2,3)
-#'  x %not.in% y
-#' @export
+#' @noRd
 "%not.in%" <- function(x, y){ !("%in%"(x, y))}

@@ -1,26 +1,51 @@
-#' Calculate the Laspeyres indices
+#' The Laspeyres price index
 #'
 #' \loadmathjax
-#' `index_laspeyres` in \pkg{OECDsppps} calculates the matrix of Laspeyres indices
+#' `index_laspeyres()` in \pkg{OECDsppps} calculates the matrix of Laspeyres indices;
+#' see *Details* and
+#' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+#' for more information.
 #'
-#' Laspeyres index for regions \mjseqn{j} and \mjseqn{k} is obtained as
-#' \mjdeqn{PPP_L^jk = \sum(w_n^j PPP_n^jk}{PPP_L^jk = \sum(w_n^j PPP_n^jk}
+#' The Laspeyres index for regions \mjseqn{j} and \mjseqn{k} is obtained as
+#' \mjdeqn{sPPP_L^{j,k} = \sum_{n=1}^N  w_n^j \times sPPP_n^{j,k}}{sPPP_L^{j,k} = \sum_{n=1}^N  w_n^j \times sPPP_n^{j,k}}
+#' which is a weighted average of the subnational PPPs of region \mjseqn{j} to
+#' region \mjseqn{k} across the \mjseqn{N} basic headings using region \mjseqn{j} weights.
+#'
+#' @references
+#'   \insertAllCited{}
 #'
 #' @param data A data frame containing at least four columns including the
-#' region, product, PPPs, and expenditure weights.
-#' @param region Column containing the region.
-#' @param product Column containing the product identifier.
-#' @param ppp_bh Column containing the PPPs.
-#' @param exp_wght Column containing the expenditure weights.
+#' region, product, subnational PPPs, and expenditure weights
+#' @param region Column containing the region
+#' @param product Column containing the product identifier
+#' @param ppp_bh Column containing the PPPs
+#' @param exp_wght Column containing the expenditure weights
 #'
+#' @examples
+#' suppressPackageStartupMessages(library(dplyr))
+#' suppressPackageStartupMessages(library(tibble))
+#' tibble(
+#'   region = c("region A", "region A", "region B", "region B"),
+#'   product = c("product 1", "product 2", "product 1", "product 2"),
+#'   ppp_bh = c(0.5, 0.7, 0.6, 0.9),
+#'   exp_wght = c(0.5, 0.5, 0.6, 0.4)
+#' ) |>
+#'   index_laspeyres()
 #'
+#' @importFrom dplyr summarise
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr group_by
+#' @importFrom dplyr select
+#' @importFrom dplyr filter
+#' @importFrom tibble rownames_to_column
+#'
+#' @export
 #'
 index_laspeyres <- function(data,
                             region = "region",
                             product = "product",
                             ppp_bh = "ppp_bh",
-                            exp_wght = "exp_wght"
-){
+                            exp_wght = "exp_wght") {
   # Checks
   valid_index_data(data, region, product, ppp_bh, exp_wght)
 
@@ -40,9 +65,7 @@ index_laspeyres <- function(data,
 
   # Laspeyres index
   for (i in 1:n_region) {
-
     results_lasp[[i]] <- (sweep(ppp_matrix, 2, ppp_matrix[i, ], FUN = "/")) %*% exp_weights_matrix[i, ]
-
   }
 
   # Save the results
@@ -54,20 +77,61 @@ index_laspeyres <- function(data,
   lasp_df <- as.data.frame(lasp_matrix) %>%
     rownames_to_column(var = "base_region") %>%
     pivot_longer(!c(base_region),
-                 names_to = "region",
-                 values_to = "laspeyres_index")
+      names_to = "region",
+      values_to = "laspeyres_index"
+    )
 
   return(lasp_df)
-
 }
-#' Calculate the Paasche indices
+
+#' The Paasche price index
+#'
+#' \loadmathjax
+#' `index_paasche()` in \pkg{OECDsppps} calculates the matrix of Paasche indices;
+#' see *Details* and
+#' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+#' for more information.
+#'
+#' Paasche index for regions \mjseqn{j} and \mjseqn{k} is obtained as
+#' \mjdeqn{sPPP_P^{j,k} = \frac{1}{\sum_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}}{sPPP_P^{j,k} = \frac{1}{\sum_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}}
+#' which is a weighted average of the subnational PPPs of region \mjseqn{j} to
+#' region \mjseqn{k} across the \mjseqn{N} basic headings using region \mjseqn{k} weights.
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @param data A data frame containing at least four columns including the
+#' region, product, subnational PPPs, and expenditure weights
+#' @param region Column containing the region
+#' @param product Column containing the product identifier
+#' @param ppp_bh Column containing the PPPs
+#' @param exp_wght Column containing the expenditure weights
+#'
+#' @examples
+#' suppressPackageStartupMessages(library(dplyr))
+#' suppressPackageStartupMessages(library(tibble))
+#' tibble(
+#'   region = c("region A", "region A", "region B", "region B"),
+#'   product = c("product 1", "product 2", "product 1", "product 2"),
+#'   ppp_bh = c(0.5, 0.7, 0.6, 0.9),
+#'   exp_wght = c(0.5, 0.5, 0.6, 0.4)
+#' ) |>
+#'   index_paasche()
+#'
+#' @importFrom dplyr summarise
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr group_by
+#' @importFrom dplyr select
+#' @importFrom dplyr filter
+#' @importFrom tibble rownames_to_column
+#'
+#' @export
 #'
 index_paasche <- function(data,
                           region = "region",
                           product = "product",
                           ppp_bh = "ppp_bh",
-                          exp_wght = "exp_wght"
-){
+                          exp_wght = "exp_wght") {
   # Checks
   valid_index_data(data, region, product, ppp_bh, exp_wght)
 
@@ -93,15 +157,13 @@ index_paasche <- function(data,
 
   # Paasche index
   for (i in 1:n_region) {
-
-    normalized_matrix <- 1/sweep(ppp_matrix, 2, ppp_matrix[i, ], FUN = "/")
+    normalized_matrix <- 1 / sweep(ppp_matrix, 2, ppp_matrix[i, ], FUN = "/")
 
     for (j in 1:n_region) {
       results_paas_v[[j]] <- sum(normalized_matrix[j, ] * exp_weights_matrix[j, ])
     }
 
     results_paas[[i]] <- do.call(cbind, results_paas_v)
-
   }
 
   # Save the results
@@ -115,40 +177,87 @@ index_paasche <- function(data,
   paas_df <- as.data.frame(paas_matrix) %>%
     rownames_to_column(var = "base_region") %>%
     pivot_longer(!c(base_region),
-                 names_to = "region",
-                 values_to = "paasche_index")
+      names_to = "region",
+      values_to = "paasche_index"
+    )
 
   return(paas_df)
-
 }
 
-#' Calculate the Fisher indices
+#' The Fisher price index
+#'
+#' \loadmathjax
+#' `index_fisher()` in \pkg{OECDsppps} calculates the matrix of Fisher indices;
+#' see *Details* and
+#' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+#' for more information.
+#'
+#' The Fisher index for regions \mjseqn{j} and \mjseqn{k} is obtained as
+#' \mjdeqn{sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2} }{ sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2}}
+#' which is the geometric average of the Paasche and Laspeyres index.
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @param data A data frame containing at least four columns including the
+#' region, product, subnational PPPs, and expenditure weights
+#' @param region Column containing the region
+#' @param product Column containing the product identifier
+#' @param ppp_bh Column containing the PPPs
+#' @param exp_wght Column containing the expenditure weights
+#'
+#' @examples
+#' suppressPackageStartupMessages(library(dplyr))
+#' suppressPackageStartupMessages(library(tibble))
+#' tibble(
+#'   region = c("region A", "region A", "region B", "region B"),
+#'   product = c("product 1", "product 2", "product 1", "product 2"),
+#'   ppp_bh = c(0.5, 0.7, 0.6, 0.9),
+#'   exp_wght = c(0.5, 0.5, 0.6, 0.4)
+#' ) |>
+#'   index_fisher()
+#'
+#' @importFrom dplyr summarise
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr group_by
+#' @importFrom dplyr select
+#' @importFrom dplyr filter
+#' @importFrom tibble rownames_to_column
+#'
+#' @export
 #'
 index_fisher <- function(data,
                          region = "region",
                          product = "product",
                          ppp_bh = "ppp_bh",
-                         exp_wght = "exp_wght"
-){
+                         exp_wght = "exp_wght") {
   # Laspeyres Index: matrix
-  lasp_matrix <- index_laspeyres(data,
-                                 region,
-                                 product,
-                                 ppp_bh,
-                                 exp_wght) %>%
-    pivot_wider(names_from = "region",
-                values_from = "laspeyres_index") %>%
+  lasp_matrix <- index_laspeyres(
+    data,
+    region,
+    product,
+    ppp_bh,
+    exp_wght
+  ) %>%
+    pivot_wider(
+      names_from = "region",
+      values_from = "laspeyres_index"
+    ) %>%
     column_to_rownames(var = deparse(substitute(base_region))) %>%
     as.matrix()
 
   # Paasche Index: matrix
-  paas_matrix <- index_paasche(data,
-                               region,
-                               product,
-                               ppp_bh,
-                               exp_wght) %>%
-    pivot_wider(names_from = "region",
-                values_from = "paasche_index") %>%
+  paas_matrix <- index_paasche(
+    data,
+    region,
+    product,
+    ppp_bh,
+    exp_wght
+  ) %>%
+    pivot_wider(
+      names_from = "region",
+      values_from = "paasche_index"
+    ) %>%
     column_to_rownames(var = deparse(substitute(base_region))) %>%
     as.matrix()
 
@@ -157,28 +266,74 @@ index_fisher <- function(data,
   fisher_df <- as.data.frame(fisher_matrix) %>%
     rownames_to_column(var = "base_region") %>%
     pivot_longer(!c(base_region),
-                 names_to = "region",
-                 values_to = "fisher_index")
+      names_to = "region",
+      values_to = "fisher_index"
+    )
 
   return(fisher_df)
 }
 
-#' GEKS
+#' The Gini-Éltetö-Köves-Szulc (GEKS) price index
+#'
+#' \loadmathjax
+#' `index_gex()` in \pkg{OECDsppps} calculates the GEKS indices;
+#' see *Details* and
+#' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+#' for more information.
+#'
+#' Subnational PPPs for region \mjseqn{k} with reference to region \mjseqn{j} are
+#' \mjdeqn{sPPP_G^{j,k} = \prod_{r=1}^R \left( sPPP_F^{j,r} \times sPPP_F^{r,k} \right)^{1/R}}{sPPP_G^{j,k} = \prod_{r=1}^R \left( sPPP_F^{j,r} \times sPPP_F^{r,k} \right)^{1/R}}
+#' and correspond to the geometric average of the Fisher indices of all direct
+#' comparisons between region \mjseqn{j}  and region k, and indirect comparisons
+#' across all regions \mjseqn{r = 1, \dots, j, k, \dots, R}.
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @param data A data frame containing at least four columns including the
+#' region, product, subnational PPPs, and expenditure weights
+#' @param region Column containing the region
+#' @param product Column containing the product identifier
+#' @param ppp_bh Column containing the PPPs
+#' @param exp_wght Column containing the expenditure weights
+#'
+#' @examples
+#' suppressPackageStartupMessages(library(dplyr))
+#' suppressPackageStartupMessages(library(tibble))
+#' tibble(
+#'   region = c("region A", "region A", "region B", "region B"),
+#'   product = c("product 1", "product 2", "product 1", "product 2"),
+#'   ppp_bh = c(0.5, 0.7, 0.6, 0.9),
+#'   exp_wght = c(0.5, 0.5, 0.6, 0.4)
+#' ) |>
+#'   index_geks()
+#'
+#' @importFrom dplyr summarise
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr group_by
+#' @importFrom dplyr select
+#' @importFrom dplyr filter
+#' @importFrom tibble rownames_to_column
+#'
+#' @export
 #'
 index_geks <- function(data,
                        region = "region",
                        product = "product",
                        ppp_bh = "ppp_bh",
-                       exp_wght = "exp_wght"
-){
+                       exp_wght = "exp_wght") {
   # Fisher Index Matrix
-  fisher_matrix <- index_fisher(data,
-                                region,
-                                product,
-                                ppp_bh,
-                                exp_wght) %>%
-    pivot_wider(names_from = "region",
-                values_from = "fisher_index") %>%
+  fisher_matrix <- index_fisher(
+    data,
+    region,
+    product,
+    ppp_bh,
+    exp_wght
+  ) %>%
+    pivot_wider(
+      names_from = "region",
+      values_from = "fisher_index"
+    ) %>%
     column_to_rownames(var = deparse(substitute(base_region))) %>%
     as.matrix()
 
@@ -187,12 +342,10 @@ index_geks <- function(data,
   geks_results <- vector("list", n_region)
 
   for (i in 1:n_region) {
-
     geks_v <- sweep(fisher_matrix, 1, fisher_matrix[, i], FUN = "/") %>%
       apply(., 2, prod)
 
-    geks_results[[i]] <- geks_v^(1/n_region)
-
+    geks_results[[i]] <- geks_v^(1 / n_region)
   }
 
   geks_matrix <- do.call(rbind, geks_results)
@@ -202,149 +355,9 @@ index_geks <- function(data,
   geks_df <- as.data.frame(geks_matrix) %>%
     rownames_to_column(var = "base_region") %>%
     pivot_longer(!c(base_region),
-                 names_to = "region",
-                 values_to = "geks_index")
+      names_to = "region",
+      values_to = "geks_index"
+    )
 
   return(geks_df)
-
-}
-
-#' Validation
-#'
-valid_index_data <- function(data,
-                             region = "region",
-                             product = "product",
-                             ppp_bh = "ppp_bh",
-                             exp_wght = "exp_wght"
-){
-  # PPPs:
-  # missing ppps
-  missing_ppps <- data %>%
-    select({{ region }}, {{ product }}, {{ ppp_bh }}) %>%
-    pivot_wider(names_from = {{ product }},
-                values_from = {{ ppp_bh }}) %>%
-    pivot_longer(!c({{ region }}),
-                 names_to = "product",
-                 values_to = "ppp_bh") %>%
-    filter(is.na(ppp_bh))
-
-  # check: missing ppps
-  missing_ppps_check <- nrow(missing_ppps) > 0
-
-  # warning: missing ppps
-  if(missing_ppps_check) stop(paste("Incomplete PPP matrix. Missing PPPs for the following region/product combinations:",
-                                    paste(paste(missing_ppps[[region]],
-                                                missing_ppps[[product]],
-                                                sep = "/"),
-                                          collapse = "; ")))
-
-  # negative ppps
-  negative_ppps <- data[data[[ppp_bh]] < 0, ]
-
-  # check: negative ppps
-  negative_ppps_check <- nrow(negative_ppps) > 0
-
-  # warning: negative ppps
-  if(negative_ppps_check) warning(paste(
-    "Following region/product pairs have negative PPPs:",
-    paste(
-      paste(
-        negative_ppps[[region]],
-        negative_ppps[[product]],
-        sep = "/"),
-      collapse = "; ")
-  ))
-
-  # Expenditure weights:
-  # missing weights
-  missing_exp_wghts <- data %>%
-    select({{ region }}, {{ product }}, {{ exp_wght }}) %>%
-    pivot_wider(names_from = {{ product }},
-                values_from = {{ exp_wght }}) %>%
-    pivot_longer(!c({{ region }}),
-                 names_to = "product",
-                 values_to = "exp_wght") %>%
-    filter(is.na(exp_wght))
-
-  # check: missing weights
-  missing_exp_check <- nrow(missing_exp_wghts) > 0
-
-  # warning: missing weights
-  if(missing_exp_check) stop(paste("Incomplete expenditure weights matrix. Missing weights for the following region/product combinations:",
-                                   paste(paste(missing_exp_wghts[[region]],
-                                               missing_exp_wghts[[product]],
-                                               sep = "/"),
-                                         collapse = "; ")))
-
-  # negative weights
-  negative_exp_wghts <- data[data[[exp_wght]] < 0, ]
-
-  # weights above 1
-  above_one_exp_wghts <- data[data[[exp_wght]] > 1, ]
-
-  # non-unity regional sums
-  non_unity_regional_sums <- data %>%
-    group_by(.data[[region]]) %>%
-    summarise(regional_sum = sum(.data[[exp_wght]])) %>%
-    filter(regional_sum != 1)
-
-  # check: negative weights
-  negative_exp_check <- nrow(negative_exp_wghts) > 0
-
-  # check: weights above 1
-  above_one_check <- nrow(above_one_exp_wghts) > 0
-
-  # check: non-unity regional sums
-  unity_sum_check <- nrow(non_unity_regional_sums) > 0
-
-  # warning: negative weights
-  if(negative_exp_check) warning(paste(
-    "Following region/product pairs have negative weights:",
-    paste(
-      paste(
-        negative_exp_wghts[[region]],
-        negative_exp_wghts[[product]],
-        sep = "/"),
-      collapse = "; ")
-  ))
-
-  # warning: weights above 1
-  if(above_one_check) warning(paste(
-    "Following region/product pairs have weights exceeding 1:",
-    paste(
-      paste(
-        above_one_exp_wghts[[region]],
-        above_one_exp_wghts[[product]],
-        sep = "/"),
-      collapse = "; ")
-  ))
-
-  # warning: non-unity regional sums
-  if(unity_sum_check) warning(paste(
-    "Following regions' weights do not sum to 1:",
-    paste(non_unity_regional_sums[[region]],
-          collapse = "; ")
-  ))
-
-  if(any(negative_ppps_check, negative_exp_check, above_one_check, unity_sum_check)) stop("Input data unsuitable for index calculation.")
-}
-#' Matrix generation
-#'
-matrix_generator <- function(data,
-                             region = "region",
-                             product = "product",
-                             values = "values"){
-
-  # generate the matrix
-  output_matrix <- data %>%
-    select({{ region }}, {{ product }}, {{ values }}) %>%
-    pivot_wider(
-      names_from = {{ product }},
-      values_from = {{ values }}
-    ) %>%
-    remove_rownames %>%
-    column_to_rownames(var = deparse(substitute(region))) %>%
-    as.matrix()
-
-  return(output_matrix)
 }
