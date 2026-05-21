@@ -1,25 +1,30 @@
 #' The Laspeyres price index
 #'
 #' \loadmathjax
-#' `index_laspeyres()` in \pkg{OECDsppps} calculates the matrix of Laspeyres indices;
+#' `index_laspeyres()` in \pkg{OECDsppps} calculates the complete matrix of Laspeyres indices. It
+#' returns a data frame containing the base region, region, and the respective indices;
 #' see *Details* and
 #' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
 #' for more information.
 #'
-#' The Laspeyres index for regions \mjseqn{j} and \mjseqn{k} is obtained as
+#' The Laspeyres index is a bilateral price index. For regions \mjseqn{j} and \mjseqn{k} it is obtained as
 #' \mjdeqn{sPPP_L^{j,k} = \sum_{n=1}^N  w_n^j \times sPPP_n^{j,k}}{sPPP_L^{j,k} = \sum_{n=1}^N  w_n^j \times sPPP_n^{j,k}}
-#' which is a weighted average of the subnational PPPs of region \mjseqn{j} to
+#' which is the weighted average of subnational PPPs of region \mjseqn{j} to
 #' region \mjseqn{k} across the \mjseqn{N} basic headings using region \mjseqn{j} weights.
+#'
+#' The function returns a data frame containing the following variables: 'base_region' (region *j*), 'region' (region *k*),
+#' 'laspeyres_index' (final indices).
 #'
 #' @references
 #'   \insertAllCited{}
 #'
-#' @param data A data frame containing at least four columns including the
-#' region, product, subnational PPPs, and expenditure weights
-#' @param region Column containing the region
-#' @param product Column containing the product identifier
-#' @param ppp_bh Column containing the PPPs
-#' @param exp_wght Column containing the expenditure weights
+#' @param data A data frame or tibble containing at least four columns identifying
+#' region, product, subnational PPPs, and expenditure weights. The data is checked
+#' using `valid_index_data()` prior to index calculation.
+#' @param region Identifier for regions
+#' @param product Product identifier
+#' @param ppp_bh Identifier for subnational PPPs
+#' @param exp_wght Identifier for expenditure weights
 #'
 #' @examples
 #' suppressPackageStartupMessages(library(dplyr))
@@ -87,7 +92,8 @@ index_laspeyres <- function(data,
 #' The Paasche price index
 #'
 #' \loadmathjax
-#' `index_paasche()` in \pkg{OECDsppps} calculates the matrix of Paasche indices;
+#' `index_paasche()` in \pkg{OECDsppps} calculates the matrix of Paasche indices. It
+#' returns a data frame containing the base region, region, and the respective indices;
 #' see *Details* and
 #' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
 #' for more information.
@@ -97,15 +103,19 @@ index_laspeyres <- function(data,
 #' which is a weighted average of the subnational PPPs of region \mjseqn{j} to
 #' region \mjseqn{k} across the \mjseqn{N} basic headings using region \mjseqn{k} weights.
 #'
+#' The function returns a data frame containing the following variables: 'base_region' (region *j*), 'region' (region *k*),
+#' 'paasche_index' (final indices).
+#'
 #' @references
 #'   \insertAllCited{}
 #'
-#' @param data A data frame containing at least four columns including the
-#' region, product, subnational PPPs, and expenditure weights
-#' @param region Column containing the region
-#' @param product Column containing the product identifier
-#' @param ppp_bh Column containing the PPPs
-#' @param exp_wght Column containing the expenditure weights
+#' @param data A data frame or tibble containing at least four columns identifying
+#' region, product, subnational PPPs, and expenditure weights. The data is checked
+#' using `valid_index_data()` prior to index calculation.
+#' @param region Identifier for regions
+#' @param product Product identifier
+#' @param ppp_bh Identifier for subnational PPPs
+#' @param exp_wght Identifier for expenditure weights
 #'
 #' @examples
 #' suppressPackageStartupMessages(library(dplyr))
@@ -187,7 +197,8 @@ index_paasche <- function(data,
 #' The Fisher price index
 #'
 #' \loadmathjax
-#' `index_fisher()` in \pkg{OECDsppps} calculates the matrix of Fisher indices;
+#' `index_fisher()` in \pkg{OECDsppps} calculates the matrix of Fisher indices. It
+#' returns a data frame containing the base region, region, and the respective indices;
 #' see *Details* and
 #' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
 #' for more information.
@@ -196,15 +207,19 @@ index_paasche <- function(data,
 #' \mjdeqn{sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2} }{ sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2}}
 #' which is the geometric average of the Paasche and Laspeyres index.
 #'
+#' The function returns a data frame containing the following variables: 'base_region' (region *j*), 'region' (region *k*),
+#' 'fisher_index' (final indices).
+#'
 #' @references
 #'   \insertAllCited{}
 #'
-#' @param data A data frame containing at least four columns including the
-#' region, product, subnational PPPs, and expenditure weights
-#' @param region Column containing the region
-#' @param product Column containing the product identifier
-#' @param ppp_bh Column containing the PPPs
-#' @param exp_wght Column containing the expenditure weights
+#' @param data A data frame or tibble containing at least four columns identifying
+#' region, product, subnational PPPs, and expenditure weights. The data is checked
+#' using `valid_index_data()` prior to index calculation.
+#' @param region Identifier for regions
+#' @param product Product identifier
+#' @param ppp_bh Identifier for subnational PPPs
+#' @param exp_wght Identifier for expenditure weights
 #'
 #' @examples
 #' suppressPackageStartupMessages(library(dplyr))
@@ -276,7 +291,8 @@ index_fisher <- function(data,
 #' The Gini-Éltetö-Köves-Szulc (GEKS) price index
 #'
 #' \loadmathjax
-#' `index_gex()` in \pkg{OECDsppps} calculates the GEKS indices;
+#' `index_gex()` in \pkg{OECDsppps} calculates the GEKS indices. It
+#' returns a data frame containing the base region, region, and the respective indices;
 #' see *Details* and
 #' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
 #' for more information.
@@ -287,15 +303,19 @@ index_fisher <- function(data,
 #' comparisons between region \mjseqn{j}  and region k, and indirect comparisons
 #' across all regions \mjseqn{r = 1, \dots, j, k, \dots, R}.
 #'
+#' The function returns a data frame containing the following variables: 'base_region' (region *j*), 'region' (region *k*),
+#' 'geks_index' (final indices).
+#'
 #' @references
 #'   \insertAllCited{}
 #'
-#' @param data A data frame containing at least four columns including the
-#' region, product, subnational PPPs, and expenditure weights
-#' @param region Column containing the region
-#' @param product Column containing the product identifier
-#' @param ppp_bh Column containing the PPPs
-#' @param exp_wght Column containing the expenditure weights
+#' @param data A data frame or tibble containing at least four columns identifying
+#' region, product, subnational PPPs, and expenditure weights. The data is checked
+#' using `valid_index_data()` prior to index calculation.
+#' @param region Identifier for regions
+#' @param product Product identifier
+#' @param ppp_bh Identifier for subnational PPPs
+#' @param exp_wght Identifier for expenditure weights
 #'
 #' @examples
 #' suppressPackageStartupMessages(library(dplyr))

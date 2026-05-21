@@ -1,10 +1,10 @@
 #' Validation of input data for index calculations
 #'
 #' `valid_index_data()` checks the validity of the input arguments used in the
-#' laspeyres, Paasche, Fisher (and GEKS) index calculations
+#' Laspeyres, Paasche, Fisher (and GEKS) index calculations
 #'
-#' Checks for negative subnational PPPs, negative expenditure shares,
-#' expenditure shares above 1, and expenditure shares summing to > 1
+#' Checks for negative subnational PPPs, negative expenditure weights,
+#' expenditure weights above 1, and expenditure weights summing to > 1
 #'
 #' @param data A data frame containing at least four columns including the
 #' region, product, PPPs, and expenditure weights
@@ -13,7 +13,9 @@
 #' @param ppp_bh Column containing the subnational PPPs
 #' @param exp_wght Column containing the expenditure weights
 #'
-#' @return Returns error message if any of the checks fail
+#' @return Returns an error message if any of the checks fail. The error message specifies the
+#' reason, e.g., "Following region/product pairs have negative weights:", and lists the problematic
+#' region/product pairs.
 #'
 #' @importFrom dplyr summarise
 #' @importFrom dplyr ungroup
@@ -122,7 +124,7 @@ valid_index_data <- function(data,
   non_unity_regional_sums <- data %>%
     group_by(.data[[region]]) %>%
     summarise(regional_sum = sum(.data[[exp_wght]])) %>%
-    filter(regional_sum != 1)
+    filter(!near(regional_sum, 1))
 
   # check: negative weights
   negative_exp_check <- nrow(negative_exp_wghts) > 0
@@ -200,8 +202,13 @@ matrix_generator <- function(data,
       values_from = {{ values }}
     ) %>%
     tibble::remove_rownames() %>%
-    tibble::column_to_rownames(var = deparse(substitute(region))) %>%
-    as.matrix()
+    { m <- .
+    matrix <- m %>%
+      select(-{{ region }}) %>%
+      as.matrix()
+    rownames(matrix) <- m %>%
+      pull(1)
+    matrix }
 
   return(output_matrix)
 }
