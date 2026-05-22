@@ -26,7 +26,7 @@ library(OECDsppps)
 
 # Overview {.unnumbered}
 
-This vignette provides a fully documented production pipeline, describing the data, processing, validation, aggregation and estimation of the multiple data sources for the purpose of constructing subnational PPPs in the testing countries. Data processing, validation, aggregation, and estimation follow the international recommendations [@worldbank2013, @europeanunionEurostatOECDMethodologicalManual2024, @icp2021].
+This vignette provides a fully documented production pipeline, describing the data, processing, validation, aggregation and estimation of the multiple data sources for the purpose of constructing subnational PPPs in the testing countries. Data processing, validation, aggregation, and estimation follow the international recommendations [@worldbank2013; @europeanunionEurostatOECDMethodologicalManual2024; @icp2021].
 
 The production pipeline covers the country-level data validation, the aggregation and estimation of subnational purchasing power parities and the harmonisation of these estimates to make sPPP indicators comparable across countries (@tbl-implementation). Only the raw data validation, which derives a standard structure across all testing countries, remains country- and dataset-specific. The individual stages of the production pipeline are discussed in the subsequent paragraphs.
 
@@ -60,6 +60,8 @@ The data processing takes the raw (unprocessed) CPI microdata. It ensures that p
 
 In addition to harmonising the individual price quotes, initial data processing also classifies the individual items or projects according to their respective COICOP subclasses. Once a common structure is established, harmonised data processing using `OECDsppps` commences with the data validation.
 
+
+
 # Raw Data validation
 
 Data validation is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions. 
@@ -80,13 +82,27 @@ The estimation is carried out using `estim_cpd()` with argument `output = "Full"
 
 # Validation of estimation at basic-heading level
 
-> 🚧 Work in progress.
+[Validation at the basic-heading level](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh) concerns the reliability of the CPD estimates as well as their cross-sectional comparability. The *numerical validation* is 
+carried out using [Dikhanov tables](https://amannj.github.io/OECDsppps/articles/Validation.html#dikhanov-tables-for-validation-at-basic-heading-level), and the [visual validation](https://amannj.github.io/OECDsppps/articles/Validation.html#visual-validation-at-basic-heading-level)
+is done by way of plotting.
 
-# Validation of estimation beyond the basic-heading level
 
-> 🚧 Work in progress.
 
 # Estimation beyond the basic-heading level
+
+## Data preparation
+
+🚧 Completion of price-quote and expenditure matrices for further aggregation (work in progress).
+
+## Index calculations
+
+The [Gini-Éltetö-Köves-Szulc index (GEKS)]((https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks) method is recommended for aggregating above the basic heading levels for international and interregional comparisons, as it satisfies the necessary properties for multilateral comparisons. It corresponds to the geometric average of the 
+[Fisher indexs](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-fisher), which, in turn, incorporates the 
+[Laspeyres](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks) and the 
+[Paasche](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks) index.
+
+
+# Validation of estimation beyond the basic-heading level
 
 > 🚧 Work in progress.
 

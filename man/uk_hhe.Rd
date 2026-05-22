@@ -19,7 +19,7 @@ COICOP classification, specifically \verb{01.1.1} and \verb{04.3.2}.
 More information on COICOP classification can be found in the
 \href{https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/satelliteaccounts/methodologies/consumertrendsuk/classificationofhouseholdconsumptionheadings2014tcm772368742.pdf}{ONS Classification of household consumption headings} and in the
 \href{https://unstats.un.org/unsd/classifications/unsdclassifications/COICOP_2018_pre_copy_edit_publication.pdf}{UN Statistics Division’s COICOP 2018 statistical paper}.
-#'
+
 \describe{
 \item{Year}{Year}
 \item{Region}{Region, following \href{https://www.oecd.org/en/data/datasets/oecd-geographical-definitions.html}{TL2}/\href{https://www.ons.gov.uk/methodology/geography/ukgeographies/eurostat}{ITL1} boundaries)}

@@ -13,20 +13,22 @@ index_fisher(
 )
 }
 \arguments{
-\item{data}{A data frame containing at least four columns including the
-region, product, subnational PPPs, and expenditure weights}
+\item{data}{A data frame or tibble containing at least four columns identifying
+region, product, subnational PPPs, and expenditure weights. The data is checked
+using \code{valid_index_data()} prior to index calculation.}
 
-\item{region}{Column containing the region}
+\item{region}{Identifier for regions}
 
-\item{product}{Column containing the product identifier}
+\item{product}{Product identifier}
 
-\item{ppp_bh}{Column containing the PPPs}
+\item{ppp_bh}{Identifier for subnational PPPs}
 
-\item{exp_wght}{Column containing the expenditure weights}
+\item{exp_wght}{Identifier for expenditure weights}
 }
 \description{
 \loadmathjax
-\code{index_fisher()} in \pkg{OECDsppps} calculates the matrix of Fisher indices;
+\code{index_fisher()} in \pkg{OECDsppps} calculates the matrix of Fisher indices. It
+returns a data frame containing the base region, region, and the respective indices;
 see \emph{Details} and
 \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
 for more information.
@@ -35,6 +37,9 @@ for more information.
 The Fisher index for regions \mjseqn{j} and \mjseqn{k} is obtained as
 \mjdeqn{sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2} }{ sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2}}
 which is the geometric average of the Paasche and Laspeyres index.
+
+The function returns a data frame containing the following variables: 'base_region' (region \emph{j}), 'region' (region \emph{k}),
+'fisher_index' (final indices).
 }
 \examples{
 suppressPackageStartupMessages(library(dplyr))

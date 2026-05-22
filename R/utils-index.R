@@ -22,6 +22,7 @@
 #' @importFrom dplyr group_by
 #' @importFrom dplyr select
 #' @importFrom dplyr filter
+#' @importFrom dplyr near
 #' @importFrom tidyr pivot_wider
 #' @importFrom tidyr pivot_longer
 #'
@@ -187,6 +188,7 @@ valid_index_data <- function(data,
 #' @importFrom tibble column_to_rownames
 #' @importFrom tibble remove_rownames
 #' @importFrom dplyr select
+#' @importFrom dplyr pull
 #' @importFrom tidyr pivot_wider
 #'
 #' @noRd
@@ -202,13 +204,15 @@ matrix_generator <- function(data,
       values_from = {{ values }}
     ) %>%
     tibble::remove_rownames() %>%
-    { m <- .
-    matrix <- m %>%
-      select(-{{ region }}) %>%
-      as.matrix()
-    rownames(matrix) <- m %>%
-      pull(1)
-    matrix }
+    {
+      m <- .
+      matrix <- m %>%
+        select(-{{ region }}) %>%
+        as.matrix()
+      rownames(matrix) <- m %>%
+        pull(1)
+      matrix
+    }
 
   return(output_matrix)
 }
