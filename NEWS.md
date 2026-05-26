@@ -86,10 +86,13 @@ Validate household expenditure data and add Laspeyres, Paasche, Fischer and GEKS
 
 # Version `0.0.0.6`
 
-Add Laspeyres, Paasche, Fischer and GEKS indices
+Add index calculation functions, description of using `OECDsppps` in Python and SAS
 
 ### Additions
 
 - Add function `index_laspeyres()`, `index_paasche()`, `index_fisher()` 
 and `index_geks()` for estimating subnational PPPs using Laspeyres, Paasche, 
 Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices 
+- Add [description](https://amannj.github.io/OECDsppps/articles/altSoftware.html) data
+ on using `OECDsppps` in Python and SAS
+ - **Uniform prices**

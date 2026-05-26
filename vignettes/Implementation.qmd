@@ -42,6 +42,10 @@ The production pipeline covers the country-level data validation, the aggregatio
 
 : Implementation pipeline {#tbl-implementation}
 
+`OECDsppps` is available in R, but section [Alternative Software](https://amannj.github.io/OECDsppps/articles/altSoftware.html) discusses how the package can be integrated into a
+Python or SAS workflow.
+
+<br>
 
 # Raw data processing 
 
