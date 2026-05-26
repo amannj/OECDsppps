@@ -100,7 +100,7 @@ is done by way of plotting.
 
 ## Index calculations
 
-The [Gini-Éltetö-Köves-Szulc index (GEKS)]((https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks) method is recommended for aggregating above the basic heading levels for international and interregional comparisons, as it satisfies the necessary properties for multilateral comparisons. It corresponds to the geometric average of the 
+The [Gini-Éltetö-Köves-Szulc index (GEKS)](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks) method is recommended for aggregating above the basic heading levels for international and interregional comparisons, as it satisfies the necessary properties for multilateral comparisons. It corresponds to the geometric average of the 
 [Fisher indexs](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-fisher), which, in turn, incorporates the 
 [Laspeyres](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks) and the 
 [Paasche](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks) index.

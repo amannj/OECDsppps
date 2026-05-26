@@ -43,7 +43,9 @@ After successfully [installing](https://rstudio.github.io/reticulate/#installati
 and (if necessary) [configurating](https://rstudio.github.io/reticulate/articles/versions.html) Python, 
 Python and R code can be run in the same IDE 
 (recommended are either [RStudio](https://posit.co/downloads) or [Positron](https://positron.posit.co/)) 
-in an interactive session where data can be moved between both environments interactively. 
+in an interactive session where data can be moved between both environments interactively 
+using either [R Markdown](https://rmarkdown.rstudio.com/) or
+[quarto](https://quarto.org/).
 
 Step 1, initiate Python environment in R; the example below uses a generic virtual environment.
 
@@ -80,11 +82,7 @@ results_cpd <- estim_cpd(
         py$prices_out,
         region = "region",
         product = "product",
-        price = "price",
-        weights = NULL,
-        weights_cpd = NULL,
-        base.region = NULL,
-        output = "sPPP")
+        price = "price")
 ```
 
 
@@ -153,11 +151,7 @@ proc r;
     results_cpd <- sas_data_to_r_data %>% estim_cpd(
         region = "region",
         product = "product",
-        price = "price",
-        weights = NULL,
-        weights_cpd = NULL,
-        base.region = NULL,
-        output = "sPPP")
+        price = "price")
     df2sd(results_cpd, "work.cpd");
     endsubmit;
 run;
