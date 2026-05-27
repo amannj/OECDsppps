@@ -1,6 +1,7 @@
 # Validation
 
 ``` r
+
 library(dplyr)
 library(tidyr)
 library(gt)
@@ -50,26 +51,28 @@ publicly available:
   04.3.2.5).
 
 ``` r
+
 head(uk_cpi, n = 3) |>
   group_by(Year, coicop_5d, `Product code`, `Product description`) |>
   gt()
 ```
 
-| Date of quote                                             | Reference quantity | Unit of reference quantity | Region     | Shop identifier | Type of shop | Quantity observed | Unit of observed quantity | Price observed | Reference quantity price |
-|-----------------------------------------------------------|--------------------|----------------------------|------------|-----------------|--------------|-------------------|---------------------------|----------------|--------------------------|
-| 2018 - 01.1.1.3 - 210111 - WHITE SLICED LOAF BRANDED 750G |                    |                            |            |                 |              |                   |                           |                |                          |
-| 201801                                                    | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
-| 201801                                                    | 750                | 1                          | South East | 1               | Multiple     | 750               | 1                         | 1.00           | 1.00                     |
-| 201801                                                    | 750                | 1                          | North West | 1               | Multiple     | 750               | 1                         | 1.45           | 1.45                     |
+| Date of quote | Reference quantity | Unit of reference quantity | Region | Shop identifier | Type of shop | Quantity observed | Unit of observed quantity | Price observed | Reference quantity price |
+|----|----|----|----|----|----|----|----|----|----|
+| 2018 - 01.1.1.3 - 210111 - WHITE SLICED LOAF BRANDED 750G |  |  |  |  |  |  |  |  |  |
+| 201801 | 750 | 1 | South East | 1 | Multiple | 750 | 1 | 1.00 | 1.00 |
+| 201801 | 750 | 1 | South East | 1 | Multiple | 750 | 1 | 1.00 | 1.00 |
+| 201801 | 750 | 1 | North West | 1 | Multiple | 750 | 1 | 1.45 | 1.45 |
 
 - [`uk_hhe()`](https://amannj.github.io/OECDsppps/reference/uk_hhe.md)
   is a snipped of the - [Regional household final consumption
   expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
   and contains regional household expenditure shares for the same two
   products: White sliced loaf branded 750 grams (COICOP 1010103) and
-  carpenter hourly rate (COICOP 410518).[¹](#fn1)
+  carpenter hourly rate (COICOP 410518).[^1]
 
 ``` r
+
 head(uk_hhe, n = 4) |>
   gt()
 ```
@@ -126,6 +129,7 @@ the function
 **Example using UK CPI microdata**
 
 ``` r
+
 # Price Observation Table  ---------
 uk_pot <- uk_cpi |>
   select(Year, `Product code`, , `Product description`, `Reference quantity price`) |>
@@ -148,15 +152,16 @@ head(uk_pot, n = 3) |>
   )
 ```
 
-| **Price Observation Table**    |              |                                |                          |                             |              |                                  |                   |
-|--------------------------------|--------------|--------------------------------|--------------------------|-----------------------------|--------------|----------------------------------|-------------------|
-| Example for `item_id` = 210111 |              |                                |                          |                             |              |                                  |                   |
-| Year                           | Product code | Product description            | Reference quantity price | Ratio-to-average price test | T-value test | Ratio-to-average price test FLAG | T-value test FLAG |
-| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.00                     | 0.96                        | −0.21        | FALSE                            | FALSE             |
-| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.00                     | 0.96                        | −0.21        | FALSE                            | FALSE             |
-| 2018                           | 210111       | WHITE SLICED LOAF BRANDED 750G | 1.45                     | 1.39                        | 1.83         | FALSE                            | FALSE             |
+| **Price Observation Table** |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|
+| Example for `item_id` = 210111 |  |  |  |  |  |  |  |
+| Year | Product code | Product description | Reference quantity price | Ratio-to-average price test | T-value test | Ratio-to-average price test FLAG | T-value test FLAG |
+| 2018 | 210111 | WHITE SLICED LOAF BRANDED 750G | 1.00 | 0.96 | −0.21 | FALSE | FALSE |
+| 2018 | 210111 | WHITE SLICED LOAF BRANDED 750G | 1.00 | 0.96 | −0.21 | FALSE | FALSE |
+| 2018 | 210111 | WHITE SLICED LOAF BRANDED 750G | 1.45 | 1.39 | 1.83 | FALSE | FALSE |
 
 ``` r
+
 # Visualisation of price distribution ---------
 uk_pot |>
   select(
@@ -224,6 +229,7 @@ function
 **Example using UK CPI microdata**
 
 ``` r
+
 # Average Price Table -------
 uk_apt <- uk_cpi |>
   select(
@@ -245,13 +251,13 @@ head(uk_apt, 2) |>
   )
 ```
 
-| **Average Price Table**                                    |                        |                          |                          |                          |                    |               |                          |                    |                               |
-|------------------------------------------------------------|------------------------|--------------------------|--------------------------|--------------------------|--------------------|---------------|--------------------------|--------------------|-------------------------------|
-| Example for `item_id`s = 210111 & 410518, **pre-cleaning** |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| Product code                                               | Number of observations | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
-| 2018 - East Midlands                                       |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| 210111                                                     | 258.00                 | 1.08                     | 1.30                     | 0.99                     | 0.08               | 1.31          | 0.07                     | FALSE              | FALSE                         |
-| 410518                                                     | 192.00                 | 20.29                    | 33.60                    | 8.00                     | 7.81               | 4.20          | 0.39                     | TRUE               | TRUE                          |
+| **Average Price Table** |  |  |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|----|----|
+| Example for `item_id`s = 210111 & 410518, **pre-cleaning** |  |  |  |  |  |  |  |  |  |
+| Product code | Number of observations | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
+| 2018 - East Midlands |  |  |  |  |  |  |  |  |  |
+| 210111 | 258.00 | 1.08 | 1.30 | 0.99 | 0.08 | 1.31 | 0.07 | FALSE | FALSE |
+| 410518 | 192.00 | 20.29 | 33.60 | 8.00 | 7.81 | 4.20 | 0.39 | TRUE | TRUE |
 
 ### 1.3 Linking validation pipelines for intra-regional validation
 
@@ -271,6 +277,7 @@ the flags of the different tests.
 **Example using UK CPI microdata**
 
 ``` r
+
 # Example for linked production pipeline  -------
 uk_irv <- uk_cpi |>
   select(
@@ -301,16 +308,16 @@ head(uk_irv, 4) |>
   )
 ```
 
-| **Average Price Table**                                     |                        |                          |                          |                          |                    |               |                          |                    |                               |
-|-------------------------------------------------------------|------------------------|--------------------------|--------------------------|--------------------------|--------------------|---------------|--------------------------|--------------------|-------------------------------|
-| Example for `item_id`s = 210111 & 410518, **post-cleaning** |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| Region                                                      | Number of observations | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
-| 2018 - 210111 - WHITE SLICED LOAF BRANDED 750G              |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| East Midlands                                               | 228.0                  | 1.1                      | 1.1                      | 1.0                      | 0.0                | 1.2           | 0.0                      | FALSE              | FALSE                         |
-| East of England                                             | 276.0                  | 1.2                      | 1.5                      | 0.9                      | 0.2                | 1.6           | 0.2                      | FALSE              | FALSE                         |
-| 2018 - 410518 - CARPENTER HOURLY RATE                       |                        |                          |                          |                          |                    |               |                          |                    |                               |
-| East Midlands                                               | 96.0                   | 22.8                     | 28.2                     | 18.1                     | 4.0                | 1.6           | 0.2                      | FALSE              | FALSE                         |
-| East of England                                             | 168.0                  | 22.3                     | 27.0                     | 20.0                     | 1.9                | 1.4           | 0.1                      | FALSE              | FALSE                         |
+| **Average Price Table** |  |  |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|----|----|
+| Example for `item_id`s = 210111 & 410518, **post-cleaning** |  |  |  |  |  |  |  |  |  |
+| Region | Number of observations | Average price of product | Maximum price of product | Minimum price of product | Standard deviation | Max-min ratio | Coefficient of variation | Max-min ratio FLAG | Coefficient of variation FLAG |
+| 2018 - 210111 - WHITE SLICED LOAF BRANDED 750G |  |  |  |  |  |  |  |  |  |
+| East Midlands | 228.0 | 1.1 | 1.1 | 1.0 | 0.0 | 1.2 | 0.0 | FALSE | FALSE |
+| East of England | 276.0 | 1.2 | 1.5 | 0.9 | 0.2 | 1.6 | 0.2 | FALSE | FALSE |
+| 2018 - 410518 - CARPENTER HOURLY RATE |  |  |  |  |  |  |  |  |  |
+| East Midlands | 96.0 | 22.8 | 28.2 | 18.1 | 4.0 | 1.6 | 0.2 | FALSE | FALSE |
+| East of England | 168.0 | 22.3 | 27.0 | 20.0 | 1.9 | 1.4 | 0.1 | FALSE | FALSE |
 
 ------------------------------------------------------------------------
 
@@ -370,6 +377,7 @@ ratios, that is, those showing the greatest variation across countries.
 > across multiple countries is currently not available.
 
 ``` r
+
 # Build data ----------
 ## UK data
 uk_irv <- uk_irv |>
@@ -420,17 +428,17 @@ df_xrr |>
   )
 ```
 
-| **XR-ratio Table**                    |                          |        |          |
-|---------------------------------------|--------------------------|--------|----------|
-| Example for two items, **DE, UK, CZ** |                          |        |          |
-| Region                                | Average price of product | XR USD | XR-ratio |
-| 2018 - 210111                         |                          |        |          |
-| UK - East Midlands                    | 1.1                      | 1.2    | 94.3     |
-| UK - East of England                  | 1.2                      | 1.2    | 107.4    |
-| CZ01                                  | 4.2                      | 0.4    | 120.8    |
-| CZ02                                  | 3.9                      | 0.4    | 111.1    |
-| DE01                                  | 1.4                      | 0.9    | 92.8     |
-| DE02                                  | 1.2                      | 0.9    | 79.3     |
+| **XR-ratio Table** |  |  |  |
+|----|----|----|----|
+| Example for two items, **DE, UK, CZ** |  |  |  |
+| Region | Average price of product | XR USD | XR-ratio |
+| 2018 - 210111 |  |  |  |
+| UK - East Midlands | 1.1 | 1.2 | 94.3 |
+| UK - East of England | 1.2 | 1.2 | 107.4 |
+| CZ01 | 4.2 | 0.4 | 120.8 |
+| CZ02 | 3.9 | 0.4 | 111.1 |
+| DE01 | 1.4 | 0.9 | 92.8 |
+| DE02 | 1.2 | 0.9 | 79.3 |
 
 ------------------------------------------------------------------------
 
@@ -467,6 +475,7 @@ with the most significant cross-country variation.
 > across multiple countries is currently not available.
 
 ``` r
+
 # Random data
 set.seed(123)
 df_xr2 <- rbind(
@@ -572,12 +581,12 @@ based on CPD residuals and PPP ratio threshold values described in
 [Table 1](#tbl-thresholds); see also ([World Bank 2013,
 261](#ref-worldbank2013)).
 
-| CPD residuals                            | PPP-ratios                       | Flag         |
-|------------------------------------------|----------------------------------|--------------|
-| Between −0.25 and 0.25                   | Between 78 and 128               | OK           |
-| Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1*     |
-| Between −2.0 and −0.75 or 0.75 and 2.0   | Between 14 and 47 or 212 and 739 | **Fag 2**    |
-| Less than −2.0 or greater than 2.0       | Less than 14 or greater than 739 | ***Flag 3*** |
+| CPD residuals | PPP-ratios | Flag |
+|----|----|----|
+| Between −0.25 and 0.25 | Between 78 and 128 | OK |
+| Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1* |
+| Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Flag 2** |
+| Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3*** |
 
 Table 1: Threshold values: CPD residuals and PPP-ratios
 
@@ -633,6 +642,7 @@ outliers based on the max-median and median-min ratios.
 
 ``` r
 
+
 # CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------
 uk_hhe |>
   group_by(coicop_4d) |>
@@ -647,12 +657,12 @@ uk_hhe |>
   )
 ```
 
-| **Household Expenditure Validation** |                           |                          |                           |                  |                  |                       |                       |
-|--------------------------------------|---------------------------|--------------------------|---------------------------|------------------|------------------|-----------------------|-----------------------|
-| Using the Expenditure Shares Table   |                           |                          |                           |                  |                  |                       |                       |
-| coicop_4d                            | Maximum expenditure share | Median expenditure share | Minimum expenditure share | Max-median ratio | Median-min ratio | Max-median ratio FLAG | Median-min ratio FLAG |
-| 01.1.1                               | 14.74                     | 8.38                     | 2.80                      | 1.76             | 2.99             | FALSE                 | FALSE                 |
-| 04.3.2                               | 17.79                     | 8.45                     | 1.59                      | 2.10             | 5.30             | FALSE                 | FALSE                 |
+| **Household Expenditure Validation** |  |  |  |  |  |  |  |
+|----|----|----|----|----|----|----|----|
+| Using the Expenditure Shares Table |  |  |  |  |  |  |  |
+| coicop_4d | Maximum expenditure share | Median expenditure share | Minimum expenditure share | Max-median ratio | Median-min ratio | Max-median ratio FLAG | Median-min ratio FLAG |
+| 01.1.1 | 14.74 | 8.38 | 2.80 | 1.76 | 2.99 | FALSE | FALSE |
+| 04.3.2 | 17.79 | 8.45 | 1.59 | 2.10 | 5.30 | FALSE | FALSE |
 
 ## 6 Validation beyond basic-heading level
 
@@ -677,9 +687,7 @@ Framework, Methodology, and Results of the International Comparison
 Program ICP*. World Bank.
 <https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf>.
 
-------------------------------------------------------------------------
-
-1.  Note that for both products, the UK regional household final
+[^1]: Note that for both products, the UK regional household final
     consumption expenditures are available only at the *class* or
     four-digit level of the COICOP classification, specifically `01.1.1`
     and `04.3.2`.

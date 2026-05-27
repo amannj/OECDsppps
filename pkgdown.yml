@@ -1,11 +1,12 @@
-pandoc: 3.1.11
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
+  altSoftware: altSoftware.html
   Estimation: Estimation.html
   Implementation: Implementation.html
   Validation: Validation.html
-last_built: 2026-04-23T13:27Z
+last_built: 2026-05-27T19:48Z
 urls:
   reference: https://amannj.github.io/OECDsppps/reference
   article: https://amannj.github.io/OECDsppps/articles

@@ -1,4 +1,4 @@
-# Create "Expenditure Shares Table"
+# The "Expenditure Shares Table"
 
 `valid_est()` in OECDsppps creates the "Expenditure Shares Table" see
 World Bank (2013), ICP (2021) and European Union/OECD et al. (2024) .
@@ -57,7 +57,7 @@ median(w_j)/min(w_j)\\
 European Union/OECD, Hearne D, Bailey D (2024). *Eurostat-OECD
 Methodological Manual on Purchasing Power Parities (2023 Edition)*,
 volume 12(1). OECD Publishing, Paris.
-[doi:10.2785/384854](https://doi.org/10.2785/384854) ,
+[doi:10.2785/384854](https://doi.org/10.2785/384854) .
 <https://doi.org/10.1080/21681376.2025.2475115>.  
   
 ICP (2021). “A Guide to the Compilation of Subnational Purchasing Power

@@ -18,12 +18,13 @@
     }
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="Implementation_files/libs/quarto-html/popper.min.js"></script><script src="Implementation_files/libs/quarto-html/tippy.umd.min.js"></script><link href="Implementation_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Implementation_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Implementation">
+<!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Implementation">
 <meta property="og:image" content="https://amannj.github.io/OECDsppps/logo.png">
 </head>
 <body>
@@ -34,7 +35,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +44,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
@@ -50,9 +52,11 @@
 <li><a class="dropdown-item" href="../articles/Implementation.html">Implementation</a></li>
     <li><a class="dropdown-item" href="../articles/Validation.html">Validation</a></li>
     <li><a class="dropdown-item" href="../articles/Estimation.html">Estimation</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/altSoftware.html">Alternative Software</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -87,8 +91,28 @@
 </div>
 <section class="section level2"><h2 class="unnumbered" id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>This vignette provides a fully documented production pipeline, describing the data, processing, validation, aggregation and estimation of the multiple data sources for the purpose of constructing subnational PPPs in the testing countries. Data processing, validation, aggregation, and estimation follow the international recommendations <span class="citation" data-cites="worldbank2013">ICP (<a href="#ref-icp2021" role="doc-biblioref">2021</a>)</span>.</p>
-<p>The production pipeline covers the country-level data validation, the aggregation and estimation of subnational purchasing power parities and the harmonisation of these estimates to make sPPP indicators comparable across countries (<a href="#tbl-implementation" class="quarto-xref">Table 1</a>). Only the raw data validation, which derives a standard structure across all testing countries, remains country- and dataset-specific. The individual stages of the production pipeline are discussed in the subsequent paragraphs.</p>
+<section class="level2 unnumbered"><h3 class="unnumbered" id="methodology">Methodology<a class="anchor" aria-label="anchor" href="#methodology"></a>
+</h3>
+<p>This vignette provides a fully documented production pipeline, describing the data, processing, validation, aggregation and estimation of the multiple data sources for the purpose of constructing subnational PPPs in the testing countries. Data processing, validation, aggregation, and estimation follow the international recommendations whenever applicable <span class="citation" data-cites="worldbank2013 europeanunionEurostatOECDMethodologicalManual2024 icp2021">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013</a>; <a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">European Union/OECD 2024</a>; <a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>.</p>
+<p>In particular, the CPD-GEKS approach is recommended for producing subnational PPPs by the ICP <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>, and has also been used by a national statistical institute in a subnational PPP programme, providing experimental statistics in Italy <span class="citation" data-cites="Istat">(<a href="#ref-Istat" role="doc-biblioref">Istat 2026</a>)</span>.</p>
+<p>The approach follows a two-step procedure (<a href="#fig-aggregation" class="quarto-xref">Figure 1</a>):</p>
+<ul>
+<li>Estimation of price parities at the basic heading level using the regional extension of the Country-Product-Dummy (CPD) method <span class="citation" data-cites="summers1973international">(<a href="#ref-summers1973international" role="doc-biblioref">Summers 1973</a>)</span>.</li>
+<li>Upon validation, aggregation of BH-level parities into higher-level indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a multilateral index construction technique that ensures transitivity, in combination with household final consumption expenditure data as a weighting structure for household final consumption PPPs <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>.</li>
+</ul>
+<div id="fig-aggregation" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-aggregation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/cpd_geks.png" class="quarto-figure quarto-figure-center" width="400">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aggregation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: Aggregation and estimation steps of subnational purchasing power parities
+</figcaption></figure>
+</div>
+</section><section class="level2 unnumbered"><h3 class="unnumbered" id="implementation-pipeline">Implementation pipeline<a class="anchor" aria-label="anchor" href="#implementation-pipeline"></a>
+</h3>
+<p><code>OECDsppps</code> is available in R, but section <a href="https://amannj.github.io/OECDsppps/articles/altSoftware.html">Alternative Software</a> discusses how the package can be integrated into a Python or SAS workflow.</p>
+<p>The implementation pipeline covers the country-level data validation, the aggregation and estimation of subnational purchasing power parities and the harmonisation of these estimates to make sPPP indicators comparable across countries (<a href="#tbl-implementation" class="quarto-xref">Table 1</a>).</p>
+<p>Only the raw data validation, which derives a standard structure across all testing countries, remains country- and dataset-specific. The individual stages of the production pipeline are discussed in the subsequent paragraphs, together with the various functions use for the calculation of the subnational price indices.</p>
 <div id="tbl-implementation" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-implementation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table 1: Implementation pipeline
@@ -100,53 +124,67 @@ Table 1: Implementation pipeline
 <col style="width: 33%">
 </colgroup>
 <thead><tr class="header">
-<th>Step</th>
+<th>Steps</th>
 <th>Counterpart</th>
-<th>Uses <code>OECDsppps</code>
-</th>
+<th>
+<code>OECDsPPPs</code> integration</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Raw data processing</td>
+<td>
+<strong>1</strong> Raw data processing</td>
 <td>OECD or country</td>
-<td>No</td>
+<td>❌</td>
 </tr>
 <tr class="even">
-<td>Raw data validation</td>
+<td>
+<strong>2</strong> Raw data validation</td>
 <td>OECD or country</td>
-<td>Yes</td>
+<td>
+<code><a href="../reference/valid_pot.html">valid_pot()</a></code>, <code><a href="../reference/valid_apt.html">valid_apt()</a></code>, <code>valid_XRatio()</code>, <code><a href="../reference/valid_PPPratio.html">valid_PPPratio()</a></code>, <code><a href="../reference/valid_est.html">valid_est()</a></code>
+</td>
 </tr>
 <tr class="odd">
-<td>Estimation at basic-heading level</td>
+<td>
+<strong>3</strong> Estimation at basic-heading level</td>
 <td>OECD or country</td>
-<td>Yes</td>
+<td><code><a href="../reference/estim_cpd.html">estim_cpd()</a></code></td>
 </tr>
 <tr class="even">
-<td>Validation of estimation at basic-heading level</td>
+<td>
+<strong>4</strong> Validation of estimation at basic-heading level</td>
 <td>OECD or country</td>
-<td>Yes</td>
+<td>🚧 <em>valid_dikhanov()</em>, <em>valid_plots()</em>
+</td>
 </tr>
 <tr class="odd">
-<td>Estimation beyond the basic-heading level</td>
+<td>
+<strong>5</strong> Estimation beyond the basic-heading level</td>
 <td>OECD</td>
-<td>Yes</td>
+<td>
+<code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code>, <code><a href="../reference/index_geks.html">index_geks()</a></code>
+</td>
 </tr>
 <tr class="even">
-<td>Validation of estimation beyond the basic-heading level</td>
+<td>
+<strong>6</strong> Validation of estimation beyond the basic-heading level</td>
 <td>OECD</td>
-<td>Yes</td>
+<td>🚧 <em>valid_plots()</em>
+</td>
 </tr>
 <tr class="odd">
-<td>Comparability across countries and regions</td>
+<td>
+<strong>7</strong> Comparability across countries and regions</td>
 <td>OECD</td>
-<td>Yes</td>
+<td>🚧</td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-</section><section class="section level2" data-number="1"><h2 data-number="1" id="raw-data-processing">
+<p><br></p>
+</section></section><section class="section level2" data-number="1"><h2 data-number="1" id="raw-data-processing">
 <span class="header-section-number">1</span> Raw data processing<a class="anchor" aria-label="anchor" href="#raw-data-processing"></a>
 </h2>
 <p>The objective of the raw data processing is to derive a standard structure across all testing countries. Data are sourced primarily from official CPI programmes of National Statistical Offices (NSOs) and are country-specific. Consequently, data cleaning is country- and data-specific, and typically the most time-consuming part of the initial data work, as data can be available at different levels of granularity (spatial and product-related), content (available variables and information), and coverage (e.g., products, types of activity, etc.).</p>
@@ -204,7 +242,7 @@ Table 2: Example of consumer price microdata based on Weinand and Auer <span cl
 </div>
 <p>In addition to harmonising the individual price quotes, initial data processing also classifies the individual items or projects according to their respective COICOP subclasses. Once a common structure is established, harmonised data processing using <code>OECDsppps</code> commences with the data validation.</p>
 </section><section class="section level2" data-number="2"><h2 data-number="2" id="raw-data-validation">
-<span class="header-section-number">2</span> Raw Data validation<a class="anchor" aria-label="anchor" href="#raw-data-validation"></a>
+<span class="header-section-number">2</span> Raw data validation<a class="anchor" aria-label="anchor" href="#raw-data-validation"></a>
 </h2>
 <p>Data validation is carried out to confirm the validity of price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions.</p>
 <p>Validation begins with analysing item-level prices within regions and involves outlier detections of single price quotes and average price aggregates. The two validation steps taken at this stage are described in the <a href="https://amannj.github.io/OECDsppps/articles/Validation.html">Validation vignette</a>:</p>
@@ -214,26 +252,32 @@ Table 2: Example of consumer price microdata based on Weinand and Auer <span cl
 <li>
 <a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-interregional">Inter-regional validation</a> performs prices validation across all regions and countries, ensuring that average prices are based on comparable products in regions across countries and that products have been accurately priced.</li>
 </ol>
-<p>The raw data <a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-alternative">validation of alternative data sources</a> is also carried out at this stage</p>
+<p>The raw data <a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-alternative">validation of alternative data sources</a> is also carried out at this stage.</p>
+<p>Functions used at this stage are: <code><a href="../reference/valid_pot.html">valid_pot()</a></code>, <code><a href="../reference/valid_apt.html">valid_apt()</a></code>, <code>valid_XRatio()</code>, <code><a href="../reference/valid_PPPratio.html">valid_PPPratio()</a></code>, <code><a href="../reference/valid_est.html">valid_est()</a></code>.</p>
 </section><section class="section level2" data-number="3"><h2 data-number="3" id="estimation-at-basic-heading-level">
 <span class="header-section-number">3</span> Estimation at basic-heading level<a class="anchor" aria-label="anchor" href="#estimation-at-basic-heading-level"></a>
 </h2>
 <p><a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-step1">Estimation of basic headings</a> using item-level prices, where price data are aggregated up to the level of basic headings, generally without the use of expenditure weights.</p>
-<p>The estimation is carried out using <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> with argument <code>output = "Full"</code>, which summarises the key information of the estimate CPD model: It provides the ‘Regression output` as well as the individual ’Residuals’ of the CPD regression; see EXAMPLE 4 in the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html">Estimation vignette</a>.</p>
+<p>The estimation is carried out using <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> with argument <code>output = "Full"</code>, which summarises the key information of the estimate CPD model: It provides the ‘Regression output` as well as the individual ’Residuals’ of the CPD regression; see <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-example4">Example 4</a> in the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html">Estimation vignette</a>.</p>
 </section><section class="section level2" data-number="4"><h2 data-number="4" id="validation-of-estimation-at-basic-heading-level">
 <span class="header-section-number">4</span> Validation of estimation at basic-heading level<a class="anchor" aria-label="anchor" href="#validation-of-estimation-at-basic-heading-level"></a>
 </h2>
-<blockquote>
-<p>🚧 Work in progress.</p>
-</blockquote>
-</section><section class="section level2" data-number="5"><h2 data-number="5" id="validation-of-estimation-beyond-the-basic-heading-level">
-<span class="header-section-number">5</span> Validation of estimation beyond the basic-heading level<a class="anchor" aria-label="anchor" href="#validation-of-estimation-beyond-the-basic-heading-level"></a>
+<p><a href="https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh">Validation at the basic-heading level</a> concerns the reliability of the CPD estimates as well as their cross-sectional comparability. The <em>numerical validation</em> is carried out using <a href="https://amannj.github.io/OECDsppps/articles/Validation.html#dikhanov-tables-for-validation-at-basic-heading-level">Dikhanov tables</a>, and the <a href="https://amannj.github.io/OECDsppps/articles/Validation.html#visual-validation-at-basic-heading-level">visual validation</a> is done by way of plotting.</p>
+<p>Functions used at this stage are: <em>valid_dikhanov()</em>, <em>valid_plots()</em>.</p>
+</section><section class="section level2" data-number="5"><h2 data-number="5" id="estimation-beyond-the-basic-heading-level">
+<span class="header-section-number">5</span> Estimation beyond the basic-heading level<a class="anchor" aria-label="anchor" href="#estimation-beyond-the-basic-heading-level"></a>
 </h2>
-<blockquote>
-<p>🚧 Work in progress.</p>
-</blockquote>
-</section><section class="section level2" data-number="6"><h2 data-number="6" id="estimation-beyond-the-basic-heading-level">
-<span class="header-section-number">6</span> Estimation beyond the basic-heading level<a class="anchor" aria-label="anchor" href="#estimation-beyond-the-basic-heading-level"></a>
+<section class="level2" data-number="5.1"><h3 data-number="5.1" id="data-preparation">
+<span class="header-section-number">5.1</span> Data preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
+</h3>
+<p>🚧 Completion of price-quote and expenditure matrices for further aggregation (work in progress).</p>
+</section><section class="level2" data-number="5.2"><h3 data-number="5.2" id="index-calculations">
+<span class="header-section-number">5.2</span> Index calculations<a class="anchor" aria-label="anchor" href="#index-calculations"></a>
+</h3>
+<p>The <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Gini-Éltetö-Köves-Szulc index (GEKS)</a> method is recommended for aggregating above the basic heading levels for international and interregional comparisons, as it satisfies the necessary properties for multilateral comparisons. It corresponds to the geometric average of the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-fisher">Fisher indexs</a>, which, in turn, incorporates the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Laspeyres</a> and the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Paasche</a> index.</p>
+<p>Functions used at this stage are: <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code>, <code><a href="../reference/index_geks.html">index_geks()</a></code>.</p>
+</section></section><section class="section level2" data-number="6"><h2 data-number="6" id="validation-of-estimation-beyond-the-basic-heading-level">
+<span class="header-section-number">6</span> Validation of estimation beyond the basic-heading level<a class="anchor" aria-label="anchor" href="#validation-of-estimation-beyond-the-basic-heading-level"></a>
 </h2>
 <blockquote>
 <p>🚧 Work in progress.</p>
@@ -252,6 +296,12 @@ European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological Manual</span> 
 </div>
 <div id="ref-icp2021" class="csl-entry" role="listitem">
 ICP. 2021. <em>A Guide to the Compilation of Subnational Purchasing Power Parities (PPPs)</em>. <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.
+</div>
+<div id="ref-Istat" class="csl-entry" role="listitem">
+Istat. 2026. <em>Consumer Spatial Price Indices</em>. <a href="https://www.istat.it/en/experimental-statistic/consumer-spatial-price-indices/" class="external-link">https://www.istat.it/en/experimental-statistic/consumer-spatial-price-indices/</a>.
+</div>
+<div id="ref-summers1973international" class="csl-entry" role="listitem">
+Summers, Robert. 1973. <span>“International Price Comparisons Based Upon Incomplete Data.”</span> <em>Review of Income and Wealth</em> 19 (1): 1–16.
 </div>
 <div id="ref-weinand2020" class="csl-entry" role="listitem">
 Weinand, Sebastian, and Ludwig von Auer. 2020. <span>“Anatomy of Regional Price Differentials: Evidence from Micro-Price Data.”</span> <em>Spatial Economic Analysis</em> 15 (4): 413–40. <a href="https://doi.org/10.1080/17421772.2020.1729998" class="external-link">https://doi.org/10.1080/17421772.2020.1729998</a>.
@@ -343,7 +393,8 @@ World Bank. 2013. <em>Measuring the Real Size of the World Economy: The Framewor
       }
     }
   });
-  </script></main>
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

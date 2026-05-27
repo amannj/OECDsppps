@@ -1,4 +1,4 @@
-# Create "Average Price Table"
+# The "Average Price Table"
 
 `valid_apt()` in OECDsppps creates the "Average Price Table" by
 calculating: the
@@ -80,7 +80,7 @@ expenditure shares, or `sPPP` estimates, respectively.
 European Union/OECD, Hearne D, Bailey D (2024). *Eurostat-OECD
 Methodological Manual on Purchasing Power Parities (2023 Edition)*,
 volume 12(1). OECD Publishing, Paris.
-[doi:10.2785/384854](https://doi.org/10.2785/384854) ,
+[doi:10.2785/384854](https://doi.org/10.2785/384854) .
 <https://doi.org/10.1080/21681376.2025.2475115>.  
   
 ICP (2021). “A Guide to the Compilation of Subnational Purchasing Power

@@ -1,0 +1,19 @@
+.navbar {
+  background-color: #a3bbdd !important; /* Background colour for the navbar */
+}
+.navbar a {
+  color: #08257b !important; /* Link colour */
+}
+.navbar .nav-item.dropdown > .nav-link {
+  color: #08257b; /* Text colour for the item with submenu */
+}
+.navbar .dropdown-menu {
+  background-color: #a3bbdd; /* Background colour for the sub-menu */
+  border-radius: 5px; /* Round the corners of the sub-menu */
+}
+.navbar .dropdown-item {
+  color: #08257b; /* Text color for the sub-menu items */
+}
+.navbar-nav .nav-item.dropdown > .nav-link:active {
+  background-color: #a3bbdd;
+}

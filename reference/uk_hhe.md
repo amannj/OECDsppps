@@ -28,7 +28,6 @@ Classification of household consumption
 headings](https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/satelliteaccounts/methodologies/consumertrendsuk/classificationofhouseholdconsumptionheadings2014tcm772368742.pdf)
 and in the [UN Statistics Division’s COICOP 2018 statistical
 paper](https://unstats.un.org/unsd/classifications/unsdclassifications/COICOP_2018_pre_copy_edit_publication.pdf).
-\#'
 
 - Year:
 

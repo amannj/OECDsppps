@@ -1,4 +1,4 @@
-# Country Product Dummy (CPD) regression model
+# The Country Product Dummy (CPD) regression model
 
 `estim_cpd` in OECDsppps creates ...; see *Details* and World Bank
 (2013) , for more information.

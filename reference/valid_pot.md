@@ -1,4 +1,4 @@
-# Create the "Price Observation Table"
+# The "Price Observation Table"
 
 `valid_pot` in OECDsppps creates the "Price Observation Table"; by
 calculating two *individual price outlier statistics* for the individual
@@ -57,7 +57,7 @@ because it falls outside the 95 percent confidence interval): \\t-val =
 European Union/OECD, Hearne D, Bailey D (2024). *Eurostat-OECD
 Methodological Manual on Purchasing Power Parities (2023 Edition)*,
 volume 12(1). OECD Publishing, Paris.
-[doi:10.2785/384854](https://doi.org/10.2785/384854) ,
+[doi:10.2785/384854](https://doi.org/10.2785/384854) .
 <https://doi.org/10.1080/21681376.2025.2475115>.  
   
 ICP (2021). “A Guide to the Compilation of Subnational Purchasing Power
