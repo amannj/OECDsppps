@@ -5,7 +5,7 @@ template:
 navbar:
   structure:
     left: [home, reference, articles, news]
-    right: [github]
+    right: [search, github]
   components:
       home:
         text: "Home"
@@ -41,7 +41,7 @@ reference:
     desc: "Function for estimation at basic-heading level"
     contents:
       - estim_cpd
-  - title: "Estimation"
+  - title: "Estimation beyond the basic-heading level"
     desc: "Functions for estimation price indices and index calculation"
     contents:
       - index_fisher
