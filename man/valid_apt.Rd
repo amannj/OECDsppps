@@ -2,7 +2,7 @@
 % Please edit documentation in R/valid.R
 \name{valid_apt}
 \alias{valid_apt}
-\title{Create "Average Price Table"}
+\title{The "Average Price Table"}
 \usage{
 valid_apt(data, value = "Reference quantity price")
 }

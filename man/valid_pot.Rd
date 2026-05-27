@@ -2,7 +2,7 @@
 % Please edit documentation in R/valid.R
 \name{valid_pot}
 \alias{valid_pot}
-\title{Create the "Price Observation Table"}
+\title{The "Price Observation Table"}
 \usage{
 valid_pot(data, price_quote = "Reference quantity price")
 }

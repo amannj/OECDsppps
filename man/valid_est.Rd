@@ -2,7 +2,7 @@
 % Please edit documentation in R/valid.R
 \name{valid_est}
 \alias{valid_est}
-\title{Create "Expenditure Shares Table"}
+\title{The "Expenditure Shares Table"}
 \usage{
 valid_est(data, shares = "Expenditure shares for basic headings")
 }

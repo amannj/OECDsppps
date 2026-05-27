@@ -405,7 +405,7 @@ In the Dikhanov table, *Part 1 and 2* facilitate the comparisons of PPPs across 
 |---------------|------------|------|
 | Between −0.25 and 0.25 | Between 78 and 128 | OK     |
 | Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1*     |
-| Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Fag 2**     |
+| Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Flag 2**     |
 | Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3***     |
 : Threshold values: CPD residuals and PPP-ratios {#tbl-thresholds}
 

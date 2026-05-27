@@ -2,11 +2,57 @@ url: https://amannj.github.io/OECDsppps/
 template:
   bootstrap: 5
   math-rendering: mathjax
-articles:
-- title: Articles
-  navbar: ~
-  contents:
-  - Implementation
-  - Validation
-  - Estimation
-
+navbar:
+  structure:
+    left: [home, reference, articles, news]
+    right: [search, github]
+  components:
+      home:
+        text: "Home"
+        href: index.html
+      reference:
+        text: "Reference"
+        href: reference/index.html
+      articles:
+        text: "Articles"
+        menu:
+          - text: "Implementation"
+            href: articles/Implementation.html
+          - text: "Validation"
+            href: articles/Validation.html
+          - text: "Estimation"
+            href: articles/Estimation.html
+          - text: -------
+          - text: "Alternative Software"
+            href: articles/altSoftware.html
+      news:
+        text: "News"
+        href: news/index.html
+reference:
+  - title: "Raw data validation"
+    desc: "Functions for raw data validation"
+    contents:
+      - valid_pot
+      - valid_apt
+      - valid_est
+      - valid_XRratio
+      - valid_PPPratio
+  - title: "Estimation at basic-heading level"
+    desc: "Function for estimation at basic-heading level"
+    contents:
+      - estim_cpd
+  - title: "Estimation beyond the basic-heading level"
+    desc: "Functions for estimation price indices and index calculation"
+    contents:
+      - index_fisher
+      - index_geks
+      - index_laspeyres
+      - index_paasche
+  - title: "Data and supplementary files"
+    desc: "Data files and concordance tables"
+    contents:
+      - uk_cpi
+      - uk_hhe
+      - oecd_tl
+      - ecoicop16_names
+      - concordance_ecoicop2bh

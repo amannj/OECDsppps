@@ -25,6 +25,9 @@ knitr:
 #| warning: false
 library(dplyr)
 library(tidyr)
+library(purrr)
+library(stringr)
+library(tibble)
 library(gt)
 library(ggplot2)
 library(OECDsppps)
@@ -56,9 +59,12 @@ The estimation procedure in this vignette follows the CPD-GEKS approach and high
 
 Data used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in @hearne2025 and is publicly available:
 
--   `uk_cpi()` is a snipped of the [UK CPI microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes) containing two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
+-   `uk_cpi()` is a snipped of the [UK CPI microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes) published by the United Kingdom Office for National Statistics (ONS) and contains two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
 
--   `uk_hhx()` is a snipped of the regional UK household expenditure data ...🚧 work in progress....
+-   `uk_hhe()` is a snipped of the 
+
+official [UK Regional Household Final Consumption Expenditure data](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) published by the United Kingdom Office for National Statistics (ONS) and contains regional (TL2) household final consumption expenditure shares for two products: White sliced loaf branded 750 grams (COICOP 01.1.1.3) and carpenter hourly rate (COICOP 04.3.2.5).
+
 
 ------------------------------------------------------------------------
 
@@ -416,11 +422,302 @@ red |>
 
 # Estimation of higher level aggregates using basic heading indices {#sec-step2}
 
-------------------------------------------------------------------------
+## Overview
 
-> 🚧 Additional sections remain work in progress.
+Aggregation beyond the basic-heading level uses the 
+Gini-Éltetö-Köves-Szulc index (GEKS) and is implemented using function `index_geks()`. 
 
-------------------------------------------------------------------------
+The GEKS method is constructed based on Fisher, Laspeyres and Paasche price indices.
+These index calculations are integrated in `index_geks()`, but the separate indices
+can also be calculated separately using the functions `index_laspeyres()`, 
+`index_paasche()` and `index_fisher()`. 
+
+## Indices  {#sec-step2Indices}
+
+### Gini-Éltetö-Köves-Szulc index (GEKS) {#sec-geks .unnumbered}
+
+The Gini-Éltetö-Köves-Szulc index (GEKS) method is recommended for aggregating above the basic heading levels for international and interregional comparisons, as it satisfies the necessary properties for multilateral comparisons; see @icp2021, @worldbank2013 and @europeanunionEurostatOECDMethodologicalManual2024 for more information.
+
+Subnational PPPs for region $k$ with reference to region $j$ are calculated using the GEKS as
+
+$$
+sPPP_{GEKS}^{j,k} = \prod_{r=1}^R \left( sPPP_F^{j,r} \times sPPP_F^{r,k} \right)^{1/R}
+$$
+
+and correspond to the geometric average of the 
+[Fisher indices](#sec-fisher) of all direct comparisons between region $j$ and region $k$, and indirect comparisons across all regions $R$ ($r=1,\dots,j,k,\dots,R$). 
+
+The Gini-Éltetö-Köves-Szulc index (GEKS) is implemented through function `index_geks()`. 
+
+### Fisher index {#sec-fisher .unnumbered}
+
+For the two arbitrary regions $j$ and $k$, the Fisher index calculates the subnational PPPs for the geometric mean of the weighted basic heading $b$, $b = 1,\dots, B$, of the 
+[Laspeyres index](#sec-geks), which holds quantities in region $j$ constant and allows prices to change, and the 
+[Paasche index](#sec-geks), which holds quantities in region $k$ constants and allows prices to change. 
+
+$$
+sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2}
+$$ {#eq-fish}
+
+
+the Fisher is calculated based on the results estimated at the basic heading level, where $p_jk$ and $e_jk$, respectively, denote the price and associated expenditure for an arbitrary basic heading $b$ and region $r$, and the implied quantity, $q_br$, is given by $q_br=  e_br⁄p_br$:
+
+$$
+sPPP_F^{j,k} = \left[ \underbrace{ \frac{\sum_{b = 1}^B p_{bk}q_{bj}}{\sum_{b = 1}^B p_{bj}q_{bj}} }_{sPPP_L^{j,k}} \times \underbrace{ \frac{\sum_{b = 1}^B p_{bk}q_{bk}}{\sum_{b = 1}^B p_{bj}q_{bk}} }_{sPPP_P^{j,k}}   \right]^{1/2}
+$$ {#eq-fish}
+
+The Fisher index is implemented through function `index_fisher()`.   
+
+### Laspeyres index {#sec-laspeyres .unnumbered}
+
+The Laspeyres index evaluates how much the given consumer basket in base region $j$ would cost if the basket were priced at partner region $k$'s prices. 
+
+The Laspeyres is calculated as
+
+$$
+sPPP_L^{j,k} = \sum_{n=1}^N  w_n^j \times sPPP_n^{j,k}
+$$ {#eq-lasp}
+
+
+The Laspeyres index is implemented using function `index_laspeyres()`. 
+
+### Paasche index {#sec-paasche .unnumbered}
+
+The same logic is mirrored with the Paasche index, where region $k$'s basket is evaluated and compared with region $j$'s price. 
+The Paasche is calculated as
+
+$$
+sPPP_P^{j,k} = \frac{1}{\sum_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}
+$$ {#eq-paas}
+
+The Paasche index is implemented using function `index_paasche()`. 
+
+
+## Implementation
+
+
+This section illustrates the calculation of Laspeyres, Paasche, Fisher, 
+and GEKS indices using the `index_laspeyres()`, `index_paasche()`, 
+`index_fisher()`, `index_geks()` in `OECDsppps`. 
+
+It also illustrates the calculations of the same indices in the 
+`pricelevels` package [@pricelevels].
+
+For this, some generic CPD estimates are generated first.
+
+```{r}
+# Calculate generic CPD estimates
+set.seed(123)
+
+R <- 5 # number of regions
+B <- 5 # number of product groups
+N <- 5 # number of products
+
+dt1 <- pricelevels::rdata(
+  R = R, B = B, N = N,
+  weights = ~ r + n,
+  settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
+) %>%
+  as_tibble()
+
+# Get the CPD estimate
+cpd_oecd <- dt1 %>%
+  dplyr::select(group, region, product, price) %>%
+  nest(.by = c(group)) %>%
+  mutate(cpd_estimation = map(.x = data, ~ .x %>%
+    estim_cpd(
+      region = "region",
+      product = "product",
+      price = "price"
+    ))) %>%
+  unnest(cpd_estimation) %>%
+  left_join(
+    dt1[, c("region", "group", "weight")] %>%
+      distinct(region, group, .keep_all = TRUE),
+    by = c("group", "region")
+  )
+```
+
+### Price indices in `OECDsppps` 
+
+The different price indices can be calculated through the functions
+`index_laspeyres()`, `index_paasche()`, 
+`index_fisher()` and `index_geks()`, and take identical input arguments. 
+
+Note that argument `reframe()` in the code chunk below creates
+a new data frame around the returned set of index estimates. This is useful if the 
+separate indices should be returned together; however, it is not necessary to calculate
+all these indices separately to implement the GEKS method, as 
+`index_geks()` carries out all necessary calculation steps. 
+
+In other words, `index_geks()`, nests the functions `index_fisher()`, 
+`index_laspeyres()` and `index_paasche()`, respectively,
+as discussed in the [Indices](#sec-step2Indices) section.
+
+
+```{r}
+indices_oecdsppps_df <- cpd_oecd %>%
+  reframe(
+    index_laspeyres(
+      data = .,
+      region = "region",
+      product = "group",
+      ppp_bh = "sPPP",
+      exp_wght = "weight"
+    ),
+    index_paasche(
+      data = .,
+      region = "region",
+      product = "group",
+      ppp_bh = "sPPP",
+      exp_wght = "weight"
+    ),
+    index_fisher(
+      data = .,
+      region = "region",
+      product = "group",
+      ppp_bh = "sPPP",
+      exp_wght = "weight"
+    ),
+    index_geks(
+      data = .,
+      region = "region",
+      product = "group",
+      ppp_bh = "sPPP",
+      exp_wght = "weight"
+    )
+  ) %>%
+  pivot_longer(!c(base_region, region),
+    names_to = "index_type",
+    values_to = "index_value"
+  ) %>%
+  mutate(package = "OECDsppps")
+```
+
+### Price indices in `pricelevels` 
+
+The same index calculations can be carried out with the `pricelevels` package [@pricelevels], which is build on the `data.table` [@datatable] library.
+
+
+```{r}
+cpd_oecd_pl <- cpd_oecd %>%
+  dplyr::select(group, region, sPPP, weight) %>%
+  as.data.table()
+
+regions_v <- c("1", "2", "3", "4", "5")
+
+laspeyres_pl <- vector("list", 5)
+paasche_pl <- vector("list", 5)
+fisher_pl <- vector("list", 5)
+geks_pl <- vector("list", 5)
+
+names(laspeyres_pl) <- regions_v
+names(paasche_pl) <- regions_v
+names(fisher_pl) <- regions_v
+names(geks_pl) <- regions_v
+
+
+for (i in seq_along(regions_v)) {
+  laspeyres_pl[[i]] <- cpd_oecd_pl[, laspeyres(
+    p = sPPP,
+    r = region,
+    n = group,
+    w = weight,
+    base = c(regions_v[i])
+  )]
+  paasche_pl[[i]] <- cpd_oecd_pl[, paasche(
+    p = sPPP,
+    r = region,
+    n = group,
+    w = weight,
+    base = c(regions_v[i])
+  )]
+  fisher_pl[[i]] <- cpd_oecd_pl[, fisher(
+    p = sPPP,
+    r = region,
+    n = group,
+    w = weight,
+    base = c(regions_v[i])
+  )]
+  geks_pl[[i]] <- cpd_oecd_pl[, geks(
+    p = sPPP,
+    r = region,
+    n = group,
+    w = weight,
+    settings = list(type = "fisher"),
+    base = c(regions_v[i])
+  )]
+}
+
+
+indices_pricelevels_df <- do.call(cbind, laspeyres_pl) %>%
+  as_tibble() %>%
+  rownames_to_column(var = "region") %>%
+  pivot_longer(!region, 
+               names_to = "base_region", 
+               values_to = "laspeyres_index") %>%
+  left_join(
+    do.call(cbind, paasche_pl) %>%
+      as_tibble() %>%
+      rownames_to_column(var = "region") %>%
+      pivot_longer(!region,
+        names_to = "base_region",
+        values_to = "paasche_index"
+      ),
+    by = c("base_region", "region")
+  ) %>%
+  left_join(
+    do.call(cbind, fisher_pl) %>%
+      as_tibble() %>%
+      rownames_to_column(var = "region") %>%
+      pivot_longer(!region, 
+                   names_to = "base_region", 
+                   values_to = "fisher_index"),
+    by = c("base_region", "region")
+  ) %>%
+  left_join(
+    do.call(cbind, geks_pl) %>%
+      as_tibble() %>%
+      rownames_to_column(var = "region") %>%
+      pivot_longer(!region, 
+                   names_to = "base_region", 
+                   values_to = "geks_index"),
+    by = c("base_region", "region")
+  ) %>%
+  pivot_longer(!c(base_region, region),
+    names_to = "index_type",
+    values_to = "index_value"
+  ) %>%
+  mutate(package = "pricelevels")
+```
+
+### Comparing `OECDsppps` and `pricelevels` price indices outputs
+
+The various indices calculated across both packages are numerically identical.
+
+```{r}
+#| fig-height: 8
+#| fig-width: 6
+indices_oecdsppps_df %>%
+  bind_rows(indices_pricelevels_df) %>%
+  mutate(
+    index_type = str_remove_all(index_type, "_index"),
+    base_region = paste("Base region:", base_region)
+  ) |>
+  ggplot(aes(x = region, y = index_value, fill = package)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Price index comparisons between OECDsppps and pricelevels",
+    x = "Region",
+    y = "Price index"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top") +
+  scale_fill_manual(values = c("#a3bbdd", "#2a4691")) +
+  geom_hline(yintercept = 1) +
+  facet_wrap(~ base_region + index_type, ncol = 4)
+```
+
 
 
 # References {.unnumbered}

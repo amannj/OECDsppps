@@ -1,4 +1,4 @@
-#' Create the "Price Observation Table"
+#' The "Price Observation Table"
 #'
 #' \loadmathjax
 #' `valid_pot` in  \pkg{OECDsppps} creates the "Price Observation Table";
@@ -68,7 +68,7 @@ valid_pot <- function(data,
     )
 }
 
-#' Create "Average Price Table"
+#' The "Average Price Table"
 #'
 #' \loadmathjax
 #' `valid_apt()` in  \pkg{OECDsppps} creates the "Average Price Table" by
@@ -306,7 +306,7 @@ valid_PPPratio <- function(data,
     rbind(x2)
 }
 
-#' Create "Expenditure Shares Table"
+#' The "Expenditure Shares Table"
 #'
 #' \loadmathjax
 #' `valid_est()` in  \pkg{OECDsppps} creates the "Expenditure Shares Table"

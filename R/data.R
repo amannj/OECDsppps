@@ -58,7 +58,7 @@
 #' More information on COICOP classification can be found in the
 #' [ONS Classification of household consumption headings](https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/satelliteaccounts/methodologies/consumertrendsuk/classificationofhouseholdconsumptionheadings2014tcm772368742.pdf) and in the
 #' [UN Statistics Division’s COICOP 2018 statistical paper](https://unstats.un.org/unsd/classifications/unsdclassifications/COICOP_2018_pre_copy_edit_publication.pdf).
-#'#'
+#'
 #' \describe{
 #'   \item{Year}{Year}
 #'   \item{Region}{Region, following [TL2](https://www.oecd.org/en/data/datasets/oecd-geographical-definitions.html)/[ITL1](https://www.ons.gov.uk/methodology/geography/ukgeographies/eurostat) boundaries)}

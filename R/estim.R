@@ -1,4 +1,4 @@
-#' Country Product Dummy (CPD) regression model
+#' The Country Product Dummy (CPD) regression model
 #'
 #' \loadmathjax
 #' `estim_cpd` in  \pkg{OECDsppps} creates ...;
