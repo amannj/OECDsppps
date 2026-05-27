@@ -80,13 +80,14 @@ Validate household expenditure data and add Laspeyres, Paasche, Fischer and GEKS
 ### Additions
 
 - Add function to validate household expenditure data `valid_est()`
-- Add snipped of UK [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) data
+- Add a snippet of UK [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) data
 
 ------------
 
 # Version `0.0.0.6`
 
-Add index calculation functions, description of using `OECDsppps` in Python and SAS
+Add index calculation functions, description of using `OECDsppps` in Python and SAS, 
+better implementation description
 
 ### Additions
 
@@ -95,4 +96,4 @@ and `index_geks()` for estimating subnational PPPs using Laspeyres, Paasche,
 Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices 
 - Add [description](https://amannj.github.io/OECDsppps/articles/altSoftware.html) data
  on using `OECDsppps` in Python and SAS
- - **Uniform prices**
+- Update [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)

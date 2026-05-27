@@ -29,23 +29,26 @@ navbar:
         text: "News"
         href: news/index.html
 reference:
-  - title: "Validation"
-    desc: "Functions for validation of data and price indices"
+  - title: "Raw data validation"
+    desc: "Functions for raw data validation"
     contents:
+      - valid_pot
       - valid_apt
       - valid_est
-      - valid_pot
-      - valid_PPPratio
       - valid_XRratio
+      - valid_PPPratio
+  - title: "Estimation at basic-heading level"
+    desc: "Function for estimation at basic-heading level"
+    contents:
+      - estim_cpd
   - title: "Estimation"
     desc: "Functions for estimation price indices and index calculation"
     contents:
-      - estim_cpd
       - index_fisher
       - index_geks
       - index_laspeyres
       - index_paasche
-  - title: "Data"
+  - title: "Data and supplementary files"
     desc: "Data files and concordance tables"
     contents:
       - uk_cpi
