@@ -375,3 +375,52 @@ valid_est <- function(data,
     )
 }
 
+#' The Paasche-Laspeyres spread
+#'
+#' `valid_index_pl_spread()` calculates the Paasche-Laspeyres spread.
+#'
+#'  The Paasche-Laspeyres spread for regions \mjseqn{j} and \mjseqn{k} is defined as
+#'  \mjdeqn{PLS_{j,k} = \frac{MAX(P^{P}_{jk}, P^{L}_{jk})}{MIN(P^{P}_{jk}, P^{L}_{jk})}}{PLS_{j,k} = \frac{MAX(P^{P}_{jk}, P^{L}_{jk})}{MIN(P^{P}_{jk}, P^{L}_{jk})}}
+#'
+#' @param data A data frame or tibble containing at least four columns identifying
+#' region, product, subnational PPPs, and expenditure weights.
+#' @param region Identifier for regions
+#' @param product Product identifier
+#' @param ppp_bh Identifier for subnational PPPs
+#' @param exp_wght Identifier for expenditure weights
+#'
+#'
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by
+#' @export
+valid_index_pl_spread <- function(data,
+                                  region = "region",
+                                  product = "product",
+                                  ppp_bh = "ppp_bh",
+                                  exp_wght = "exp_wght"){
+
+  # Laspeyres Index
+  lasp_index <- index_laspeyeres(data,
+                                 region,
+                                 product,
+                                 ppp_bh,
+                                 exp_wght)
+
+  # Paasche Index: matrix
+  paas_index <- index_paasche(data,
+                              region,
+                              product,
+                              ppp_bh,
+                              exp_wght)
+
+  output_pl_spread <- lasp_index %>%
+    left_join(paas_index,
+              by = c("base_region", "region")) %>%
+    group_by(base_region, region) %>%
+    mutate(paasche_laspeyres_spread = (max(laspeyres_index, paasche_index) / min(laspeyres_index, paasche_index))) %>%
+    ungroup()
+
+  return(output_pl_spread)
+
+}
