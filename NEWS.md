@@ -97,3 +97,13 @@ Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices
 - Add [description](https://amannj.github.io/OECDsppps/articles/altSoftware.html) data
  on using `OECDsppps` in Python and SAS
 - Update [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
+
+------------
+
+# Version `0.0.0.7`
+
+...
+
+### Bug fixes
+
+- Fixed naming inconsistencies

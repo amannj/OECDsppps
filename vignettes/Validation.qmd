@@ -384,11 +384,7 @@ The use of alternative data sources depends on the type and availability of data
 
 # Validation at basic-heading level {#sec-tobh}
 
-> 🚧 Examples work in progress.
-
 The validation at the basic-heading level concerns the reliability of the CPD estimates as well as their cross-sectional comparability.
-
-
 
 ## Dikhanov tables for validation at basic-heading level
 
@@ -423,9 +419,7 @@ Examines the basic heading PPPs *within* and *across* countries to point at coun
 
 ### Cross-country validation
 
-> 🚧 Examples work in progress.
-
-- Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading.
+Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading.
 
 
 # Expenditure weights validation {#sec-exweights}
