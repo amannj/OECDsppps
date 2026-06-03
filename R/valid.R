@@ -167,11 +167,11 @@ valid_apt <- function(data,
 #' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
 #'
 #' The **XR-ratio** uses the exchange-rate-converted prices to calculate the *standardised price ratio (SPR)*
-#' For product \mjseqn{1} and country–region \mjseqn{A}, the SPR is defined as:
+#' For product \mjseqn{1} and country-region \mjseqn{A}, the SPR is defined as:
 #' \mjdeqn{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}
 #' where
-#' \mjseqn{\mu^{*}_{1A}} represents the *average converted price* of product \mjseqn{1} in country–region
-#' \mjseqn{A}, and \mjseqn{N} is the total number of country–regions.
+#' \mjseqn{\mu^{*}_{1A}} represents the *average converted price* of product \mjseqn{1} in country-region
+#' \mjseqn{A}, and \mjseqn{N} is the total number of country-regions.
 #'
 #' @param data A data frame or tibble containing at least a column with the average country-region
 #'  prices and exchange rate.
@@ -221,11 +221,11 @@ valid_XRratio <- function(data,
 #' products with the most significant cross-country variation.
 #'
 #' The **PPP-ratio** uses the PPP-converted prices to calculate the *standardised price ratio (SPR)*
-#' For product \mjseqn{1} and country–region \mjseqn{A}, the SPR is defined as:
+#' For product \mjseqn{1} and country-region \mjseqn{A}, the SPR is defined as:
 #' \mjdeqn{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}
 #' where
-#' \mjseqn{\mu^{*}_{1A}} represents the *average converted price* of product \mjseqn{1} in country–region
-#' \mjseqn{A}, and \mjseqn{N} is the total number of country–regions.
+#' \mjseqn{\mu^{*}_{1A}} represents the *average converted price* of product \mjseqn{1} in country-region
+#' \mjseqn{A}, and \mjseqn{N} is the total number of country-regions.
 #'
 #' @param data A data frame or tibble containing at least a column with the average country-region
 #'  prices and a region and product identifier.
@@ -340,10 +340,8 @@ valid_PPPratio <- function(data,
 #' suppressPackageStartupMessages(library(dplyr))
 #' library(OECDsppps)
 #' uk_hhe |>
-#'  group_by(coicop_4d) |>
-#'  valid_est(shares = 'expenditure_share')
-#'
-#'
+#'   group_by(coicop_4d) |>
+#'   valid_est(shares = "expenditure_share")
 #'
 #' @importFrom Rdpack reprompt
 #' @importFrom mathjaxr preview_rd
@@ -364,9 +362,10 @@ valid_est <- function(data,
     ## Calculate tests
     mutate(
       `Max-median ratio` = `Maximum expenditure share` / `Median expenditure share`,
-      `Median-min ratio` =  ifelse(`Minimum expenditure share` == 0,
-                                   NA,
-                                   `Median expenditure share` / `Minimum expenditure share`)
+      `Median-min ratio` = ifelse(`Minimum expenditure share` == 0,
+        NA,
+        `Median expenditure share` / `Minimum expenditure share`
+      )
     ) |>
     # Add flags for selection rules
     mutate(
@@ -398,29 +397,131 @@ valid_index_pl_spread <- function(data,
                                   region = "region",
                                   product = "product",
                                   ppp_bh = "ppp_bh",
-                                  exp_wght = "exp_wght"){
-
+                                  exp_wght = "exp_wght") {
   # Laspeyres Index
-  lasp_index <- index_laspeyeres(data,
-                                 region,
-                                 product,
-                                 ppp_bh,
-                                 exp_wght)
+  lasp_index <- index_laspeyeres(
+    data,
+    region,
+    product,
+    ppp_bh,
+    exp_wght
+  )
 
   # Paasche Index: matrix
-  paas_index <- index_paasche(data,
-                              region,
-                              product,
-                              ppp_bh,
-                              exp_wght)
+  paas_index <- index_paasche(
+    data,
+    region,
+    product,
+    ppp_bh,
+    exp_wght
+  )
 
   output_pl_spread <- lasp_index %>%
     left_join(paas_index,
-              by = c("base_region", "region")) %>%
+      by = c("base_region", "region")
+    ) %>%
     group_by(base_region, region) %>%
     mutate(paasche_laspeyres_spread = (max(laspeyres_index, paasche_index) / min(laspeyres_index, paasche_index))) %>%
     ungroup()
 
   return(output_pl_spread)
+}
 
+#' sPPPs outlier plot
+#'
+#' `valid_outlier_plot()` produces some simple validation plots to check
+#' subnational PPP estimates for potential outliers
+#'
+#'
+#' @param data A data frame or tibble containing at least one column with
+#' the subnational Purchasing Power Parity indices
+#' @param sPPPs Vector with subnational Purchasing Power Parities
+#' @param title Option to add a plot title; default is NULL
+#' @param facet_var Option to wraps a 1d sequence of panels into 2d based on
+#' the provided variable following ggplot2's `facet_wrap()`; default is NULL
+#' @param facet_ncol Option to change the number of column of the created
+#' facets following ggplot2's `facet_wrap()` argument `ncol`;
+#' default is 2 if `facet_var` is used
+#' @param facet_scale Option to change wheterhe the facet scales should be fixed
+#' (`"fixed"`, the default), free (`"free"`), or free in one
+#' dimension (`"free_x"`, `"free_y"`); default is `"fixed"`
+#' @param bins Number of bins following ggplots' `geom_histogram()` argument `bins`;  Default is `70`
+#' @param xlim_range Limits for the x and y axes, following
+#' ggplot2's `coord_cartesian()` argument and need to be provided as a vector
+#' as `outlier_cutoffs = c(upper_limit, lower_limit)`; default is NULL
+#' @param outlier_cutoffs Cutoffs to highlight potential outliers in
+#' the plot and need to be provided as a vector
+#' as `outlier_cutoffs = c(upper_limit, lower_limit)`;
+#' default is `1.5` and `0.5`, i.e. `outlier_cutoffs = c(1.5, 0.5)`
+#'
+#' @examples
+#' \dontrun{
+#' uk_cpi |>
+#'   select(Year,
+#'        region = "Region",
+#'        product = "Product code",
+#'        price = "Reference quantity price"
+#'   ) |>
+#'   mutate(
+#'     region = as.factor(region),
+#'     product = as.factor(product)
+#'   ) |>
+#'   estim_cpd() |>
+#'   valid_outlier_plot(title = "sPPPs outlier with adjusted outlier cutoffs",
+#'                      # Adjust outlier cutoffs (default is 1.5 and 0.5)
+#'                      outlier_cutoffs = c(1.1, 0.9))
+#' }
+#'
+#' @importFrom ggplot2 ggplot
+#' @export
+valid_outlier_plot <- function(data,
+                               sPPPs = "sPPP",
+                               title = NULL,
+                               facet_var = NULL,
+                               facet_ncol = NULL,
+                               facet_scale = "fixed",
+                               bins = 70,
+                               outlier_cutoffs = c(1.5, 0.5),
+                               xlim_range = NULL) {
+  p <- data %>%
+    # Identify outlier
+    mutate(outlier = .data[[sPPPs]] > outlier_cutoffs[1] | .data[[sPPPs]] < outlier_cutoffs[2]) |>
+    # Base plot
+    ggplot(aes(x = .data[[sPPPs]], fill = outlier)) +
+    geom_histogram(bins = bins, position = "identity", alpha = 0.6) +
+    geom_vline(xintercept = 1, color = "grey20", linetype = "dashed") +
+    scale_fill_manual(
+      values = c("#a3bbdd", "#2a4691"),
+      labels = c("Within 0.5-1.5", "Outside 0.5-1.5"),
+      name = ""
+    ) +
+    labs(
+      x = "sPPPs distribution", y = "",
+      title = title,
+      subtitle = "Counts"
+    ) +
+    theme_minimal() +
+    theme(legend.position = "top")
+
+  # Add facet option
+  if (!is.null(facet_var)) {
+    ## Check ncol
+    if (is.null(facet_ncol)) {
+      facet_ncol <- 2
+      message("Variable `facet_ncol` not provided and changed defaul `facet_ncol = 2`.")
+    }
+    ## Add facet
+    p <- p + facet_wrap(~ .data[[facet_var]],
+      ncol = facet_ncol,
+      scale = facet_scale
+    ) +
+      labs(caption = paste0("Facetting variable: `", {{ facet_var }}, "`"))
+  }
+
+  # Add x-axis limits option
+  if (!is.null(xlim_range)) {
+    p <- p + coord_cartesian(xlim = xlim_range)
+  }
+
+  return(p)
 }

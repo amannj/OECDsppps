@@ -415,7 +415,82 @@ Examines the basic heading PPPs *within* and *across* countries to point at coun
 
 ### Within country validation
 
-> 🚧 Examples work in progress.
+Function `valid_outlier_plot()` produces some simple validation plots to check subnational PPP estimates for potential outliers.
+The example below illustrates the behaviour for some generic, basic-heading CPD estimates
+
+```{r}
+# Take UK CPI microdata containing duplicate region-product pairs ---------
+red <- uk_cpi |>
+  select(Year,
+    region = "Region",
+    product = "Product code",
+    price = "Reference quantity price"
+  ) |>
+  mutate(
+    region = as.factor(region),
+    product = as.factor(product)
+  )
+```
+
+Example for sPPPs outlier plot with adjusted outlier cutoffs.
+
+```{r}
+#| message: false
+#| warning: false
+# Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
+red |>
+  estim_cpd() |> 
+  valid_outlier_plot(title = "sPPPs outlier with adjusted outlier cutoffs",
+                     # Adjust outlier cutoffs (default is 1.5 and 0.5)
+                     outlier_cutoffs = c(1.1, 0.9))
+
+```
+
+Use `facet_var` to add facets, which is particularly useful to compare distributions
+of price indices by year, region, or product category. The example below compares price distributions by year.
+
+```{r}
+#| message: false
+#| warning: false
+# Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
+red |>
+  # Apply `estim_cpd()` to each year
+  group_by(Year) |> 
+  group_modify(~estim_cpd(.x))  |>
+  # Outlier plot
+  valid_outlier_plot(title = "sPPPs outlier with adjusted outlier cutoffs by year",
+                     facet_var = 'Year',
+                     # Adjust number of facet columns (default is 2)
+                     facet_ncol = 3,
+                     # Adjust bins (default is 70)
+                     bins = 10,
+                     # Adjust outlier cutoffs (default is 1.5 and 0.5)
+                     outlier_cutoffs = c(1.1, 0.9)
+                     )
+```
+
+Function `valid_outlier_plot()` can also be used to quickly check for price 
+index changes between years, as shown below.
+
+```{r}
+#| message: false
+#| warning: false
+# Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
+red |>
+  # Perform check for two years only
+  filter(Year %in% c(2018, 2023)) |> 
+  # Apply `estim_cpd()` to each year
+  group_by(Year) |> 
+  group_modify(~estim_cpd(.x))   |> 
+  # Pivot data and calculate year-on-year difference
+  pivot_wider(values_from = 'sPPP', names_from = 'Year', names_prefix = 'Year_') |> 
+  mutate(d_sPPP = Year_2023/Year_2018) |> 
+ # Outlier plot
+  valid_outlier_plot(sPPPs = 'd_sPPP',
+                     title = "sPPPs outlier, intertemporal changes",
+                     # Adjust outlier cutoffs (default is 1.5 and 0.5)
+                     outlier_cutoffs = c(1.05, 0.95))
+```
 
 ### Cross-country validation
 

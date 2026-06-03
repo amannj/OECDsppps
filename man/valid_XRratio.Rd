@@ -29,11 +29,11 @@ that are most variable (high XR-ratio) across countries;
 }
 \details{
 The \strong{XR-ratio} uses the exchange-rate-converted prices to calculate the \emph{standardised price ratio (SPR)}
-For product \mjseqn{1} and country–region \mjseqn{A}, the SPR is defined as:
+For product \mjseqn{1} and country-region \mjseqn{A}, the SPR is defined as:
 \mjdeqn{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}{SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100}
 where
-\mjseqn{\mu^{*}_{1A}} represents the \emph{average converted price} of product \mjseqn{1} in country–region
-\mjseqn{A}, and \mjseqn{N} is the total number of country–regions.
+\mjseqn{\mu^{*}_{1A}} represents the \emph{average converted price} of product \mjseqn{1} in country-region
+\mjseqn{A}, and \mjseqn{N} is the total number of country-regions.
 }
 \references{
 \insertAllCited{}

@@ -37,10 +37,13 @@ reference:
       - valid_est
       - valid_XRratio
       - valid_PPPratio
+      - valid_index_pl_spread
+      - valid_outlier_plot
   - title: "Estimation at basic-heading level"
     desc: "Function for estimation at basic-heading level"
     contents:
       - estim_cpd
+      - estim_index_link
   - title: "Estimation beyond the basic-heading level"
     desc: "Functions for estimation price indices and index calculation"
     contents:

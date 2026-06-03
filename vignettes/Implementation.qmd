@@ -82,10 +82,10 @@ calculation of the subnational price indices.
 |------------------------|------------------------|------------------------|
 | **1** Raw data processing | OECD or country | ❌ |
 | **2** Raw data validation | OECD or country | `valid_pot()`, `valid_apt()`, `valid_XRatio()`, `valid_PPPratio()`,  `valid_est()` |
-| **3** Estimation at basic-heading level | OECD or country | `estim_cpd()` |
-| **4** Validation of estimation at basic-heading level | OECD or country | 🚧 *valid_dikhanov()*, *valid_plots()* |
+| **3** Estimation at basic-heading level | OECD or country | `estim_cpd()`, `estim_index_link()` |
+| **4** Validation of estimation at basic-heading level | OECD or country | 🚧 *valid_dikhanov()*, `valid_outlier_plot()` |
 | **5** Estimation beyond the basic-heading level | OECD | `index_laspeyres()`, `index_paasche()`, `index_fisher()`, `index_geks()` |
-| **6** Validation of estimation beyond the basic-heading level | OECD | 🚧 *valid_plots()* |
+| **6** Validation of estimation beyond the basic-heading level | OECD | `valid_outlier_plot()`, `valid_index_pl_spread()`  |
 | **7** Comparability across countries and regions | OECD | 🚧 |
 
 : Implementation pipeline {#tbl-implementation}
