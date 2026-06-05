@@ -396,18 +396,16 @@ Ensures that prices are consistent not only within basic headings but also at th
 
 In the Dikhanov table, *Part 1 and 2* facilitate the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. *Part 3* Ensures that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. Extreme values are identified based on CPD residuals and PPP ratio threshold values described in @tbl-thresholds; see also [@worldbank2013, p.261].
 
-
 | CPD residuals | PPP-ratios | Flag |
-|---------------|------------|------|
-| Between −0.25 and 0.25 | Between 78 and 128 | OK     |
-| Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1*     |
-| Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Flag 2**     |
-| Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3***     |
+|-------------------------------|-------------------------|-----------------|
+| Between −0.25 and 0.25 | Between 78 and 128 | OK |
+| Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1* |
+| Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Flag 2** |
+| Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3*** |
+
 : Threshold values: CPD residuals and PPP-ratios {#tbl-thresholds}
 
-
 > 🚧 Examples work in progress.
-
 
 ## Visual validation at basic-heading level
 
@@ -415,8 +413,7 @@ Examines the basic heading PPPs *within* and *across* countries to point at coun
 
 ### Within country validation
 
-Function `valid_outlier_plot()` produces some simple validation plots to check subnational PPP estimates for potential outliers.
-The example below illustrates the behaviour for some generic, basic-heading CPD estimates
+Function `valid_outlier_plot()` produces some simple validation plots to check subnational PPP estimates for potential outliers. The example below illustrates the behaviour for some generic, basic-heading CPD estimates
 
 ```{r}
 # Take UK CPI microdata containing duplicate region-product pairs ---------
@@ -446,8 +443,7 @@ red |>
 
 ```
 
-Use `facet_var` to add facets, which is particularly useful to compare distributions
-of price indices by year, region, or product category. The example below compares price distributions by year.
+Use `facet_var` to add facets, which is particularly useful to compare distributions of price indices by year, region, or product category. The example below compares price distributions by year.
 
 ```{r}
 #| message: false
@@ -469,8 +465,7 @@ red |>
                      )
 ```
 
-Function `valid_outlier_plot()` can also be used to quickly check for price 
-index changes between years, as shown below.
+Function `valid_outlier_plot()` can also be used to quickly check for price index changes between years, as shown below.
 
 ```{r}
 #| message: false
@@ -495,7 +490,6 @@ red |>
 ### Cross-country validation
 
 Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading.
-
 
 # Expenditure weights validation {#sec-exweights}
 
@@ -545,6 +539,53 @@ uk_hhe |>
 <!-- $$ -->
 
 <!-- PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})} -->
+
+```{r}
+
+# Validation using the Paasche-Laspeyres spread
+
+# 1. Generate the price/weights data
+set.seed(123)
+
+R <- 5 # number of regions
+B <- 5 # number of product groups
+N <- 5 # number of products
+
+dt1 <- pricelevels::rdata(R = R, B = B, N = N,
+                          weights = ~r+n,
+                          settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
+) %>%
+  as_tibble()
+
+
+# 2. Obtain CPD estimates with estim_cpd, and join weights
+cpd_oecd <- dt1 %>%
+  dplyr::select(group, region, product, price) %>%
+  nest(.by = c(group)) %>%
+  mutate(cpd_estimation = map(.x = data, ~ .x %>%
+                                estim_cpd(region = "region",
+                                          product = "product",
+                                          price = "price"))) %>%
+  unnest(cpd_estimation) %>%
+  left_join(dt1[, c("region", "group", "weight")] %>%
+              distinct(region, group, .keep_all = TRUE),
+            by = c("group", "region"))
+
+
+# 3. Calculate the PLS
+valid_index_lp_spread(data = cpd_oecd,
+                      region = "region",
+                      product = "group",
+                      ppp_bh = "sPPP",
+                      exp_wght = "weight") %>%
+  tab_header(
+    title = md("**Paasche-Laspeyres Spread**"),
+    subtitle = md("Example for 5 regions")
+  ) %>%
+   fmt_number(
+    decimals = 2
+  )
+```
 
 <!-- $$ -->
 
