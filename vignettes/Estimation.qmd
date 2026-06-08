@@ -802,14 +802,53 @@ indices_oecdsppps_df %>%
 
 ------------------------------------------------------------------------
 
-# Complete pipeline: Estimating higher level aggregates directly from item-level prices
+# Putting it all together: Estimating weighted higher level aggregates directly from item-level prices
+
+As described in the [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html) section, 
+the CPD-GEKS approach is recommended for producing
+subnational PPPs by the ICP [@icp2021], and has also been used by a
+national statistical institute in a subnational PPP programme, providing
+experimental statistics in Italy [@Istat]. 
+
+This section describes how the implement this [two-step procedure](https://amannj.github.io/OECDsppps/articles/Implementation.html#fig-aggregation), which combines: 
+
+1. Estimation of price parities at the
+basic heading level using the regional extension of the
+Country-Product-Dummy (CPD) method [@summers1973international].
+2. Upon validation, aggregation of BH-level parities into higher-level
+indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a multilateral
+index construction technique that ensures transitivity, in combination
+with household final consumption expenditure data as a weighting
+structure for household final consumption PPPs [@icp2021].
+
+Most importantly, the CPI microdata typically does not contain price quotes for all
+COICOP categories, including the ones for which cross-regional uniform prices can
+be assumed, such as, for example, for used cars.
+However, removing products that are subject to uniform prices from the estimation
+will artificially inflate the price variation for any present 
+category.
+Consider the example where a generic COICOP class contains 10 sub-classes, of 
+which 9 are subject to uniform prices while one
+sub-class is subject to price variations. If the 9 uniform sub-classes were to 
+be removed from the sPPPs calculation, the remaining sub-class
+with regional price variation would artificially inflate the price variation of 
+the entire class. It is therefore necessary to artificially include uniform 
+prices for all sub-aggregates contained *within* the respective higher aggregate
+for which sPPPs are estimated.
+
+This can be done with the function `estim_index_link()`,
+which fills in missing basic heading PPPs with a value given by the user.
+The function returns a data frame containing the variables indicating the region ("region"),
+basic heading ("product"), basic heading PPP ("ppp_bh"). Once joined with expenditure weights,
+this output can be directly fed into `index_geks()`.^[Or any alternative
+bilateral index formula `index_laspeyres()`, `index_paasche()`, `index_fisher()`.]
 
 The two steps above can be linked within one pipeline using the
-`estimation_index_link()` function.
+`estim_index_link()` function.
 
 ```{r}
-
-# Generate data with pricelevels
+# Generate data with pricelevels ---------
+## Set parameters and generate generic data
 set.seed(123)
 
 R <- 5 # number of regions
@@ -818,32 +857,38 @@ N <- 5 # number of products
 
 dt1 <- pricelevels::rdata(R = R, B = B, N = N,
                           weights = ~r+n,
-                          settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
+                          settings = list(par.sd = c(lnP = 0.1, 
+                                                     pi = exp(1), 
+                                                     delta = 0.5, 
+                                                     error = 0.8))
 ) %>%
   as_tibble()
 
-# Item-level prices
+## Item-level prices
 dt1_prices <- dt1 %>%
   dplyr::select(group, region, product, price)
 
-# Weights
+# Obtain product-specific weights ----------
 dt1_wghts <- dt1 %>%
   distinct(group, region, .keep_all = TRUE) %>%
   select(group, region, weight) %>%
   rename(exp_wght = weight, product = group)
 
-# GEKS calculation
+# CPD-GEKS calculation ---------
 dt1_prices %>%
+  ## Step 1: CPD Estimation by product group
   nest(.by = c(group)) %>%
   mutate(cpd_estimation = map(.x = data, ~ .x %>%
                                 estim_cpd(region = "region",
                                           product = "product",
                                           price = "price"))) %>%
-  estimation_index_link(data = .,
+  ## Next step: Complete price
+  estim_index_link(data = .,
                         product = "group",
                         cpd_model = "cpd_estimation") %>%
   left_join(dt1_wghts,
             by = c("product", "region")) %>%
+  ## Step 2: GEKS estimation
   index_geks()
 
 ```

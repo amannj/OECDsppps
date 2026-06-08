@@ -23,11 +23,13 @@ knitr:
 #| label: setup
 #| message: false
 #| warning: false
+library(OECDsppps)
 library(dplyr)
 library(tidyr)
 library(gt)
 library(ggplot2)
 library(OECDsppps)
+library(purrr)
 ```
 
 # Overview {.unnumbered}
@@ -524,21 +526,17 @@ uk_hhe |>
 
 # Validation beyond basic-heading level {#sec-beyondbh}
 
-> 🚧 Work in progress.
+This step of validation concerns the validation of PPPs using expenditure weights together [@worldbank2013, p.287]. The objective is to check if there is a problem with the basic headings PPP and expenditures, or—in case the data is valid—there is an estimation issue.
 
-<!-- ## Bilateral PPPs -->
+The Paasche-Laspeyres spread (PLS), following [@hillLinkingRegionsInternational2011], corresponds to the upper and lower price and quantity relatives to determine whether the large values in the PLS are caused by PPPs or expenditure outliers. Basic headings with large upper or lower quantity or price relatives should be further examined.
 
-<!-- - Next step of validation concerns the validation of PPPs using expenditure weights together [@worldbank2013, p.287] -->
+The Paasche-Laspeyres spread is calculated as
 
-<!-- - The objective is to check if there is a problem with the basic headings PPP and expenditures, or—in case the data is valid—there is an estimation issue. -->
+$$
+PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})}
+$$
 
-<!-- - [@worldbank2013, p.287] discusses various validations steps that can be used to validate the Fisher PPPs. -->
-
-<!-- - Validation using the Laspeyres and Paasche quantity index and Paasche-Laspeyres spread (PLS) following [@hillLinkingRegionsInternational2011], who proposes computing upper and lower price and quantity relatives to determine whether the large values in the PLS are caused by PPPs or expenditure outliers. Basic headings with large upper or lower quantity or price relatives should be further examined. -->
-
-<!-- $$ -->
-
-<!-- PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})} -->
+The PLS can be calculated using the function `valid_index_pl_spread()` as described below.
 
 ```{r}
 
@@ -573,11 +571,12 @@ cpd_oecd <- dt1 %>%
 
 
 # 3. Calculate the PLS
-valid_index_lp_spread(data = cpd_oecd,
+valid_index_pl_spread(data = cpd_oecd,
                       region = "region",
                       product = "group",
                       ppp_bh = "sPPP",
                       exp_wght = "weight") %>%
+  gt() |> 
   tab_header(
     title = md("**Paasche-Laspeyres Spread**"),
     subtitle = md("Example for 5 regions")

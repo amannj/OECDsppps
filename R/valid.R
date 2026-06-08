@@ -399,7 +399,7 @@ valid_index_pl_spread <- function(data,
                                   ppp_bh = "ppp_bh",
                                   exp_wght = "exp_wght") {
   # Laspeyres Index
-  lasp_index <- index_laspeyeres(
+  lasp_index <- index_laspeyres(
     data,
     region,
     product,
