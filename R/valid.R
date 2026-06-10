@@ -525,3 +525,126 @@ valid_outlier_plot <- function(data,
 
   return(p)
 }
+
+#' Dikhanov table
+#'
+#' `valid_dikhanov()` generates the Dikhanov tables for all selected basic headings.
+#'
+#' The function first obtains CPD estimates through `estim_cpd()`. It then calculates all
+#' required summary statistics and returns a list containing Dikhanov tables for each of the selected
+#' basic headings.
+#'
+#' @param data Data frame, data table or tibble containing at least three
+#'  columns identifying region, product and individual item-level price quotes
+#' @param region Identifier for regions (within or across countries)
+#' @param product Product identifier
+#' @param price Individual item-level price quotes; Duplicate region-product
+#' pairs are aggregated by way of averaging across region-product pairs
+#' @param basic_heading Identifier for basic headings/higher level aggregates
+#' @param selected_headings selected basic headings/higher level aggregates for which
+#' Dikhanov tables should be constructed
+#'
+#'
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
+#' @importFrom dplyr group_by
+#' @importFrom dplyr group_map
+#' @importFrom dplyr mutate
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr rowwise
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr case_when
+#' @importFrom dplyr cur_data
+#' @importFrom dplyr arrange
+#' @importFrom dplyr relocate
+#' @importFrom tidyr pivot_wider
+#'
+#'
+#' @examples
+#' set.seed(123)
+#'
+#' R <- 5 # number of regions
+#' B <- 5 # number of product groups
+#' N <- 5 # number of products
+#'
+#' dt1 <- pricelevels::rdata(R = R, B = B, N = N) %>%
+#'   as_tibble()
+#'
+#' valid_dikhanov(data = dt1,
+#'                region = "region",
+#'                product = "product",
+#'                price = "price",
+#'                basic_heading = "group",
+#'                selected_headings = c("1", "4"))
+#'
+#'
+#'
+#' @export
+valid_dikhanov <- function(data,
+                           region = "region",
+                           product = "product",
+                           price = "price",
+                           basic_heading = "basic_heading",
+                           selected_headings = c()){
+
+  dikhanov_table_list <- data %>%
+    filter(.data[[basic_heading]] %in% selected_headings) %>%
+    select({{ basic_heading }}, {{ region }}, {{ product }}, {{ price }}) %>%
+    group_by(.data[[basic_heading]]) %>%
+    group_map(~ {
+      output_cpd <- estim_cpd(.x,
+                              region = {{ region }},
+                              product = {{ product }},
+                              price = {{ price }},
+                              output = "Full")
+      output_cpd[[2]] <- output_cpd[[2]] %>%
+        mutate(product = .x[[product]])
+      output_cpd
+    }) %>%
+    map(\(x) list(
+      `Regression output` = x$`Regression output` %>%
+        select(region, sPPP) %>%
+        filter(region != "Aggregate summary statistics") %>%
+        pivot_wider(names_from = "region", values_from = "sPPP") %>%
+        mutate(variable = "sPPP"),
+      Residuals = x$Residuals %>%
+        select(region, product, .resid) %>%
+        pivot_wider(names_from = "region", values_from = ".resid") %>%
+        bind_rows(
+          summarise(., across(-product, ~ sd(.x, na.rm = TRUE)))
+        ) %>%
+        mutate(variable = case_when(!is.na(product) ~ NA,
+                                    is.na(product) ~ "STD 2")) %>%
+        bind_rows(
+          summarise(., across(-c(product, variable), ~ sum(!is.na(.x)) - 1))
+        ) %>%
+        mutate(variable = case_when(!is.na(product) ~ NA,
+                                    is.na(variable) & is.na(product) ~ "No. of items priced",
+                                    .default = variable)) %>%
+        rowwise() %>%
+        mutate(`STD 1` = sd(c_across(-c(product, variable)), na.rm = TRUE),
+               `Items/Countries` = sum(!is.na(c_across(-c(product, variable)))) - 1) %>%
+        ungroup() %>%
+        mutate(`Items/Countries` = case_when(variable %in% c("No. of items priced") ~ n_distinct(product, na.rm = TRUE),
+                                             variable %in% c("sPPP", "STD 2") ~ NA,
+                                             .default = `Items/Countries`),
+               `STD 1` = case_when(variable %in% c("sPPP", "No. of items priced") ~ NA,
+                                   variable %in% c("STD 2") ~ cur_data() %>%
+                                     filter(!is.na(product)) %>%
+                                     select(-variable, -product, -`STD 1`, -`Items/Countries`) %>%
+                                     unlist() %>%
+                                     sd(na.rm = TRUE),
+                                   .default = `STD 1`))
+    )) %>%
+    map(bind_rows) %>%
+    map(.x = ., ~ .x %>%
+          relocate(variable, product) %>%
+          arrange(desc(variable)))
+
+  names(dikhanov_table_list) <- selected_headings
+
+  print(dikhanov_table_list)
+
+}
+
+

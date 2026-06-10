@@ -259,16 +259,20 @@ estim_cpd <- function(data,
 #' `estim_index_link()` enables linking CPD estimation to index calculation within
 #' one pipe. Can fill in missing basic heading PPPs with a value given by the user.
 #'
-#' @param data A nested data frame containing the columns including the basic heading, and
-#' the output from `estim_cpd()`
-#' @param product column containing the basic heading identifier
-#' @param output_type type of output from `estim_cpd()`, either "sPPP" or "Full"
-#' @param cpd_model column containing the output from `estim_cpd()`
+#' @param data_prices Data frame, data table or tibble containing at least three
+#'  columns identifying region, product and individual item-level price quotes
+#' @param data_weights Data frame, data table or tibble containing at least three
+#' columns identifying region, product and expenditure weights
+#' @param basic_heading column containing the basic heading identifier
+#' @param region Identifier for regions
+#' @param product Product identifier
+#' @param price Individual item-level price quotes
+#' @param exp_wght identifier for expenditure weights
 #' @param complete_sppp value to be imputed for missing basic heading PPPs
 #'
 #' @return Returns a data frame containing the variables indicating the region ("region"),
-#' basic heading ("product"), basic heading PPP ("ppp_bh"). Once joined with expenditure weights,
-#' this output can be directly fed into `index_laspeyres()`, `index_paasche()`, `index_fisher()`,
+#' basic heading ("product"), basic heading PPP ("ppp_bh"), and expenditure weights ("exp_wght").
+#' This output can be directly fed into `index_laspeyres()`, `index_paasche()`, `index_fisher()`,
 #' and `index_geks()`.
 #'
 #' @importFrom tidyr unnest
@@ -280,30 +284,39 @@ estim_cpd <- function(data,
 #' @importFrom dplyr filter
 #'
 #' @export
-estim_index_link <- function(data,
+estim_index_link <- function(data_prices = data_prices,
+                             data_weights = data_weights,
+                             basic_heading = "basic_heading",
+                             region = "region",
                              product = "product",
-                             cpd_model = "cpd_model",
-                             output_type = "sPPP",
+                             price = "price",
+                             exp_wght = "weight",
                              complete_sppp = NA){
 
-  if(output_type == "sPPP") {harmonised_data <- data %>%
-    select({{ product }}, {{ cpd_model }}) %>%
-    unnest({{ cpd_model }}) %>%
-    rename(product = {{ product }}, ppp_bh = sPPP)}
-
-  if(output_type == "Full") {harmonised_data <- data %>%
-    select({{ product }}, {{ cpd_model }}) %>%
-    mutate(cpd_model = map(.x = .data[[cpd_model]], ~ .x[[1]] %>%
-                             select(region, sPPP) %>%
-                             filter(region != "Aggregate summary statistics"))) %>%
-    select(-{{ cpd_model }}) %>%
-    unnest(cpd_model) %>%
-    rename(product = {{ product }}, ppp_bh = sPPP)}
+  harmonised_data <- data_prices %>%
+    group_by(.data[[basic_heading]]) %>%
+    group_modify(~{estim_cpd(.x,
+                             region = {{ region }},
+                             product = {{ product }},
+                             price = {{ price }},
+                             output = "sPPP")}) %>%
+    ungroup() %>%
+    full_join(data_weights,
+              by = c({{ basic_heading }}, {{ region }}))  %>%
+    filter(!is.na({{ exp_wght }})) %>%
+    rename(product = {{ basic_heading }}, ppp_bh = sPPP, exp_wght = {{ exp_wght }}, region = {{ region }})
 
   if(!is.na(complete_sppp)) {harmonised_data <- harmonised_data %>%
-    pivot_wider(names_from = region, values_from = ppp_bh) %>%
+    select(product, region, ppp_bh) %>%
+    pivot_wider(names_from = region, values_from = ppp_bh)%>%
     pivot_longer(!product, names_to = "region", values_to = "ppp_bh") %>%
-    replace_na(list(ppp_bh = complete_sppp))}
+    replace_na(list(ppp_bh = complete_sppp)) %>%
+    full_join(data_weights,
+              by = c(product = {{ basic_heading }},
+                     region = {{ region }})) %>%
+    rename(exp_wght = {{ exp_wght }})
+
+  }
 
   return(harmonised_data)
 

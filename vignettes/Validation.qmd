@@ -399,7 +399,7 @@ Ensures that prices are consistent not only within basic headings but also at th
 In the Dikhanov table, *Part 1 and 2* facilitate the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. *Part 3* Ensures that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. Extreme values are identified based on CPD residuals and PPP ratio threshold values described in @tbl-thresholds; see also [@worldbank2013, p.261].
 
 | CPD residuals | PPP-ratios | Flag |
-|-------------------------------|-------------------------|-----------------|
+|----|----|----|
 | Between −0.25 and 0.25 | Between 78 and 128 | OK |
 | Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1* |
 | Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Flag 2** |
