@@ -804,44 +804,50 @@ indices_oecdsppps_df %>%
 
 # Putting it all together: Estimating weighted higher level aggregates directly from item-level prices
 
-As described in the [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html) section, 
-the CPD-GEKS approach is recommended for producing
-subnational PPPs by the ICP [@icp2021], and has also been used by a
-national statistical institute in a subnational PPP programme, providing
-experimental statistics in Italy [@Istat]. 
+As described in the
+[implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
+section, the CPD-GEKS approach is recommended for producing subnational
+PPPs by the ICP [@icp2021], and has also been used by a national
+statistical institute in a subnational PPP programme, providing
+experimental statistics in Italy [@Istat].
 
-This section describes how the implement this [two-step procedure](https://amannj.github.io/OECDsppps/articles/Implementation.html#fig-aggregation), which combines: 
+This section describes how the implement this [two-step
+procedure](https://amannj.github.io/OECDsppps/articles/Implementation.html#fig-aggregation),
+which combines:
 
-1. Estimation of price parities at the
-basic heading level using the regional extension of the
-Country-Product-Dummy (CPD) method [@summers1973international].
-2. Upon validation, aggregation of BH-level parities into higher-level
-indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a multilateral
-index construction technique that ensures transitivity, in combination
-with household final consumption expenditure data as a weighting
-structure for household final consumption PPPs [@icp2021].
+1.  Estimation of price parities at the basic heading level using the
+    regional extension of the Country-Product-Dummy (CPD) method
+    [@summers1973international].
+2.  Upon validation, aggregation of BH-level parities into higher-level
+    indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a
+    multilateral index construction technique that ensures transitivity,
+    in combination with household final consumption expenditure data as
+    a weighting structure for household final consumption PPPs
+    [@icp2021].
 
-Most importantly, the CPI microdata typically does not contain price quotes for all
-COICOP categories, including the ones for which cross-regional uniform prices can
-be assumed, such as, for example, for used cars.
-However, removing products that are subject to uniform prices from the estimation
-will artificially inflate the price variation for any present 
-category.
-Consider the example where a generic COICOP class contains 10 sub-classes, of 
-which 9 are subject to uniform prices while one
-sub-class is subject to price variations. If the 9 uniform sub-classes were to 
-be removed from the sPPPs calculation, the remaining sub-class
-with regional price variation would artificially inflate the price variation of 
-the entire class. It is therefore necessary to artificially include uniform 
-prices for all sub-aggregates contained *within* the respective higher aggregate
-for which sPPPs are estimated.
+Most importantly, the CPI microdata typically does not contain price
+quotes for all COICOP categories, including the ones for which
+cross-regional uniform prices can be assumed, such as, for example, for
+used cars. However, removing products that are subject to uniform prices
+from the estimation will artificially inflate the price variation for
+any present category. Consider the example where a generic COICOP class
+contains 10 sub-classes, of which 9 are subject to uniform prices while
+one sub-class is subject to price variations. If the 9 uniform
+sub-classes were to be removed from the sPPPs calculation, the remaining
+sub-class with regional price variation would artificially inflate the
+price variation of the entire class. It is therefore necessary to
+artificially include uniform prices for all sub-aggregates contained
+*within* the respective higher aggregate for which sPPPs are estimated.
 
-This can be done with the function `estim_index_link()`,
-which fills in missing basic heading PPPs with a value given by the user.
-The function returns a data frame containing the variables indicating the region ("region"),
-basic heading ("product"), basic heading PPP ("ppp_bh"). Once joined with expenditure weights,
-this output can be directly fed into `index_geks()`.^[Or any alternative
-bilateral index formula `index_laspeyres()`, `index_paasche()`, `index_fisher()`.]
+This can be done with the function `estim_index_link()`, which fills in
+missing basic heading PPPs with a value given by the user. The function
+returns a data frame containing the variables indicating the region
+("region"), basic heading ("product"), basic heading PPP ("ppp_bh").
+Once joined with expenditure weights, this output can be directly fed
+into `index_geks()`.[^2]
+
+[^2]: Or any alternative bilateral index formula `index_laspeyres()`,
+    `index_paasche()`, `index_fisher()`.
 
 The two steps above can be linked within one pipeline using the
 `estim_index_link()` function.
@@ -871,26 +877,151 @@ dt1_prices <- dt1 %>%
 # Obtain product-specific weights ----------
 dt1_wghts <- dt1 %>%
   distinct(group, region, .keep_all = TRUE) %>%
-  select(group, region, weight) %>%
-  rename(exp_wght = weight, product = group)
+  select(group, region, weight)
+```
 
-# CPD-GEKS calculation ---------
+## CPD estimation at the basic heading level
+
+sPPP at the basic heading can be estimated by combination of estim_cpd
+with group_modify
+
+```{r}
+
 dt1_prices %>%
-  ## Step 1: CPD Estimation by product group
-  nest(.by = c(group)) %>%
-  mutate(cpd_estimation = map(.x = data, ~ .x %>%
-                                estim_cpd(region = "region",
-                                          product = "product",
-                                          price = "price"))) %>%
-  ## Next step: Complete price
-  estim_index_link(data = .,
-                        product = "group",
-                        cpd_model = "cpd_estimation") %>%
-  left_join(dt1_wghts,
-            by = c("product", "region")) %>%
-  ## Step 2: GEKS estimation
-  index_geks()
+  group_by(group) %>%
+  group_modify(~{estim_cpd(.x,
+                           region = "region",
+                           product = "product",
+                           price = "price",
+                           output = "sPPP")}) %>%
+  ungroup()
+```
 
+## Index calculation based on basic heading CPD
+
+this can be easily linked with the estim_index_link function to index
+functions
+
+```{r}
+
+dt1_prices %>%
+  group_by(group) %>%
+  group_modify(~{estim_cpd(.x,
+                           region = "region",
+                           product = "product",
+                           price = "price",
+                           output = "sPPP")}) %>%
+  ungroup() %>%
+  estim_index_link(data = .,
+                   data_weights = dt1_wghts,
+                   basic_heading = "group",
+                   region = "region",
+                   sPPP = "sPPP",
+                   exp_wght = "weight",
+                   complete_sppp = NA) %>%
+  index_geks()
+```
+
+## Incomplete input data
+
+### Missing price quotes
+
+Using the previous approach results in an error from index_geks
+
+```{r}
+
+dt1_prices %>%
+  group_by(group) %>%
+  group_modify(~{estim_cpd(.x,
+                           region = "region",
+                           product = "product",
+                           price = "price",
+                           output = "sPPP")}) %>%
+  ungroup() %>%
+  # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
+  filter(!(region %in% c("1", "2") & group == "1")) %>%
+  estim_index_link(data = .,
+                   data_weights = dt1_wghts,
+                   basic_heading = "group",
+                   region = "region",
+                   sPPP = "sPPP",
+                   exp_wght = "weight",
+                   complete_sppp = NA) %>%
+  index_geks()
+```
+
+This can be solved using the complete_sppp parameter of the
+estim_index_link function as shown below.
+
+```{r}
+
+dt1_prices %>%
+  group_by(group) %>%
+  group_modify(~{estim_cpd(.x,
+                           region = "region",
+                           product = "product",
+                           price = "price",
+                           output = "sPPP")}) %>%
+  ungroup() %>%
+  # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
+  filter(!(region %in% c("1", "2") & group == "1")) %>%
+  # Setting complete_sppp = 1 to impute 1 for missing sPPPs
+  estim_index_link(data = .,
+                   data_weights = dt1_wghts,
+                   basic_heading = "group",
+                   region = "region",
+                   sPPP = "sPPP",
+                   exp_wght = "weight",
+                   complete_sppp = 1) %>%
+  index_geks()
+```
+
+### Incomplete weighting matrix
+
+estim_index_link works and returns a standardized data frame
+
+```{r}
+
+dt1_wghts <- dt1_wghts %>%
+  filter(!(group %in% c("1") & region %in% c("1")))
+
+dt1_prices %>%
+  group_by(group) %>%
+  group_modify(~{estim_cpd(.x,
+                           region = "region",
+                           product = "product",
+                           price = "price",
+                           output = "sPPP")}) %>%
+  ungroup() %>%
+  estim_index_link(data = .,
+                   data_weights = dt1_wghts,
+                   basic_heading = "group",
+                   region = "region",
+                   sPPP = "sPPP",
+                   exp_wght = "weight",
+                   complete_sppp = NA)
+```
+
+index functions return an error due to missing expenditure weights
+
+```{r}
+
+dt1_prices %>%
+  group_by(group) %>%
+  group_modify(~{estim_cpd(.x,
+                           region = "region",
+                           product = "product",
+                           price = "price",
+                           output = "sPPP")}) %>%
+  ungroup() %>%
+  estim_index_link(data = .,
+                   data_weights = dt1_wghts,
+                   basic_heading = "group",
+                   region = "region",
+                   sPPP = "sPPP",
+                   exp_wght = "weight",
+                   complete_sppp = NA) %>%
+  index_geks()
 ```
 
 # References {.unnumbered}
