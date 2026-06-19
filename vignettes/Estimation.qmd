@@ -811,7 +811,7 @@ PPPs by the ICP [@icp2021], and has also been used by a national
 statistical institute in a subnational PPP programme, providing
 experimental statistics in Italy [@Istat].
 
-This section describes how the implement this [two-step
+This section describes how to implement this [two-step
 procedure](https://amannj.github.io/OECDsppps/articles/Implementation.html#fig-aggregation),
 which combines:
 
@@ -880,27 +880,16 @@ dt1_wghts <- dt1 %>%
   select(group, region, weight)
 ```
 
-## CPD estimation at the basic heading level
+## CPD estimation at the basic heading level using item-level prices
 
-sPPP at the basic heading can be estimated by combination of estim_cpd
-with group_modify
+Basic heading level sPPPs can be obtained from item-level price data by
+first grouping the data by basic heading with `group_by()`, then
+applying `estim_cpd()` to each basic heading with `group_modify()`.
 
-```{r}
-
-dt1_prices %>%
-  group_by(group) %>%
-  group_modify(~{estim_cpd(.x,
-                           region = "region",
-                           product = "product",
-                           price = "price",
-                           output = "sPPP")}) %>%
-  ungroup()
-```
-
-## Index calculation based on basic heading CPD
-
-this can be easily linked with the estim_index_link function to index
-functions
+This yields a data frame containing the basic heading ("group",
+inherited from the original item-level price data), region ("region"),
+and sPPP ("sPPP"). The data frame is grouped by the basic heading and
+should be ungrouped with `ungroup()` before proceeding further.
 
 ```{r}
 
@@ -912,6 +901,48 @@ dt1_prices %>%
                            price = "price",
                            output = "sPPP")}) %>%
   ungroup() %>%
+  head() %>%
+  gt() %>%
+  fmt_number(decimals = 4)
+
+```
+
+## Index calculation using basic heading indices
+
+Laspeyres, Paasche, Fisher, and GEKS indices can be calculated by
+linking the previous commands with `index_laspeyres()`,
+`index_paasche()`, `index_fisher()`, and `index_geks()` through the
+`estim_index_link()` function.
+
+`estim_index_link()` takes a data frame containing the basic heading
+sPPPs, and joins it with a supplied data frame containing the
+expenditure weights. Additionally, it renames all variables so that its
+output can be linked directly into the index functions, e.g.,
+`index_geks()`.
+
+The workflow proceeds in three steps:
+
+1.  Grouping item-level price data by basic heading, estimating basic
+    heading sPPPs, and ungrouping the output data
+2.  Preparing the data with `estim_index_link()` for index number
+    calculation
+3.  Estimating the final index numbers with `index_laspeyres()`,
+    `index_paasche()`, `index_fisher()`, and `index_geks()`
+
+```{r}
+
+dt1_prices %>%
+  # 1st step: grouping the data
+  group_by(group) %>%
+  # 1st step: estimating the basic heading sPPPs
+  group_modify(~{estim_cpd(.x,
+                           region = "region",
+                           product = "product",
+                           price = "price",
+                           output = "sPPP")}) %>%
+  # 1st step: ungrouping the output data
+  ungroup() %>%
+  # 2nd step: preparing the data for index number calculation
   estim_index_link(data = .,
                    data_weights = dt1_wghts,
                    basic_heading = "group",
@@ -919,14 +950,34 @@ dt1_prices %>%
                    sPPP = "sPPP",
                    exp_wght = "weight",
                    complete_sppp = NA) %>%
-  index_geks()
+  # 3rd step: Index number calculation
+  index_geks() %>%
+  # Previewing the results
+  head() %>%
+  gt() %>%
+  fmt_number(decimals = 4)
+
 ```
 
 ## Incomplete input data
 
+Unfortunately, the required input data is often incomplete and requires
+further processing before it can be used. Item-level price data can be
+validated through `valid_pot()`, `valid_apt()`, `valid_XRratio()`, and
+`valid_PPPratio()`. Expenditure weights can be validated through
+`valid_est()`.
+
 ### Missing price quotes
 
-Using the previous approach results in an error from index_geks
+Basic heading sPPPs obtained from `estim_cpd()` may be incomplete for
+several reasons, such as missing price quotes for specific regions or
+uniform pricing across regions. In these cases, the above-outlined
+approach results in an error from `index_geks()` due to an incomplete
+sPPP matrix.
+
+In the example below, we remove the sPPPs for two region/basic heading
+pairs. While `estim_index_link()` returns a harmonized data frame,
+`index_geks()` returns an error.
 
 ```{r}
 
@@ -948,10 +999,16 @@ dt1_prices %>%
                    exp_wght = "weight",
                    complete_sppp = NA) %>%
   index_geks()
+
 ```
 
-This can be solved using the complete_sppp parameter of the
-estim_index_link function as shown below.
+`estim_index_link()` enables imputing a user-specified value for missing
+sPPPs through the "complete_sppp" argument. The same value is imputed
+for all region/basic heading pairs with missing sPPPs. The missing pairs
+are identified by `estim_index_link()` and do not have to be specified
+by the user. Below, we impute 1 for sPPPs of all such pairs.
+`estim_index_link()` also returns a warning listing all region/basic
+heading pairs for which the user-provided value was imputed.
 
 ```{r}
 
@@ -973,15 +1030,24 @@ dt1_prices %>%
                    sPPP = "sPPP",
                    exp_wght = "weight",
                    complete_sppp = 1) %>%
-  index_geks()
+  index_geks() %>%
+  head() %>%
+  gt() %>%
+  fmt_number(decimals = 4)
+
 ```
 
 ### Incomplete weighting matrix
 
-estim_index_link works and returns a standardized data frame
+Alternatively, the expenditure weights data frame can contain empty
+fields for some region/basic heading combinations. `estim_index_link()`
+still works with such data and returns a standardized data frame.
+However, this data frame contains NAs for some region/basic heading
+weights.
 
 ```{r}
 
+# Remove expenditure weight for the following region/heading combination: 1/1
 dt1_wghts <- dt1_wghts %>%
   filter(!(group %in% c("1") & region %in% c("1")))
 
@@ -999,10 +1065,15 @@ dt1_prices %>%
                    region = "region",
                    sPPP = "sPPP",
                    exp_wght = "weight",
-                   complete_sppp = NA)
+                   complete_sppp = NA) %>%
+  head() %>%
+  gt() %>%
+  fmt_number(decimals = 4)
+
 ```
 
-index functions return an error due to missing expenditure weights
+In turn, this results in the index number function to break and return
+an error due to an incomplete expenditure weights matrix.
 
 ```{r}
 
@@ -1023,5 +1094,9 @@ dt1_prices %>%
                    complete_sppp = NA) %>%
   index_geks()
 ```
+
+We do not provide an option to impute expenditure weights, as we do for
+missing sPPPs. In this instance, further analysis of the reason for
+missing expenditure weights is required.
 
 # References {.unnumbered}

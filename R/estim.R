@@ -312,7 +312,7 @@ estim_cpd <- function(data,
 #'
 #'
 #' # Missing regional values
-#' # -> returns incomplete standardized data frame
+#' # -> returns an incomplete standardized data frame
 #'
 #' dt1_basic_headings %>%
 #'   filter(!(region %in% c("1", "2") & group == "1")) %>%
@@ -326,7 +326,7 @@ estim_cpd <- function(data,
 #'
 #'
 #' # Missing regional values: Imputation
-#' # -> returns complete standardized data frame with a warning listing the region/heading imputations
+#' # -> returns a complete standardized data frame with a warning listing the region/heading imputations
 #'dt1_basic_headings %>%
 #'   filter(!(region %in% c("1", "2") & group == "1")) %>%
 #'   estim_index_link(data = .,
