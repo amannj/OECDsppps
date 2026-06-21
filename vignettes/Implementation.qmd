@@ -47,10 +47,10 @@ experimental statistics in Italy [@Istat].
 The approach follows a
 two-step procedure (@fig-aggregation): 
 
-- Estimation of price parities at the
+1. Estimation of price parities at the
 basic heading level using the regional extension of the
 Country-Product-Dummy (CPD) method [@summers1973international].
-- Upon validation, aggregation of BH-level parities into higher-level
+2. Upon validation, aggregation of BH-level parities into higher-level
 indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a multilateral
 index construction technique that ensures transitivity, in combination
 with household final consumption expenditure data as a weighting
@@ -60,7 +60,12 @@ structure for household final consumption PPPs [@icp2021].
 parities](figures/cpd_geks.png){#fig-aggregation fig-align="center"
 width="400"}
 
-## Implementation pipeline {.unnumbered}
+To seamlessly combine the two estimation steps, `OECDsppps`, provides the option
+to impute missing basic-heading subnational PPPs. 
+A complete sylised workflow is described in section
+[Putting it all together](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-combined).
+
+## The complete implementation pipeline {.unnumbered}
 
 `OECDsppps` is available in R, but section [Alternative
 Software](https://amannj.github.io/OECDsppps/articles/altSoftware.html)
@@ -81,14 +86,18 @@ calculation of the subnational price indices.
 | Steps | Counterpart | `OECDsPPPs` integration |
 |------------------------|------------------------|------------------------|
 | **1** Raw data processing | OECD or country | ❌ |
-| **2** Raw data validation | OECD or country | `valid_pot()`, `valid_apt()`, `valid_XRatio()`, `valid_PPPratio()`,  `valid_est()` |
+| **2** Raw data validation | OECD or country | `valid_pot()`, `valid_apt()`, `valid_ratio_xr()`, `valid_ratio_ppp()`,  `valid_est()` |
 | **3** Estimation at basic-heading level | OECD or country | `estim_cpd()`, `estim_index_link()` |
-| **4** Validation of estimation at basic-heading level | OECD or country | 🚧 *valid_dikhanov()*, `valid_outlier_plot()` |
+| **4** Validation of estimation at basic-heading level | OECD or country | `valid_dikhanov()`, `valid_outlier_plot()` |
 | **5** Estimation beyond the basic-heading level | OECD | `index_laspeyres()`, `index_paasche()`, `index_fisher()`, `index_geks()` |
-| **6** Validation of estimation beyond the basic-heading level | OECD | `valid_outlier_plot()`, `valid_index_pl_spread()`  |
-| **7** Comparability across countries and regions | OECD | 🚧 |
+| **6** Validation of estimation beyond the basic-heading level | OECD | `valid_outlier_plot()`, `valid_pls()`  |
 
 : Implementation pipeline {#tbl-implementation}
+
+
+The individual steps are described below in more detail.
+
+-------------
 
 <br>
 
@@ -183,14 +192,15 @@ and the [visual
 validation](https://amannj.github.io/OECDsppps/articles/Validation.html#visual-validation-at-basic-heading-level)
 is done by way of plotting.
 
-Functions used at this stage are: *valid_dikhanov()*, *valid_plots()*.
+Functions used at this stage are: `valid_dikhanov()`, `valid_plots()`.
 
 # Estimation beyond the basic-heading level
 
-## Data preparation
+## Data preparation for index calculations
 
-🚧 Completion of price-quote and expenditure matrices for further
-aggregation (work in progress).
+CPI microdata typically does not contain price quotes for all COICOP categories, including the ones for which cross-regional uniform prices can be assumed, such as, for example, for used cars. However, removing products that are subject to uniform prices from the estimation will artificially inflate the price variation for any present category. Consider the example where a generic COICOP class contains 10 sub-classes, of which 9 are subject to uniform prices while one sub-class is subject to price variations. If the 9 uniform sub-classes were to be removed from the sPPPs calculation, the remaining sub-class with regional price variation would artificially inflate the price variation of the entire class. It is therefore necessary to artificially include uniform prices for all sub-aggregates contained within the respective higher aggregate for which sPPPs are estimated.
+
+Function `estim_index_link()`, which fills in missing basic heading PPPs with a value given by the user and combines the competed CPD estimates with the household expenditure weights for the next step, the index calculation.
 
 ## Index calculations
 
@@ -210,12 +220,15 @@ index.
 Functions used at this stage are: `index_laspeyres()`,
 `index_paasche()`, `index_fisher()`, `index_geks()`.
 
-# Validation of estimation beyond the basic-heading level
+# Validation of subnational PPPs beyond the basic-heading level
 
-> 🚧 Work in progress.
+Two validation functions are used for validation of subnational PPPs beyond the basic-heading level:
 
-# Comparability across countries and regions
+- `valid_outlier_plot()`, which produces some simple validation plots to check subnational PPP estimates for potential outliers
+-  `valid_pls()`, which calculates the Paasche-Laspeyres spread [@hillLinkingRegionsInternational2011].
 
-> 🚧 Work in progress.
+<!-- # Comparability across countries and regions -->
+
+<!-- > 🚧 Work in progress. -->
 
 # References {.unnumbered}

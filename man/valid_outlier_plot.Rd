@@ -54,18 +54,20 @@ subnational PPP estimates for potential outliers
 \dontrun{
 uk_cpi |>
   select(Year,
-       region = "Region",
-       product = "Product code",
-       price = "Reference quantity price"
+    region = "Region",
+    product = "Product code",
+    price = "Reference quantity price"
   ) |>
   mutate(
     region = as.factor(region),
     product = as.factor(product)
   ) |>
   estim_cpd() |>
-  valid_outlier_plot(title = "sPPPs outlier with adjusted outlier cutoffs",
-                     # Adjust outlier cutoffs (default is 1.5 and 0.5)
-                     outlier_cutoffs = c(1.1, 0.9))
+  valid_outlier_plot(
+    title = "sPPPs outlier with adjusted outlier cutoffs",
+    # Adjust outlier cutoffs (default is 1.5 and 0.5)
+    outlier_cutoffs = c(1.1, 0.9)
+  )
 }
 
 }

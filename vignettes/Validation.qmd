@@ -251,7 +251,7 @@ Both types of SPRs are used for validation; however, only PPP-ratios are employe
 
 ## The XR-ratio
 
-The function `valid_XRratio()` computes the XR-ratio table, where a country–region’s XR price for a given product is divided by the geometric mean of that product’s price; see Table 9.3a in [@worldbank2013, p.257].
+The function `valid_ratio_xr()` computes the XR-ratio table, where a country–region’s XR price for a given product is divided by the geometric mean of that product’s price; see Table 9.3a in [@worldbank2013, p.257].
 
 In the resulting table, the degree of variability can be examined to identify products and country–region combinations with the highest XR ratios, that is, those showing the greatest variation across countries.
 
@@ -295,7 +295,7 @@ df_xr <- rbind(uk_irv, cz_irv, de_irv)
 
 df_xrr <- df_xr |>
   group_by(Year, `Product code`) |>
-  valid_XRratio(
+  valid_ratio_xr(
     average_price = "Average price of product",
     exchange_rate = "XR USD"
   )
@@ -318,7 +318,7 @@ df_xrr |>
 
 The next stage of data validation employs purchasing power parities (PPPs) to convert national product prices into a common currency, enabling comparison through PPP-ratios.
 
-This procedure is implemented using the `valid_PPPratio()` function, which calculates the PPP-ratio; see Table 9.3b in [@worldbank2013, p.258]. The coefficient of variation is used to assess variability across products and countries; coefficients exceeding 33% are considered extreme and may indicate the need for further verification of the underlying data.
+This procedure is implemented using the `valid_ratio_ppp()` function, which calculates the PPP-ratio; see Table 9.3b in [@worldbank2013, p.258]. The coefficient of variation is used to assess variability across products and countries; coefficients exceeding 33% are considered extreme and may indicate the need for further verification of the underlying data.
 
 Within each block, PPP-ratios—computed as the PPP-converted price divided by the geometric mean of the product price—reflect the degree of variability both across country-regions and across products.
 
@@ -344,7 +344,7 @@ df_xr2 <- rbind(
 
 # Calculations
 df_out <- df_xr2 |>
-  valid_PPPratio(
+  valid_ratio_ppp(
     year = "Year",
     product_code = "Product code",
     region = "Region",
@@ -536,7 +536,7 @@ $$
 PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})}
 $$
 
-The PLS can be calculated using the function `valid_index_pl_spread()` as described below.
+The PLS can be calculated using the function `valid_pls()` as described below.
 
 ```{r}
 
@@ -571,7 +571,7 @@ cpd_oecd <- dt1 %>%
 
 
 # 3. Calculate the PLS
-valid_index_pl_spread(data = cpd_oecd,
+valid_pls(data = cpd_oecd,
                       region = "region",
                       product = "group",
                       ppp_bh = "sPPP",

@@ -96,14 +96,20 @@ and `index_geks()` for estimating subnational PPPs using Laspeyres, Paasche,
 Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices 
 - Add [description](https://amannj.github.io/OECDsppps/articles/altSoftware.html) data
  on using `OECDsppps` in Python and SAS
-- Update [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
+- Update [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html) vignette
 
 ------------
 
 # Version `0.0.0.7`
 
-...
+Complete estimation and validation pipelines and improve visualisation 
 
 ### Bug fixes
 
-- Fixed naming inconsistencies
+- Add  functions `valid_outlier_plot()`, `valid_dikhanov()` and `estim_index_link()` to complete the 
+validation and estimation pipelines
+- Rename functions `valid_ratio_ppp()` and `valid_ratio_xr()` and fix naming inconsistencies
+- Update [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html) to describe 
+complete sPPPs production pipeline describing the use of `estim_index_link()`
+- Improve visualisation of packet vignette
+

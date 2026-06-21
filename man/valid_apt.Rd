@@ -16,15 +16,14 @@ which should be based on the
 }
 \description{
 \loadmathjax
-\code{valid_apt()} in  \pkg{OECDsppps} creates the "Average Price Table" by
-calculating: the
+\code{valid_apt()} creates the "Average Price Table" containing:
 \itemize{
 \item \verb{Number of observations} - Number of observations by group as specified by \code{group_by()}
 \item \code{Average}- Average price based on item-level price quotes by group as specified by \code{group_by()}
 \item \code{Maximum}- Highest price based on item-level price quotes by group as specified by \code{group_by()}
 \item \code{Minimum} - Lowest price based on item-level price quotes by group as specified by \code{group_by()}
 \item \verb{Standard deviation} - Standard deviation based on item-level price quotes by group as specified by \code{group_by()}
-\item \verb{mMx-min ratio test} and \verb{Coefficient of variation test} - see \emph{Details} for more information
+\item \verb{max-min ratio test} and \verb{Coefficient of variation test} - see \emph{Details} for more information
 All item-level price
 quotes that do not pass the two tests are flagged in columns
 \verb{Max-min ratio FLAG} and\verb{Coefficient of variation FLAG}, respectively;

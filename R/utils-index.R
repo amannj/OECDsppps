@@ -216,4 +216,3 @@ matrix_generator <- function(data,
 
   return(output_matrix)
 }
-

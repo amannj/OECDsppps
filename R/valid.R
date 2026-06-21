@@ -1,7 +1,7 @@
 #' The "Price Observation Table"
 #'
 #' \loadmathjax
-#' `valid_pot` in  \pkg{OECDsppps} creates the "Price Observation Table";
+#' `valid_pot` creates the "Price Observation Table";
 #' by calculating two *individual price outlier statistics* for the
 #' individual item-level price quotes,  the *ratio-to-average price test* and the *t-value test*;
 #' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
@@ -9,8 +9,8 @@
 #' quotes that do not pass the two tests are flagged in columns
 #' `Ratio-to-average price test FLAG` and `T-value test FLAG`, respectively.
 #' The item-level price quotes should be based on the
-#' *reference quantity price*;
-#' see *Details* and \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+#' **reference quantity price**;
+#' see *Details* and \insertCite{@worldbankMeasuringRealSize2013;textual}{OECDsppps},
 #' table 9.1a. for more information.
 #'
 #' **Reference quantity price:** Scales the observed price to the quantity
@@ -71,14 +71,13 @@ valid_pot <- function(data,
 #' The "Average Price Table"
 #'
 #' \loadmathjax
-#' `valid_apt()` in  \pkg{OECDsppps} creates the "Average Price Table" by
-#' calculating: the
+#' `valid_apt()` creates the "Average Price Table" containing:
 #' - `Number of observations` - Number of observations by group as specified by `group_by()`
 #' - `Average`- Average price based on item-level price quotes by group as specified by `group_by()`
 #' - `Maximum`- Highest price based on item-level price quotes by group as specified by `group_by()`
 #' - `Minimum` - Lowest price based on item-level price quotes by group as specified by `group_by()`
 #' - `Standard deviation` - Standard deviation based on item-level price quotes by group as specified by `group_by()`
-#' - `mMx-min ratio test` and `Coefficient of variation test` - see *Details* for more information
+#' - `max-min ratio test` and `Coefficient of variation test` - see *Details* for more information
 #'  All item-level price
 #' quotes that do not pass the two tests are flagged in columns
 #' `Max-min ratio FLAG` and`Coefficient of variation FLAG`, respectively;
@@ -161,7 +160,7 @@ valid_apt <- function(data,
 #' The "XR-ratio tables"
 #'
 #' \loadmathjax
-#' `valid_XRratio()` in  \pkg{OECDsppps} calculates the exchange rate ratio (XR-ratio), which is a region-country's XR-price
+#' `valid_ratio_xr()` in  \pkg{OECDsppps} calculates the exchange rate ratio (XR-ratio), which is a region-country's XR-price
 #' Variability can be compared to highlight products in countries/regions
 #' that are most variable (high XR-ratio) across countries;
 #' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
@@ -189,9 +188,9 @@ valid_apt <- function(data,
 #' @importFrom dplyr select
 #' @importFrom rlang .data
 #' @export
-valid_XRratio <- function(data,
-                          average_price = "Average price of product",
-                          exchange_rate = "XR USD") {
+valid_ratio_xr <- function(data,
+                           average_price = "Average price of product",
+                           exchange_rate = "XR USD") {
   data |>
     mutate(
       # Calculate exchange rate average price
@@ -209,7 +208,7 @@ valid_XRratio <- function(data,
 #' The "PPP-ratio tables"
 #'
 #' \loadmathjax
-#' `valid_PPPratio()` in  \pkg{OECDsppps} calculates the PPP-ratio, which shows the variation
+#' `valid_ratio_ppp()` in  \pkg{OECDsppps} calculates the PPP-ratio, which shows the variation
 #' coefficient representing variability across products and across country-regions;
 #' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
 #'
@@ -254,11 +253,11 @@ valid_XRratio <- function(data,
 #' @importFrom tidyselect contains
 #' @importFrom dplyr join_by
 #' @export
-valid_PPPratio <- function(data,
-                           year = "Year",
-                           product_code = "Product code",
-                           region = "Region",
-                           average_price = "Average price of product") {
+valid_ratio_ppp <- function(data,
+                            year = "Year",
+                            product_code = "Product code",
+                            region = "Region",
+                            average_price = "Average price of product") {
   # Calculations
   tmp <- data |>
     # Calculate PPP price, first country is baseline
@@ -376,10 +375,19 @@ valid_est <- function(data,
 
 #' The Paasche-Laspeyres spread
 #'
-#' `valid_index_pl_spread()` calculates the Paasche-Laspeyres spread.
+#' \loadmathjax
+#' `valid_pls()` in  \pkg{OECDsppps} calculates the Paasche-Laspeyres spread (PLS),
+#' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @hillLinkingRegionsInternational2011;textual}{OECDsppps},
+#' which corresponds to the upper and lower price and quantity relatives to determine whether the
+#' large values in the PLS are caused by PPPs or expenditure outliers. Basic headings
+#' with large upper or lower quantity or price relatives should be further examined.
 #'
-#'  The Paasche-Laspeyres spread for regions \mjseqn{j} and \mjseqn{k} is defined as
-#'  \mjdeqn{PLS_{j,k} = \frac{MAX(P^{P}_{jk}, P^{L}_{jk})}{MIN(P^{P}_{jk}, P^{L}_{jk})}}{PLS_{j,k} = \frac{MAX(P^{P}_{jk}, P^{L}_{jk})}{MIN(P^{P}_{jk}, P^{L}_{jk})}}
+#'  The Paasche-Laspeyres spread for regions \mjseqn{j} and \mjseqn{k} is defined as:
+#'  \mjdeqn{PLS_{j,k} = \frac{MAX(sPPPP_{P}^{jk}, sPPPP_{L}^{jk})}{MIN(sPPPP_{P}^{jk}, sPPPP_{L}^{jk})}}{PLS_{j,k} = \frac{MAX(sPPPP_{P}^{jk}, sPPPP_{L}^{jk})}{MIN(sPPPP_{P}^{jk}, sPPPP_{L}^{jk})}}
+#'
+#' where \mjseqn{sPPPP_{P}^{jk}} and \mjseqn{sPPPP_{L}^{jk}} correspond to the
+#' Paasche and Laspeyres indicies, respectively;
+#' see `index_paasche()` and `index_laspeyres()` for more information.
 #'
 #' @param data A data frame or tibble containing at least four columns identifying
 #' region, product, subnational PPPs, and expenditure weights.
@@ -387,17 +395,18 @@ valid_est <- function(data,
 #' @param product Product identifier
 #' @param ppp_bh Identifier for subnational PPPs
 #' @param exp_wght Identifier for expenditure weights
-#'
+#' @references
+#'   \insertAllCited{}
 #'
 #' @importFrom dplyr left_join
 #' @importFrom dplyr mutate
 #' @importFrom dplyr group_by
 #' @export
-valid_index_pl_spread <- function(data,
-                                  region = "region",
-                                  product = "product",
-                                  ppp_bh = "ppp_bh",
-                                  exp_wght = "exp_wght") {
+valid_pls <- function(data,
+                      region = "region",
+                      product = "product",
+                      ppp_bh = "ppp_bh",
+                      exp_wght = "exp_wght") {
   # Laspeyres Index
   lasp_index <- index_laspeyres(
     data,
@@ -458,18 +467,20 @@ valid_index_pl_spread <- function(data,
 #' \dontrun{
 #' uk_cpi |>
 #'   select(Year,
-#'        region = "Region",
-#'        product = "Product code",
-#'        price = "Reference quantity price"
+#'     region = "Region",
+#'     product = "Product code",
+#'     price = "Reference quantity price"
 #'   ) |>
 #'   mutate(
 #'     region = as.factor(region),
 #'     product = as.factor(product)
 #'   ) |>
 #'   estim_cpd() |>
-#'   valid_outlier_plot(title = "sPPPs outlier with adjusted outlier cutoffs",
-#'                      # Adjust outlier cutoffs (default is 1.5 and 0.5)
-#'                      outlier_cutoffs = c(1.1, 0.9))
+#'   valid_outlier_plot(
+#'     title = "sPPPs outlier with adjusted outlier cutoffs",
+#'     # Adjust outlier cutoffs (default is 1.5 and 0.5)
+#'     outlier_cutoffs = c(1.1, 0.9)
+#'   )
 #' }
 #'
 #' @importFrom ggplot2 ggplot
@@ -528,8 +539,9 @@ valid_outlier_plot <- function(data,
 
 #' Dikhanov table
 #'
-#' `valid_dikhanov()` generates the Dikhanov tables for all selected basic headings.
-#'
+#' `valid_dikhanov()` generates the Dikhanov tables for all selected basic headings;
+#' \insertCite{@see @worldbankMeasuringRealSize2013 and @icpGuideCompilationSubnational2021;textual}{OECDsppps}.
+
 #' The function first obtains CPD estimates through `estim_cpd()`. It then calculates all
 #' required summary statistics and returns a list containing Dikhanov tables for each of the selected
 #' basic headings.
@@ -538,8 +550,9 @@ valid_outlier_plot <- function(data,
 #'  columns identifying region, product and individual item-level price quotes
 #' @param region Identifier for regions (within or across countries)
 #' @param product Product identifier
-#' @param price Individual item-level price quotes; Duplicate region-product
-#' pairs are aggregated by way of averaging across region-product pairs
+#' @param price Individual item-level price quotes; duplicate region-product
+#' pairs are aggregated by way of averaging across region-product pairs following the
+#' default options in `estim_cpd()`
 #' @param basic_heading Identifier for basic headings/higher level aggregates
 #' @param selected_headings selected basic headings/higher level aggregates for which
 #' Dikhanov tables should be constructed
@@ -557,7 +570,10 @@ valid_outlier_plot <- function(data,
 #' @importFrom dplyr cur_data
 #' @importFrom dplyr arrange
 #' @importFrom dplyr relocate
+#' @importFrom dplyr c_across
+#' @importFrom dplyr n_distinct
 #' @importFrom tidyr pivot_wider
+#' @importFrom purrr map
 #'
 #'
 #' @examples
@@ -567,17 +583,16 @@ valid_outlier_plot <- function(data,
 #' B <- 5 # number of product groups
 #' N <- 5 # number of products
 #'
-#' dt1 <- pricelevels::rdata(R = R, B = B, N = N) %>%
-#'   as_tibble()
+#' dt1 <- pricelevels::rdata(R = R, B = B, N = N)
 #'
-#' valid_dikhanov(data = dt1,
-#'                region = "region",
-#'                product = "product",
-#'                price = "price",
-#'                basic_heading = "group",
-#'                selected_headings = c("1", "4"))
-#'
-#'
+#' valid_dikhanov(
+#'   data = dt1,
+#'   region = "region",
+#'   product = "product",
+#'   price = "price",
+#'   basic_heading = "group",
+#'   selected_headings = c("1", "4")
+#' )
 #'
 #' @export
 valid_dikhanov <- function(data,
@@ -585,23 +600,23 @@ valid_dikhanov <- function(data,
                            product = "product",
                            price = "price",
                            basic_heading = "basic_heading",
-                           selected_headings = c()){
-
+                           selected_headings = c()) {
   dikhanov_table_list <- data %>%
     filter(.data[[basic_heading]] %in% selected_headings) %>%
     select({{ basic_heading }}, {{ region }}, {{ product }}, {{ price }}) %>%
     group_by(.data[[basic_heading]]) %>%
     group_map(~ {
       output_cpd <- estim_cpd(.x,
-                              region = {{ region }},
-                              product = {{ product }},
-                              price = {{ price }},
-                              output = "Full")
+        region = {{ region }},
+        product = {{ product }},
+        price = {{ price }},
+        output = "Full"
+      )
       output_cpd[[2]] <- output_cpd[[2]] %>%
         mutate(product = .x[[product]])
       output_cpd
     }) %>%
-    map(\(x) list(
+    purrr::map(\(x) list(
       `Regression output` = x$`Regression output` %>%
         select(region, sPPP) %>%
         filter(region != "Aggregate summary statistics") %>%
@@ -613,38 +628,44 @@ valid_dikhanov <- function(data,
         bind_rows(
           summarise(., across(-product, ~ sd(.x, na.rm = TRUE)))
         ) %>%
-        mutate(variable = case_when(!is.na(product) ~ NA,
-                                    is.na(product) ~ "STD 2")) %>%
+        mutate(variable = case_when(
+          !is.na(product) ~ NA,
+          is.na(product) ~ "STD 2"
+        )) %>%
         bind_rows(
           summarise(., across(-c(product, variable), ~ sum(!is.na(.x)) - 1))
         ) %>%
         mutate(variable = case_when(!is.na(product) ~ NA,
-                                    is.na(variable) & is.na(product) ~ "No. of items priced",
-                                    .default = variable)) %>%
+          is.na(variable) & is.na(product) ~ "No. of items priced",
+          .default = variable
+        )) %>%
         rowwise() %>%
-        mutate(`STD 1` = sd(c_across(-c(product, variable)), na.rm = TRUE),
-               `Items/Countries` = sum(!is.na(c_across(-c(product, variable)))) - 1) %>%
+        mutate(
+          `STD 1` = sd(c_across(-c(product, variable)), na.rm = TRUE),
+          `Items/Countries` = sum(!is.na(c_across(-c(product, variable)))) - 1
+        ) %>%
         ungroup() %>%
-        mutate(`Items/Countries` = case_when(variable %in% c("No. of items priced") ~ n_distinct(product, na.rm = TRUE),
-                                             variable %in% c("sPPP", "STD 2") ~ NA,
-                                             .default = `Items/Countries`),
-               `STD 1` = case_when(variable %in% c("sPPP", "No. of items priced") ~ NA,
-                                   variable %in% c("STD 2") ~ cur_data() %>%
-                                     filter(!is.na(product)) %>%
-                                     select(-variable, -product, -`STD 1`, -`Items/Countries`) %>%
-                                     unlist() %>%
-                                     sd(na.rm = TRUE),
-                                   .default = `STD 1`))
+        mutate(
+          `Items/Countries` = case_when(variable %in% c("No. of items priced") ~ n_distinct(product, na.rm = TRUE),
+            variable %in% c("sPPP", "STD 2") ~ NA,
+            .default = `Items/Countries`
+          ),
+          `STD 1` = case_when(variable %in% c("sPPP", "No. of items priced") ~ NA,
+            variable %in% c("STD 2") ~ cur_data() %>%
+              filter(!is.na(product)) %>%
+              select(-variable, -product, -`STD 1`, -`Items/Countries`) %>%
+              unlist() %>%
+              sd(na.rm = TRUE),
+            .default = `STD 1`
+          )
+        )
     )) %>%
-    map(bind_rows) %>%
-    map(.x = ., ~ .x %>%
-          relocate(variable, product) %>%
-          arrange(desc(variable)))
+    purrr::map(bind_rows) %>%
+    purrr::map(.x = ., ~ .x %>%
+      relocate(variable, product) %>%
+      arrange(desc(variable)))
 
   names(dikhanov_table_list) <- selected_headings
 
   print(dikhanov_table_list)
-
 }
-
-

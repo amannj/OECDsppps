@@ -60,7 +60,8 @@ while the sPPP value is reported as described above.}
 }
 \description{
 \loadmathjax
-\code{estim_cpd} in  \pkg{OECDsppps} creates ...;
+\code{estim_cpd} in  \pkg{OECDsppps} estimates subnational PPPs building on the
+regional extension of the Country-Product-Dummy (CPD) method \insertCite{summers1973international;textual}{OECDsppps},
 see \emph{Details} and
 \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
 for more information.

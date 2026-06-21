@@ -1,7 +1,8 @@
 #' The Country Product Dummy (CPD) regression model
 #'
 #' \loadmathjax
-#' `estim_cpd` in  \pkg{OECDsppps} creates ...;
+#' `estim_cpd` in  \pkg{OECDsppps} estimates subnational PPPs building on the
+#' regional extension of the Country-Product-Dummy (CPD) method \insertCite{summers1973international;textual}{OECDsppps},
 #' see *Details* and
 #' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
 #' for more information.
@@ -275,12 +276,16 @@ estim_cpd <- function(data,
 #' and `index_geks()`.
 #'
 #' @examples
+#' \dontrun{
 #' # Generate the price and weight data and estimate CPD at basic headings
-#' dt1 <- pricelevels::rdata(R = R, B = B, N = N,
-#' weights = ~r+n,
-#' settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
-#' ) %>%
-#'   as_tibble()
+#' dt1 <- pricelevels::rdata(
+#'   R = R, B = B, N = N,
+#'   weights = ~ r + n,
+#'   settings = list(par.sd = c(
+#'     lnP = 0.1, pi = exp(1),
+#'     delta = 0.5, error = 0.8
+#'   ))
+#' )
 #'
 #' dt1_wghts <- dt1 %>%
 #'   distinct(group, region, .keep_all = TRUE) %>%
@@ -289,26 +294,31 @@ estim_cpd <- function(data,
 #' dt1_prices <- dt1 %>%
 #'   dplyr::select(group, region, product, price)
 #'
-#' dt1_basic_headings <-  dt1_prices %>%
+#' dt1_basic_headings <- dt1_prices %>%
 #'   group_by(group) %>%
-#'   group_modify(~{estim_cpd(.x,
-#'                            region = "region",
-#'                            product = "product",
-#'                            price = "price",
-#'                            output = "sPPP")}) %>%
+#'   group_modify(~ {
+#'     estim_cpd(.x,
+#'       region = "region",
+#'       product = "product",
+#'       price = "price",
+#'       output = "sPPP"
+#'     )
+#'   }) %>%
 #'   ungroup()
 #'
 #' # Complete data
 #' # -> returns complete standardized data frame
 #'
 #' dt1_basic_headings %>%
-#'  estim_index_link(data = .,
-#'                   data_weights = dt1_wghts,
-#'                   basic_heading = "group",
-#'                   region = "region",
-#'                   sPPP = "sPPP",
-#'                   exp_wght = "weight",
-#'                   complete_sppp = NA)
+#'   estim_index_link(
+#'     data = .,
+#'     data_weights = dt1_wghts,
+#'     basic_heading = "group",
+#'     region = "region",
+#'     sPPP = "sPPP",
+#'     exp_wght = "weight",
+#'     complete_sppp = NA
+#'   )
 #'
 #'
 #' # Missing regional values
@@ -316,27 +326,32 @@ estim_cpd <- function(data,
 #'
 #' dt1_basic_headings %>%
 #'   filter(!(region %in% c("1", "2") & group == "1")) %>%
-#'   estim_index_link(data = .,
-#'                    data_weights = dt1_wghts,
-#'                    basic_heading = "group",
-#'                    region = "region",
-#'                    sPPP = "sPPP",
-#'                    exp_wght = "weight",
-#'                    complete_sppp = NA)
+#'   estim_index_link(
+#'     data = .,
+#'     data_weights = dt1_wghts,
+#'     basic_heading = "group",
+#'     region = "region",
+#'     sPPP = "sPPP",
+#'     exp_wght = "weight",
+#'     complete_sppp = NA
+#'   )
 #'
 #'
 #' # Missing regional values: Imputation
-#' # -> returns a complete standardized data frame with a warning listing the region/heading imputations
-#'dt1_basic_headings %>%
+#' # -> returns a complete standardised data frame with a warnings,
+#' #    listing the region/heading imputations
+#' dt1_basic_headings %>%
 #'   filter(!(region %in% c("1", "2") & group == "1")) %>%
-#'   estim_index_link(data = .,
-#'                         data_weights = dt1_wghts,
-#'                         basic_heading = "group",
-#'                         region = "region",
-#'                         sPPP = "sPPP",
-#'                         exp_wght = "weight",
-#'                         complete_sppp = 1)
-#'
+#'   estim_index_link(
+#'     data = .,
+#'     data_weights = dt1_wghts,
+#'     basic_heading = "group",
+#'     region = "region",
+#'     sPPP = "sPPP",
+#'     exp_wght = "weight",
+#'     complete_sppp = 1
+#'   )
+#' }
 #'
 #' @importFrom tidyr unnest
 #' @importFrom tidyr replace_na
@@ -353,37 +368,43 @@ estim_index_link <- function(data,
                              region = "region",
                              sPPP = "sPPP",
                              exp_wght = "weight",
-                             complete_sppp = NA){
-
+                             complete_sppp = NA) {
   harmonised_data <- data %>%
     full_join(data_weights,
-              by = c({{ basic_heading }}, {{ region }}))  %>%
+      by = c({{ basic_heading }}, {{ region }})
+    ) %>%
     filter(!is.na({{ exp_wght }})) %>%
     rename(product = {{ basic_heading }}, ppp_bh = sPPP, exp_wght = {{ exp_wght }}, region = {{ region }})
 
-  if(!is.na(complete_sppp)) {harmonised_data <- harmonised_data %>%
-    select(product, region, ppp_bh) %>%
-    pivot_wider(names_from = region, values_from = ppp_bh)%>%
-    pivot_longer(!product, names_to = "region", values_to = "ppp_bh") %>%
-    {completed_regions_headings_v <<- filter(., is.na(ppp_bh)) %>%
-      mutate(region_heading = paste(region, product, sep = "/")) %>%
-      pull(region_heading)
-    .} %>%
-    replace_na(list(ppp_bh = complete_sppp)) %>%
-    full_join(data_weights,
-              by = c(product = {{ basic_heading }},
-                     region = {{ region }})) %>%
-    rename(exp_wght = {{ exp_wght }})
+  if (!is.na(complete_sppp)) {
+    harmonised_data <- harmonised_data %>%
+      select(product, region, ppp_bh) %>%
+      pivot_wider(names_from = region, values_from = ppp_bh) %>%
+      pivot_longer(!product, names_to = "region", values_to = "ppp_bh") %>%
+      {
+        completed_regions_headings_v <<- filter(., is.na(ppp_bh)) %>%
+          mutate(region_heading = paste(region, product, sep = "/")) %>%
+          pull(region_heading)
+        .
+      } %>%
+      replace_na(list(ppp_bh = complete_sppp)) %>%
+      full_join(data_weights,
+        by = c(
+          product = {{ basic_heading }},
+          region = {{ region }}
+        )
+      ) %>%
+      rename(exp_wght = {{ exp_wght }})
 
-  if(length(completed_regions_headings_v) > 0){
-    warning(print(paste("sPPP of",
-                        complete_sppp,
-                        "was imputed to the following region/headings pairs:",
-                        paste(completed_regions_headings_v, collapse = "; "))))
+    if (length(completed_regions_headings_v) > 0) {
+      warning(print(paste(
+        "sPPP of",
+        complete_sppp,
+        "was imputed to the following region/headings pairs:",
+        paste(completed_regions_headings_v, collapse = "; ")
+      )))
     }
   }
 
   return(harmonised_data)
-
 }
-

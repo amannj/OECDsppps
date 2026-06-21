@@ -58,10 +58,15 @@ The estimation steps are:
     information is available, for instance, when retail scanner data
     provide detailed transaction-level records).
 
-2.  [Estimation of higher level aggregates using basic heading
-    indices](#sec-step2) to higher levels of the classification
+2.  [Estimation of higher level aggregates using basic heading indices](#sec-step2) 
+    to higher levels of the classification
     hierarchy, at which point household expenditure data are accessible
-    and can be applied as weighting factors
+    and can be applied as weighting factors.
+    
+To seamlessly combine the two estimation steps, `OECDsppps`, provides the 
+'linking function' `estim_index_link()` to impute missing basic-heading 
+subnational PPPs. A complete sylised workflow is described in section
+[Putting it all together](#sec-combined).
 
 ## Estimation methods {.unnumbered}
 
@@ -802,7 +807,7 @@ indices_oecdsppps_df %>%
 
 ------------------------------------------------------------------------
 
-# Putting it all together: Estimating weighted higher level aggregates directly from item-level prices
+# Putting it all together: Estimating weighted higher level aggregates directly from item-level prices {#sec-combined}
 
 As described in the
 [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
@@ -880,7 +885,7 @@ dt1_wghts <- dt1 %>%
   select(group, region, weight)
 ```
 
-## CPD estimation at the basic heading level using item-level prices
+## CPD estimation at the basic heading level using item-level prices  
 
 Basic heading level sPPPs can be obtained from item-level price data by
 first grouping the data by basic heading with `group_by()`, then
@@ -892,7 +897,6 @@ and sPPP ("sPPP"). The data frame is grouped by the basic heading and
 should be ungrouped with `ungroup()` before proceeding further.
 
 ```{r}
-
 dt1_prices %>%
   group_by(group) %>%
   group_modify(~{estim_cpd(.x,
@@ -904,7 +908,6 @@ dt1_prices %>%
   head() %>%
   gt() %>%
   fmt_number(decimals = 4)
-
 ```
 
 ## Index calculation using basic heading indices
@@ -930,7 +933,6 @@ The workflow proceeds in three steps:
     `index_paasche()`, `index_fisher()`, and `index_geks()`
 
 ```{r}
-
 dt1_prices %>%
   # 1st step: grouping the data
   group_by(group) %>%
@@ -956,7 +958,6 @@ dt1_prices %>%
   head() %>%
   gt() %>%
   fmt_number(decimals = 4)
-
 ```
 
 ## Incomplete input data
@@ -979,8 +980,24 @@ In the example below, we remove the sPPPs for two region/basic heading
 pairs. While `estim_index_link()` returns a harmonized data frame,
 `index_geks()` returns an error.
 
-```{r}
+Note that the auxiliary function `read_returns` simply returns the error message
+returned by `index_geks()` as an output, rather than an error mesage which stops
+the execution of the script.
 
+```{r}
+read_returns <- function(expr){
+  tryCatch(expr,
+           error = function(e){
+             message("Error message:\n", e)
+           },
+           warning = function(w){
+             message("Warning message:\n", w)
+           })
+}
+```
+
+```{r}
+read_returns(
 dt1_prices %>%
   group_by(group) %>%
   group_modify(~{estim_cpd(.x,
@@ -999,7 +1016,7 @@ dt1_prices %>%
                    exp_wght = "weight",
                    complete_sppp = NA) %>%
   index_geks()
-
+)
 ```
 
 `estim_index_link()` enables imputing a user-specified value for missing
@@ -1011,7 +1028,6 @@ by the user. Below, we impute 1 for sPPPs of all such pairs.
 heading pairs for which the user-provided value was imputed.
 
 ```{r}
-
 dt1_prices %>%
   group_by(group) %>%
   group_modify(~{estim_cpd(.x,
@@ -1034,7 +1050,6 @@ dt1_prices %>%
   head() %>%
   gt() %>%
   fmt_number(decimals = 4)
-
 ```
 
 ### Incomplete weighting matrix
@@ -1046,7 +1061,6 @@ However, this data frame contains NAs for some region/basic heading
 weights.
 
 ```{r}
-
 # Remove expenditure weight for the following region/heading combination: 1/1
 dt1_wghts <- dt1_wghts %>%
   filter(!(group %in% c("1") & region %in% c("1")))
@@ -1069,14 +1083,13 @@ dt1_prices %>%
   head() %>%
   gt() %>%
   fmt_number(decimals = 4)
-
 ```
 
 In turn, this results in the index number function to break and return
 an error due to an incomplete expenditure weights matrix.
 
 ```{r}
-
+read_returns(
 dt1_prices %>%
   group_by(group) %>%
   group_modify(~{estim_cpd(.x,
@@ -1093,6 +1106,7 @@ dt1_prices %>%
                    exp_wght = "weight",
                    complete_sppp = NA) %>%
   index_geks()
+)
 ```
 
 We do not provide an option to impute expenditure weights, as we do for
