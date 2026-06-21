@@ -3,8 +3,20 @@ url: https://amannj.github.io/OECDsppps/
 template:
   bootstrap: 5
   math-rendering: mathjax
+  bslib:
+    primary: "#003A8C"
+    secondary: "#5C6770"
+    success: "#4C9F38"
+    base_font:
+      google: Source Sans 3
+    heading_font:
+      google: Source Sans 3
+    code_font:
+      google: Source Code Pro
 
 navbar:
+  bg: primary
+  type: dark
   structure:
     left: [home, reference, articles, news]
     right: [search, github]
