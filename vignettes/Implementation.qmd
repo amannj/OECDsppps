@@ -75,13 +75,16 @@ workflow.
 The implementation pipeline covers the country-level data validation,
 the aggregation and estimation of subnational purchasing power parities
 and the harmonisation of these estimates to make sPPP indicators
-comparable across countries (@tbl-implementation).
+comparable across countries (@tbl-implementation). 
+The individual steps are described below in more detail.
 
 Only the raw data validation, which derives a standard structure across
 all testing countries, remains country- and dataset-specific. The
 individual stages of the production pipeline are discussed in the
 subsequent paragraphs, together with the various functions use for the
 calculation of the subnational price indices.
+
+
 
 | Steps | Counterpart | `OECDsPPPs` integration |
 |------------------------|------------------------|------------------------|
@@ -95,9 +98,7 @@ calculation of the subnational price indices.
 : Implementation pipeline {#tbl-implementation}
 
 
-The individual steps are described below in more detail.
 
--------------
 
 <br>
 
@@ -230,5 +231,10 @@ Two validation functions are used for validation of subnational PPPs beyond the 
 <!-- # Comparability across countries and regions -->
 
 <!-- > 🚧 Work in progress. -->
+
+<br>
+<br>
+
+-------------
 
 # References {.unnumbered}

@@ -47,8 +47,10 @@ one pipe. Can fill in missing basic heading PPPs with a value given by the user.
 dt1 <- pricelevels::rdata(
   R = R, B = B, N = N,
   weights = ~ r + n,
-  settings = list(par.sd = c(lnP = 0.1, pi = exp(1),
-  delta = 0.5, error = 0.8))
+  settings = list(par.sd = c(
+    lnP = 0.1, pi = exp(1),
+    delta = 0.5, error = 0.8
+  ))
 )
 
 dt1_wghts <- dt1 \%>\%

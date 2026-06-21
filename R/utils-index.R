@@ -52,7 +52,7 @@ valid_index_data <- function(data,
   # warning: missing ppps
   if (missing_ppps_check) {
     stop(paste(
-      "Incomplete PPP matrix. Missing PPPs for the following region/product combinations:",
+      "Incomplete PPP matrix.\nMissing PPPs for the following region/product combinations:\n",
       paste(
         paste(missing_ppps[[region]],
           missing_ppps[[product]],
@@ -72,7 +72,7 @@ valid_index_data <- function(data,
   # warning: negative ppps
   if (negative_ppps_check) {
     warning(paste(
-      "Following region/product pairs have negative PPPs:",
+      "Following region/product pairs have negative PPPs:\n",
       paste(
         paste(
           negative_ppps[[region]],
@@ -104,7 +104,7 @@ valid_index_data <- function(data,
   # warning: missing weights
   if (missing_exp_check) {
     stop(paste(
-      "Incomplete expenditure weights matrix. Missing weights for the following region/product combinations:",
+      "\nIncomplete expenditure weights matrix.\nMissing weights for the following region/product combinations:\n",
       paste(
         paste(missing_exp_wghts[[region]],
           missing_exp_wghts[[product]],
@@ -139,7 +139,7 @@ valid_index_data <- function(data,
   # warning: negative weights
   if (negative_exp_check) {
     warning(paste(
-      "Following region/product pairs have negative weights:",
+      "Following region/product pairs have negative weights:\n",
       paste(
         paste(
           negative_exp_wghts[[region]],
@@ -154,7 +154,7 @@ valid_index_data <- function(data,
   # warning: weights above 1
   if (above_one_check) {
     warning(paste(
-      "Following region/product pairs have weights exceeding 1:",
+      "Following region/product pairs have weights exceeding 1:\n",
       paste(
         paste(
           above_one_exp_wghts[[region]],
@@ -169,7 +169,7 @@ valid_index_data <- function(data,
   # warning: non-unity regional sums
   if (unity_sum_check) {
     warning(paste(
-      "Following regions' weights do not sum to 1:",
+      "Following regions' weights do not sum to 1:\n",
       paste(non_unity_regional_sums[[region]],
         collapse = "; "
       )
