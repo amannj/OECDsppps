@@ -541,10 +541,22 @@ valid_outlier_plot <- function(data,
 #'
 #' `valid_dikhanov()` generates the Dikhanov tables for all selected basic headings;
 #' \insertCite{@see @worldbankMeasuringRealSize2013 and @icpGuideCompilationSubnational2021;textual}{OECDsppps}.
-
-#' The function first obtains CPD estimates through `estim_cpd()`. It then calculates all
-#' required summary statistics and returns a list containing Dikhanov tables for each of the selected
-#' basic headings.
+#'
+#' The Dikhanov tables consist of:
+#'
+#' - Summary information (PPPs, SDs, price level) by region for the aggregate;
+#' - CPD residuals and product variation coefficients for products within basic headings.
+#'
+#' The Dikhanov table facilitates the comparisons of PPPs across basic headings;
+#' plausible variations in PPPs is expected across regions. Such variations would
+#' indicate that, say, alcoholic beverages in region A are x% higher than in region B.
+#' The CPD residuals help ensure that the aggregate PPP variations are not driven
+#' by certain basic headings, or isolated products therein, but are more reflective
+#' of common price-level differences across regions.
+#'
+#' The function first obtains CPD estimates through `estim_cpd()`. It then
+#' calculates all required summary statistics and returns a list containing
+#' Dikhanov tables for each of the selected basic headings.
 #'
 #' @param data Data frame, data table or tibble containing at least three
 #'  columns identifying region, product and individual item-level price quotes
@@ -553,9 +565,13 @@ valid_outlier_plot <- function(data,
 #' @param price Individual item-level price quotes; duplicate region-product
 #' pairs are aggregated by way of averaging across region-product pairs following the
 #' default options in `estim_cpd()`
-#' @param basic_heading Identifier for basic headings/higher level aggregates
-#' @param selected_headings Subset of basic headings/higher level aggregates, identified by the
-#' "basic_heading" variable, for which the function returns the Dikhanov tables
+#' @param product_heading Variable identifying the corresponding product groups of the
+#' individual price quotes; typically corresponds to the basic headings, for example
+#' the  4-digit COICOP groups.
+#' @param product_heading_comparison Specify the product groups identified via argument
+#' `product_heading` for which the Dikhanov tables should be computed;
+#' default is 'all', that is, for all product groups listed in `product_heading`
+#' the Dikhanov tables will be computed
 #'
 #'
 #' @importFrom dplyr filter
@@ -579,20 +595,28 @@ valid_outlier_plot <- function(data,
 #'
 #' @examples
 #' set.seed(123)
-#'
 #' R <- 5 # number of regions
-#' B <- 5 # number of product groups
+#' B <- 3 # number of product groups
 #' N <- 5 # number of products
-#'
 #' dt1 <- pricelevels::rdata(R = R, B = B, N = N)
-#'
+#' # Dikhanov tables for products with product classification provided by
+#' # variable 'group' for products with generic name "1" and "3"
 #' valid_dikhanov(
 #'   data = dt1,
 #'   region = "region",
 #'   product = "product",
 #'   price = "price",
-#'   basic_heading = "group",
-#'   selected_headings = c("1", "4")
+#'   product_heading = "group",
+#'   product_heading_comparison = c("1", "3")
+#' )
+#'
+#' # Dikhanov tables for all three products contained in the data
+#' valid_dikhanov(
+#'   data = dt1,
+#'   region = "region",
+#'   product = "product",
+#'   price = "price",
+#'   product_heading = "group"
 #' )
 #'
 #' @export
@@ -600,12 +624,19 @@ valid_dikhanov <- function(data,
                            region = "region",
                            product = "product",
                            price = "price",
-                           basic_heading = "basic_heading",
-                           selected_headings = c()) {
+                           product_heading = "product_heading",
+                           product_heading_comparison = "all") {
+  # Pull full list of product headings for comparison if set to 'all'
+  if (sum(product_heading_comparison == "all")) {
+    product_heading_comparison <- data |>
+      distinct(.data[[product_heading]]) |>
+      pull(.data[[product_heading]])
+  }
+
   dikhanov_table_list <- data %>%
-    filter(.data[[basic_heading]] %in% selected_headings) %>%
-    select({{ basic_heading }}, {{ region }}, {{ product }}, {{ price }}) %>%
-    group_by(.data[[basic_heading]]) %>%
+    filter(.data[[product_heading]] %in% product_heading_comparison) %>%
+    select({{ product_heading }}, {{ region }}, {{ product }}, {{ price }}) %>%
+    group_by(.data[[product_heading]]) %>%
     group_map(~ {
       output_cpd <- estim_cpd(.x,
         region = {{ region }},
@@ -643,18 +674,18 @@ valid_dikhanov <- function(data,
         rowwise() %>%
         mutate(
           `STD 1` = sd(c_across(-c(product, variable)), na.rm = TRUE),
-          `Items/Countries` = sum(!is.na(c_across(-c(product, variable)))) - 1
+          `Items per region` = sum(!is.na(c_across(-c(product, variable)))) - 1
         ) %>%
         ungroup() %>%
         mutate(
           `Items/Countries` = case_when(variable %in% c("No. of items priced") ~ n_distinct(product, na.rm = TRUE),
             variable %in% c("sPPP", "STD 2") ~ NA,
-            .default = `Items/Countries`
+            .default = `Items per region`
           ),
           `STD 1` = case_when(variable %in% c("sPPP", "No. of items priced") ~ NA,
             variable %in% c("STD 2") ~ pick(everything()) %>%
               filter(!is.na(product)) %>%
-              select(-variable, -product, -`STD 1`, -`Items/Countries`) %>%
+              select(-variable, -product, -`STD 1`, -`Items per region`) %>%
               unlist() %>%
               sd(na.rm = TRUE),
             .default = `STD 1`
@@ -666,7 +697,7 @@ valid_dikhanov <- function(data,
       relocate(variable, product) %>%
       arrange(desc(variable)))
 
-  names(dikhanov_table_list) <- selected_headings
+  names(dikhanov_table_list) <- product_heading_comparison
 
   print(dikhanov_table_list)
 }

@@ -9,8 +9,8 @@ valid_dikhanov(
   region = "region",
   product = "product",
   price = "price",
-  basic_heading = "basic_heading",
-  selected_headings = c()
+  product_heading = "product_heading",
+  product_heading_comparison = "all"
 )
 }
 \arguments{
@@ -25,34 +25,61 @@ columns identifying region, product and individual item-level price quotes}
 pairs are aggregated by way of averaging across region-product pairs following the
 default options in \code{estim_cpd()}}
 
-\item{basic_heading}{Identifier for basic headings/higher level aggregates}
+\item{product_heading}{Variable identifying the corresponding product groups of the
+individual price quotes; typically corresponds to the basic headings, for example
+the  4-digit COICOP groups.}
 
-\item{selected_headings}{selected basic headings/higher level aggregates for which
-Dikhanov tables should be constructed}
+\item{product_heading_comparison}{Specify the product groups identified via argument
+\code{product_heading} for which the Dikhanov tables should be computed;
+default is 'all', that is, for all product groups listed in \code{product_heading}
+the Dikhanov tables will be computed}
 }
 \description{
 \code{valid_dikhanov()} generates the Dikhanov tables for all selected basic headings;
 \insertCite{@see @worldbankMeasuringRealSize2013 and @icpGuideCompilationSubnational2021;textual}{OECDsppps}.
-The function first obtains CPD estimates through \code{estim_cpd()}. It then calculates all
-required summary statistics and returns a list containing Dikhanov tables for each of the selected
-basic headings.
+}
+\details{
+The Dikhanov tables consist of:
+\itemize{
+\item Summary information (PPPs, SDs, price level) by region for the aggregate;
+\item CPD residuals and product variation coefficients for products within basic headings.
+}
+
+The Dikhanov table facilitates the comparisons of PPPs across basic headings;
+plausible variations in PPPs is expected across regions. Such variations would
+indicate that, say, alcoholic beverages in region A are x\% higher than in region B.
+The CPD residuals help ensure that the aggregate PPP variations are not driven
+by certain basic headings, or isolated products therein, but are more reflective
+of common price-level differences across regions.
+
+The function first obtains CPD estimates through \code{estim_cpd()}. It then
+calculates all required summary statistics and returns a list containing
+Dikhanov tables for each of the selected basic headings.
 }
 \examples{
 set.seed(123)
-
 R <- 5 # number of regions
-B <- 5 # number of product groups
+B <- 3 # number of product groups
 N <- 5 # number of products
-
 dt1 <- pricelevels::rdata(R = R, B = B, N = N)
-
+# Dikhanov tables for products with product classification provided by
+# variable 'group' for products with generic name "1" and "3"
 valid_dikhanov(
   data = dt1,
   region = "region",
   product = "product",
   price = "price",
-  basic_heading = "group",
-  selected_headings = c("1", "4")
+  product_heading = "group",
+  product_heading_comparison = c("1", "3")
+)
+
+# Dikhanov tables for all three products contained in the data
+valid_dikhanov(
+  data = dt1,
+  region = "region",
+  product = "product",
+  price = "price",
+  product_heading = "group"
 )
 
 }
