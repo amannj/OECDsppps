@@ -1,19 +1,186 @@
+/* =====================================================
+   OECDSPPPS - OECD INSPIRED PKGDOWN THEME
+   ===================================================== */
+
+
+/* ---------- Global typography ---------- */
+
+body {
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #24323f;
+  background-color: #ffffff;
+}
+
+
+/* ---------- Headings ---------- */
+
+h1, h2, h3, h4, h5 {
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-weight: 700;
+  color: #08257b;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+h2 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e6e9ed;
+  padding-bottom: .5rem;
+}
+
+
+/* ---------- OECD Navbar ---------- */
+
 .navbar {
-  background-color: #a3bbdd !important; /* Background colour for the navbar */
+  background-color: #08257b !important;
+  border: none;
+  box-shadow: none;
+  min-height: 72px;
 }
-.navbar a {
-  color: #08257b !important; /* Link colour */
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-size: 1.35rem;
+  font-weight: 700;
 }
-.navbar .nav-item.dropdown > .nav-link {
-  color: #08257b; /* Text colour for the item with submenu */
+
+.navbar-nav .nav-link {
+  color: #7089bd !important;
+  font-weight: 500;
 }
-.navbar .dropdown-menu {
-  background-color: #a3bbdd; /* Background colour for the sub-menu */
-  border-radius: 5px; /* Round the corners of the sub-menu */
+
+.navbar-nav .nav-link:hover {
+  color: #d6e4ff !important;
 }
-.navbar .dropdown-item {
-  color: #08257b; /* Text color for the sub-menu items */
+
+.navbar-nav .nav-link:active {
+  color: #08257b !important;
 }
-.navbar-nav .nav-item.dropdown > .nav-link:active {
-  background-color: #a3bbdd;
+
+
+/* ---------- Page width ---------- */
+
+.container-fluid.main-container {
+  max-width: 1300px;
+}
+
+
+/* ---------- Main content ---------- */
+
+.contents {
+  max-width: 900px;
+}
+
+
+/* ---------- Links ---------- */
+
+a {
+  color: #08257b;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #08257b;
+  text-decoration: underline;
+}
+
+
+/* ---------- Sidebar ---------- */
+
+.bd-sidebar {
+  font-size: 0.95rem;
+}
+
+.bd-sidebar .nav-link {
+  color: #425466;
+}
+
+.bd-sidebar .active {
+  color: #08257b;
+  font-weight: 600;
+}
+
+.template-article aside a {
+  color: #003A8C !important;
+}
+
+/* ---------- Code ---------- */
+
+pre,
+code,
+kbd,
+samp {
+  font-family: "Source Code Pro",
+               "Fira Code",
+               Consolas,
+               Monaco,
+               monospace;
+}
+
+pre {
+  background-color: #f5f7fa;
+  border: 1px solid #e6e9ed;
+  border-radius: 6px;
+  padding: 1rem;
+  font-size: 0.92rem;
+}
+
+code {
+  background-color: #f3f5f7;
+  color: #08257b;
+}
+
+
+
+
+/* ---------- Reference index ---------- */
+
+.ref-index .topic {
+  border-bottom: 1px solid #edf0f2;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+
+/* ---------- Article pages ---------- */
+
+.template-article .page-header {
+  margin-bottom: 3rem;
+}
+
+/* Article TOC sidebar links */
+.tocify .list-group-item {
+  color: #08257b !important;
+}
+
+/* Active section */
+.tocify .list-group-item.active {
+  color: #08257b !important;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid #e6e9ed;
+  color: #6b7280;
+}
+
+
+/* ---------- OECD style callout ---------- */
+
+.alert-info {
+  background-color: #eef5ff;
+  border-color: #08257b;
+  color: #24323f;
 }

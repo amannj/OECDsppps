@@ -19,7 +19,9 @@
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="Validation_files/libs/quarto-html/popper.min.js"></script><script src="Validation_files/libs/quarto-html/tippy.umd.min.js"></script><link href="Validation_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Validation_files/libs/quarto-html/light-border.css" rel="stylesheet">
@@ -31,11 +33,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +78,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/v0.0.0.6/vignettes/Validation.qmd" class="external-link"><code>vignettes/Validation.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/vignettes/Validation.qmd" class="external-link"><code>vignettes/Validation.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -87,11 +89,13 @@
 
     <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amannj/OECDsppps" class="external-link">OECDsppps</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amannj/OECDsppps" class="external-link">OECDsppps</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amannj/OECDsppps" class="external-link">OECDsppps</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <section class="section level2"><h2 class="unnumbered" id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -123,23 +127,23 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">coicop_5d</span>, <span class="va">`Product code`</span>, <span class="va">`Product description`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="xqhrgeqhmb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xqhrgeqhmb table {
+<div id="lvhvvhswur" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lvhvvhswur table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xqhrgeqhmb thead, #xqhrgeqhmb tbody, #xqhrgeqhmb tfoot, #xqhrgeqhmb tr, #xqhrgeqhmb td, #xqhrgeqhmb th {
+#lvhvvhswur thead, #lvhvvhswur tbody, #lvhvvhswur tfoot, #lvhvvhswur tr, #lvhvvhswur td, #lvhvvhswur th {
   border-style: none;
 }
 
-#xqhrgeqhmb p {
+#lvhvvhswur p {
   margin: 0;
   padding: 0;
 }
 
-#xqhrgeqhmb .gt_table {
+#lvhvvhswur .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -165,12 +169,12 @@
   border-left-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_caption {
+#lvhvvhswur .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xqhrgeqhmb .gt_title {
+#lvhvvhswur .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -182,7 +186,7 @@
   border-bottom-width: 0;
 }
 
-#xqhrgeqhmb .gt_subtitle {
+#lvhvvhswur .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -194,7 +198,7 @@
   border-top-width: 0;
 }
 
-#xqhrgeqhmb .gt_heading {
+#lvhvvhswur .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -206,13 +210,13 @@
   border-right-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_bottom_border {
+#lvhvvhswur .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_col_headings {
+#lvhvvhswur .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -227,7 +231,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_col_heading {
+#lvhvvhswur .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -247,7 +251,7 @@
   overflow-x: hidden;
 }
 
-#xqhrgeqhmb .gt_column_spanner_outer {
+#lvhvvhswur .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -259,15 +263,15 @@
   padding-right: 4px;
 }
 
-#xqhrgeqhmb .gt_column_spanner_outer:first-child {
+#lvhvvhswur .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xqhrgeqhmb .gt_column_spanner_outer:last-child {
+#lvhvvhswur .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xqhrgeqhmb .gt_column_spanner {
+#lvhvvhswur .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -279,11 +283,11 @@
   width: 100%;
 }
 
-#xqhrgeqhmb .gt_spanner_row {
+#lvhvvhswur .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xqhrgeqhmb .gt_group_heading {
+#lvhvvhswur .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -309,7 +313,7 @@
   text-align: left;
 }
 
-#xqhrgeqhmb .gt_empty_group_heading {
+#lvhvvhswur .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -324,15 +328,15 @@
   vertical-align: middle;
 }
 
-#xqhrgeqhmb .gt_from_md > :first-child {
+#lvhvvhswur .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xqhrgeqhmb .gt_from_md > :last-child {
+#lvhvvhswur .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xqhrgeqhmb .gt_row {
+#lvhvvhswur .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -351,7 +355,7 @@
   overflow-x: hidden;
 }
 
-#xqhrgeqhmb .gt_stub {
+#lvhvvhswur .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -364,7 +368,7 @@
   padding-right: 5px;
 }
 
-#xqhrgeqhmb .gt_stub_row_group {
+#lvhvvhswur .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -378,15 +382,15 @@
   vertical-align: top;
 }
 
-#xqhrgeqhmb .gt_row_group_first td {
+#lvhvvhswur .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xqhrgeqhmb .gt_row_group_first th {
+#lvhvvhswur .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xqhrgeqhmb .gt_summary_row {
+#lvhvvhswur .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -396,16 +400,16 @@
   padding-right: 5px;
 }
 
-#xqhrgeqhmb .gt_first_summary_row {
+#lvhvvhswur .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_first_summary_row.thick {
+#lvhvvhswur .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xqhrgeqhmb .gt_last_summary_row {
+#lvhvvhswur .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -415,7 +419,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_grand_summary_row {
+#lvhvvhswur .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -425,7 +429,7 @@
   padding-right: 5px;
 }
 
-#xqhrgeqhmb .gt_first_grand_summary_row {
+#lvhvvhswur .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -435,7 +439,7 @@
   border-top-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_last_grand_summary_row_top {
+#lvhvvhswur .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -445,11 +449,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_striped {
+#lvhvvhswur .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xqhrgeqhmb .gt_table_body {
+#lvhvvhswur .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -458,7 +462,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_footnotes {
+#lvhvvhswur .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -472,7 +476,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_footnote {
+#lvhvvhswur .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -481,7 +485,7 @@
   padding-right: 5px;
 }
 
-#xqhrgeqhmb .gt_sourcenotes {
+#lvhvvhswur .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -495,7 +499,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xqhrgeqhmb .gt_sourcenote {
+#lvhvvhswur .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -503,72 +507,72 @@
   padding-right: 5px;
 }
 
-#xqhrgeqhmb .gt_left {
+#lvhvvhswur .gt_left {
   text-align: left;
 }
 
-#xqhrgeqhmb .gt_center {
+#lvhvvhswur .gt_center {
   text-align: center;
 }
 
-#xqhrgeqhmb .gt_right {
+#lvhvvhswur .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xqhrgeqhmb .gt_font_normal {
+#lvhvvhswur .gt_font_normal {
   font-weight: normal;
 }
 
-#xqhrgeqhmb .gt_font_bold {
+#lvhvvhswur .gt_font_bold {
   font-weight: bold;
 }
 
-#xqhrgeqhmb .gt_font_italic {
+#lvhvvhswur .gt_font_italic {
   font-style: italic;
 }
 
-#xqhrgeqhmb .gt_super {
+#lvhvvhswur .gt_super {
   font-size: 65%;
 }
 
-#xqhrgeqhmb .gt_footnote_marks {
+#lvhvvhswur .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xqhrgeqhmb .gt_asterisk {
+#lvhvvhswur .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xqhrgeqhmb .gt_indent_1 {
+#lvhvvhswur .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xqhrgeqhmb .gt_indent_2 {
+#lvhvvhswur .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xqhrgeqhmb .gt_indent_3 {
+#lvhvvhswur .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xqhrgeqhmb .gt_indent_4 {
+#lvhvvhswur .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xqhrgeqhmb .gt_indent_5 {
+#lvhvvhswur .gt_indent_5 {
   text-indent: 25px;
 }
 
-#xqhrgeqhmb .katex-display {
+#lvhvvhswur .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#xqhrgeqhmb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#lvhvvhswur div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -640,23 +644,23 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">uk_hhe</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="cskdexdezt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cskdexdezt table {
+<div id="xaciwuhpuq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xaciwuhpuq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cskdexdezt thead, #cskdexdezt tbody, #cskdexdezt tfoot, #cskdexdezt tr, #cskdexdezt td, #cskdexdezt th {
+#xaciwuhpuq thead, #xaciwuhpuq tbody, #xaciwuhpuq tfoot, #xaciwuhpuq tr, #xaciwuhpuq td, #xaciwuhpuq th {
   border-style: none;
 }
 
-#cskdexdezt p {
+#xaciwuhpuq p {
   margin: 0;
   padding: 0;
 }
 
-#cskdexdezt .gt_table {
+#xaciwuhpuq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -682,12 +686,12 @@
   border-left-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_caption {
+#xaciwuhpuq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cskdexdezt .gt_title {
+#xaciwuhpuq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -699,7 +703,7 @@
   border-bottom-width: 0;
 }
 
-#cskdexdezt .gt_subtitle {
+#xaciwuhpuq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -711,7 +715,7 @@
   border-top-width: 0;
 }
 
-#cskdexdezt .gt_heading {
+#xaciwuhpuq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -723,13 +727,13 @@
   border-right-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_bottom_border {
+#xaciwuhpuq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_col_headings {
+#xaciwuhpuq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -744,7 +748,7 @@
   border-right-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_col_heading {
+#xaciwuhpuq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -764,7 +768,7 @@
   overflow-x: hidden;
 }
 
-#cskdexdezt .gt_column_spanner_outer {
+#xaciwuhpuq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -776,15 +780,15 @@
   padding-right: 4px;
 }
 
-#cskdexdezt .gt_column_spanner_outer:first-child {
+#xaciwuhpuq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cskdexdezt .gt_column_spanner_outer:last-child {
+#xaciwuhpuq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cskdexdezt .gt_column_spanner {
+#xaciwuhpuq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -796,11 +800,11 @@
   width: 100%;
 }
 
-#cskdexdezt .gt_spanner_row {
+#xaciwuhpuq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cskdexdezt .gt_group_heading {
+#xaciwuhpuq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -826,7 +830,7 @@
   text-align: left;
 }
 
-#cskdexdezt .gt_empty_group_heading {
+#xaciwuhpuq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -841,15 +845,15 @@
   vertical-align: middle;
 }
 
-#cskdexdezt .gt_from_md > :first-child {
+#xaciwuhpuq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cskdexdezt .gt_from_md > :last-child {
+#xaciwuhpuq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cskdexdezt .gt_row {
+#xaciwuhpuq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -868,7 +872,7 @@
   overflow-x: hidden;
 }
 
-#cskdexdezt .gt_stub {
+#xaciwuhpuq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -881,7 +885,7 @@
   padding-right: 5px;
 }
 
-#cskdexdezt .gt_stub_row_group {
+#xaciwuhpuq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -895,15 +899,15 @@
   vertical-align: top;
 }
 
-#cskdexdezt .gt_row_group_first td {
+#xaciwuhpuq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cskdexdezt .gt_row_group_first th {
+#xaciwuhpuq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cskdexdezt .gt_summary_row {
+#xaciwuhpuq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -913,16 +917,16 @@
   padding-right: 5px;
 }
 
-#cskdexdezt .gt_first_summary_row {
+#xaciwuhpuq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_first_summary_row.thick {
+#xaciwuhpuq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cskdexdezt .gt_last_summary_row {
+#xaciwuhpuq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -932,7 +936,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_grand_summary_row {
+#xaciwuhpuq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -942,7 +946,7 @@
   padding-right: 5px;
 }
 
-#cskdexdezt .gt_first_grand_summary_row {
+#xaciwuhpuq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -952,7 +956,7 @@
   border-top-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_last_grand_summary_row_top {
+#xaciwuhpuq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -962,11 +966,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_striped {
+#xaciwuhpuq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cskdexdezt .gt_table_body {
+#xaciwuhpuq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -975,7 +979,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_footnotes {
+#xaciwuhpuq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -989,7 +993,7 @@
   border-right-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_footnote {
+#xaciwuhpuq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -998,7 +1002,7 @@
   padding-right: 5px;
 }
 
-#cskdexdezt .gt_sourcenotes {
+#xaciwuhpuq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1012,7 +1016,7 @@
   border-right-color: #D3D3D3;
 }
 
-#cskdexdezt .gt_sourcenote {
+#xaciwuhpuq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1020,72 +1024,72 @@
   padding-right: 5px;
 }
 
-#cskdexdezt .gt_left {
+#xaciwuhpuq .gt_left {
   text-align: left;
 }
 
-#cskdexdezt .gt_center {
+#xaciwuhpuq .gt_center {
   text-align: center;
 }
 
-#cskdexdezt .gt_right {
+#xaciwuhpuq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cskdexdezt .gt_font_normal {
+#xaciwuhpuq .gt_font_normal {
   font-weight: normal;
 }
 
-#cskdexdezt .gt_font_bold {
+#xaciwuhpuq .gt_font_bold {
   font-weight: bold;
 }
 
-#cskdexdezt .gt_font_italic {
+#xaciwuhpuq .gt_font_italic {
   font-style: italic;
 }
 
-#cskdexdezt .gt_super {
+#xaciwuhpuq .gt_super {
   font-size: 65%;
 }
 
-#cskdexdezt .gt_footnote_marks {
+#xaciwuhpuq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cskdexdezt .gt_asterisk {
+#xaciwuhpuq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cskdexdezt .gt_indent_1 {
+#xaciwuhpuq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cskdexdezt .gt_indent_2 {
+#xaciwuhpuq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cskdexdezt .gt_indent_3 {
+#xaciwuhpuq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cskdexdezt .gt_indent_4 {
+#xaciwuhpuq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cskdexdezt .gt_indent_5 {
+#xaciwuhpuq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cskdexdezt .katex-display {
+#xaciwuhpuq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cskdexdezt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xaciwuhpuq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1168,23 +1172,23 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="fjixyixxun" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fjixyixxun table {
+<div id="mbeguisgbs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mbeguisgbs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fjixyixxun thead, #fjixyixxun tbody, #fjixyixxun tfoot, #fjixyixxun tr, #fjixyixxun td, #fjixyixxun th {
+#mbeguisgbs thead, #mbeguisgbs tbody, #mbeguisgbs tfoot, #mbeguisgbs tr, #mbeguisgbs td, #mbeguisgbs th {
   border-style: none;
 }
 
-#fjixyixxun p {
+#mbeguisgbs p {
   margin: 0;
   padding: 0;
 }
 
-#fjixyixxun .gt_table {
+#mbeguisgbs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1210,12 +1214,12 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-left-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_caption {
+#mbeguisgbs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fjixyixxun .gt_title {
+#mbeguisgbs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1227,7 +1231,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-bottom-width: 0;
 }
 
-#fjixyixxun .gt_subtitle {
+#mbeguisgbs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1239,7 +1243,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-top-width: 0;
 }
 
-#fjixyixxun .gt_heading {
+#mbeguisgbs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1251,13 +1255,13 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-right-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_bottom_border {
+#mbeguisgbs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_col_headings {
+#mbeguisgbs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1272,7 +1276,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-right-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_col_heading {
+#mbeguisgbs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1292,7 +1296,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   overflow-x: hidden;
 }
 
-#fjixyixxun .gt_column_spanner_outer {
+#mbeguisgbs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1304,15 +1308,15 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 4px;
 }
 
-#fjixyixxun .gt_column_spanner_outer:first-child {
+#mbeguisgbs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fjixyixxun .gt_column_spanner_outer:last-child {
+#mbeguisgbs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fjixyixxun .gt_column_spanner {
+#mbeguisgbs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1324,11 +1328,11 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   width: 100%;
 }
 
-#fjixyixxun .gt_spanner_row {
+#mbeguisgbs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fjixyixxun .gt_group_heading {
+#mbeguisgbs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1354,7 +1358,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   text-align: left;
 }
 
-#fjixyixxun .gt_empty_group_heading {
+#mbeguisgbs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1369,15 +1373,15 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   vertical-align: middle;
 }
 
-#fjixyixxun .gt_from_md > :first-child {
+#mbeguisgbs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fjixyixxun .gt_from_md > :last-child {
+#mbeguisgbs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fjixyixxun .gt_row {
+#mbeguisgbs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1396,7 +1400,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   overflow-x: hidden;
 }
 
-#fjixyixxun .gt_stub {
+#mbeguisgbs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1409,7 +1413,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#fjixyixxun .gt_stub_row_group {
+#mbeguisgbs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1423,15 +1427,15 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   vertical-align: top;
 }
 
-#fjixyixxun .gt_row_group_first td {
+#mbeguisgbs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fjixyixxun .gt_row_group_first th {
+#mbeguisgbs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fjixyixxun .gt_summary_row {
+#mbeguisgbs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1441,16 +1445,16 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#fjixyixxun .gt_first_summary_row {
+#mbeguisgbs .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_first_summary_row.thick {
+#mbeguisgbs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fjixyixxun .gt_last_summary_row {
+#mbeguisgbs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1460,7 +1464,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-bottom-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_grand_summary_row {
+#mbeguisgbs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1470,7 +1474,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#fjixyixxun .gt_first_grand_summary_row {
+#mbeguisgbs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1480,7 +1484,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-top-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_last_grand_summary_row_top {
+#mbeguisgbs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1490,11 +1494,11 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-bottom-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_striped {
+#mbeguisgbs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fjixyixxun .gt_table_body {
+#mbeguisgbs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1503,7 +1507,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-bottom-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_footnotes {
+#mbeguisgbs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1517,7 +1521,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-right-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_footnote {
+#mbeguisgbs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1526,7 +1530,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#fjixyixxun .gt_sourcenotes {
+#mbeguisgbs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1540,7 +1544,7 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   border-right-color: #D3D3D3;
 }
 
-#fjixyixxun .gt_sourcenote {
+#mbeguisgbs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1548,72 +1552,72 @@ t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
   padding-right: 5px;
 }
 
-#fjixyixxun .gt_left {
+#mbeguisgbs .gt_left {
   text-align: left;
 }
 
-#fjixyixxun .gt_center {
+#mbeguisgbs .gt_center {
   text-align: center;
 }
 
-#fjixyixxun .gt_right {
+#mbeguisgbs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fjixyixxun .gt_font_normal {
+#mbeguisgbs .gt_font_normal {
   font-weight: normal;
 }
 
-#fjixyixxun .gt_font_bold {
+#mbeguisgbs .gt_font_bold {
   font-weight: bold;
 }
 
-#fjixyixxun .gt_font_italic {
+#mbeguisgbs .gt_font_italic {
   font-style: italic;
 }
 
-#fjixyixxun .gt_super {
+#mbeguisgbs .gt_super {
   font-size: 65%;
 }
 
-#fjixyixxun .gt_footnote_marks {
+#mbeguisgbs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fjixyixxun .gt_asterisk {
+#mbeguisgbs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fjixyixxun .gt_indent_1 {
+#mbeguisgbs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fjixyixxun .gt_indent_2 {
+#mbeguisgbs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fjixyixxun .gt_indent_3 {
+#mbeguisgbs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fjixyixxun .gt_indent_4 {
+#mbeguisgbs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fjixyixxun .gt_indent_5 {
+#mbeguisgbs .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fjixyixxun .katex-display {
+#mbeguisgbs .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fjixyixxun div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mbeguisgbs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1742,23 +1746,23 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="bafcizgelb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bafcizgelb table {
+<div id="iwtixnumww" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iwtixnumww table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bafcizgelb thead, #bafcizgelb tbody, #bafcizgelb tfoot, #bafcizgelb tr, #bafcizgelb td, #bafcizgelb th {
+#iwtixnumww thead, #iwtixnumww tbody, #iwtixnumww tfoot, #iwtixnumww tr, #iwtixnumww td, #iwtixnumww th {
   border-style: none;
 }
 
-#bafcizgelb p {
+#iwtixnumww p {
   margin: 0;
   padding: 0;
 }
 
-#bafcizgelb .gt_table {
+#iwtixnumww .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1784,12 +1788,12 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-left-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_caption {
+#iwtixnumww .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bafcizgelb .gt_title {
+#iwtixnumww .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1801,7 +1805,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-width: 0;
 }
 
-#bafcizgelb .gt_subtitle {
+#iwtixnumww .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1813,7 +1817,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-top-width: 0;
 }
 
-#bafcizgelb .gt_heading {
+#iwtixnumww .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1825,13 +1829,13 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_bottom_border {
+#iwtixnumww .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_col_headings {
+#iwtixnumww .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1846,7 +1850,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_col_heading {
+#iwtixnumww .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1866,7 +1870,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   overflow-x: hidden;
 }
 
-#bafcizgelb .gt_column_spanner_outer {
+#iwtixnumww .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1878,15 +1882,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 4px;
 }
 
-#bafcizgelb .gt_column_spanner_outer:first-child {
+#iwtixnumww .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bafcizgelb .gt_column_spanner_outer:last-child {
+#iwtixnumww .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bafcizgelb .gt_column_spanner {
+#iwtixnumww .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1898,11 +1902,11 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   width: 100%;
 }
 
-#bafcizgelb .gt_spanner_row {
+#iwtixnumww .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bafcizgelb .gt_group_heading {
+#iwtixnumww .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1928,7 +1932,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   text-align: left;
 }
 
-#bafcizgelb .gt_empty_group_heading {
+#iwtixnumww .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1943,15 +1947,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   vertical-align: middle;
 }
 
-#bafcizgelb .gt_from_md > :first-child {
+#iwtixnumww .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bafcizgelb .gt_from_md > :last-child {
+#iwtixnumww .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bafcizgelb .gt_row {
+#iwtixnumww .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1970,7 +1974,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   overflow-x: hidden;
 }
 
-#bafcizgelb .gt_stub {
+#iwtixnumww .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1983,7 +1987,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#bafcizgelb .gt_stub_row_group {
+#iwtixnumww .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1997,15 +2001,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   vertical-align: top;
 }
 
-#bafcizgelb .gt_row_group_first td {
+#iwtixnumww .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bafcizgelb .gt_row_group_first th {
+#iwtixnumww .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bafcizgelb .gt_summary_row {
+#iwtixnumww .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2015,16 +2019,16 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#bafcizgelb .gt_first_summary_row {
+#iwtixnumww .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_first_summary_row.thick {
+#iwtixnumww .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bafcizgelb .gt_last_summary_row {
+#iwtixnumww .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2034,7 +2038,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_grand_summary_row {
+#iwtixnumww .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2044,7 +2048,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#bafcizgelb .gt_first_grand_summary_row {
+#iwtixnumww .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2054,7 +2058,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-top-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_last_grand_summary_row_top {
+#iwtixnumww .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2064,11 +2068,11 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_striped {
+#iwtixnumww .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bafcizgelb .gt_table_body {
+#iwtixnumww .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2077,7 +2081,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_footnotes {
+#iwtixnumww .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2091,7 +2095,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_footnote {
+#iwtixnumww .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2100,7 +2104,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#bafcizgelb .gt_sourcenotes {
+#iwtixnumww .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2114,7 +2118,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#bafcizgelb .gt_sourcenote {
+#iwtixnumww .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2122,72 +2126,72 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#bafcizgelb .gt_left {
+#iwtixnumww .gt_left {
   text-align: left;
 }
 
-#bafcizgelb .gt_center {
+#iwtixnumww .gt_center {
   text-align: center;
 }
 
-#bafcizgelb .gt_right {
+#iwtixnumww .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bafcizgelb .gt_font_normal {
+#iwtixnumww .gt_font_normal {
   font-weight: normal;
 }
 
-#bafcizgelb .gt_font_bold {
+#iwtixnumww .gt_font_bold {
   font-weight: bold;
 }
 
-#bafcizgelb .gt_font_italic {
+#iwtixnumww .gt_font_italic {
   font-style: italic;
 }
 
-#bafcizgelb .gt_super {
+#iwtixnumww .gt_super {
   font-size: 65%;
 }
 
-#bafcizgelb .gt_footnote_marks {
+#iwtixnumww .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bafcizgelb .gt_asterisk {
+#iwtixnumww .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bafcizgelb .gt_indent_1 {
+#iwtixnumww .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bafcizgelb .gt_indent_2 {
+#iwtixnumww .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bafcizgelb .gt_indent_3 {
+#iwtixnumww .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bafcizgelb .gt_indent_4 {
+#iwtixnumww .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bafcizgelb .gt_indent_5 {
+#iwtixnumww .gt_indent_5 {
   text-indent: 25px;
 }
 
-#bafcizgelb .katex-display {
+#iwtixnumww .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#bafcizgelb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#iwtixnumww div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2284,23 +2288,23 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
 <span>    decimals <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="lcuyilbgbc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lcuyilbgbc table {
+<div id="xttvbhppmy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xttvbhppmy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lcuyilbgbc thead, #lcuyilbgbc tbody, #lcuyilbgbc tfoot, #lcuyilbgbc tr, #lcuyilbgbc td, #lcuyilbgbc th {
+#xttvbhppmy thead, #xttvbhppmy tbody, #xttvbhppmy tfoot, #xttvbhppmy tr, #xttvbhppmy td, #xttvbhppmy th {
   border-style: none;
 }
 
-#lcuyilbgbc p {
+#xttvbhppmy p {
   margin: 0;
   padding: 0;
 }
 
-#lcuyilbgbc .gt_table {
+#xttvbhppmy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2326,12 +2330,12 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-left-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_caption {
+#xttvbhppmy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lcuyilbgbc .gt_title {
+#xttvbhppmy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2343,7 +2347,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-width: 0;
 }
 
-#lcuyilbgbc .gt_subtitle {
+#xttvbhppmy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2355,7 +2359,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-top-width: 0;
 }
 
-#lcuyilbgbc .gt_heading {
+#xttvbhppmy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2367,13 +2371,13 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_bottom_border {
+#xttvbhppmy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_col_headings {
+#xttvbhppmy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2388,7 +2392,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_col_heading {
+#xttvbhppmy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2408,7 +2412,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   overflow-x: hidden;
 }
 
-#lcuyilbgbc .gt_column_spanner_outer {
+#xttvbhppmy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2420,15 +2424,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 4px;
 }
 
-#lcuyilbgbc .gt_column_spanner_outer:first-child {
+#xttvbhppmy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lcuyilbgbc .gt_column_spanner_outer:last-child {
+#xttvbhppmy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lcuyilbgbc .gt_column_spanner {
+#xttvbhppmy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2440,11 +2444,11 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   width: 100%;
 }
 
-#lcuyilbgbc .gt_spanner_row {
+#xttvbhppmy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lcuyilbgbc .gt_group_heading {
+#xttvbhppmy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2470,7 +2474,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   text-align: left;
 }
 
-#lcuyilbgbc .gt_empty_group_heading {
+#xttvbhppmy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2485,15 +2489,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   vertical-align: middle;
 }
 
-#lcuyilbgbc .gt_from_md > :first-child {
+#xttvbhppmy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lcuyilbgbc .gt_from_md > :last-child {
+#xttvbhppmy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lcuyilbgbc .gt_row {
+#xttvbhppmy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2512,7 +2516,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   overflow-x: hidden;
 }
 
-#lcuyilbgbc .gt_stub {
+#xttvbhppmy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2525,7 +2529,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#lcuyilbgbc .gt_stub_row_group {
+#xttvbhppmy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2539,15 +2543,15 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   vertical-align: top;
 }
 
-#lcuyilbgbc .gt_row_group_first td {
+#xttvbhppmy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lcuyilbgbc .gt_row_group_first th {
+#xttvbhppmy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lcuyilbgbc .gt_summary_row {
+#xttvbhppmy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2557,16 +2561,16 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#lcuyilbgbc .gt_first_summary_row {
+#xttvbhppmy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_first_summary_row.thick {
+#xttvbhppmy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lcuyilbgbc .gt_last_summary_row {
+#xttvbhppmy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2576,7 +2580,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_grand_summary_row {
+#xttvbhppmy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2586,7 +2590,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#lcuyilbgbc .gt_first_grand_summary_row {
+#xttvbhppmy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2596,7 +2600,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-top-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_last_grand_summary_row_top {
+#xttvbhppmy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2606,11 +2610,11 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_striped {
+#xttvbhppmy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lcuyilbgbc .gt_table_body {
+#xttvbhppmy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2619,7 +2623,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-bottom-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_footnotes {
+#xttvbhppmy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2633,7 +2637,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_footnote {
+#xttvbhppmy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2642,7 +2646,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#lcuyilbgbc .gt_sourcenotes {
+#xttvbhppmy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2656,7 +2660,7 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   border-right-color: #D3D3D3;
 }
 
-#lcuyilbgbc .gt_sourcenote {
+#xttvbhppmy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2664,72 +2668,72 @@ coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
   padding-right: 5px;
 }
 
-#lcuyilbgbc .gt_left {
+#xttvbhppmy .gt_left {
   text-align: left;
 }
 
-#lcuyilbgbc .gt_center {
+#xttvbhppmy .gt_center {
   text-align: center;
 }
 
-#lcuyilbgbc .gt_right {
+#xttvbhppmy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lcuyilbgbc .gt_font_normal {
+#xttvbhppmy .gt_font_normal {
   font-weight: normal;
 }
 
-#lcuyilbgbc .gt_font_bold {
+#xttvbhppmy .gt_font_bold {
   font-weight: bold;
 }
 
-#lcuyilbgbc .gt_font_italic {
+#xttvbhppmy .gt_font_italic {
   font-style: italic;
 }
 
-#lcuyilbgbc .gt_super {
+#xttvbhppmy .gt_super {
   font-size: 65%;
 }
 
-#lcuyilbgbc .gt_footnote_marks {
+#xttvbhppmy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lcuyilbgbc .gt_asterisk {
+#xttvbhppmy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lcuyilbgbc .gt_indent_1 {
+#xttvbhppmy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lcuyilbgbc .gt_indent_2 {
+#xttvbhppmy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lcuyilbgbc .gt_indent_3 {
+#xttvbhppmy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lcuyilbgbc .gt_indent_4 {
+#xttvbhppmy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lcuyilbgbc .gt_indent_5 {
+#xttvbhppmy .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lcuyilbgbc .katex-display {
+#xttvbhppmy .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lcuyilbgbc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xttvbhppmy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2834,7 +2838,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <section class="level2" data-number="2.1"><h3 data-number="2.1" id="the-xr-ratio">
 <span class="header-section-number">2.1</span> The XR-ratio<a class="anchor" aria-label="anchor" href="#the-xr-ratio"></a>
 </h3>
-<p>The function <code><a href="../reference/valid_XRratio.html">valid_XRratio()</a></code> computes the XR-ratio table, where a country–region’s XR price for a given product is divided by the geometric mean of that product’s price; see Table 9.3a in <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 257</a>)</span>.</p>
+<p>The function <code><a href="../reference/valid_ratio_xr.html">valid_ratio_xr()</a></code> computes the XR-ratio table, where a country–region’s XR price for a given product is divided by the geometric mean of that product’s price; see Table 9.3a in <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 257</a>)</span>.</p>
 <p>In the resulting table, the degree of variability can be examined to identify products and country–region combinations with the highest XR ratios, that is, those showing the greatest variation across countries.</p>
 <hr>
 <p><strong>Example using CPI microdata</strong></p>
@@ -2876,7 +2880,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <span></span>
 <span><span class="va">df_xrr</span> <span class="op">&lt;-</span> <span class="va">df_xr</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span>, <span class="va">`Product code`</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/valid_XRratio.html">valid_XRratio</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/valid_ratio_xr.html">valid_ratio_xr</a></span><span class="op">(</span></span>
 <span>    average_price <span class="op">=</span> <span class="st">"Average price of product"</span>,</span>
 <span>    exchange_rate <span class="op">=</span> <span class="st">"XR USD"</span></span>
 <span>  <span class="op">)</span></span>
@@ -2892,23 +2896,23 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <span>    decimals <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="bnhvylqqxr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bnhvylqqxr table {
+<div id="dgifgyoxhz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dgifgyoxhz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bnhvylqqxr thead, #bnhvylqqxr tbody, #bnhvylqqxr tfoot, #bnhvylqqxr tr, #bnhvylqqxr td, #bnhvylqqxr th {
+#dgifgyoxhz thead, #dgifgyoxhz tbody, #dgifgyoxhz tfoot, #dgifgyoxhz tr, #dgifgyoxhz td, #dgifgyoxhz th {
   border-style: none;
 }
 
-#bnhvylqqxr p {
+#dgifgyoxhz p {
   margin: 0;
   padding: 0;
 }
 
-#bnhvylqqxr .gt_table {
+#dgifgyoxhz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2934,12 +2938,12 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-left-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_caption {
+#dgifgyoxhz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bnhvylqqxr .gt_title {
+#dgifgyoxhz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2951,7 +2955,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-bottom-width: 0;
 }
 
-#bnhvylqqxr .gt_subtitle {
+#dgifgyoxhz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2963,7 +2967,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-top-width: 0;
 }
 
-#bnhvylqqxr .gt_heading {
+#dgifgyoxhz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2975,13 +2979,13 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-right-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_bottom_border {
+#dgifgyoxhz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_col_headings {
+#dgifgyoxhz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2996,7 +3000,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-right-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_col_heading {
+#dgifgyoxhz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3016,7 +3020,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   overflow-x: hidden;
 }
 
-#bnhvylqqxr .gt_column_spanner_outer {
+#dgifgyoxhz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3028,15 +3032,15 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 4px;
 }
 
-#bnhvylqqxr .gt_column_spanner_outer:first-child {
+#dgifgyoxhz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bnhvylqqxr .gt_column_spanner_outer:last-child {
+#dgifgyoxhz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bnhvylqqxr .gt_column_spanner {
+#dgifgyoxhz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3048,11 +3052,11 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   width: 100%;
 }
 
-#bnhvylqqxr .gt_spanner_row {
+#dgifgyoxhz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bnhvylqqxr .gt_group_heading {
+#dgifgyoxhz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3078,7 +3082,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   text-align: left;
 }
 
-#bnhvylqqxr .gt_empty_group_heading {
+#dgifgyoxhz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3093,15 +3097,15 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   vertical-align: middle;
 }
 
-#bnhvylqqxr .gt_from_md > :first-child {
+#dgifgyoxhz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bnhvylqqxr .gt_from_md > :last-child {
+#dgifgyoxhz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bnhvylqqxr .gt_row {
+#dgifgyoxhz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3120,7 +3124,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   overflow-x: hidden;
 }
 
-#bnhvylqqxr .gt_stub {
+#dgifgyoxhz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3133,7 +3137,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#bnhvylqqxr .gt_stub_row_group {
+#dgifgyoxhz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3147,15 +3151,15 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   vertical-align: top;
 }
 
-#bnhvylqqxr .gt_row_group_first td {
+#dgifgyoxhz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bnhvylqqxr .gt_row_group_first th {
+#dgifgyoxhz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bnhvylqqxr .gt_summary_row {
+#dgifgyoxhz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3165,16 +3169,16 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#bnhvylqqxr .gt_first_summary_row {
+#dgifgyoxhz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_first_summary_row.thick {
+#dgifgyoxhz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bnhvylqqxr .gt_last_summary_row {
+#dgifgyoxhz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3184,7 +3188,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-bottom-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_grand_summary_row {
+#dgifgyoxhz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3194,7 +3198,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#bnhvylqqxr .gt_first_grand_summary_row {
+#dgifgyoxhz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3204,7 +3208,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-top-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_last_grand_summary_row_top {
+#dgifgyoxhz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3214,11 +3218,11 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-bottom-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_striped {
+#dgifgyoxhz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bnhvylqqxr .gt_table_body {
+#dgifgyoxhz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3227,7 +3231,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-bottom-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_footnotes {
+#dgifgyoxhz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3241,7 +3245,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-right-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_footnote {
+#dgifgyoxhz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3250,7 +3254,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#bnhvylqqxr .gt_sourcenotes {
+#dgifgyoxhz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3264,7 +3268,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   border-right-color: #D3D3D3;
 }
 
-#bnhvylqqxr .gt_sourcenote {
+#dgifgyoxhz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3272,72 +3276,72 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
   padding-right: 5px;
 }
 
-#bnhvylqqxr .gt_left {
+#dgifgyoxhz .gt_left {
   text-align: left;
 }
 
-#bnhvylqqxr .gt_center {
+#dgifgyoxhz .gt_center {
   text-align: center;
 }
 
-#bnhvylqqxr .gt_right {
+#dgifgyoxhz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bnhvylqqxr .gt_font_normal {
+#dgifgyoxhz .gt_font_normal {
   font-weight: normal;
 }
 
-#bnhvylqqxr .gt_font_bold {
+#dgifgyoxhz .gt_font_bold {
   font-weight: bold;
 }
 
-#bnhvylqqxr .gt_font_italic {
+#dgifgyoxhz .gt_font_italic {
   font-style: italic;
 }
 
-#bnhvylqqxr .gt_super {
+#dgifgyoxhz .gt_super {
   font-size: 65%;
 }
 
-#bnhvylqqxr .gt_footnote_marks {
+#dgifgyoxhz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bnhvylqqxr .gt_asterisk {
+#dgifgyoxhz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bnhvylqqxr .gt_indent_1 {
+#dgifgyoxhz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bnhvylqqxr .gt_indent_2 {
+#dgifgyoxhz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bnhvylqqxr .gt_indent_3 {
+#dgifgyoxhz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bnhvylqqxr .gt_indent_4 {
+#dgifgyoxhz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bnhvylqqxr .gt_indent_5 {
+#dgifgyoxhz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#bnhvylqqxr .katex-display {
+#dgifgyoxhz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#bnhvylqqxr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dgifgyoxhz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3406,7 +3410,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <span class="header-section-number">2.2</span> The PPP-ratio<a class="anchor" aria-label="anchor" href="#the-ppp-ratio"></a>
 </h3>
 <p>The next stage of data validation employs purchasing power parities (PPPs) to convert national product prices into a common currency, enabling comparison through PPP-ratios.</p>
-<p>This procedure is implemented using the <code><a href="../reference/valid_PPPratio.html">valid_PPPratio()</a></code> function, which calculates the PPP-ratio; see Table 9.3b in <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 258</a>)</span>. The coefficient of variation is used to assess variability across products and countries; coefficients exceeding 33% are considered extreme and may indicate the need for further verification of the underlying data.</p>
+<p>This procedure is implemented using the <code><a href="../reference/valid_ratio_ppp.html">valid_ratio_ppp()</a></code> function, which calculates the PPP-ratio; see Table 9.3b in <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 258</a>)</span>. The coefficient of variation is used to assess variability across products and countries; coefficients exceeding 33% are considered extreme and may indicate the need for further verification of the underlying data.</p>
 <p>Within each block, PPP-ratios—computed as the PPP-converted price divided by the geometric mean of the product price—reflect the degree of variability both across country-regions and across products.</p>
 <p>The country variation coefficient (row measure) represents the standard deviation of product PPPs within country-regions, thereby identifying countries exhibiting the greatest price variability. Conversely, the product variation coefficient (column measure) represents the standard deviation of PPP-ratios across country-regions, highlighting products with the most significant cross-country variation.</p>
 <hr>
@@ -3429,7 +3433,7 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 <span></span>
 <span><span class="co"># Calculations</span></span>
 <span><span class="va">df_out</span> <span class="op">&lt;-</span> <span class="va">df_xr2</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/valid_PPPratio.html">valid_PPPratio</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/valid_ratio_ppp.html">valid_ratio_ppp</a></span><span class="op">(</span></span>
 <span>    year <span class="op">=</span> <span class="st">"Year"</span>,</span>
 <span>    product_code <span class="op">=</span> <span class="st">"Product code"</span>,</span>
 <span>    region <span class="op">=</span> <span class="st">"Region"</span>,</span>
@@ -3987,32 +3991,25 @@ SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac
 </section><section class="section level2" data-number="4"><h2 data-number="4" id="sec-tobh">
 <span class="header-section-number">4</span> Validation at basic-heading level<a class="anchor" aria-label="anchor" href="#sec-tobh"></a>
 </h2>
-<blockquote>
-<p>🚧 Examples work in progress.</p>
-</blockquote>
 <p>The validation at the basic-heading level concerns the reliability of the CPD estimates as well as their cross-sectional comparability.</p>
 <section class="level2" data-number="4.1"><h3 data-number="4.1" id="dikhanov-tables-for-validation-at-basic-heading-level">
 <span class="header-section-number">4.1</span> Dikhanov tables for validation at basic-heading level<a class="anchor" aria-label="anchor" href="#dikhanov-tables-for-validation-at-basic-heading-level"></a>
 </h3>
-<p>Ensures that prices are consistent not only within basic headings but also at the aggregate level <em>across</em> basic headings. This can, for example, help address cross-country measurement inconsistency. This is done using Dikhanov tables <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 261</a>/267)</span>, which consist of three parts:</p>
+<p>Ensures that prices are consistent not only within basic headings but also at the aggregate level <em>across</em> basic headings. This can, for example, help address cross-country measurement inconsistency. This is done using Dikhanov tables <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 261</a>/267)</span>, which consist of:</p>
 <ul>
-<li>
-<em>Part 1</em>: Summary information (PPPs, SDs, price level) by country for the aggregate;</li>
-<li>
-<em>Part 2</em>: Contained basic headings (same info as <em>Part 1</em>);</li>
-<li>
-<em>Part 3</em>: CPD residuals and product variation coefficients for products within basic headings.</li>
+<li>Summary information (PPPs, SDs, price level) by region for the aggregate;</li>
+<li>CPD residuals and product variation coefficients for products within basic headings.</li>
 </ul>
-<p>In the Dikhanov table, <em>Part 1 and 2</em> facilitate the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in country A are x% higher than in country B. <em>Part 3</em> Ensures that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions/countries. Extreme values are identified based on CPD residuals and PPP ratio threshold values described in <a href="#tbl-thresholds" class="quarto-xref">Table 1</a>; see also <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 261</a>)</span>.</p>
+<p>The Dikhanov table facilitates the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in region A are x% higher than in region B. The CPD residuals help ensure that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions. Extreme values can be identified based on CPD residuals and PPP ratio threshold values described in <a href="#tbl-thresholds" class="quarto-xref">Table 1</a>; see also <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 261</a>)</span>.</p>
 <div id="tbl-thresholds" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-thresholds-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table 1: Threshold values: CPD residuals and PPP-ratios
 </figcaption><div aria-describedby="tbl-thresholds-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table caption-top">
 <colgroup>
-<col style="width: 45%">
-<col style="width: 36%">
-<col style="width: 18%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead><tr class="header">
 <th>CPD residuals</th>
@@ -4045,9 +4042,51 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
 </div>
 </figure>
 </div>
-<blockquote>
-<p>🚧 Examples work in progress.</p>
-</blockquote>
+<p>The exampele below produces a Dikhanov tables with <code><a href="../reference/valid_dikhanov.html">valid_dikhanov()</a></code> for products with product classification provided by argument <code>product_heading</code> for the two generic products “1” and “3” as specified via argument <code>product_heading_comparison</code>. Note that if <code>product_heading_comparison</code> were to left empty, the default option would produce Dikhanov tables for all three products contained in the provided data frame <code>dt1</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">R</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of regions</span></span>
+<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fl">3</span> <span class="co"># number of product groups</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of products</span></span>
+<span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu">pricelevels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/rdata.html" class="external-link">rdata</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="va">N</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/valid_dikhanov.html">valid_dikhanov</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">dt1</span>,</span>
+<span>  region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>  product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>  price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>  product_heading <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>  product_heading_comparison <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"3"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; $`1`</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 10</span></span>
+<span><span class="co">#&gt;   variable            product     `1`     `2`      `3`      `4`      `5` `STD 1`</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;               &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 sPPP                &lt;NA&gt;     0.849   1.28    1.14     0.867    9.33e-1 NA     </span></span>
+<span><span class="co">#&gt; 2 STD 2               &lt;NA&gt;     0.0942  0.138   0.0756   0.0891   3.10e-2  1.90  </span></span>
+<span><span class="co">#&gt; 3 No. of items priced &lt;NA&gt;     5       5       5        5        5   e+0 NA     </span></span>
+<span><span class="co">#&gt; 4 &lt;NA&gt;                01      -0.0126  0.0147  0.00299 -0.00910  4.07e-3  0.0110</span></span>
+<span><span class="co">#&gt; 5 &lt;NA&gt;                02       0.131  -0.190  -0.110    0.128    4.06e-2  0.144 </span></span>
+<span><span class="co">#&gt; 6 &lt;NA&gt;                03      -0.123   0.185   0.100   -0.116   -4.66e-2  0.137 </span></span>
+<span><span class="co">#&gt; 7 &lt;NA&gt;                04      -0.0370  0.0452  0.0211  -0.0310   1.76e-3  0.0347</span></span>
+<span><span class="co">#&gt; 8 &lt;NA&gt;                05       0.0417 -0.0559 -0.0137   0.0277   1.52e-4  0.0381</span></span>
+<span><span class="co">#&gt; # ℹ 2 more variables: `Items per region` &lt;dbl&gt;, `Items/Countries` &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`3`</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 10</span></span>
+<span><span class="co">#&gt;   variable         product      `1`      `2`      `3`      `4`      `5`  `STD 1`</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;            &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 sPPP             &lt;NA&gt;     0.887    1.19     1.10e+0  9.01e-1  0.957   NA      </span></span>
+<span><span class="co">#&gt; 2 STD 2            &lt;NA&gt;     0.0156   0.0368   1.43e-2  2.63e-2  0.0115   1.90   </span></span>
+<span><span class="co">#&gt; 3 No. of items pr… &lt;NA&gt;     5        5        5   e+0  5   e+0  5       NA      </span></span>
+<span><span class="co">#&gt; 4 &lt;NA&gt;             11      -0.0101   0.0409   1.22e-2 -3.39e-2 -0.00923  0.0281 </span></span>
+<span><span class="co">#&gt; 5 &lt;NA&gt;             12       0.00223  0.00584 -7.79e-4 -5.41e-4 -0.00675  0.00463</span></span>
+<span><span class="co">#&gt; 6 &lt;NA&gt;             13      -0.00563 -0.00925  6.12e-3 -9.73e-4  0.00972  0.00791</span></span>
+<span><span class="co">#&gt; 7 &lt;NA&gt;             14       0.0261  -0.0569  -2.42e-2  3.98e-2  0.0151   0.0397 </span></span>
+<span><span class="co">#&gt; 8 &lt;NA&gt;             15      -0.0126   0.0194   6.58e-3 -4.45e-3 -0.00887  0.0130 </span></span>
+<span><span class="co">#&gt; # ℹ 2 more variables: `Items per region` &lt;dbl&gt;, `Items/Countries` &lt;dbl&gt;</span></span></code></pre></div>
+</div>
 </section><section class="level2" data-number="4.2"><h3 data-number="4.2" id="visual-validation-at-basic-heading-level">
 <span class="header-section-number">4.2</span> Visual validation at basic-heading level<a class="anchor" aria-label="anchor" href="#visual-validation-at-basic-heading-level"></a>
 </h3>
@@ -4055,18 +4094,97 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
 <section class="level3" data-number="4.2.1"><h4 data-number="4.2.1" id="within-country-validation">
 <span class="header-section-number">4.2.1</span> Within country validation<a class="anchor" aria-label="anchor" href="#within-country-validation"></a>
 </h4>
-<blockquote>
-<p>🚧 Examples work in progress.</p>
-</blockquote>
+<p>Function <code><a href="../reference/valid_outlier_plot.html">valid_outlier_plot()</a></code> produces some simple validation plots to check subnational PPP estimates for potential outliers. The example below illustrates the behaviour for some generic, basic-heading CPD estimates</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Take UK CPI microdata containing duplicate region-product pairs ---------</span></span>
+<span><span class="va">red</span> <span class="op">&lt;-</span> <span class="va">uk_cpi</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Year</span>,</span>
+<span>    region <span class="op">=</span> <span class="st">"Region"</span>,</span>
+<span>    product <span class="op">=</span> <span class="st">"Product code"</span>,</span>
+<span>    price <span class="op">=</span> <span class="st">"Reference quantity price"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span>,</span>
+<span>    product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">product</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+</div>
+<p>Example for sPPPs outlier plot with adjusted outlier cutoffs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------</span></span>
+<span><span class="va">red</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/valid_outlier_plot.html">valid_outlier_plot</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"sPPPs outlier with adjusted outlier cutoffs"</span>,</span>
+<span>    <span class="co"># Adjust outlier cutoffs (default is 1.5 and 0.5)</span></span>
+<span>    outlier_cutoffs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">0.9</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="Validation_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Use <code>facet_var</code> to add facets, which is particularly useful to compare distributions of price indices by year, region, or product category. The example below compares price distributions by year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------</span></span>
+<span><span class="va">red</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># Apply `estim_cpd()` to each year</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># Outlier plot</span></span>
+<span>  <span class="fu"><a href="../reference/valid_outlier_plot.html">valid_outlier_plot</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"sPPPs outlier with adjusted outlier cutoffs by year"</span>,</span>
+<span>    facet_var <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>    <span class="co"># Adjust number of facet columns (default is 2)</span></span>
+<span>    facet_ncol <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    <span class="co"># Adjust bins (default is 70)</span></span>
+<span>    bins <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    <span class="co"># Adjust outlier cutoffs (default is 1.5 and 0.5)</span></span>
+<span>    outlier_cutoffs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">0.9</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="Validation_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Function <code><a href="../reference/valid_outlier_plot.html">valid_outlier_plot()</a></code> can also be used to quickly check for price index changes between years, as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------</span></span>
+<span><span class="va">red</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># Perform check for two years only</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Year</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2018</span>, <span class="fl">2023</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># Apply `estim_cpd()` to each year</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># Pivot data and calculate year-on-year difference</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>values_from <span class="op">=</span> <span class="st">"sPPP"</span>, names_from <span class="op">=</span> <span class="st">"Year"</span>, names_prefix <span class="op">=</span> <span class="st">"Year_"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>d_sPPP <span class="op">=</span> <span class="va">Year_2023</span> <span class="op">/</span> <span class="va">Year_2018</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># Outlier plot</span></span>
+<span>  <span class="fu"><a href="../reference/valid_outlier_plot.html">valid_outlier_plot</a></span><span class="op">(</span></span>
+<span>    sPPPs <span class="op">=</span> <span class="st">"d_sPPP"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"sPPPs outlier, intertemporal changes"</span>,</span>
+<span>    <span class="co"># Adjust outlier cutoffs (default is 1.5 and 0.5)</span></span>
+<span>    outlier_cutoffs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.05</span>, <span class="fl">0.95</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="Validation_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section><section class="level3" data-number="4.2.2"><h4 data-number="4.2.2" id="cross-country-validation">
 <span class="header-section-number">4.2.2</span> Cross-country validation<a class="anchor" aria-label="anchor" href="#cross-country-validation"></a>
 </h4>
-<blockquote>
-<p>🚧 Examples work in progress.</p>
-</blockquote>
-<ul>
-<li>Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading.</li>
-</ul></section></section></section><section class="section level2" data-number="5"><h2 data-number="5" id="sec-exweights">
+<p>Box plots of Price Level index (PLI), which is the ratio of a purchasing power parity (PPP) conversion factor to the corresponding market exchange rate between two countries by country and by basic heading.</p>
+</section></section></section><section class="section level2" data-number="5"><h2 data-number="5" id="sec-exweights">
 <span class="header-section-number">5</span> Expenditure weights validation<a class="anchor" aria-label="anchor" href="#sec-exweights"></a>
 </h2>
 <p>In line with <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 285</a>)</span>, within-country basic heading expenditures and shares are reviewed for the following:</p>
@@ -4082,9 +4200,8 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
 </ul>
 <p>Function <code><a href="../reference/valid_est.html">valid_est()</a></code> can be used to check for outliers in the household expenditure shares. The function calculates the median, maximum, and minimum expenditure shares for each basic heading across regions and identifies potential outliers based on the max-median and median-min ratios.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------</span></span>
 <span><span class="va">uk_hhe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">coicop_4d</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/valid_est.html">valid_est</a></span><span class="op">(</span>shares <span class="op">=</span> <span class="st">"expenditure_share"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -4097,23 +4214,23 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
 <span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="gulojmgiij" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gulojmgiij table {
+<div id="yumrjfgipq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yumrjfgipq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gulojmgiij thead, #gulojmgiij tbody, #gulojmgiij tfoot, #gulojmgiij tr, #gulojmgiij td, #gulojmgiij th {
+#yumrjfgipq thead, #yumrjfgipq tbody, #yumrjfgipq tfoot, #yumrjfgipq tr, #yumrjfgipq td, #yumrjfgipq th {
   border-style: none;
 }
 
-#gulojmgiij p {
+#yumrjfgipq p {
   margin: 0;
   padding: 0;
 }
 
-#gulojmgiij .gt_table {
+#yumrjfgipq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4139,12 +4256,12 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-left-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_caption {
+#yumrjfgipq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gulojmgiij .gt_title {
+#yumrjfgipq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4156,7 +4273,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-bottom-width: 0;
 }
 
-#gulojmgiij .gt_subtitle {
+#yumrjfgipq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4168,7 +4285,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-top-width: 0;
 }
 
-#gulojmgiij .gt_heading {
+#yumrjfgipq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4180,13 +4297,13 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-right-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_bottom_border {
+#yumrjfgipq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_col_headings {
+#yumrjfgipq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4201,7 +4318,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-right-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_col_heading {
+#yumrjfgipq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4221,7 +4338,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   overflow-x: hidden;
 }
 
-#gulojmgiij .gt_column_spanner_outer {
+#yumrjfgipq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4233,15 +4350,15 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   padding-right: 4px;
 }
 
-#gulojmgiij .gt_column_spanner_outer:first-child {
+#yumrjfgipq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gulojmgiij .gt_column_spanner_outer:last-child {
+#yumrjfgipq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gulojmgiij .gt_column_spanner {
+#yumrjfgipq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4253,11 +4370,11 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   width: 100%;
 }
 
-#gulojmgiij .gt_spanner_row {
+#yumrjfgipq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gulojmgiij .gt_group_heading {
+#yumrjfgipq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4283,7 +4400,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   text-align: left;
 }
 
-#gulojmgiij .gt_empty_group_heading {
+#yumrjfgipq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4298,15 +4415,15 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   vertical-align: middle;
 }
 
-#gulojmgiij .gt_from_md > :first-child {
+#yumrjfgipq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gulojmgiij .gt_from_md > :last-child {
+#yumrjfgipq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gulojmgiij .gt_row {
+#yumrjfgipq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4325,7 +4442,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   overflow-x: hidden;
 }
 
-#gulojmgiij .gt_stub {
+#yumrjfgipq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4338,7 +4455,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   padding-right: 5px;
 }
 
-#gulojmgiij .gt_stub_row_group {
+#yumrjfgipq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4352,15 +4469,15 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   vertical-align: top;
 }
 
-#gulojmgiij .gt_row_group_first td {
+#yumrjfgipq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gulojmgiij .gt_row_group_first th {
+#yumrjfgipq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gulojmgiij .gt_summary_row {
+#yumrjfgipq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4370,16 +4487,16 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   padding-right: 5px;
 }
 
-#gulojmgiij .gt_first_summary_row {
+#yumrjfgipq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_first_summary_row.thick {
+#yumrjfgipq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gulojmgiij .gt_last_summary_row {
+#yumrjfgipq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4389,7 +4506,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-bottom-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_grand_summary_row {
+#yumrjfgipq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4399,7 +4516,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   padding-right: 5px;
 }
 
-#gulojmgiij .gt_first_grand_summary_row {
+#yumrjfgipq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4409,7 +4526,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-top-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_last_grand_summary_row_top {
+#yumrjfgipq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4419,11 +4536,11 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-bottom-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_striped {
+#yumrjfgipq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gulojmgiij .gt_table_body {
+#yumrjfgipq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4432,7 +4549,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-bottom-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_footnotes {
+#yumrjfgipq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4446,7 +4563,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-right-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_footnote {
+#yumrjfgipq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4455,7 +4572,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   padding-right: 5px;
 }
 
-#gulojmgiij .gt_sourcenotes {
+#yumrjfgipq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4469,7 +4586,7 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   border-right-color: #D3D3D3;
 }
 
-#gulojmgiij .gt_sourcenote {
+#yumrjfgipq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4477,72 +4594,72 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
   padding-right: 5px;
 }
 
-#gulojmgiij .gt_left {
+#yumrjfgipq .gt_left {
   text-align: left;
 }
 
-#gulojmgiij .gt_center {
+#yumrjfgipq .gt_center {
   text-align: center;
 }
 
-#gulojmgiij .gt_right {
+#yumrjfgipq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gulojmgiij .gt_font_normal {
+#yumrjfgipq .gt_font_normal {
   font-weight: normal;
 }
 
-#gulojmgiij .gt_font_bold {
+#yumrjfgipq .gt_font_bold {
   font-weight: bold;
 }
 
-#gulojmgiij .gt_font_italic {
+#yumrjfgipq .gt_font_italic {
   font-style: italic;
 }
 
-#gulojmgiij .gt_super {
+#yumrjfgipq .gt_super {
   font-size: 65%;
 }
 
-#gulojmgiij .gt_footnote_marks {
+#yumrjfgipq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gulojmgiij .gt_asterisk {
+#yumrjfgipq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gulojmgiij .gt_indent_1 {
+#yumrjfgipq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gulojmgiij .gt_indent_2 {
+#yumrjfgipq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gulojmgiij .gt_indent_3 {
+#yumrjfgipq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gulojmgiij .gt_indent_4 {
+#yumrjfgipq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gulojmgiij .gt_indent_5 {
+#yumrjfgipq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#gulojmgiij .katex-display {
+#yumrjfgipq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#gulojmgiij div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#yumrjfgipq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4594,16 +4711,713 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
 </section><section class="section level2" data-number="6"><h2 data-number="6" id="sec-beyondbh">
 <span class="header-section-number">6</span> Validation beyond basic-heading level<a class="anchor" aria-label="anchor" href="#sec-beyondbh"></a>
 </h2>
-<blockquote>
-<p>🚧 Work in progress.</p>
-</blockquote>
-<!-- ## Bilateral PPPs -->
-<!-- - Next step of validation concerns the validation of PPPs using expenditure weights together [@worldbank2013, p.287] -->
-<!-- - The objective is to check if there is a problem with the basic headings PPP and expenditures, or—in case the data is valid—there is an estimation issue. -->
-<!-- - [@worldbank2013, p.287] discusses various validations steps that can be used to validate the Fisher PPPs. -->
-<!-- - Validation using the Laspeyres and Paasche quantity index and Paasche-Laspeyres spread (PLS) following [@hillLinkingRegionsInternational2011], who proposes computing upper and lower price and quantity relatives to determine whether the large values in the PLS are caused by PPPs or expenditure outliers. Basic headings with large upper or lower quantity or price relatives should be further examined. -->
-<!-- $$ -->
-<!-- PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})} -->
+<p>This step of validation concerns the validation of PPPs using expenditure weights together <span class="citation" data-cites="worldbank2013">(<a href="#ref-worldbank2013" role="doc-biblioref">World Bank 2013, 287</a>)</span>. The objective is to check if there is a problem with the basic headings PPP and expenditures, or—in case the data is valid—there is an estimation issue.</p>
+<p>The Paasche-Laspeyres spread (PLS), following <span class="citation" data-cites="hillLinkingRegionsInternational2011">(<a href="#ref-hillLinkingRegionsInternational2011" role="doc-biblioref">Hill 2011</a>)</span>, corresponds to the upper and lower price and quantity relatives to determine whether the large values in the PLS are caused by PPPs or expenditure outliers. Basic headings with large upper or lower quantity or price relatives should be further examined.</p>
+<p>The Paasche-Laspeyres spread is calculated as</p>
+<p><span class="math display">\[
+PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})}
+\]</span></p>
+<p>The PLS can be calculated using the function <code><a href="../reference/valid_pls.html">valid_pls()</a></code> as described below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Validation using the Paasche-Laspeyres spread</span></span>
+<span></span>
+<span><span class="co"># 1. Generate the price/weights data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">R</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of regions</span></span>
+<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of product groups</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of products</span></span>
+<span></span>
+<span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu">pricelevels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/rdata.html" class="external-link">rdata</a></span><span class="op">(</span></span>
+<span>  R <span class="op">=</span> <span class="va">R</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="va">N</span>,</span>
+<span>  weights <span class="op">=</span> <span class="op">~</span> <span class="va">r</span> <span class="op">+</span> <span class="va">n</span>,</span>
+<span>  settings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>par.sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>lnP <span class="op">=</span> <span class="fl">0.1</span>, pi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, delta <span class="op">=</span> <span class="fl">0.5</span>, error <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># 2. Obtain CPD estimates with estim_cpd, and join weights</span></span>
+<span><span class="va">cpd_oecd</span> <span class="op">&lt;-</span> <span class="va">dt1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">region</span>, <span class="va">product</span>, <span class="va">price</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">nest</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>cpd_estimation <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span>.x <span class="op">=</span> <span class="va">data</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span></span>
+<span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>      product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>      price <span class="op">=</span> <span class="st">"price"</span></span>
+<span>    <span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">cpd_estimation</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
+<span>    <span class="va">dt1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"group"</span>, <span class="st">"weight"</span><span class="op">)</span><span class="op">]</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">group</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"group"</span>, <span class="st">"region"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># 3. Calculate the PLS</span></span>
+<span><span class="fu"><a href="../reference/valid_pls.html">valid_pls</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">cpd_oecd</span>,</span>
+<span>  region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>  product <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>  ppp_bh <span class="op">=</span> <span class="st">"sPPP"</span>,</span>
+<span>  exp_wght <span class="op">=</span> <span class="st">"weight"</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html" class="external-link">tab_header</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"**Paasche-Laspeyres Spread**"</span><span class="op">)</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/md.html" class="external-link">md</a></span><span class="op">(</span><span class="st">"Example for 5 regions"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span></span>
+<span>    decimals <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="xlmjjxgrqt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xlmjjxgrqt table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xlmjjxgrqt thead, #xlmjjxgrqt tbody, #xlmjjxgrqt tfoot, #xlmjjxgrqt tr, #xlmjjxgrqt td, #xlmjjxgrqt th {
+  border-style: none;
+}
+
+#xlmjjxgrqt p {
+  margin: 0;
+  padding: 0;
+}
+
+#xlmjjxgrqt .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xlmjjxgrqt .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xlmjjxgrqt .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xlmjjxgrqt .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xlmjjxgrqt .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xlmjjxgrqt .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xlmjjxgrqt .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xlmjjxgrqt .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xlmjjxgrqt .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xlmjjxgrqt .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xlmjjxgrqt .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xlmjjxgrqt .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xlmjjxgrqt .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xlmjjxgrqt .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xlmjjxgrqt .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xlmjjxgrqt .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xlmjjxgrqt .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xlmjjxgrqt .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xlmjjxgrqt .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xlmjjxgrqt .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_left {
+  text-align: left;
+}
+
+#xlmjjxgrqt .gt_center {
+  text-align: center;
+}
+
+#xlmjjxgrqt .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xlmjjxgrqt .gt_font_normal {
+  font-weight: normal;
+}
+
+#xlmjjxgrqt .gt_font_bold {
+  font-weight: bold;
+}
+
+#xlmjjxgrqt .gt_font_italic {
+  font-style: italic;
+}
+
+#xlmjjxgrqt .gt_super {
+  font-size: 65%;
+}
+
+#xlmjjxgrqt .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xlmjjxgrqt .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xlmjjxgrqt .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xlmjjxgrqt .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xlmjjxgrqt .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xlmjjxgrqt .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xlmjjxgrqt .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#xlmjjxgrqt .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#xlmjjxgrqt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="5" class="gt_heading gt_title gt_font_normal"><strong>Paasche-Laspeyres Spread</strong></td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Example for 5 regions</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="base_region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">base_region</th>
+<th id="region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">region</th>
+<th id="laspeyres_index" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">laspeyres_index</th>
+<th id="paasche_index" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">paasche_index</th>
+<th id="paasche_laspeyres_spread" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">paasche_laspeyres_spread</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_index">0.88</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.14</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="laspeyres_index">0.67</td>
+<td class="gt_row gt_right" headers="paasche_index">0.65</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.03</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.20</td>
+<td class="gt_row gt_right" headers="paasche_index">1.09</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.10</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.19</td>
+<td class="gt_row gt_right" headers="paasche_index">0.84</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.43</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">2</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.14</td>
+<td class="gt_row gt_right" headers="paasche_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.14</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">2</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">2</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="laspeyres_index">0.79</td>
+<td class="gt_row gt_right" headers="paasche_index">0.64</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.24</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">2</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.34</td>
+<td class="gt_row gt_right" headers="paasche_index">1.08</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.24</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">2</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.19</td>
+<td class="gt_row gt_right" headers="paasche_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.19</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.54</td>
+<td class="gt_row gt_right" headers="paasche_index">1.50</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.03</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.57</td>
+<td class="gt_row gt_right" headers="paasche_index">1.26</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.24</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.88</td>
+<td class="gt_row gt_right" headers="paasche_index">1.61</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.17</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.92</td>
+<td class="gt_row gt_right" headers="paasche_index">1.19</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.62</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">4</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="laspeyres_index">0.92</td>
+<td class="gt_row gt_right" headers="paasche_index">0.83</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.10</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">4</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="laspeyres_index">0.92</td>
+<td class="gt_row gt_right" headers="paasche_index">0.75</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.24</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">4</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="laspeyres_index">0.62</td>
+<td class="gt_row gt_right" headers="paasche_index">0.53</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.17</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">4</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">4</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.11</td>
+<td class="gt_row gt_right" headers="paasche_index">0.68</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.64</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">5</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.20</td>
+<td class="gt_row gt_right" headers="paasche_index">0.84</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.43</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">5</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_index">0.84</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.19</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">5</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="laspeyres_index">0.84</td>
+<td class="gt_row gt_right" headers="paasche_index">0.52</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.62</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">5</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.47</td>
+<td class="gt_row gt_right" headers="paasche_index">0.90</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.64</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">5</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="laspeyres_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_index">1.00</td>
+<td class="gt_row gt_right" headers="paasche_laspeyres_spread">1.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 <!-- $$ -->
 <!-- $$ -->
 <!-- Q_L^{jk} = \frac{ \sum^n_{i=1} p_i^j \times q_i^k }{ \sum^n_{i=1} p_i^j \times q_i^j} -->
@@ -4613,7 +5427,8 @@ Table 1: Threshold values: CPD residuals and PPP-ratios
 <!-- $$ -->
 <!-- > 🚧 Code to be completed.  -->
 <!-- # Multilateral PPPs -->
-</section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<p><br><br></p>
+<hr></section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-europeanunionEurostatOECDMethodologicalManual2024" class="csl-entry" role="listitem">
@@ -4621,6 +5436,9 @@ European Union/OECD. 2024. <em>Eurostat-<span>OECD Methodological Manual</span> 
 </div>
 <div id="ref-hearne2025" class="csl-entry" role="listitem">
 Hearne, David, and David Bailey. 2025. <span>“Regional Prices Reconsidered.”</span> <em>Regional Studies, Regional Science</em> 12 (1): 338–56. <a href="https://doi.org/10.1080/21681376.2025.2475115" class="external-link">https://doi.org/10.1080/21681376.2025.2475115</a>.
+</div>
+<div id="ref-hillLinkingRegionsInternational2011" class="csl-entry" role="listitem">
+Hill, Robert J. 2011. <em>Linking the <span>Regions</span> in the <span>International</span> <span>Comparisons</span> <span>Program</span> at <span>Basic</span> <span>Heading</span> <span>Level</span> and at <span>Higher</span> <span>Levels</span> of <span>Aggregation</span></em>. No. 90626. World Bank. <a href="https://documents.worldbank.org/pt/publication/documents-reports/documentdetail/860281468157762500" class="external-link">https://documents.worldbank.org/pt/publication/documents-reports/documentdetail/860281468157762500</a>.
 </div>
 <div id="ref-icp2021" class="csl-entry" role="listitem">
 ICP. 2021. <em>A Guide to the Compilation of Subnational Purchasing Power Parities (PPPs)</em>. <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.

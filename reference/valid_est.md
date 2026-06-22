@@ -76,8 +76,8 @@ Program — ICP*. World Bank.
 suppressPackageStartupMessages(library(dplyr))
 library(OECDsppps)
 uk_hhe |>
- group_by(coicop_4d) |>
- valid_est(shares = 'expenditure_share')
+  group_by(coicop_4d) |>
+  valid_est(shares = "expenditure_share")
 #> # A tibble: 2 × 8
 #>   coicop_4d Maximum expenditure …¹ Median expenditure s…² Minimum expenditure …³
 #>   <chr>                      <dbl>                  <dbl>                  <dbl>
@@ -87,6 +87,4 @@ uk_hhe |>
 #> #   ²​`Median expenditure share`, ³​`Minimum expenditure share`
 #> # ℹ 4 more variables: `Max-median ratio` <dbl>, `Median-min ratio` <dbl>,
 #> #   `Max-median ratio FLAG` <lgl>, `Median-min ratio FLAG` <lgl>
-
-
 ```

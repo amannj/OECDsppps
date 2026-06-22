@@ -13,6 +13,7 @@
 <url><loc>https://amannj.github.io/OECDsppps/reference/concordance_ecoicop2bh.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/ecoicop16_names.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/estim_cpd.html</loc></url>
+<url><loc>https://amannj.github.io/OECDsppps/reference/estim_index_link.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/index.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/index_fisher.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/index_geks.html</loc></url>
@@ -22,10 +23,13 @@
 <url><loc>https://amannj.github.io/OECDsppps/reference/pipe.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/uk_cpi.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/uk_hhe.html</loc></url>
-<url><loc>https://amannj.github.io/OECDsppps/reference/valid_PPPratio.html</loc></url>
-<url><loc>https://amannj.github.io/OECDsppps/reference/valid_XRratio.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/valid_apt.html</loc></url>
+<url><loc>https://amannj.github.io/OECDsppps/reference/valid_dikhanov.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/valid_est.html</loc></url>
+<url><loc>https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.html</loc></url>
+<url><loc>https://amannj.github.io/OECDsppps/reference/valid_pls.html</loc></url>
 <url><loc>https://amannj.github.io/OECDsppps/reference/valid_pot.html</loc></url>
+<url><loc>https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.html</loc></url>
+<url><loc>https://amannj.github.io/OECDsppps/reference/valid_ratio_xr.html</loc></url>
 </urlset>
 

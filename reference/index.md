@@ -4,16 +4,22 @@
 
 Functions for raw data validation
 
-- [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md)
-  : The "Price Observation Table"
 - [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md)
   : The "Average Price Table"
+- [`valid_dikhanov()`](https://amannj.github.io/OECDsppps/reference/valid_dikhanov.md)
+  : Dikhanov table
 - [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md)
   : The "Expenditure Shares Table"
-- [`valid_XRratio()`](https://amannj.github.io/OECDsppps/reference/valid_XRratio.md)
-  : The "XR-ratio tables"
-- [`valid_PPPratio()`](https://amannj.github.io/OECDsppps/reference/valid_PPPratio.md)
+- [`valid_pls()`](https://amannj.github.io/OECDsppps/reference/valid_pls.md)
+  : The Paasche-Laspeyres spread
+- [`valid_outlier_plot()`](https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.md)
+  : sPPPs outlier plot
+- [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md)
+  : The "Price Observation Table"
+- [`valid_ratio_ppp()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.md)
   : The "PPP-ratio tables"
+- [`valid_ratio_xr()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_xr.md)
+  : The "XR-ratio tables"
 
 ## Estimation at basic-heading level
 
@@ -21,6 +27,8 @@ Function for estimation at basic-heading level
 
 - [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
   : The Country Product Dummy (CPD) regression model
+- [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
+  : CPD estimation to index calculation linking function
 
 ## Estimation beyond the basic-heading level
 

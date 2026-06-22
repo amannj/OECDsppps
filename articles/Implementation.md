@@ -27,22 +27,27 @@ programme, providing experimental statistics in Italy ([Istat
 The approach follows a two-step procedure
 ([Figure 1](#fig-aggregation)):
 
-- Estimation of price parities at the basic heading level using the
-  regional extension of the Country-Product-Dummy (CPD) method ([Summers
-  1973](#ref-summers1973international)).
-- Upon validation, aggregation of BH-level parities into higher-level
-  indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a
-  multilateral index construction technique that ensures transitivity,
-  in combination with household final consumption expenditure data as a
-  weighting structure for household final consumption PPPs ([ICP
-  2021](#ref-icp2021)).
+1.  Estimation of price parities at the basic heading level using the
+    regional extension of the Country-Product-Dummy (CPD) method
+    ([Summers 1973](#ref-summers1973international)).
+2.  Upon validation, aggregation of BH-level parities into higher-level
+    indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a
+    multilateral index construction technique that ensures transitivity,
+    in combination with household final consumption expenditure data as
+    a weighting structure for household final consumption PPPs ([ICP
+    2021](#ref-icp2021)).
 
 ![](figures/cpd_geks.png)
 
 Figure 1: Aggregation and estimation steps of subnational purchasing
 power parities
 
-### Implementation pipeline
+To seamlessly combine the two estimation steps, `OECDsppps`, provides
+the option to impute missing basic-heading subnational PPPs. A complete
+sylised workflow is described in section [Putting it all
+together](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-combined).
+
+### The complete implementation pipeline
 
 `OECDsppps` is available in R, but section [Alternative
 Software](https://amannj.github.io/OECDsppps/articles/altSoftware.html)
@@ -52,7 +57,8 @@ workflow.
 The implementation pipeline covers the country-level data validation,
 the aggregation and estimation of subnational purchasing power parities
 and the harmonisation of these estimates to make sPPP indicators
-comparable across countries ([Table 1](#tbl-implementation)).
+comparable across countries ([Table 1](#tbl-implementation)). The
+individual steps are described below in more detail.
 
 Only the raw data validation, which derives a standard structure across
 all testing countries, remains country- and dataset-specific. The
@@ -63,12 +69,11 @@ calculation of the subnational price indices.
 | Steps | Counterpart | `OECDsPPPs` integration |
 |----|----|----|
 | **1** Raw data processing | OECD or country | ❌ |
-| **2** Raw data validation | OECD or country | [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md), [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md), `valid_XRatio()`, [`valid_PPPratio()`](https://amannj.github.io/OECDsppps/reference/valid_PPPratio.md), [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md) |
-| **3** Estimation at basic-heading level | OECD or country | [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md) |
-| **4** Validation of estimation at basic-heading level | OECD or country | 🚧 *valid_dikhanov()*, *valid_plots()* |
+| **2** Raw data validation | OECD or country | [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md), [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md), [`valid_ratio_xr()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_xr.md), [`valid_ratio_ppp()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.md), [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md) |
+| **3** Estimation at basic-heading level | OECD or country | [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md), [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md) |
+| **4** Validation of estimation at basic-heading level | OECD or country | [`valid_dikhanov()`](https://amannj.github.io/OECDsppps/reference/valid_dikhanov.md), [`valid_outlier_plot()`](https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.md) |
 | **5** Estimation beyond the basic-heading level | OECD | [`index_laspeyres()`](https://amannj.github.io/OECDsppps/reference/index_laspeyres.md), [`index_paasche()`](https://amannj.github.io/OECDsppps/reference/index_paasche.md), [`index_fisher()`](https://amannj.github.io/OECDsppps/reference/index_fisher.md), [`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md) |
-| **6** Validation of estimation beyond the basic-heading level | OECD | 🚧 *valid_plots()* |
-| **7** Comparability across countries and regions | OECD | 🚧 |
+| **6** Validation of estimation beyond the basic-heading level | OECD | [`valid_outlier_plot()`](https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.md), [`valid_pls()`](https://amannj.github.io/OECDsppps/reference/valid_pls.md) |
 
 Table 1: Implementation pipeline
 
@@ -138,8 +143,7 @@ is also carried out at this stage.
 Functions used at this stage are:
 [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md),
 [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md),
-`valid_XRatio()`,
-[`valid_PPPratio()`](https://amannj.github.io/OECDsppps/reference/valid_PPPratio.md),
+`valid_XRatio()`, `valid_PPPratio()`,
 [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md).
 
 ## 3 Estimation at basic-heading level
@@ -170,14 +174,33 @@ and the [visual
 validation](https://amannj.github.io/OECDsppps/articles/Validation.html#visual-validation-at-basic-heading-level)
 is done by way of plotting.
 
-Functions used at this stage are: *valid_dikhanov()*, *valid_plots()*.
+Functions used at this stage are:
+[`valid_dikhanov()`](https://amannj.github.io/OECDsppps/reference/valid_dikhanov.md),
+`valid_plots()`.
 
 ## 5 Estimation beyond the basic-heading level
 
-### 5.1 Data preparation
+### 5.1 Data preparation for index calculations
 
-🚧 Completion of price-quote and expenditure matrices for further
-aggregation (work in progress).
+CPI microdata typically does not contain price quotes for all COICOP
+categories, including the ones for which cross-regional uniform prices
+can be assumed, such as, for example, for used cars. However, removing
+products that are subject to uniform prices from the estimation will
+artificially inflate the price variation for any present category.
+Consider the example where a generic COICOP class contains 10
+sub-classes, of which 9 are subject to uniform prices while one
+sub-class is subject to price variations. If the 9 uniform sub-classes
+were to be removed from the sPPPs calculation, the remaining sub-class
+with regional price variation would artificially inflate the price
+variation of the entire class. It is therefore necessary to artificially
+include uniform prices for all sub-aggregates contained within the
+respective higher aggregate for which sPPPs are estimated.
+
+Function
+[`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md),
+which fills in missing basic heading PPPs with a value given by the user
+and combines the competed CPD estimates with the household expenditure
+weights for the next step, the index calculation.
 
 ### 5.2 Index calculations
 
@@ -200,19 +223,33 @@ Functions used at this stage are:
 [`index_fisher()`](https://amannj.github.io/OECDsppps/reference/index_fisher.md),
 [`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md).
 
-## 6 Validation of estimation beyond the basic-heading level
+## 6 Validation of subnational PPPs beyond the basic-heading level
 
-> 🚧 Work in progress.
+Two validation functions are used for validation of subnational PPPs
+beyond the basic-heading level:
 
-## 7 Comparability across countries and regions
+- [`valid_outlier_plot()`](https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.md),
+  which produces some simple validation plots to check subnational PPP
+  estimates for potential outliers
+- [`valid_pls()`](https://amannj.github.io/OECDsppps/reference/valid_pls.md),
+  which calculates the Paasche-Laspeyres spread ([Hill
+  2011](#ref-hillLinkingRegionsInternational2011)).
 
-> 🚧 Work in progress.
+  
+  
+
+------------------------------------------------------------------------
 
 ## References
 
 European Union/OECD. 2024. *Eurostat-OECD Methodological Manual on
 Purchasing Power Parities (2023 Edition)*. OECD Publishing, Paris.
 <https://doi.org/10.2785/384854>.
+
+Hill, Robert J. 2011. *Linking the Regions in the International
+Comparisons Program at Basic Heading Level and at Higher Levels of
+Aggregation*. No. 90626. World Bank.
+<https://documents.worldbank.org/pt/publication/documents-reports/documentdetail/860281468157762500>.
 
 ICP. 2021. *A Guide to the Compilation of Subnational Purchasing Power
 Parities (PPPs)*.

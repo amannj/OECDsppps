@@ -5,16 +5,15 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="The " average price table valid_apt><meta name="description" content='MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_3-0.4.10/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="The " average price table valid_apt><meta name="description" content='MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};
 
-valid_apt() in  OECDsppps creates the "Average Price Table" by
-calculating: the
+valid_apt() creates the "Average Price Table" containing:
 Number of observations - Number of observations by group as specified by group_by()
 Average- Average price based on item-level price quotes by group as specified by group_by()
 Maximum- Highest price based on item-level price quotes by group as specified by group_by()
 Minimum - Lowest price based on item-level price quotes by group as specified by group_by()
 Standard deviation - Standard deviation based on item-level price quotes by group as specified by group_by()
-mMx-min ratio test and Coefficient of variation test - see Details for more information
+max-min ratio test and Coefficient of variation test - see Details for more information
 All item-level price
 quotes that do not pass the two tests are flagged in columns
 Max-min ratio FLAG andCoefficient of variation FLAG, respectively;
@@ -23,14 +22,13 @@ see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
 
 '><meta property="og:description" content='MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};
 
-valid_apt() in  OECDsppps creates the "Average Price Table" by
-calculating: the
+valid_apt() creates the "Average Price Table" containing:
 Number of observations - Number of observations by group as specified by group_by()
 Average- Average price based on item-level price quotes by group as specified by group_by()
 Maximum- Highest price based on item-level price quotes by group as specified by group_by()
 Minimum - Lowest price based on item-level price quotes by group as specified by group_by()
 Standard deviation - Standard deviation based on item-level price quotes by group as specified by group_by()
-mMx-min ratio test and Coefficient of variation test - see Details for more information
+max-min ratio test and Coefficient of variation test - see Details for more information
 All item-level price
 quotes that do not pass the two tests are flagged in columns
 Max-min ratio FLAG andCoefficient of variation FLAG, respectively;
@@ -41,11 +39,11 @@ see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,18 +73,17 @@ see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>The "Average Price Table"</h1>
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/v0.0.0.6/R/valid.R" class="external-link"><code>R/valid.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/R/valid.R" class="external-link"><code>R/valid.R</code></a></small>
       <div class="d-none name"><code>valid_apt.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
-    <p><script>MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};</script><script defer src="../../mathjaxr/doc/mathjax/tex-chtml.js"></script><code>valid_apt()</code> in  <span class="pkg">OECDsppps</span> creates the "Average Price Table" by
-calculating: the</p><ul><li><p><code>Number of observations</code> - Number of observations by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
+    <p><script>MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};</script><script defer src="../../mathjaxr/doc/mathjax/tex-chtml.js"></script><code>valid_apt()</code> creates the "Average Price Table" containing:</p><ul><li><p><code>Number of observations</code> - Number of observations by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
 <li><p><code>Average</code>- Average price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
 <li><p><code>Maximum</code>- Highest price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
 <li><p><code>Minimum</code> - Lowest price based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
 <li><p><code>Standard deviation</code> - Standard deviation based on item-level price quotes by group as specified by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code></p></li>
-<li><p><code>mMx-min ratio test</code> and <code>Coefficient of variation test</code> - see <em>Details</em> for more information
+<li><p><code>max-min ratio test</code> and <code>Coefficient of variation test</code> - see <em>Details</em> for more information
 All item-level price
 quotes that do not pass the two tests are flagged in columns
 <code>Max-min ratio FLAG</code> and<code>Coefficient of variation FLAG</code>, respectively;

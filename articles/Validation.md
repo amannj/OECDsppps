@@ -2,11 +2,13 @@
 
 ``` r
 
+library(OECDsppps)
 library(dplyr)
 library(tidyr)
 library(gt)
 library(ggplot2)
 library(OECDsppps)
+library(purrr)
 ```
 
 ## Overview
@@ -360,7 +362,7 @@ requiring verification.
 ### 2.1 The XR-ratio
 
 The function
-[`valid_XRratio()`](https://amannj.github.io/OECDsppps/reference/valid_XRratio.md)
+[`valid_ratio_xr()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_xr.md)
 computes the XR-ratio table, where a country–region’s XR price for a
 given product is divided by the geometric mean of that product’s price;
 see Table 9.3a in ([World Bank 2013, 257](#ref-worldbank2013)).
@@ -411,7 +413,7 @@ df_xr <- rbind(uk_irv, cz_irv, de_irv)
 
 df_xrr <- df_xr |>
   group_by(Year, `Product code`) |>
-  valid_XRratio(
+  valid_ratio_xr(
     average_price = "Average price of product",
     exchange_rate = "XR USD"
   )
@@ -449,7 +451,7 @@ The next stage of data validation employs purchasing power parities
 enabling comparison through PPP-ratios.
 
 This procedure is implemented using the
-[`valid_PPPratio()`](https://amannj.github.io/OECDsppps/reference/valid_PPPratio.md)
+[`valid_ratio_ppp()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.md)
 function, which calculates the PPP-ratio; see Table 9.3b in ([World Bank
 2013, 258](#ref-worldbank2013)). The coefficient of variation is used to
 assess variability across products and countries; coefficients exceeding
@@ -489,7 +491,7 @@ df_xr2 <- rbind(
 
 # Calculations
 df_out <- df_xr2 |>
-  valid_PPPratio(
+  valid_ratio_ppp(
     year = "Year",
     product_code = "Product code",
     region = "Region",
@@ -551,8 +553,6 @@ validation to ensure the integrity of the data used.
 
 ## 4 Validation at basic-heading level
 
-> 🚧 Examples work in progress.
-
 The validation at the basic-heading level concerns the reliability of
 the CPD estimates as well as their cross-sectional comparability.
 
@@ -562,22 +562,21 @@ Ensures that prices are consistent not only within basic headings but
 also at the aggregate level *across* basic headings. This can, for
 example, help address cross-country measurement inconsistency. This is
 done using Dikhanov tables ([World Bank 2013,
-261](#ref-worldbank2013)/267), which consist of three parts:
+261](#ref-worldbank2013)/267), which consist of:
 
-- *Part 1*: Summary information (PPPs, SDs, price level) by country for
-  the aggregate;
-- *Part 2*: Contained basic headings (same info as *Part 1*);
-- *Part 3*: CPD residuals and product variation coefficients for
-  products within basic headings.
+- Summary information (PPPs, SDs, price level) by region for the
+  aggregate;
+- CPD residuals and product variation coefficients for products within
+  basic headings.
 
-In the Dikhanov table, *Part 1 and 2* facilitate the comparisons of PPPs
-across basic headings; plausible variations in PPPs is expected across
-regions. Such variations would indicate that, say, alcoholic beverages
-in country A are x% higher than in country B. *Part 3* Ensures that the
+The Dikhanov table facilitates the comparisons of PPPs across basic
+headings; plausible variations in PPPs is expected across regions. Such
+variations would indicate that, say, alcoholic beverages in region A are
+x% higher than in region B. The CPD residuals help ensure that the
 aggregate PPP variations are not driven by certain basic headings, or
 isolated products therein, but are more reflective of common price-level
-differences across regions/countries. Extreme values are identified
-based on CPD residuals and PPP ratio threshold values described in
+differences across regions. Extreme values can be identified based on
+CPD residuals and PPP ratio threshold values described in
 [Table 1](#tbl-thresholds); see also ([World Bank 2013,
 261](#ref-worldbank2013)).
 
@@ -590,7 +589,59 @@ based on CPD residuals and PPP ratio threshold values described in
 
 Table 1: Threshold values: CPD residuals and PPP-ratios
 
-> 🚧 Examples work in progress.
+The exampele below produces a Dikhanov tables with
+[`valid_dikhanov()`](https://amannj.github.io/OECDsppps/reference/valid_dikhanov.md)
+for products with product classification provided by argument
+`product_heading` for the two generic products “1” and “3” as specified
+via argument `product_heading_comparison`. Note that if
+`product_heading_comparison` were to left empty, the default option
+would produce Dikhanov tables for all three products contained in the
+provided data frame `dt1`.
+
+``` r
+
+set.seed(123)
+R <- 5 # number of regions
+B <- 3 # number of product groups
+N <- 5 # number of products
+dt1 <- pricelevels::rdata(R = R, B = B, N = N)
+
+valid_dikhanov(
+  data = dt1,
+  region = "region",
+  product = "product",
+  price = "price",
+  product_heading = "group",
+  product_heading_comparison = c("1", "3")
+)
+#> $`1`
+#> # A tibble: 8 × 10
+#>   variable            product     `1`     `2`      `3`      `4`      `5` `STD 1`
+#>   <chr>               <fct>     <dbl>   <dbl>    <dbl>    <dbl>    <dbl>   <dbl>
+#> 1 sPPP                <NA>     0.849   1.28    1.14     0.867    9.33e-1 NA     
+#> 2 STD 2               <NA>     0.0942  0.138   0.0756   0.0891   3.10e-2  1.90  
+#> 3 No. of items priced <NA>     5       5       5        5        5   e+0 NA     
+#> 4 <NA>                01      -0.0126  0.0147  0.00299 -0.00910  4.07e-3  0.0110
+#> 5 <NA>                02       0.131  -0.190  -0.110    0.128    4.06e-2  0.144 
+#> 6 <NA>                03      -0.123   0.185   0.100   -0.116   -4.66e-2  0.137 
+#> 7 <NA>                04      -0.0370  0.0452  0.0211  -0.0310   1.76e-3  0.0347
+#> 8 <NA>                05       0.0417 -0.0559 -0.0137   0.0277   1.52e-4  0.0381
+#> # ℹ 2 more variables: `Items per region` <dbl>, `Items/Countries` <dbl>
+#> 
+#> $`3`
+#> # A tibble: 8 × 10
+#>   variable         product      `1`      `2`      `3`      `4`      `5`  `STD 1`
+#>   <chr>            <fct>      <dbl>    <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
+#> 1 sPPP             <NA>     0.887    1.19     1.10e+0  9.01e-1  0.957   NA      
+#> 2 STD 2            <NA>     0.0156   0.0368   1.43e-2  2.63e-2  0.0115   1.90   
+#> 3 No. of items pr… <NA>     5        5        5   e+0  5   e+0  5       NA      
+#> 4 <NA>             11      -0.0101   0.0409   1.22e-2 -3.39e-2 -0.00923  0.0281 
+#> 5 <NA>             12       0.00223  0.00584 -7.79e-4 -5.41e-4 -0.00675  0.00463
+#> 6 <NA>             13      -0.00563 -0.00925  6.12e-3 -9.73e-4  0.00972  0.00791
+#> 7 <NA>             14       0.0261  -0.0569  -2.42e-2  3.98e-2  0.0151   0.0397 
+#> 8 <NA>             15      -0.0126   0.0194   6.58e-3 -4.45e-3 -0.00887  0.0130 
+#> # ℹ 2 more variables: `Items per region` <dbl>, `Items/Countries` <dbl>
+```
 
 ### 4.2 Visual validation at basic-heading level
 
@@ -600,16 +651,102 @@ at countries/headings which may require further review ([World Bank
 
 #### 4.2.1 Within country validation
 
-> 🚧 Examples work in progress.
+Function
+[`valid_outlier_plot()`](https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.md)
+produces some simple validation plots to check subnational PPP estimates
+for potential outliers. The example below illustrates the behaviour for
+some generic, basic-heading CPD estimates
+
+``` r
+
+# Take UK CPI microdata containing duplicate region-product pairs ---------
+red <- uk_cpi |>
+  select(Year,
+    region = "Region",
+    product = "Product code",
+    price = "Reference quantity price"
+  ) |>
+  mutate(
+    region = as.factor(region),
+    product = as.factor(product)
+  )
+```
+
+Example for sPPPs outlier plot with adjusted outlier cutoffs.
+
+``` r
+
+# Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
+red |>
+  estim_cpd() |>
+  valid_outlier_plot(
+    title = "sPPPs outlier with adjusted outlier cutoffs",
+    # Adjust outlier cutoffs (default is 1.5 and 0.5)
+    outlier_cutoffs = c(1.1, 0.9)
+  )
+```
+
+![](Validation_files/figure-html/unnamed-chunk-9-1.png)
+
+Use `facet_var` to add facets, which is particularly useful to compare
+distributions of price indices by year, region, or product category. The
+example below compares price distributions by year.
+
+``` r
+
+# Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
+red |>
+  # Apply `estim_cpd()` to each year
+  group_by(Year) |>
+  group_modify(~ estim_cpd(.x)) |>
+  # Outlier plot
+  valid_outlier_plot(
+    title = "sPPPs outlier with adjusted outlier cutoffs by year",
+    facet_var = "Year",
+    # Adjust number of facet columns (default is 2)
+    facet_ncol = 3,
+    # Adjust bins (default is 70)
+    bins = 10,
+    # Adjust outlier cutoffs (default is 1.5 and 0.5)
+    outlier_cutoffs = c(1.1, 0.9)
+  )
+```
+
+![](Validation_files/figure-html/unnamed-chunk-10-1.png)
+
+Function
+[`valid_outlier_plot()`](https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.md)
+can also be used to quickly check for price index changes between years,
+as shown below.
+
+``` r
+
+# Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
+red |>
+  # Perform check for two years only
+  filter(Year %in% c(2018, 2023)) |>
+  # Apply `estim_cpd()` to each year
+  group_by(Year) |>
+  group_modify(~ estim_cpd(.x)) |>
+  # Pivot data and calculate year-on-year difference
+  pivot_wider(values_from = "sPPP", names_from = "Year", names_prefix = "Year_") |>
+  mutate(d_sPPP = Year_2023 / Year_2018) |>
+  # Outlier plot
+  valid_outlier_plot(
+    sPPPs = "d_sPPP",
+    title = "sPPPs outlier, intertemporal changes",
+    # Adjust outlier cutoffs (default is 1.5 and 0.5)
+    outlier_cutoffs = c(1.05, 0.95)
+  )
+```
+
+![](Validation_files/figure-html/unnamed-chunk-11-1.png)
 
 #### 4.2.2 Cross-country validation
 
-> 🚧 Examples work in progress.
-
-- Box plots of Price Level index (PLI), which is the ratio of a
-  purchasing power parity (PPP) conversion factor to the corresponding
-  market exchange rate between two countries by country and by basic
-  heading.
+Box plots of Price Level index (PLI), which is the ratio of a purchasing
+power parity (PPP) conversion factor to the corresponding market
+exchange rate between two countries by country and by basic heading.
 
 ## 5 Expenditure weights validation
 
@@ -642,7 +779,6 @@ outliers based on the max-median and median-min ratios.
 
 ``` r
 
-
 # CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------
 uk_hhe |>
   group_by(coicop_4d) |>
@@ -666,7 +802,117 @@ uk_hhe |>
 
 ## 6 Validation beyond basic-heading level
 
-> 🚧 Work in progress.
+This step of validation concerns the validation of PPPs using
+expenditure weights together ([World Bank 2013,
+287](#ref-worldbank2013)). The objective is to check if there is a
+problem with the basic headings PPP and expenditures, or—in case the
+data is valid—there is an estimation issue.
+
+The Paasche-Laspeyres spread (PLS), following ([Hill
+2011](#ref-hillLinkingRegionsInternational2011)), corresponds to the
+upper and lower price and quantity relatives to determine whether the
+large values in the PLS are caused by PPPs or expenditure outliers.
+Basic headings with large upper or lower quantity or price relatives
+should be further examined.
+
+The Paasche-Laspeyres spread is calculated as
+
+\\ PLS\_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})}
+\\
+
+The PLS can be calculated using the function
+[`valid_pls()`](https://amannj.github.io/OECDsppps/reference/valid_pls.md)
+as described below.
+
+``` r
+
+# Validation using the Paasche-Laspeyres spread
+
+# 1. Generate the price/weights data
+set.seed(123)
+
+R <- 5 # number of regions
+B <- 5 # number of product groups
+N <- 5 # number of products
+
+dt1 <- pricelevels::rdata(
+  R = R, B = B, N = N,
+  weights = ~ r + n,
+  settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
+) %>%
+  as_tibble()
+
+
+# 2. Obtain CPD estimates with estim_cpd, and join weights
+cpd_oecd <- dt1 %>%
+  dplyr::select(group, region, product, price) %>%
+  nest(.by = c(group)) %>%
+  mutate(cpd_estimation = map(.x = data, ~ .x %>%
+    estim_cpd(
+      region = "region",
+      product = "product",
+      price = "price"
+    ))) %>%
+  unnest(cpd_estimation) %>%
+  left_join(
+    dt1[, c("region", "group", "weight")] %>%
+      distinct(region, group, .keep_all = TRUE),
+    by = c("group", "region")
+  )
+
+
+# 3. Calculate the PLS
+valid_pls(
+  data = cpd_oecd,
+  region = "region",
+  product = "group",
+  ppp_bh = "sPPP",
+  exp_wght = "weight"
+) %>%
+  gt() |>
+  tab_header(
+    title = md("**Paasche-Laspeyres Spread**"),
+    subtitle = md("Example for 5 regions")
+  ) %>%
+  fmt_number(
+    decimals = 2
+  )
+```
+
+| **Paasche-Laspeyres Spread** |  |  |  |  |
+|----|----|----|----|----|
+| Example for 5 regions |  |  |  |  |
+| base_region | region | laspeyres_index | paasche_index | paasche_laspeyres_spread |
+| 1 | 1 | 1.00 | 1.00 | 1.00 |
+| 1 | 2 | 1.00 | 0.88 | 1.14 |
+| 1 | 3 | 0.67 | 0.65 | 1.03 |
+| 1 | 4 | 1.20 | 1.09 | 1.10 |
+| 1 | 5 | 1.19 | 0.84 | 1.43 |
+| 2 | 1 | 1.14 | 1.00 | 1.14 |
+| 2 | 2 | 1.00 | 1.00 | 1.00 |
+| 2 | 3 | 0.79 | 0.64 | 1.24 |
+| 2 | 4 | 1.34 | 1.08 | 1.24 |
+| 2 | 5 | 1.19 | 1.00 | 1.19 |
+| 3 | 1 | 1.54 | 1.50 | 1.03 |
+| 3 | 2 | 1.57 | 1.26 | 1.24 |
+| 3 | 3 | 1.00 | 1.00 | 1.00 |
+| 3 | 4 | 1.88 | 1.61 | 1.17 |
+| 3 | 5 | 1.92 | 1.19 | 1.62 |
+| 4 | 1 | 0.92 | 0.83 | 1.10 |
+| 4 | 2 | 0.92 | 0.75 | 1.24 |
+| 4 | 3 | 0.62 | 0.53 | 1.17 |
+| 4 | 4 | 1.00 | 1.00 | 1.00 |
+| 4 | 5 | 1.11 | 0.68 | 1.64 |
+| 5 | 1 | 1.20 | 0.84 | 1.43 |
+| 5 | 2 | 1.00 | 0.84 | 1.19 |
+| 5 | 3 | 0.84 | 0.52 | 1.62 |
+| 5 | 4 | 1.47 | 0.90 | 1.64 |
+| 5 | 5 | 1.00 | 1.00 | 1.00 |
+
+  
+  
+
+------------------------------------------------------------------------
 
 ## References
 
@@ -677,6 +923,11 @@ Purchasing Power Parities (2023 Edition)*. OECD Publishing, Paris.
 Hearne, David, and David Bailey. 2025. “Regional Prices Reconsidered.”
 *Regional Studies, Regional Science* 12 (1): 338–56.
 <https://doi.org/10.1080/21681376.2025.2475115>.
+
+Hill, Robert J. 2011. *Linking the Regions in the International
+Comparisons Program at Basic Heading Level and at Higher Levels of
+Aggregation*. No. 90626. World Bank.
+<https://documents.worldbank.org/pt/publication/documents-reports/documentdetail/860281468157762500>.
 
 ICP. 2021. *A Guide to the Compilation of Subnational Purchasing Power
 Parities (PPPs)*.

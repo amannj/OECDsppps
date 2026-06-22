@@ -1,14 +1,14 @@
 # The "Price Observation Table"
 
-`valid_pot` in OECDsppps creates the "Price Observation Table"; by
-calculating two *individual price outlier statistics* for the individual
-item-level price quotes, the *ratio-to-average price test* and the
-*t-value test*; see World Bank (2013), ICP (2021) and European
-Union/OECD et al. (2024) . All item-level price quotes that do not pass
-the two tests are flagged in columns `Ratio-to-average price test FLAG`
-and `T-value test FLAG`, respectively. The item-level price quotes
-should be based on the *reference quantity price*; see *Details* and
-World Bank (2013) , table 9.1a. for more information.
+`valid_pot` creates the "Price Observation Table"; by calculating two
+*individual price outlier statistics* for the individual item-level
+price quotes, the *ratio-to-average price test* and the *t-value test*;
+see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
+. All item-level price quotes that do not pass the two tests are flagged
+in columns `Ratio-to-average price test FLAG` and `T-value test FLAG`,
+respectively. The item-level price quotes should be based on the
+**reference quantity price**; see *Details* and
+worldbankMeasuringRealSize2013) , table 9.1a. for more information.
 
 ## Usage
 

@@ -1,7 +1,8 @@
 # The Country Product Dummy (CPD) regression model
 
-`estim_cpd` in OECDsppps creates ...; see *Details* and World Bank
-(2013) , for more information.
+`estim_cpd` in OECDsppps estimates subnational PPPs building on the
+regional extension of the Country-Product-Dummy (CPD) method Summers
+(1973) , see *Details* and World Bank (2013) , for more information.
 
 ## Usage
 
@@ -103,6 +104,9 @@ region \\j\\ given by \\\hat{PPP}\_j = exp(\hat{\alpha}\_j)\\.
 
 ## References
 
+Summers R (1973). “International price comparisons based upon incomplete
+data.” *Review of Income and Wealth*, **19**(1), 1–16.  
+  
 World Bank (2013). *Measuring the Real Size of the World Economy: The
 Framework, Methodology, and Results of the International Comparison
 Program — ICP*. World Bank.

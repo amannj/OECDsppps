@@ -72,8 +72,7 @@ table and various bug fixes
 - Fixed names in `ecoicop16_names`
 - Fixed bugs in
   [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
-  and
-  [`valid_PPPratio()`](https://amannj.github.io/OECDsppps/reference/valid_PPPratio.md)
+  and `valid_PPPratio()`
 
 ------------------------------------------------------------------------
 
@@ -112,3 +111,29 @@ Python and SAS, better implementation description
   data on using `OECDsppps` in Python and SAS
 - Update
   [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
+  vignette
+
+------------------------------------------------------------------------
+
+## Version `0.0.0.7`
+
+Complete estimation and validation pipelines and improve visualisation
+
+#### Bug fixes
+
+- Add functions
+  [`valid_outlier_plot()`](https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.md),
+  [`valid_dikhanov()`](https://amannj.github.io/OECDsppps/reference/valid_dikhanov.md)
+  and
+  [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
+  to complete the validation and estimation pipelines
+- Rename functions
+  [`valid_ratio_ppp()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.md)
+  and
+  [`valid_ratio_xr()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_xr.md)
+  and fix naming inconsistencies
+- Update
+  [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
+  to describe complete sPPPs production pipeline describing the use of
+  [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
+- Improve visualisation of packet vignette

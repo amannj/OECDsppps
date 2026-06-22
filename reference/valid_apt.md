@@ -1,7 +1,6 @@
 # The "Average Price Table"
 
-`valid_apt()` in OECDsppps creates the "Average Price Table" by
-calculating: the
+`valid_apt()` creates the "Average Price Table" containing:
 
 - `Number of observations` - Number of observations by group as
   specified by
@@ -23,7 +22,7 @@ calculating: the
   quotes by group as specified by
   [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
 
-- `mMx-min ratio test` and `Coefficient of variation test` - see
+- `max-min ratio test` and `Coefficient of variation test` - see
   *Details* for more information All item-level price quotes that do not
   pass the two tests are flagged in columns `Max-min ratio FLAG`
   and`Coefficient of variation FLAG`, respectively; see World Bank

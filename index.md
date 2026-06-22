@@ -6,7 +6,7 @@ Purchasing Power Parities (sPPPs) in OECD regions as part of the project
 regions](https://www.oecd.org/en/about/projects/towards-a-better-measuring-of-subnational-consumer-prices-and-purchasing-parity.html).
 
 This documentation describes the processing, validation, aggregation and
-estimation for the purpose of constructing subnational PPPs.
+estimation for the purpose of constructing subnational PPPs (sPPPs).
 
 ## Installation
 

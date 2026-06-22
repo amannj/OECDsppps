@@ -19,7 +19,9 @@
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="Estimation_files/libs/quarto-html/popper.min.js"></script><script src="Estimation_files/libs/quarto-html/tippy.umd.min.js"></script><link href="Estimation_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Estimation_files/libs/quarto-html/light-border.css" rel="stylesheet">
@@ -31,11 +33,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +78,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/v0.0.0.6/vignettes/Estimation.qmd" class="external-link"><code>vignettes/Estimation.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/vignettes/Estimation.qmd" class="external-link"><code>vignettes/Estimation.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -106,8 +108,10 @@
 <p>The estimation steps are:</p>
 <ol type="1">
 <li><p><a href="#sec-step1">Estimation of basic headings using item-level prices</a>, where price data are aggregated up to the level of basic headings, generally without the use of expenditure weights (unless such information is available, for instance, when retail scanner data provide detailed transaction-level records).</p></li>
-<li><p><a href="#sec-step2">Estimation of higher level aggregates using basic heading indices</a> to higher levels of the classification hierarchy, at which point household expenditure data are accessible and can be applied as weighting factors</p></li>
-</ol></section><section class="level2 unnumbered"><h3 class="unnumbered" id="estimation-methods">Estimation methods<a class="anchor" aria-label="anchor" href="#estimation-methods"></a>
+<li><p><a href="#sec-step2">Estimation of higher level aggregates using basic heading indices</a> to higher levels of the classification hierarchy, at which point household expenditure data are accessible and can be applied as weighting factors.</p></li>
+</ol>
+<p>To seamlessly combine the two estimation steps, <code>OECDsppps</code>, provides the ‘linking function’ <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> to impute missing basic-heading subnational PPPs. A complete sylised workflow is described in section <a href="#sec-combined">Putting it all together</a>.</p>
+</section><section class="level2 unnumbered"><h3 class="unnumbered" id="estimation-methods">Estimation methods<a class="anchor" aria-label="anchor" href="#estimation-methods"></a>
 </h3>
 <p>The choice of estimation method depends on the availability of data and the analytical objectives of the subnational PPP exercise. When the aim is to ensure cross-country comparability and to exploit micro-level price information, the <strong>Country-Product-Dummy (CPD) - Gini-Éltetö-Köves-Szulc (GEKS)</strong> approach offers a flexible framework for estimating basic heading indices <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>.</p>
 <p>In contrast, the <strong>Eurostat OECD method (Jevons-GEKS)</strong> methodology employed at the national level imposes more stringent data requirements. Such requirements may be more difficult to meet in the context of deriving subnational PPPs based on existing microdata, particularly regarding the representativeness of individual products across all regions <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">(<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">European Union/OECD 2024</a>)</span>.</p>
@@ -1621,9 +1625,9 @@ sPPP_{GEKS}^{j,k} = \prod_{r=1}^R \left( sPPP_F^{j,r} \times sPPP_F^{r,k} \right
 sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2}
 \tag{4}\]</span></span></p>
 <p>the Fisher is calculated based on the results estimated at the basic heading level, where <span class="math inline">\(p_jk\)</span> and <span class="math inline">\(e_jk\)</span>, respectively, denote the price and associated expenditure for an arbitrary basic heading <span class="math inline">\(b\)</span> and region <span class="math inline">\(r\)</span>, and the implied quantity, <span class="math inline">\(q_br\)</span>, is given by <span class="math inline">\(q_br=  e_br⁄p_br\)</span>:</p>
-<p><span id="eq-fish"><span class="math display">\[
+<p><span class="math display">\[
 sPPP_F^{j,k} = \left[ \underbrace{ \frac{\sum_{b = 1}^B p_{bk}q_{bj}}{\sum_{b = 1}^B p_{bj}q_{bj}} }_{sPPP_L^{j,k}} \times \underbrace{ \frac{\sum_{b = 1}^B p_{bk}q_{bk}}{\sum_{b = 1}^B p_{bj}q_{bk}} }_{sPPP_P^{j,k}}   \right]^{1/2}
-\tag{5}\]</span></span></p>
+\]</span></p>
 <p>The Fisher index is implemented through function <code><a href="../reference/index_fisher.html">index_fisher()</a></code>.</p>
 </section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-laspeyres">Laspeyres index<a class="anchor" aria-label="anchor" href="#sec-laspeyres"></a>
 </h4>
@@ -1631,14 +1635,14 @@ sPPP_F^{j,k} = \left[ \underbrace{ \frac{\sum_{b = 1}^B p_{bk}q_{bj}}{\sum_{b = 
 <p>The Laspeyres is calculated as</p>
 <p><span id="eq-lasp"><span class="math display">\[
 sPPP_L^{j,k} = \sum_{n=1}^N  w_n^j \times sPPP_n^{j,k}
-\tag{6}\]</span></span></p>
+\tag{5}\]</span></span></p>
 <p>The Laspeyres index is implemented using function <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>.</p>
 </section><section class="level3 unnumbered"><h4 class="unnumbered" id="sec-paasche">Paasche index<a class="anchor" aria-label="anchor" href="#sec-paasche"></a>
 </h4>
 <p>The same logic is mirrored with the Paasche index, where region <span class="math inline">\(k\)</span>’s basket is evaluated and compared with region <span class="math inline">\(j\)</span>’s price. The Paasche is calculated as</p>
 <p><span id="eq-paas"><span class="math display">\[
 sPPP_P^{j,k} = \frac{1}{\sum_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}
-\tag{7}\]</span></span></p>
+\tag{6}\]</span></span></p>
 <p>The Paasche index is implemented using function <code><a href="../reference/index_paasche.html">index_paasche()</a></code>.</p>
 </section></section><section class="level2" data-number="2.3"><h3 data-number="2.3" id="implementation">
 <span class="header-section-number">2.3</span> Implementation<a class="anchor" aria-label="anchor" href="#implementation"></a>
@@ -1785,9 +1789,10 @@ sPPP_P^{j,k} = \frac{1}{\sum_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}
 <span><span class="va">indices_pricelevels_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cbind</span>, <span class="va">laspeyres_pl</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"region"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">region</span>, </span>
-<span>               names_to <span class="op">=</span> <span class="st">"base_region"</span>, </span>
-<span>               values_to <span class="op">=</span> <span class="st">"laspeyres_index"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">region</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="st">"base_region"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"laspeyres_index"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cbind</span>, <span class="va">paasche_pl</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>      <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -1802,18 +1807,20 @@ sPPP_P^{j,k} = \frac{1}{\sum_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cbind</span>, <span class="va">fisher_pl</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>      <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>      <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"region"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>      <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">region</span>, </span>
-<span>                   names_to <span class="op">=</span> <span class="st">"base_region"</span>, </span>
-<span>                   values_to <span class="op">=</span> <span class="st">"fisher_index"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">region</span>,</span>
+<span>        names_to <span class="op">=</span> <span class="st">"base_region"</span>,</span>
+<span>        values_to <span class="op">=</span> <span class="st">"fisher_index"</span></span>
+<span>      <span class="op">)</span>,</span>
 <span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"base_region"</span>, <span class="st">"region"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cbind</span>, <span class="va">geks_pl</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>      <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>      <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"region"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>      <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">region</span>, </span>
-<span>                   names_to <span class="op">=</span> <span class="st">"base_region"</span>, </span>
-<span>                   values_to <span class="op">=</span> <span class="st">"geks_index"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">region</span>,</span>
+<span>        names_to <span class="op">=</span> <span class="st">"base_region"</span>,</span>
+<span>        values_to <span class="op">=</span> <span class="st">"geks_index"</span></span>
+<span>      <span class="op">)</span>,</span>
 <span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"base_region"</span>, <span class="st">"region"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">base_region</span>, <span class="va">region</span><span class="op">)</span>,</span>
@@ -1853,7 +1860,2245 @@ sPPP_P^{j,k} = \frac{1}{\sum_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}
 </div>
 </div>
 </div>
-</section></section></section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<hr></section></section></section><section class="section level2" data-number="3"><h2 data-number="3" id="sec-combined">
+<span class="header-section-number">3</span> Putting it all together: Estimating weighted higher level aggregates directly from item-level prices<a class="anchor" aria-label="anchor" href="#sec-combined"></a>
+</h2>
+<p>As described in the <a href="https://amannj.github.io/OECDsppps/articles/Implementation.html">implementation</a> section, the CPD-GEKS approach is recommended for producing subnational PPPs by the ICP <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>, and has also been used by a national statistical institute in a subnational PPP programme, providing experimental statistics in Italy <span class="citation" data-cites="Istat">(<a href="#ref-Istat" role="doc-biblioref">Istat 2026</a>)</span>.</p>
+<p>This section describes how to implement this <a href="https://amannj.github.io/OECDsppps/articles/Implementation.html#fig-aggregation">two-step procedure</a>, which combines:</p>
+<ol type="1">
+<li>Estimation of price parities at the basic heading level using the regional extension of the Country-Product-Dummy (CPD) method <span class="citation" data-cites="summers1973international">(<a href="#ref-summers1973international" role="doc-biblioref">Summers 1973</a>)</span>.</li>
+<li>Upon validation, aggregation of BH-level parities into higher-level indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a multilateral index construction technique that ensures transitivity, in combination with household final consumption expenditure data as a weighting structure for household final consumption PPPs <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>.</li>
+</ol>
+<p>Most importantly, the CPI microdata typically does not contain price quotes for all COICOP categories, including the ones for which cross-regional uniform prices can be assumed, such as, for example, for used cars. However, removing products that are subject to uniform prices from the estimation will artificially inflate the price variation for any present category. Consider the example where a generic COICOP class contains 10 sub-classes, of which 9 are subject to uniform prices while one sub-class is subject to price variations. If the 9 uniform sub-classes were to be removed from the sPPPs calculation, the remaining sub-class with regional price variation would artificially inflate the price variation of the entire class. It is therefore necessary to artificially include uniform prices for all sub-aggregates contained <em>within</em> the respective higher aggregate for which sPPPs are estimated.</p>
+<p>This can be done with the function <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code>, which fills in missing basic heading PPPs with a value given by the user. The function returns a data frame containing the variables indicating the region (“region”), basic heading (“product”), basic heading PPP (“ppp_bh”). Once joined with expenditure weights, this output can be directly fed into <code><a href="../reference/index_geks.html">index_geks()</a></code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Or any alternative bilateral index formula &lt;code&gt;&lt;a href="../reference/index_laspeyres.html"&gt;index_laspeyres()&lt;/a&gt;&lt;/code&gt;, &lt;code&gt;&lt;a href="../reference/index_paasche.html"&gt;index_paasche()&lt;/a&gt;&lt;/code&gt;, &lt;code&gt;&lt;a href="../reference/index_fisher.html"&gt;index_fisher()&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;'><sup>2</sup></a></p>
+<p>The two steps above can be linked within one pipeline using the <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate data with pricelevels ---------</span></span>
+<span><span class="co">## Set parameters and generate generic data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">R</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of regions</span></span>
+<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of product groups</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of products</span></span>
+<span></span>
+<span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu">pricelevels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pricelevels/man/rdata.html" class="external-link">rdata</a></span><span class="op">(</span></span>
+<span>  R <span class="op">=</span> <span class="va">R</span>, B <span class="op">=</span> <span class="va">B</span>, N <span class="op">=</span> <span class="va">N</span>,</span>
+<span>  weights <span class="op">=</span> <span class="op">~</span> <span class="va">r</span> <span class="op">+</span> <span class="va">n</span>,</span>
+<span>  settings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>par.sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    lnP <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    pi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>    delta <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>    error <span class="op">=</span> <span class="fl">0.8</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Item-level prices</span></span>
+<span><span class="va">dt1_prices</span> <span class="op">&lt;-</span> <span class="va">dt1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">region</span>, <span class="va">product</span>, <span class="va">price</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Obtain product-specific weights ----------</span></span>
+<span><span class="va">dt1_wghts</span> <span class="op">&lt;-</span> <span class="va">dt1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">region</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">region</span>, <span class="va">weight</span><span class="op">)</span></span></code></pre></div>
+</div>
+<section class="level2" data-number="3.1"><h3 data-number="3.1" id="cpd-estimation-at-the-basic-heading-level-using-item-level-prices">
+<span class="header-section-number">3.1</span> CPD estimation at the basic heading level using item-level prices<a class="anchor" aria-label="anchor" href="#cpd-estimation-at-the-basic-heading-level-using-item-level-prices"></a>
+</h3>
+<p>Basic heading level sPPPs can be obtained from item-level price data by first grouping the data by basic heading with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code>, then applying <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> to each basic heading with <code><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dt1_prices</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">.x</span>,</span>
+<span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>      product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>      price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>      output <span class="op">=</span> <span class="st">"sPPP"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="xlmjjxgrqt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xlmjjxgrqt table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xlmjjxgrqt thead, #xlmjjxgrqt tbody, #xlmjjxgrqt tfoot, #xlmjjxgrqt tr, #xlmjjxgrqt td, #xlmjjxgrqt th {
+  border-style: none;
+}
+
+#xlmjjxgrqt p {
+  margin: 0;
+  padding: 0;
+}
+
+#xlmjjxgrqt .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xlmjjxgrqt .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xlmjjxgrqt .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xlmjjxgrqt .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xlmjjxgrqt .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xlmjjxgrqt .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xlmjjxgrqt .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xlmjjxgrqt .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xlmjjxgrqt .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xlmjjxgrqt .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xlmjjxgrqt .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xlmjjxgrqt .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xlmjjxgrqt .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xlmjjxgrqt .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xlmjjxgrqt .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xlmjjxgrqt .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xlmjjxgrqt .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xlmjjxgrqt .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xlmjjxgrqt .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xlmjjxgrqt .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xlmjjxgrqt .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlmjjxgrqt .gt_left {
+  text-align: left;
+}
+
+#xlmjjxgrqt .gt_center {
+  text-align: center;
+}
+
+#xlmjjxgrqt .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xlmjjxgrqt .gt_font_normal {
+  font-weight: normal;
+}
+
+#xlmjjxgrqt .gt_font_bold {
+  font-weight: bold;
+}
+
+#xlmjjxgrqt .gt_font_italic {
+  font-style: italic;
+}
+
+#xlmjjxgrqt .gt_super {
+  font-size: 65%;
+}
+
+#xlmjjxgrqt .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xlmjjxgrqt .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xlmjjxgrqt .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xlmjjxgrqt .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xlmjjxgrqt .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xlmjjxgrqt .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xlmjjxgrqt .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#xlmjjxgrqt .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#xlmjjxgrqt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="group" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">group</th>
+<th id="region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">region</th>
+<th id="sPPP" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">sPPP</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="group">1</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="sPPP">1.2944</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="group">1</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="sPPP">0.5238</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="group">1</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="sPPP">1.2010</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="group">1</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="sPPP">1.1724</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="group">1</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="sPPP">1.0475</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="group">2</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="sPPP">0.9842</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>This will return a grouped tibble containing three columns: the variable specified by <code>group_by</code> (in this case the basic heading “group”); region (“region”), and the subnational PPPs estimated via the CPD method (“sPPP”).</p>
+<p>Note that the returned tibble is still grouped by the grouping variable specified in <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code>, which should be resolved with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup()</a></code> before proceeding further.</p>
+</section><section class="level2" data-number="3.2"><h3 data-number="3.2" id="index-calculation-using-basic-heading-indices">
+<span class="header-section-number">3.2</span> Index calculation using basic heading indices<a class="anchor" aria-label="anchor" href="#index-calculation-using-basic-heading-indices"></a>
+</h3>
+<p>GEKS (as well as Laspeyres, Paasche, Fisher, which are all nested within the GEKS function) indices can be calculated by linking the previous commands with <code><a href="../reference/index_geks.html">index_geks()</a></code> (as well as <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code>) through the <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> function.</p>
+<p><code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> takes tibble (data frame) containing the basic heading sPPPs, and joins it with a supplied data frame containing the household expenditure weights, and gives the user the option to impute price quotes for expenditure categories, for which household expenditure weights are present but nor price quotes are available.</p>
+<p>Thus, <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> returns a data object with all necessary variables for the calculation of the price indices, e.g., <code><a href="../reference/index_geks.html">index_geks()</a></code>.</p>
+<p>To summarise, the complete workflow has these three steps:</p>
+<ol type="1">
+<li>Grouping item-level price data by basic heading, estimating basic heading sPPPs, and ungrouping the output data</li>
+<li>Preparing the data with <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> for index number calculation</li>
+<li>Estimating the final index numbers with <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code>, and <code><a href="../reference/index_geks.html">index_geks()</a></code>
+</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dt1_prices</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># 1st step: grouping the data</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># 1st step: estimating the basic heading sPPPs</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">.x</span>,</span>
+<span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>      product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>      price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>      output <span class="op">=</span> <span class="st">"sPPP"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># 1st step: ungrouping the output data</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># 2nd step: preparing the data for index number calculation</span></span>
+<span>  <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>    data_weights <span class="op">=</span> <span class="va">dt1_wghts</span>,</span>
+<span>    basic_heading <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>    sPPP <span class="op">=</span> <span class="st">"sPPP"</span>,</span>
+<span>    exp_wght <span class="op">=</span> <span class="st">"weight"</span>,</span>
+<span>    complete_sppp <span class="op">=</span> <span class="cn">NA</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># 3rd step: Index number calculation</span></span>
+<span>  <span class="fu"><a href="../reference/index_geks.html">index_geks</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Previewing the results</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="iuklhrerfj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iuklhrerfj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#iuklhrerfj thead, #iuklhrerfj tbody, #iuklhrerfj tfoot, #iuklhrerfj tr, #iuklhrerfj td, #iuklhrerfj th {
+  border-style: none;
+}
+
+#iuklhrerfj p {
+  margin: 0;
+  padding: 0;
+}
+
+#iuklhrerfj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#iuklhrerfj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#iuklhrerfj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#iuklhrerfj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#iuklhrerfj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#iuklhrerfj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#iuklhrerfj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#iuklhrerfj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#iuklhrerfj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#iuklhrerfj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#iuklhrerfj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#iuklhrerfj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#iuklhrerfj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#iuklhrerfj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#iuklhrerfj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iuklhrerfj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#iuklhrerfj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#iuklhrerfj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#iuklhrerfj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iuklhrerfj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#iuklhrerfj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iuklhrerfj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#iuklhrerfj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iuklhrerfj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iuklhrerfj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iuklhrerfj .gt_left {
+  text-align: left;
+}
+
+#iuklhrerfj .gt_center {
+  text-align: center;
+}
+
+#iuklhrerfj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#iuklhrerfj .gt_font_normal {
+  font-weight: normal;
+}
+
+#iuklhrerfj .gt_font_bold {
+  font-weight: bold;
+}
+
+#iuklhrerfj .gt_font_italic {
+  font-style: italic;
+}
+
+#iuklhrerfj .gt_super {
+  font-size: 65%;
+}
+
+#iuklhrerfj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#iuklhrerfj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#iuklhrerfj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#iuklhrerfj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#iuklhrerfj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#iuklhrerfj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#iuklhrerfj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#iuklhrerfj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#iuklhrerfj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="base_region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">base_region</th>
+<th id="region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">region</th>
+<th id="geks_index" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">geks_index</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="geks_index">1.0000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="geks_index">0.9330</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="geks_index">0.6603</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="geks_index">1.1413</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">1</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="geks_index">1.0012</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">2</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="geks_index">1.0719</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section class="level2" data-number="3.3"><h3 data-number="3.3" id="incomplete-input-data">
+<span class="header-section-number">3.3</span> Incomplete input data<a class="anchor" aria-label="anchor" href="#incomplete-input-data"></a>
+</h3>
+<p>Unfortunately, the required input data is often incomplete and requires further processing before it can be used. Item-level price data can be validated through <code><a href="../reference/valid_pot.html">valid_pot()</a></code>, <code><a href="../reference/valid_apt.html">valid_apt()</a></code>, <code>valid_XRratio()</code>, and <code>valid_PPPratio()</code>. Expenditure weights can be validated through <code><a href="../reference/valid_est.html">valid_est()</a></code>.</p>
+<section class="level3" data-number="3.3.1"><h4 data-number="3.3.1" id="missing-price-quotes">
+<span class="header-section-number">3.3.1</span> Missing price quotes<a class="anchor" aria-label="anchor" href="#missing-price-quotes"></a>
+</h4>
+<p>Basic heading sPPPs obtained from <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> may be incomplete for several reasons, such as missing price quotes for specific regions or uniform pricing across regions. In these cases, the above-outlined approach results in an error from <code><a href="../reference/index_geks.html">index_geks()</a></code> due to an incomplete sPPP matrix.</p>
+<p>In the example below, we remove the sPPPs for two region/basic heading pairs. While <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> returns a harmonized data frame, <code><a href="../reference/index_geks.html">index_geks()</a></code> returns an error.</p>
+<p>Note that in the code chunk below, <code><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch()</a></code> is used to print the error message returned by <code><a href="../reference/index_geks.html">index_geks()</a></code> as an output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Return error message ------</span></span>
+<span><span class="va">return_error</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="va">expr</span>,</span>
+<span>    error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Error message:\n"</span>, <span class="va">e</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">return_error</span><span class="op">(</span></span>
+<span>  <span class="va">dt1_prices</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">.x</span>,</span>
+<span>        region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>        product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>        price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>        output <span class="op">=</span> <span class="st">"sPPP"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="co"># Remove sPPPs for the following region/heading combinations: 1/1, 2/1</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">region</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
+<span>      data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>      data_weights <span class="op">=</span> <span class="va">dt1_wghts</span>,</span>
+<span>      basic_heading <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>      sPPP <span class="op">=</span> <span class="st">"sPPP"</span>,</span>
+<span>      exp_wght <span class="op">=</span> <span class="st">"weight"</span>,</span>
+<span>      complete_sppp <span class="op">=</span> <span class="cn">NA</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/index_geks.html">index_geks</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error message:</span></span>
+<span><span class="co">#&gt; Error in valid_index_data(data, region, product, ppp_bh, exp_wght): Incomplete PPP matrix.</span></span>
+<span><span class="co">#&gt; Missing PPPs for the following region/product combinations:</span></span>
+<span><span class="co">#&gt;  1/1; 2/1</span></span></code></pre></div>
+</div>
+<p><code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> enables imputing a user-specified value for missing sPPPs through the “complete_sppp” argument. The same value is imputed for all region/basic heading pairs with missing sPPPs. The missing pairs are identified by <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> and do not have to be specified by the user. Below, we impute 1 for sPPPs of all such pairs. <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> also returns a warning listing all region/basic heading pairs for which the user-provided value was imputed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dt1_prices</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">.x</span>,</span>
+<span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>      product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>      price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>      output <span class="op">=</span> <span class="st">"sPPP"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Remove sPPPs for the following region/heading combinations: 1/1, 2/1</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">region</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Setting complete_sppp = 1 to impute 1 for missing sPPPs</span></span>
+<span>  <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>    data_weights <span class="op">=</span> <span class="va">dt1_wghts</span>,</span>
+<span>    basic_heading <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>    sPPP <span class="op">=</span> <span class="st">"sPPP"</span>,</span>
+<span>    exp_wght <span class="op">=</span> <span class="st">"weight"</span>,</span>
+<span>    complete_sppp <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/index_geks.html">index_geks</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "sPPP of 1 was imputed to the following region/headings pairs: 1/1; 2/1"</span></span>
+<span><span class="co">#&gt; Warning in estim_index_link(data = ., data_weights = dt1_wghts, basic_heading =</span></span>
+<span><span class="co">#&gt; "group", : sPPP of 1 was imputed to the following region/headings pairs: 1/1;</span></span>
+<span><span class="co">#&gt; 2/1</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="zikwflsxwd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zikwflsxwd table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zikwflsxwd thead, #zikwflsxwd tbody, #zikwflsxwd tfoot, #zikwflsxwd tr, #zikwflsxwd td, #zikwflsxwd th {
+  border-style: none;
+}
+
+#zikwflsxwd p {
+  margin: 0;
+  padding: 0;
+}
+
+#zikwflsxwd .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zikwflsxwd .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zikwflsxwd .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zikwflsxwd .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zikwflsxwd .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zikwflsxwd .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zikwflsxwd .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zikwflsxwd .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zikwflsxwd .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zikwflsxwd .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zikwflsxwd .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zikwflsxwd .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zikwflsxwd .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zikwflsxwd .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zikwflsxwd .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zikwflsxwd .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zikwflsxwd .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zikwflsxwd .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zikwflsxwd .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zikwflsxwd .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zikwflsxwd .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zikwflsxwd .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zikwflsxwd .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zikwflsxwd .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zikwflsxwd .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zikwflsxwd .gt_left {
+  text-align: left;
+}
+
+#zikwflsxwd .gt_center {
+  text-align: center;
+}
+
+#zikwflsxwd .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zikwflsxwd .gt_font_normal {
+  font-weight: normal;
+}
+
+#zikwflsxwd .gt_font_bold {
+  font-weight: bold;
+}
+
+#zikwflsxwd .gt_font_italic {
+  font-style: italic;
+}
+
+#zikwflsxwd .gt_super {
+  font-size: 65%;
+}
+
+#zikwflsxwd .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zikwflsxwd .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zikwflsxwd .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zikwflsxwd .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zikwflsxwd .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zikwflsxwd .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zikwflsxwd .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#zikwflsxwd .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#zikwflsxwd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="base_region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">base_region</th>
+<th id="region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">region</th>
+<th id="geks_index" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">geks_index</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="geks_index">1.0000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="geks_index">1.7329</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="geks_index">1.5194</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="geks_index">1.4907</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="base_region">3</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="geks_index">1.4852</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="base_region">4</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="geks_index">0.5771</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section class="level3" data-number="3.3.2"><h4 data-number="3.3.2" id="incomplete-weighting-matrix">
+<span class="header-section-number">3.3.2</span> Incomplete weighting matrix<a class="anchor" aria-label="anchor" href="#incomplete-weighting-matrix"></a>
+</h4>
+<p>Alternatively, the expenditure weights data frame can contain empty fields for some region/basic heading combinations. <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> still works with such data and returns a standardized data frame. However, this data frame contains NAs for some region/basic heading weights.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Remove expenditure weight for the following region/heading combination: 1/1</span></span>
+<span><span class="va">dt1_wghts</span> <span class="op">&lt;-</span> <span class="va">dt1_wghts</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">group</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">region</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dt1_prices</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">.x</span>,</span>
+<span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>      product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>      price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>      output <span class="op">=</span> <span class="st">"sPPP"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>    data_weights <span class="op">=</span> <span class="va">dt1_wghts</span>,</span>
+<span>    basic_heading <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>    sPPP <span class="op">=</span> <span class="st">"sPPP"</span>,</span>
+<span>    exp_wght <span class="op">=</span> <span class="st">"weight"</span>,</span>
+<span>    complete_sppp <span class="op">=</span> <span class="cn">NA</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="xcnhfdwjpx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xcnhfdwjpx table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xcnhfdwjpx thead, #xcnhfdwjpx tbody, #xcnhfdwjpx tfoot, #xcnhfdwjpx tr, #xcnhfdwjpx td, #xcnhfdwjpx th {
+  border-style: none;
+}
+
+#xcnhfdwjpx p {
+  margin: 0;
+  padding: 0;
+}
+
+#xcnhfdwjpx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xcnhfdwjpx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xcnhfdwjpx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xcnhfdwjpx .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xcnhfdwjpx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xcnhfdwjpx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xcnhfdwjpx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xcnhfdwjpx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xcnhfdwjpx .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xcnhfdwjpx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xcnhfdwjpx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xcnhfdwjpx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xcnhfdwjpx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xcnhfdwjpx .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xcnhfdwjpx .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcnhfdwjpx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xcnhfdwjpx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xcnhfdwjpx .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xcnhfdwjpx .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcnhfdwjpx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xcnhfdwjpx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcnhfdwjpx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xcnhfdwjpx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcnhfdwjpx .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xcnhfdwjpx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xcnhfdwjpx .gt_left {
+  text-align: left;
+}
+
+#xcnhfdwjpx .gt_center {
+  text-align: center;
+}
+
+#xcnhfdwjpx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xcnhfdwjpx .gt_font_normal {
+  font-weight: normal;
+}
+
+#xcnhfdwjpx .gt_font_bold {
+  font-weight: bold;
+}
+
+#xcnhfdwjpx .gt_font_italic {
+  font-style: italic;
+}
+
+#xcnhfdwjpx .gt_super {
+  font-size: 65%;
+}
+
+#xcnhfdwjpx .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xcnhfdwjpx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xcnhfdwjpx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xcnhfdwjpx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xcnhfdwjpx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xcnhfdwjpx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xcnhfdwjpx .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#xcnhfdwjpx .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#xcnhfdwjpx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="product" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">product</th>
+<th id="region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">region</th>
+<th id="ppp_bh" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ppp_bh</th>
+<th id="exp_wght" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">exp_wght</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="product">1</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="ppp_bh">1.2944</td>
+<td class="gt_row gt_right" headers="exp_wght">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="product">1</td>
+<td class="gt_row gt_right" headers="region">2</td>
+<td class="gt_row gt_right" headers="ppp_bh">0.5238</td>
+<td class="gt_row gt_right" headers="exp_wght">0.0685</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="product">1</td>
+<td class="gt_row gt_right" headers="region">3</td>
+<td class="gt_row gt_right" headers="ppp_bh">1.2010</td>
+<td class="gt_row gt_right" headers="exp_wght">0.0685</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="product">1</td>
+<td class="gt_row gt_right" headers="region">4</td>
+<td class="gt_row gt_right" headers="ppp_bh">1.1724</td>
+<td class="gt_row gt_right" headers="exp_wght">0.0685</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="product">1</td>
+<td class="gt_row gt_right" headers="region">5</td>
+<td class="gt_row gt_right" headers="ppp_bh">1.0475</td>
+<td class="gt_row gt_right" headers="exp_wght">0.0685</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="product">2</td>
+<td class="gt_row gt_right" headers="region">1</td>
+<td class="gt_row gt_right" headers="ppp_bh">0.9842</td>
+<td class="gt_row gt_right" headers="exp_wght">0.0954</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>In turn, this results in the index number function to break and return an error due to an incomplete expenditure weights matrix.</p>
+<p>Note that in the code chunk below, <code><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch()</a></code> is used to print the error message returned by <code><a href="../reference/index_geks.html">index_geks()</a></code> as an output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">return_error</span><span class="op">(</span></span>
+<span>  <span class="va">dt1_prices</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../reference/estim_cpd.html">estim_cpd</a></span><span class="op">(</span><span class="va">.x</span>,</span>
+<span>        region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>        product <span class="op">=</span> <span class="st">"product"</span>,</span>
+<span>        price <span class="op">=</span> <span class="st">"price"</span>,</span>
+<span>        output <span class="op">=</span> <span class="st">"sPPP"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
+<span>      data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>      data_weights <span class="op">=</span> <span class="va">dt1_wghts</span>,</span>
+<span>      basic_heading <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>      sPPP <span class="op">=</span> <span class="st">"sPPP"</span>,</span>
+<span>      exp_wght <span class="op">=</span> <span class="st">"weight"</span>,</span>
+<span>      complete_sppp <span class="op">=</span> <span class="cn">NA</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/index_geks.html">index_geks</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error message:</span></span>
+<span><span class="co">#&gt; Error in valid_index_data(data, region, product, ppp_bh, exp_wght): </span></span>
+<span><span class="co">#&gt; Incomplete expenditure weights matrix.</span></span>
+<span><span class="co">#&gt; Missing weights for the following region/product combinations:</span></span>
+<span><span class="co">#&gt;  1/1</span></span></code></pre></div>
+</div>
+<p><br><br></p>
+<hr></section></section></section><section class="section level2"><h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-datatable" class="csl-entry" role="listitem">
@@ -1867,6 +4112,12 @@ Hearne, David, and David Bailey. 2025. <span>“Regional Prices Reconsidered.”
 </div>
 <div id="ref-icp2021" class="csl-entry" role="listitem">
 ICP. 2021. <em>A Guide to the Compilation of Subnational Purchasing Power Parities (PPPs)</em>. <a href="https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf" class="external-link">https://thedocs.worldbank.org/en/doc/5064f2288436664bc8f9811c8a5b8c55-0050022021/original/Guide-Subnational-PPPs.pdf</a>.
+</div>
+<div id="ref-Istat" class="csl-entry" role="listitem">
+Istat. 2026. <em>Consumer Spatial Price Indices</em>. <a href="https://www.istat.it/en/experimental-statistic/consumer-spatial-price-indices/" class="external-link">https://www.istat.it/en/experimental-statistic/consumer-spatial-price-indices/</a>.
+</div>
+<div id="ref-summers1973international" class="csl-entry" role="listitem">
+Summers, Robert. 1973. <span>“International Price Comparisons Based Upon Incomplete Data.”</span> <em>Review of Income and Wealth</em> 19 (1): 1–16.
 </div>
 <div id="ref-pricelevels" class="csl-entry" role="listitem">
 Weinand, Sebastian. 2025. <em>Pricelevels: Spatial Price Level Comparisons</em>. <a href="https://doi.org/10.32614/CRAN.package.pricelevels" class="external-link">https://doi.org/10.32614/CRAN.package.pricelevels</a>.

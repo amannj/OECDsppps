@@ -1,7 +1,7 @@
-# OECDsppps: Calculating subnational purchasing power parities (SPPPs) in OECD regions
+# OECDsppps: Calculating subnational purchasing power parities (sPPPs) in OECD regions
 
-R package to calculate subnational purchasing power parities in OECD
-regions.
+An R package for calculating subnational purchasing power parities
+(sPPPs) in OECD regions.
 
 ## See also
 
