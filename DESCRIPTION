@@ -10,14 +10,14 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Suggests: 
     quarto,
-    testthat (>= 4.1.0),
+    testthat (>= 3.3.2),
     data.table,
     pricelevels,
     gt,
     knitr
 Config/testthat/edition: 3
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1.0)
 LazyData: true
 URL: https://github.com/amannj/OECDsppps, https://amannj.github.io/OECDsppps/
 BugReports: https://github.com/amannj/OECDsppps/issues
