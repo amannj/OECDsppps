@@ -10,7 +10,7 @@ Purchasing Power Parities (sPPPs) in OECD regions as part of the project
 
 This documentation describes the processing, validation, aggregation and 
 estimation for the purpose 
-of constructing subnational PPPs.
+of constructing subnational PPPs (sPPPs).
 
 ## Installation
 

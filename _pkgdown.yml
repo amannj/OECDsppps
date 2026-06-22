@@ -1,8 +1,22 @@
 url: https://amannj.github.io/OECDsppps/
+
 template:
   bootstrap: 5
   math-rendering: mathjax
+  bslib:
+    primary: "#003A8C"
+    secondary: "#5C6770"
+    success: "#4C9F38"
+    base_font:
+      google: Source Sans 3
+    heading_font:
+      google: Source Sans 3
+    code_font:
+      google: Source Code Pro
+
 navbar:
+  bg: primary
+  type: dark
   structure:
     left: [home, reference, articles, news]
     right: [search, github]
@@ -28,19 +42,24 @@ navbar:
       news:
         text: "News"
         href: news/index.html
+
 reference:
   - title: "Raw data validation"
     desc: "Functions for raw data validation"
     contents:
-      - valid_pot
       - valid_apt
+      - valid_dikhanov
       - valid_est
-      - valid_XRratio
-      - valid_PPPratio
+      - valid_pls
+      - valid_outlier_plot
+      - valid_pot
+      - valid_ratio_ppp
+      - valid_ratio_xr
   - title: "Estimation at basic-heading level"
     desc: "Function for estimation at basic-heading level"
     contents:
       - estim_cpd
+      - estim_index_link
   - title: "Estimation beyond the basic-heading level"
     desc: "Functions for estimation price indices and index calculation"
     contents:

@@ -16,7 +16,7 @@ which should be based on the
 }
 \description{
 \loadmathjax
-\code{valid_pot} in  \pkg{OECDsppps} creates the "Price Observation Table";
+\code{valid_pot} creates the "Price Observation Table";
 by calculating two \emph{individual price outlier statistics} for the
 individual item-level price quotes,  the \emph{ratio-to-average price test} and the \emph{t-value test};
 \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
@@ -24,8 +24,8 @@ All item-level price
 quotes that do not pass the two tests are flagged in columns
 \verb{Ratio-to-average price test FLAG} and \verb{T-value test FLAG}, respectively.
 The item-level price quotes should be based on the
-\emph{reference quantity price};
-see \emph{Details} and \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+\strong{reference quantity price};
+see \emph{Details} and \insertCite{@worldbankMeasuringRealSize2013;textual}{OECDsppps},
 table 9.1a. for more information.
 }
 \details{

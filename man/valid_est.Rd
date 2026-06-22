@@ -41,10 +41,8 @@ as big as the minimum are flagged in \verb{Median-min ratio FLAG}:
 suppressPackageStartupMessages(library(dplyr))
 library(OECDsppps)
 uk_hhe |>
- group_by(coicop_4d) |>
- valid_est(shares = 'expenditure_share')
-
-
+  group_by(coicop_4d) |>
+  valid_est(shares = "expenditure_share")
 
 }
 \references{

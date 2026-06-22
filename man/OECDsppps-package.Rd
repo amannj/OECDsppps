@@ -4,11 +4,11 @@
 \name{OECDsppps-package}
 \alias{OECDsppps}
 \alias{OECDsppps-package}
-\title{OECDsppps: Calculating subnational purchasing power parities (SPPPs) in OECD regions}
+\title{OECDsppps: Calculating subnational purchasing power parities (sPPPs) in OECD regions}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-R package to calculate subnational purchasing power parities in OECD regions.
+An R package for calculating subnational purchasing power parities (sPPPs) in OECD regions.
 }
 \seealso{
 Useful links:

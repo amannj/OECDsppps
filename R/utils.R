@@ -7,4 +7,6 @@
 #'
 #' @return Vector excluding values specified.
 #' @noRd
-"%not.in%" <- function(x, y){ !("%in%"(x, y))}
+"%not.in%" <- function(x, y) {
+  !("%in%"(x, y))
+}
