@@ -554,8 +554,8 @@ valid_outlier_plot <- function(data,
 #' pairs are aggregated by way of averaging across region-product pairs following the
 #' default options in `estim_cpd()`
 #' @param basic_heading Identifier for basic headings/higher level aggregates
-#' @param selected_headings selected basic headings/higher level aggregates for which
-#' Dikhanov tables should be constructed
+#' @param selected_headings Subset of basic headings/higher level aggregates, identified by the
+#' "basic_heading" variable, for which the function returns the Dikhanov tables
 #'
 #'
 #' @importFrom dplyr filter
@@ -567,13 +567,14 @@ valid_outlier_plot <- function(data,
 #' @importFrom dplyr rowwise
 #' @importFrom dplyr ungroup
 #' @importFrom dplyr case_when
-#' @importFrom dplyr cur_data
+#' @importFrom dplyr pick
 #' @importFrom dplyr arrange
 #' @importFrom dplyr relocate
 #' @importFrom dplyr c_across
 #' @importFrom dplyr n_distinct
 #' @importFrom tidyr pivot_wider
 #' @importFrom purrr map
+#' @importFrom tidyselect everything
 #'
 #'
 #' @examples
@@ -651,7 +652,7 @@ valid_dikhanov <- function(data,
             .default = `Items/Countries`
           ),
           `STD 1` = case_when(variable %in% c("sPPP", "No. of items priced") ~ NA,
-            variable %in% c("STD 2") ~ cur_data() %>%
+            variable %in% c("STD 2") ~ pick(everything()) %>%
               filter(!is.na(product)) %>%
               select(-variable, -product, -`STD 1`, -`Items/Countries`) %>%
               unlist() %>%

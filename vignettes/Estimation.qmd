@@ -58,15 +58,15 @@ The estimation steps are:
     information is available, for instance, when retail scanner data
     provide detailed transaction-level records).
 
-2.  [Estimation of higher level aggregates using basic heading indices](#sec-step2) 
-    to higher levels of the classification
+2.  [Estimation of higher level aggregates using basic heading
+    indices](#sec-step2) to higher levels of the classification
     hierarchy, at which point household expenditure data are accessible
     and can be applied as weighting factors.
-    
-To seamlessly combine the two estimation steps, `OECDsppps`, provides the 
-'linking function' `estim_index_link()` to impute missing basic-heading 
-subnational PPPs. A complete sylised workflow is described in section
-[Putting it all together](#sec-combined).
+
+To seamlessly combine the two estimation steps, `OECDsppps`, provides
+the 'linking function' `estim_index_link()` to impute missing
+basic-heading subnational PPPs. A complete sylised workflow is described
+in section [Putting it all together](#sec-combined).
 
 ## Estimation methods {.unnumbered}
 
@@ -891,7 +891,7 @@ dt1_wghts <- dt1 %>%
   select(group, region, weight)
 ```
 
-## CPD estimation at the basic heading level using item-level prices  
+## CPD estimation at the basic heading level using item-level prices
 
 Basic heading level sPPPs can be obtained from item-level price data by
 first grouping the data by basic heading with `group_by()`, then
@@ -914,28 +914,32 @@ dt1_prices %>%
   fmt_number(decimals = 4)
 ```
 
-This will return a grouped tibble containing three columns: the variable specified
-by `group_by` (in this case the basic heading "group"); region ("region"),
-and the subnational PPPs estimated via the CPD method ("sPPP"). 
+This will return a grouped tibble containing three columns: the variable
+specified by `group_by` (in this case the basic heading "group"); region
+("region"), and the subnational PPPs estimated via the CPD method
+("sPPP").
 
-Note that the returned tibble is still grouped by the grouping variable 
-specified in `group_by()`, which should be resolved with `ungroup()` before proceeding further.
+Note that the returned tibble is still grouped by the grouping variable
+specified in `group_by()`, which should be resolved with `ungroup()`
+before proceeding further.
 
 ## Index calculation using basic heading indices
 
-GEKS (as well as Laspeyres, Paasche, Fisher, which are all nested within the GEKS function) indices can be calculated by
-linking the previous commands with `index_geks()` (as well as `index_laspeyres()`,
-`index_paasche()`, `index_fisher()`) through the
-`estim_index_link()` function.
+GEKS (as well as Laspeyres, Paasche, Fisher, which are all nested within
+the GEKS function) indices can be calculated by linking the previous
+commands with `index_geks()` (as well as `index_laspeyres()`,
+`index_paasche()`, `index_fisher()`) through the `estim_index_link()`
+function.
 
-`estim_index_link()` takes tibble (data frame) containing the basic heading
-sPPPs, and joins it with a supplied data frame containing the household
-expenditure weights, and gives the user the option to impute price quotes for
-expenditure categories, for which household expenditure weights are present but 
-nor price quotes are available.
+`estim_index_link()` takes tibble (data frame) containing the basic
+heading sPPPs, and joins it with a supplied data frame containing the
+household expenditure weights, and gives the user the option to impute
+price quotes for expenditure categories, for which household expenditure
+weights are present but nor price quotes are available.
 
-Thus, `estim_index_link()`  returns a data object with all necessary 
-variables for the calculation of the price indices, e.g., `index_geks()`.
+Thus, `estim_index_link()` returns a data object with all necessary
+variables for the calculation of the price indices, e.g.,
+`index_geks()`.
 
 To summarise, the complete workflow has these three steps:
 
@@ -979,8 +983,6 @@ dt1_prices %>%
   fmt_number(decimals = 4)
 ```
 
-
-
 ## Incomplete input data
 
 Unfortunately, the required input data is often incomplete and requires
@@ -1001,8 +1003,8 @@ In the example below, we remove the sPPPs for two region/basic heading
 pairs. While `estim_index_link()` returns a harmonized data frame,
 `index_geks()` returns an error.
 
-Note that in the code chunk below, `tryCatch()` is used to print the error message
-returned by `index_geks()` as an output.
+Note that in the code chunk below, `tryCatch()` is used to print the
+error message returned by `index_geks()` as an output.
 
 ```{r}
 # Return error message ------
@@ -1121,9 +1123,8 @@ dt1_prices %>%
 In turn, this results in the index number function to break and return
 an error due to an incomplete expenditure weights matrix.
 
-Note that in the code chunk below, `tryCatch()` is used to print the error message
-returned by `index_geks()` as an output.
-
+Note that in the code chunk below, `tryCatch()` is used to print the
+error message returned by `index_geks()` as an output.
 
 ```{r}
 return_error(
@@ -1151,11 +1152,8 @@ return_error(
 )
 ```
 
+<br> <br>
 
-
-<br>
-<br>
-
--------------
+------------------------------------------------------------------------
 
 # References {.unnumbered}
