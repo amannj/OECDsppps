@@ -113,3 +113,8 @@ validation and estimation pipelines
 complete sPPPs production pipeline describing the use of `estim_index_link()`
 - Improve visualisation of packet vignette
 
+------------
+
+# Version `0.0.0.8`
+
+....
