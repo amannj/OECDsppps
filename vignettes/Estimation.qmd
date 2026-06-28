@@ -967,12 +967,12 @@ dt1_prices %>%
   ungroup() %>%
   # 2nd step: preparing the data for index number calculation
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = NA
   ) %>%
   # 3rd step: Index number calculation
@@ -1032,12 +1032,12 @@ return_error(
     # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
     filter(!(region %in% c("1", "2") & group == "1")) %>%
     estim_index_link(
-      data = .,
+      data_sppps = .,
       data_weights = dt1_wghts,
-      basic_heading = "group",
+      product_heading = "group",
       region = "region",
       sPPP = "sPPP",
-      exp_wght = "weight",
+      weights = "weight",
       complete_sppp = NA
     ) %>%
     index_geks()
@@ -1068,12 +1068,12 @@ dt1_prices %>%
   filter(!(region %in% c("1", "2") & group == "1")) %>%
   # Setting complete_sppp = 1 to impute 1 for missing sPPPs
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = 1
   ) %>%
   index_geks() %>%
@@ -1107,12 +1107,12 @@ dt1_prices %>%
   }) %>%
   ungroup() %>%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = NA
   ) %>%
   head() %>%
@@ -1140,12 +1140,12 @@ return_error(
     }) %>%
     ungroup() %>%
     estim_index_link(
-      data = .,
+      data_sppps = .,
       data_weights = dt1_wghts,
-      basic_heading = "group",
+      product_heading = "group",
       region = "region",
       sPPP = "sPPP",
-      exp_wght = "weight",
+      weights = "weight",
       complete_sppp = NA
     ) %>%
     index_geks()

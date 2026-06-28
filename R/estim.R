@@ -260,14 +260,14 @@ estim_cpd <- function(data,
 #' `estim_index_link()` enables linking CPD estimation to index calculation within
 #' one pipe. Can fill in missing basic heading PPPs with a value given by the user.
 #'
-#' @param data Data frame, data table or tibble containing at least three
+#' @param data_sppps Data frame, data table or tibble containing at least three
 #'  columns identifying region, product and respective sPPPs
 #' @param data_weights Data frame, data table or tibble containing at least three
 #' columns identifying region, product and expenditure weights
-#' @param basic_heading column containing the basic heading identifier
+#' @param product_heading column containing the product heading, typically following the COICOP classification
 #' @param region Identifier for regions
 #' @param sPPP Identifier for the basix heading sPPPs
-#' @param exp_wght Identifier for expenditure weights
+#' @param weights Identifier for expenditure weights
 #' @param complete_sppp value to be imputed for missing basic heading PPPs
 #'
 #' @return Returns a data frame containing the variables indicating the region ("region"),
@@ -311,12 +311,12 @@ estim_cpd <- function(data,
 #'
 #' dt1_basic_headings %>%
 #'   estim_index_link(
-#'     data = .,
+#'     data_sppps = .,
 #'     data_weights = dt1_wghts,
-#'     basic_heading = "group",
+#'     product_heading = "group",
 #'     region = "region",
 #'     sPPP = "sPPP",
-#'     exp_wght = "weight",
+#'     weights = "weight",
 #'     complete_sppp = NA
 #'   )
 #'
@@ -327,12 +327,12 @@ estim_cpd <- function(data,
 #' dt1_basic_headings %>%
 #'   filter(!(region %in% c("1", "2") & group == "1")) %>%
 #'   estim_index_link(
-#'     data = .,
+#'     data_sppps = .,
 #'     data_weights = dt1_wghts,
-#'     basic_heading = "group",
+#'     product_heading = "group",
 #'     region = "region",
 #'     sPPP = "sPPP",
-#'     exp_wght = "weight",
+#'     weights = "weight",
 #'     complete_sppp = NA
 #'   )
 #'
@@ -343,12 +343,12 @@ estim_cpd <- function(data,
 #' dt1_basic_headings %>%
 #'   filter(!(region %in% c("1", "2") & group == "1")) %>%
 #'   estim_index_link(
-#'     data = .,
+#'     data_sppps = .,
 #'     data_weights = dt1_wghts,
-#'     basic_heading = "group",
+#'     product_heading = "group",
 #'     region = "region",
 #'     sPPP = "sPPP",
-#'     exp_wght = "weight",
+#'     weights = "weight",
 #'     complete_sppp = 1
 #'   )
 #' }
@@ -362,19 +362,24 @@ estim_cpd <- function(data,
 #' @importFrom dplyr filter
 #'
 #' @export
-estim_index_link <- function(data,
-                             data_weights = data_weights,
-                             basic_heading = "basic_heading",
+estim_index_link <- function(data_sppps,
+                             data_weights,
+                             product_heading = "product_heading ",
                              region = "region",
                              sPPP = "sPPP",
-                             exp_wght = "weight",
+                             weights = "weight",
                              complete_sppp = NA) {
-  harmonised_data <- data %>%
+  harmonised_data <- data_sppps %>%
     full_join(data_weights,
-      by = c({{ basic_heading }}, {{ region }})
+      by = c({{ product_heading }}, {{ region }})
     ) %>%
-    filter(!is.na({{ exp_wght }})) %>%
-    rename(product = {{ basic_heading }}, ppp_bh = sPPP, exp_wght = {{ exp_wght }}, region = {{ region }})
+    filter(!is.na({{ weights }})) %>%
+    rename(
+      product = {{ product_heading }},
+      ppp_bh = sPPP,
+      exp_wght = {{ weights }},
+      region = {{ region }}
+    )
 
   if (!is.na(complete_sppp)) {
     harmonised_data <- harmonised_data %>%
@@ -390,11 +395,11 @@ estim_index_link <- function(data,
       replace_na(list(ppp_bh = complete_sppp)) %>%
       full_join(data_weights,
         by = c(
-          product = {{ basic_heading }},
+          product = {{ product_heading }},
           region = {{ region }}
         )
       ) %>%
-      rename(exp_wght = {{ exp_wght }})
+      rename(exp_wght = {{ weights }})
 
     if (length(completed_regions_headings_v) > 0) {
       warning(print(paste(

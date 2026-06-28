@@ -104,7 +104,7 @@ Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices
 
 Complete estimation and validation pipelines and improve visualisation 
 
-### Bug fixes
+### Additions
 
 - Add  functions `valid_outlier_plot()`, `valid_dikhanov()` and `estim_index_link()` to complete the 
 validation and estimation pipelines
@@ -118,3 +118,10 @@ complete sPPPs production pipeline describing the use of `estim_index_link()`
 # Version `0.0.0.8`
 
 ....
+
+### Additions
+
+- Added numbers of observations to `valid_est()`
+
+### Bug fixes
+

@@ -311,6 +311,7 @@ valid_ratio_ppp <- function(data,
 #' `valid_est()` in  \pkg{OECDsppps} creates the "Expenditure Shares Table"
 #' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
 #' The function calculates the:
+#' - `Nobs` - Number of data points by by group as specified by `group_by()`
 #' - `Maximum`- Highest expenditure share based on expenditure shares by group as specified by `group_by()`
 #' - `Median` - Median expenditure share based on expenditure shares by group as specified by `group_by()`
 #' - `Minimum` - Lowest expenditure share based on expenditure shares by group as specified by `group_by()`
@@ -354,6 +355,7 @@ valid_est <- function(data,
   data |>
     ## Summary stats
     summarise(
+      Nobs = n(),
       `Maximum expenditure share` = max(.data[[shares]]),
       `Median expenditure share` = median(.data[[shares]]),
       `Minimum expenditure share` = min(.data[[shares]])

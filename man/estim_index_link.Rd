@@ -5,29 +5,29 @@
 \title{CPD estimation to index calculation linking function}
 \usage{
 estim_index_link(
-  data,
-  data_weights = data_weights,
-  basic_heading = "basic_heading",
+  data_sppps,
+  data_weights,
+  product_heading = "product_heading ",
   region = "region",
   sPPP = "sPPP",
-  exp_wght = "weight",
+  weights = "weight",
   complete_sppp = NA
 )
 }
 \arguments{
-\item{data}{Data frame, data table or tibble containing at least three
+\item{data_sppps}{Data frame, data table or tibble containing at least three
 columns identifying region, product and respective sPPPs}
 
 \item{data_weights}{Data frame, data table or tibble containing at least three
 columns identifying region, product and expenditure weights}
 
-\item{basic_heading}{column containing the basic heading identifier}
+\item{product_heading}{column containing the product heading, typically following the COICOP classification}
 
 \item{region}{Identifier for regions}
 
 \item{sPPP}{Identifier for the basix heading sPPPs}
 
-\item{exp_wght}{Identifier for expenditure weights}
+\item{weights}{Identifier for expenditure weights}
 
 \item{complete_sppp}{value to be imputed for missing basic heading PPPs}
 }
@@ -77,12 +77,12 @@ dt1_basic_headings <- dt1_prices \%>\%
 
 dt1_basic_headings \%>\%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = NA
   )
 
@@ -93,12 +93,12 @@ dt1_basic_headings \%>\%
 dt1_basic_headings \%>\%
   filter(!(region \%in\% c("1", "2") & group == "1")) \%>\%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = NA
   )
 
@@ -109,12 +109,12 @@ dt1_basic_headings \%>\%
 dt1_basic_headings \%>\%
   filter(!(region \%in\% c("1", "2") & group == "1")) \%>\%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = 1
   )
 }
