@@ -108,7 +108,7 @@ valid_pot <- function(data,
 #'
 #' @param data A data frame or tibble containing at least one column with
 #' individual item-level price quotes.
-#' @param value Column containing the individual item-level price quotes,
+#' @param price_quote Column containing the individual item-level price quotes,
 #' which should be based on the
 #' "reference quantity price"; see *Details* for more information.
 #' @references
@@ -120,7 +120,7 @@ valid_pot <- function(data,
 #' uk_cpi |>
 #'   select(Year, Region, `Product code`, `Reference quantity price`) |>
 #'   group_by(Year, Region, `Product code`) |>
-#'   valid_apt(value = "Reference quantity price") |>
+#'   valid_apt(price_quote = "Reference quantity price") |>
 #'   head(n = 2) |>
 #'   t()
 #'
@@ -132,17 +132,17 @@ valid_pot <- function(data,
 #' @importFrom rlang .data
 #' @export
 valid_apt <- function(data,
-                      value = "Reference quantity price") {
+                      price_quote = "Reference quantity price") {
   data |>
     ## Number of observations
     mutate(nobs = 1) |>
     ## Summary stats
     summarise(
       `Number of observations` = sum(nobs),
-      `Average price of product` = mean(.data[[value]]),
-      `Maximum price of product` = max(.data[[value]]),
-      `Minimum price of product` = min(.data[[value]]),
-      `Standard deviation` = sd(.data[[value]])
+      `Average price of product` = mean(.data[[price_quote]]),
+      `Maximum price of product` = max(.data[[price_quote]]),
+      `Minimum price of product` = min(.data[[price_quote]]),
+      `Standard deviation` = sd(.data[[price_quote]])
     ) |>
     ## Calculate tests
     mutate(

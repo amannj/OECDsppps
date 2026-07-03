@@ -145,7 +145,7 @@ estim_cpd <- function(data,
         summarise({{ price }} := stats::weighted.mean(.data[[price]], w = .data[[weights]], na.rm = T),
           .groups = "drop"
         )
-      message("Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
+      message("Duplicate region-product pairs found in data and weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
     }
   }
   ### Aggregate: use raw data provided

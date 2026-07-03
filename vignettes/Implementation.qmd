@@ -126,8 +126,7 @@ enabling a like-for-like comparison of products across regions. See
 | C | Supermarket | 500 | Grams | “Ben’s, basmati, bulk” | 0.79 |
 | B | Supermarket | 0.5 | Kilograms | “Ben, basm., bulk” | 0.69 |
 
-: Example of consumer price microdata based on Weinand and Auer
-@weinand2020 {#tbl-example}
+: Example of consumer price microdata based on @weinand2020 {#tbl-example}
 
 In addition to harmonising the individual price quotes, initial data
 processing also classifies the individual items or projects according to

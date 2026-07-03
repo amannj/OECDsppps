@@ -171,7 +171,7 @@ uk_apt <- uk_cpi |>
     `Product code`, `Reference quantity price`
   ) |>
   group_by(Year, Region, `Product code`) |>
-  valid_apt(value = "Reference quantity price")
+  valid_apt(price_quote = "Reference quantity price")
 
 head(uk_apt, 2) |>
   gt() |>

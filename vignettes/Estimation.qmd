@@ -102,9 +102,7 @@ recently used in @hearne2025 and is publicly available:
     and contains two products: White sliced loaf branded 750 grams
     (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
 
--   `uk_hhe()` is a snipped of the
-
-official [UK Regional Household Final Consumption Expenditure
+-   `uk_hhe()` is a snipped of the official [UK Regional Household Final Consumption Expenditure
 data](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
 published by the United Kingdom Office for National Statistics (ONS) and
 contains regional (TL2) household final consumption expenditure shares
