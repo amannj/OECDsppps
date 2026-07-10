@@ -45,23 +45,86 @@ library(purrr)
 5.  [Expenditure weights validation](#sec-exweights) describes the validation of household consumption expenditure
 6.  [Validation beyond basic-heading level](#sec-beyondbh) concerns the validation of price indices beyond the basing-heading level
 
-**Data** used in this vignette is taken from official UK microdata from the United Kingdom Office for National Statistics (ONS). Similar data was recently used in @hearne2025 and is publicly available:
+## Data
 
--   `uk_cpi()` is a snipped of the [UK CPI microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes) and contains price quotes for two products: White sliced loaf branded 750 grams (COICOP 01.1.1.3) and carpenter hourly rate (COICOP 04.3.2.5).
+Data used in this vignette is obtained through the `rdata()` function from the `pricelevels` package through which we generate an artificial data set containing prices for 5 headings priced across 5 regions. Each heading contains 5 products.
 
 ```{r}
-head(uk_cpi, n = 3) |>
-  group_by(Year, coicop_5d, `Product code`, `Product description`) |>
-  gt()
+
+# Generate data with pricelevels
+
+set.seed(123)
+
+R <- 5 # number of regions
+B <- 5 # number of product groups
+N <- 5 # number of products
+
+sample_data_df <- pricelevels::rdata(R = R, B = B, N = N,
+                                     weights = ~ b + r,
+                                     settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
+) %>%
+  as_tibble() %>%
+  rename(heading = group, exp_wght = weight) %>%
+  mutate(heading = as.factor(paste("heading", heading, sep = "_")),
+         region = as.factor(paste("area", region, sep = "_")),
+         product = as.factor(paste("item", product, sep = "_")))
+
 ```
 
--   `uk_hhe()` is a snipped of the - [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions) and contains regional household expenditure shares for the same two products: White sliced loaf branded 750 grams (COICOP 1010103) and carpenter hourly rate (COICOP 410518).[^1]
+We split this data into the following two data sets used in this vignette. This data structure should be representative of the common price and weight data used for index calculation for one year.
 
-[^1]: Note that for both products, the UK regional household final consumption expenditures are available only at the *class* or four-digit level of the COICOP classification, specifically `01.1.1` and `04.3.2`.
+- `sample_data_prices_df` contains price quotes, region, heading, and product identifiers.
 
 ```{r}
-head(uk_hhe, n = 4) |>
+
+sample_data_prices_df <- sample_data_df %>%
+  dplyr::select(heading, region, product, price)
+
+sample_data_prices_df %>%
+  head() %>%
   gt()
+
+```
+
+- `sample_data_weights_df` contains the expenditure weights, heading, and region identifiers.
+
+```{r}
+
+sample_data_weights_df <- sample_data_df %>%
+  distinct(heading, region, .keep_all = TRUE) %>%
+  dplyr::select(heading, region, exp_wght)
+
+sample_data_weights_df %>%
+  head() %>%
+  gt()
+
+```
+
+We also create a data set containing price quotes for multiple years.
+
+- `sample_data_multi_year_prices_df` contains price quotes, region, heading, product, and year identifiers.
+
+```{r}
+
+sample_data_multi_year_prices_df <- sample_data_prices_df |>
+  mutate(year = 2020) |>
+  bind_rows(pricelevels::rdata(R = R, B = B, N = N,
+                               weights = ~ b + r,
+                               settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
+  ) %>%
+    as_tibble() %>%
+    rename(heading = group, exp_wght = weight) %>%
+    dplyr::select(heading, region, product, price) %>%
+    mutate(heading = as.factor(paste("heading", heading, sep = "_")),
+           region = as.factor(paste("area", region, sep = "_")),
+           product = as.factor(paste("item", product, sep = "_")),
+           year = 2026))
+
+
+sample_data_multi_year_prices_df %>%
+  head() %>%
+  gt()
+
 ```
 
 # Intra-regional validation {#sec-intraregional}
@@ -74,15 +137,11 @@ For each product, a *Price Observation Table* is obtained, containing a characte
 
 **Ratio-to-average price test:** The ratio of an individual price observation $i$, $P_{i}$, of a specific product $j$ and the observed average price for the product, $\mu_j$. An observed price passes the this test if the ratio is between 0.5 and 1.5. This simple check flags potential outlier values values without relying on standard deviation, which can itself be distorted by outliers [@worldbank2013, p.251].
 
-$$
-ratio-to-average = p_{ij}/\mu_j
-$$
+$$ratio-to-average = p_{ij}/\mu_j$$
 
 **T-value test:** The ratio of the deviation of an individual price observation from the average reference quantity price for the product and the standard deviation of the product. To pass the test, the ratio must be 2.0 or less in absolute terms; any value greater than 2.0 is suspect because it falls outside the 95 percent confidence interval.
 
-$$
-t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}
-$$
+$$t-val = (p_{ij} - \mu_{P_j}) / \sigma_{P_j}$$
 
 Individual price quotes that do not pass these tests are flagged in the *Price Observation Table*. The price observation table is generated with the function `valid_pot()`.
 
@@ -92,17 +151,15 @@ Individual price quotes that do not pass these tests are flagged in the *Price O
 
 ```{r uk_pot}
 # Price Observation Table  ---------
-uk_pot <- uk_cpi |>
-  select(Year, `Product code`, , `Product description`, `Reference quantity price`) |>
-  group_by(Year, `Product code`, `Product description`) |>
-  valid_pot(price_quote = "Reference quantity price") |>
+sample_pot <- sample_data_prices_df %>%
+  group_by(heading) %>%
+  valid_pot(price_quote = "price") %>%
   ungroup()
 
-head(uk_pot, n = 3) |>
+head(sample_pot, n = 3) |>
   gt() |>
   tab_header(
-    title = md("**Price Observation Table**"),
-    subtitle = md("Example for `item_id` = 210111")
+    title = md("**Price Observation Table**")
   ) |>
   fmt_number(
     columns = c(
@@ -111,17 +168,18 @@ head(uk_pot, n = 3) |>
     ),
     decimals = 2
   )
+
 # Visualisation of price distribution ---------
-uk_pot |>
+sample_pot |>
   select(
-    `Product code`,
+    heading,
     `Ratio-to-average price test`:`T-value test`
   ) |>
   pivot_longer(`Ratio-to-average price test`:`T-value test`) |>
   mutate(
     is.outlier = case_when(name == "Ratio-to-average price test" & (value < 0.5 | value > 1.5) ~ "Test not passed",
-      name == "T-value test" & ((value > 2) | (value < -2)) ~ "Test not passed",
-      .default = "Test passed"
+                           name == "T-value test" & ((value > 2) | (value < -2)) ~ "Test not passed",
+                           .default = "Test passed"
     ),
     is.outlier = factor(is.outlier, levels = c("Test passed", "Test not passed"))
   ) |>
@@ -130,7 +188,6 @@ uk_pot |>
   geom_histogram(bins = 30) +
   labs(
     title = "Individual price outlier statistcs",
-    subtitle = "White sliced loaf branded 750G, 2018",
     x = "",
     fill = ""
   ) +
@@ -147,15 +204,11 @@ This stage involves identifying extreme values among the average prices of the p
 
 **Max-min ratio test:** The ratio between the maximal and minimal observed price for product $j$. Products where the maximal observed price is more than twice as big as the minimum are flagged
 
-$$
-max-min~ratio = max(p_j)/min(p_j)
-$$
+$$max-min~ratio = max(p_j)/min(p_j)$$
 
 **Coefficient-of-variation test:** The standard deviation for the product expressed as a percentage of the average price for the product. Products with a coefficient of variation greater than 20% will be flagged.
 
-$$
-coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}
-$$
+$$coefficient-of-variation: \sigma_{p_j} / \mu_{p_j}$$
 
 Aggregate price quotes that do not pass these tests are flagged in the *Average Price Table*. The price observation table is generated with the function `valid_apt()`.
 
@@ -165,22 +218,16 @@ Aggregate price quotes that do not pass these tests are flagged in the *Average 
 
 ```{r}
 # Average Price Table -------
-uk_apt <- uk_cpi |>
-  select(
-    Year, Region,
-    `Product code`, `Reference quantity price`
-  ) |>
-  group_by(Year, Region, `Product code`) |>
-  valid_apt(price_quote = "Reference quantity price")
+sample_apt <- sample_data_prices_df %>%
+  group_by(heading) %>%
+  valid_apt(value = "price")
 
-head(uk_apt, 2) |>
+head(sample_apt, 2) |>
   gt() |>
   tab_header(
-    title = md("**Average Price Table**"),
-    subtitle = md("Example for `item_id`s = 210111 & 410518, **pre-cleaning**")
+    title = md("**Average Price Table**")
   ) |>
   fmt_number(
-    columns = -c(Year, `Product code`),
     decimals = 2
   )
 ```
@@ -197,31 +244,24 @@ Using the two functions `valid_pot()`, and `valid_apt()` a simple production pip
 
 ```{r}
 # Example for linked production pipeline  -------
-uk_irv <- uk_cpi |>
-  select(
-    Year, Region,
-    `Product code`, , `Product description`,
-    `Reference quantity price`
-  ) |>
-  group_by(Year, Region, `Product code`, `Product description`) |>
+sample_irv <- sample_data_prices_df |>
+  group_by(region, heading) |>
   # Apply individual price outlier check
-  valid_pot() |>
+  valid_pot(price_quote = "price") |>
   # Condition on price quotes which pass the Price Observation Table tests
   filter(!`Ratio-to-average price test FLAG` & !`T-value test FLAG`) |>
   # Remove bimodal distribution
   filter(`Ratio-to-average price test` > 0.8) |>
   # Apply Average Price Table checks
-  valid_apt()
+  valid_apt(value = "price")
 
-head(uk_irv, 4) |>
-  group_by(Year, `Product code`, `Product description`) |>
+head(sample_apt, 4) |>
+  group_by(heading) |>
   gt() |>
   tab_header(
-    title = md("**Average Price Table**"),
-    subtitle = md("Example for `item_id`s = 210111 & 410518, **post-cleaning**")
+    title = md("**Average Price Table**")
   ) |>
   fmt_number(
-    columns = -c(Year, `Product code`),
     decimals = 1
   )
 ```
@@ -238,9 +278,7 @@ This is achieved by comparing the average prices of identical products across mu
 
 For product $1$ and country–region $A$, the SPR is defined as:
 
-$$
-SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100,
-$$
+$$SPR_{1A} = \mu^*_{1A} / \left( \prod_{n = A,\dots, N} \mu^*_{1n}  \right)^{\frac{1}{N}} \times 100,$$
 
 where $\mu^*_{1A}$ represents the **average converted price** of product $1$ in country–region $A$, and $N$ is the total number of country–regions. Two conversions are applied to make country–region prices comparable across countries: exchange rates and purchasing power parities (PPPs) [@worldbank2013, p.258]:
 
@@ -377,8 +415,8 @@ When official data required for the calculation of sPPPs are unavailable, altern
 
 The use of alternative data sources depends on the type and availability of data and may vary across cases and countries. Validation of such sources follows two main steps:
 
--   **Plausibility validation**
--   **Statistical validation**
+- **Plausibility validation**
+- **Statistical validation**
 
 **Plausibility validation** assesses the credibility of the identified data source and the reasonableness of the information it contains. This process involves cross-referencing data with additional alternative or official sources. Once the the numerically most credible source is identified, its plausibility is further verified through expert consultation with project counterparts, researchers, and—most importantly—the national statistical offices (NSOs) of the respective countries. Only data sources deemed credible by experts proceed to the next stage of processing.
 
@@ -398,36 +436,27 @@ Ensures that prices are consistent not only within basic headings but also at th
 The Dikhanov table facilitates the comparisons of PPPs across basic headings; plausible variations in PPPs is expected across regions. Such variations would indicate that, say, alcoholic beverages in region A are x% higher than in region B. The CPD residuals help ensure that the aggregate PPP variations are not driven by certain basic headings, or isolated products therein, but are more reflective of common price-level differences across regions. Extreme values can be identified based on CPD residuals and PPP ratio threshold values described in @tbl-thresholds; see also [@worldbank2013, p.261].
 
 | CPD residuals | PPP-ratios | Flag |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Between −0.25 and 0.25 | Between 78 and 128 | OK |
 | Between −0.75 and −0.25 or 0.25 and 0.75 | Between 47 and 78 or 128 and 212 | *Flag 1* |
 | Between −2.0 and −0.75 or 0.75 and 2.0 | Between 14 and 47 or 212 and 739 | **Flag 2** |
 | Less than −2.0 or greater than 2.0 | Less than 14 or greater than 739 | ***Flag 3*** |
 
-: Threshold values: CPD residuals and PPP-ratios {#tbl-thresholds}
+: Threshold values: CPD residuals and PPP-ratios
 
-The exampele below produces a Dikhanov tables with `valid_dikhanov()` for 
-products with product classification provided by argument `product_heading` 
-for the two generic products "1" and "3" as specified via argument 
-`product_heading_comparison`. Note that if `product_heading_comparison` were
-to left empty, the default option would produce Dikhanov tables for all three
-products contained in the provided data frame `dt1`.
+The example below produces Dikhanov tables with `valid_dikhanov()` for products with product classification provided by argument `product_heading` for the two generic products specified via argument `product_heading_comparison`. Note that if `product_heading_comparison` were to left empty, the default option would produce Dikhanov tables for all products contained in the provided data frame `sample_data_prices_df`.
 
 ```{r}
-set.seed(123)
-R <- 5 # number of regions
-B <- 3 # number of product groups
-N <- 5 # number of products
-dt1 <- pricelevels::rdata(R = R, B = B, N = N)
 
 valid_dikhanov(
-  data = dt1,
+  data = sample_data_prices_df,
   region = "region",
   product = "product",
   price = "price",
-  product_heading = "group",
-  product_heading_comparison = c("1", "3")
+  product_heading = "heading",
+  product_heading_comparison = c("heading_1", "heading_3")
 )
+
 ```
 
 ## Visual validation at basic-heading level
@@ -438,27 +467,13 @@ Examines the basic heading PPPs *within* and *across* countries to point at coun
 
 Function `valid_outlier_plot()` produces some simple validation plots to check subnational PPP estimates for potential outliers. The example below illustrates the behaviour for some generic, basic-heading CPD estimates
 
-```{r}
-# Take UK CPI microdata containing duplicate region-product pairs ---------
-red <- uk_cpi |>
-  select(Year,
-    region = "Region",
-    product = "Product code",
-    price = "Reference quantity price"
-  ) |>
-  mutate(
-    region = as.factor(region),
-    product = as.factor(product)
-  )
-```
-
 Example for sPPPs outlier plot with adjusted outlier cutoffs.
 
 ```{r}
 #| message: false
 #| warning: false
 # Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
-red |>
+sample_data_prices_df |>
   estim_cpd() |>
   valid_outlier_plot(
     title = "sPPPs outlier with adjusted outlier cutoffs",
@@ -473,14 +488,14 @@ Use `facet_var` to add facets, which is particularly useful to compare distribut
 #| message: false
 #| warning: false
 # Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
-red |>
+sample_data_multi_year_prices_df |>
   # Apply `estim_cpd()` to each year
-  group_by(Year) |>
+  group_by(year) |>
   group_modify(~ estim_cpd(.x)) |>
   # Outlier plot
   valid_outlier_plot(
     title = "sPPPs outlier with adjusted outlier cutoffs by year",
-    facet_var = "Year",
+    facet_var = "year",
     # Adjust number of facet columns (default is 2)
     facet_ncol = 3,
     # Adjust bins (default is 70)
@@ -496,15 +511,13 @@ Function `valid_outlier_plot()` can also be used to quickly check for price inde
 #| message: false
 #| warning: false
 # Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
-red |>
-  # Perform check for two years only
-  filter(Year %in% c(2018, 2023)) |>
+sample_data_multi_year_prices_df |>
   # Apply `estim_cpd()` to each year
-  group_by(Year) |>
+  group_by(year) |>
   group_modify(~ estim_cpd(.x)) |>
   # Pivot data and calculate year-on-year difference
-  pivot_wider(values_from = "sPPP", names_from = "Year", names_prefix = "Year_") |>
-  mutate(d_sPPP = Year_2023 / Year_2018) |>
+  pivot_wider(values_from = "sPPP", names_from = "year", names_prefix = "year_") |>
+  mutate(d_sPPP = year_2026 / year_2020) |>
   # Outlier plot
   valid_outlier_plot(
     sPPPs = "d_sPPP",
@@ -522,22 +535,22 @@ Box plots of Price Level index (PLI), which is the ratio of a purchasing power p
 
 In line with [@worldbank2013, p.285], within-country basic heading expenditures and shares are reviewed for the following:
 
--   Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading.
--   Plausibility – comparing per capita values and expenditure shares across basic headings.
--   Temporal consistency – examining the coherence of expenditure breakdowns across different years.
+- Completeness – ensuring that, with few exceptions, expenditures are recorded for every basic heading.
+- Plausibility – comparing per capita values and expenditure shares across basic headings.
+- Temporal consistency – examining the coherence of expenditure breakdowns across different years.
 
 The review process includes the following checks:
 
--   Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference.
--   Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies.
+- Calculating total and per capita expenditure values, deriving expenditure shares, and comparing these shares across countries, using Table 10.1 in [@worldbank2013, p.286] as a reference.
+- Comparing minimum, maximum, and median values at the basic heading level to identify potential anomalies or inconsistencies.
 
 Function `valid_est()` can be used to check for outliers in the household expenditure shares. The function calculates the median, maximum, and minimum expenditure shares for each basic heading across regions and identifies potential outliers based on the max-median and median-min ratios.
 
 ```{r}
 # CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------
-uk_hhe |>
-  group_by(coicop_4d) |>
-  valid_est(shares = "expenditure_share") |>
+sample_data_weights_df |>
+  group_by(heading) |>
+  valid_est(shares = "exp_wght") |>
   gt() |>
   tab_header(
     title = md("**Household Expenditure Validation**"),
@@ -556,45 +569,30 @@ The Paasche-Laspeyres spread (PLS), following [@hillLinkingRegionsInternational2
 
 The Paasche-Laspeyres spread is calculated as
 
-$$
-PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})}
-$$
+$$PLS_{jk}^S = \frac{max(P_P^{jk}, P_L^{jk})}{min(P_P^{jk}, P_L^{jk})}$$
 
 The PLS can be calculated using the function `valid_pls()` as described below.
 
 ```{r}
 # Validation using the Paasche-Laspeyres spread
 
-# 1. Generate the price/weights data
-set.seed(123)
-
-R <- 5 # number of regions
-B <- 5 # number of product groups
-N <- 5 # number of products
-
-dt1 <- pricelevels::rdata(
-  R = R, B = B, N = N,
-  weights = ~ r + n,
-  settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
-) %>%
-  as_tibble()
-
-
-# 2. Obtain CPD estimates with estim_cpd, and join weights
-cpd_oecd <- dt1 %>%
-  dplyr::select(group, region, product, price) %>%
-  nest(.by = c(group)) %>%
-  mutate(cpd_estimation = map(.x = data, ~ .x %>%
-    estim_cpd(
-      region = "region",
-      product = "product",
-      price = "price"
-    ))) %>%
-  unnest(cpd_estimation) %>%
+# Obtain CPD estimates with estim_cpd, and join weights
+cpd_oecd <- sample_data_prices_df %>%
+  dplyr::select(heading, region, product, price) %>%
+  group_by(heading) %>%
+  group_modify(~{
+    estim_cpd(.x,
+              region = "region",
+              product = "product",
+              price = "price",
+              output = "sPPP"
+    )
+  }) %>%
+  ungroup() %>%
   left_join(
-    dt1[, c("region", "group", "weight")] %>%
-      distinct(region, group, .keep_all = TRUE),
-    by = c("group", "region")
+    sample_data_weights_df[, c("region", "heading", "exp_wght")] %>%
+      distinct(region, heading, .keep_all = TRUE),
+    by = c("heading", "region")
   )
 
 
@@ -602,9 +600,9 @@ cpd_oecd <- dt1 %>%
 valid_pls(
   data = cpd_oecd,
   region = "region",
-  product = "group",
+  product = "heading",
   ppp_bh = "sPPP",
-  exp_wght = "weight"
+  exp_wght = "exp_wght"
 ) %>%
   gt() |>
   tab_header(
@@ -634,9 +632,8 @@ valid_pls(
 
 <!-- # Multilateral PPPs -->
 
-<br>
-<br>
+<br> <br>
 
--------------
+------------------------------------------------------------------------
 
 # References {.unnumbered}
