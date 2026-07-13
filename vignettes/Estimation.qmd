@@ -425,7 +425,7 @@ CPD with weights using `cpd()` in `pricelevels` [@pricelevels] and
 
 ```{r}
 # Estimating sPPPs with `pricelevels`, with weights --------
-as.data.table(sample_data_df)[, cpd(p = price, r = region, n = product, w = weight)]
+as.data.table(sample_data_df)[, cpd(p = price, r = region, n = product, w = exp_wght)]
 
 # Estimating sPPPs with `estim_cpd()`, with weights ---------
 sample_data_df |>
@@ -433,7 +433,7 @@ sample_data_df |>
     region = "region",
     product = "product",
     price = "price",
-    weights_cpd = "weight"
+    weights_cpd = "exp_wght"
   ) |>
   pull("sPPP")
 ```
@@ -669,30 +669,30 @@ indices_oecdsppps_df <- cpd_oecd %>%
     index_laspeyres(
       data = .,
       region = "region",
-      product = "group",
+      product = "heading",
       ppp_bh = "sPPP",
-      exp_wght = "weight"
+      exp_wght = "exp_wght"
     ),
     index_paasche(
       data = .,
       region = "region",
-      product = "group",
+      product = "heading",
       ppp_bh = "sPPP",
-      exp_wght = "weight"
+      exp_wght = "exp_wght"
     ),
     index_fisher(
       data = .,
       region = "region",
-      product = "group",
+      product = "heading",
       ppp_bh = "sPPP",
-      exp_wght = "weight"
+      exp_wght = "exp_wght"
     ),
     index_geks(
       data = .,
       region = "region",
-      product = "group",
+      product = "heading",
       ppp_bh = "sPPP",
-      exp_wght = "weight"
+      exp_wght = "exp_wght"
     )
   ) %>%
   pivot_longer(!c(base_region, region),
@@ -710,7 +710,7 @@ library.
 
 ```{r}
 cpd_oecd_pl <- cpd_oecd %>%
-  dplyr::select(group, region, sPPP, weight) %>%
+  dplyr::select(heading, region, sPPP, exp_wght) %>%
   as.data.table()
 
 regions_v <- c("area_1", "area_2", "area_3", "area_4", "area_5")
@@ -730,29 +730,29 @@ for (i in seq_along(regions_v)) {
   laspeyres_pl[[i]] <- cpd_oecd_pl[, laspeyres(
     p = sPPP,
     r = region,
-    n = group,
-    w = weight,
+    n = heading,
+    w = exp_wght,
     base = c(regions_v[i])
   )]
   paasche_pl[[i]] <- cpd_oecd_pl[, paasche(
     p = sPPP,
     r = region,
-    n = group,
-    w = weight,
+    n = heading,
+    w = exp_wght,
     base = c(regions_v[i])
   )]
   fisher_pl[[i]] <- cpd_oecd_pl[, fisher(
     p = sPPP,
     r = region,
-    n = group,
-    w = weight,
+    n = heading,
+    w = exp_wght,
     base = c(regions_v[i])
   )]
   geks_pl[[i]] <- cpd_oecd_pl[, geks(
     p = sPPP,
     r = region,
-    n = group,
-    w = weight,
+    n = heading,
+    w = exp_wght,
     settings = list(type = "fisher"),
     base = c(regions_v[i])
   )]
@@ -962,10 +962,10 @@ sample_data_prices_df %>%
   estim_index_link(
     data = .,
     data_weights = sample_data_weights_df,
-    basic_heading = "heading",
+    product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "exp_wght",
+    weights  = "exp_wght",
     complete_sppp = NA
   ) %>%
   # 3rd step: Index number calculation
@@ -1027,10 +1027,10 @@ return_error(
     estim_index_link(
       data = .,
       data_weights = sample_data_weights_df,
-      basic_heading = "heading",
+      product_heading = "heading",
       region = "region",
       sPPP = "sPPP",
-      exp_wght = "exp_wght",
+      weights = "exp_wght",
       complete_sppp = NA
     ) %>%
     index_geks()
@@ -1063,10 +1063,10 @@ sample_data_prices_df %>%
   estim_index_link(
     data = .,
     data_weights = sample_data_weights_df,
-    basic_heading = "heading",
+    product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "exp_wght",
+    weights = "exp_wght",
     complete_sppp = 1
   ) %>%
   index_geks() %>%
@@ -1102,10 +1102,10 @@ sample_data_prices_df %>%
   estim_index_link(
     data = .,
     data_weights = sample_data_weights_df,
-    basic_heading = "heading",
+    product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "exp_wght",
+    weights = "exp_wght",
     complete_sppp = NA
   ) %>%
   head() %>%
@@ -1135,10 +1135,10 @@ return_error(
     estim_index_link(
       data = .,
       data_weights = sample_data_weights_df,
-      basic_heading = "heading",
+      product_heading = "heading",
       region = "region",
       sPPP = "sPPP",
-      exp_wght = "exp_wght",
+      weights = "exp_wght",
       complete_sppp = NA
     ) %>%
     index_geks()

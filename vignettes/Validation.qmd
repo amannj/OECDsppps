@@ -220,7 +220,7 @@ Aggregate price quotes that do not pass these tests are flagged in the *Average 
 # Average Price Table -------
 sample_apt <- sample_data_prices_df %>%
   group_by(heading) %>%
-  valid_apt(value = "price")
+  valid_apt(price_quote = "price")
 
 head(sample_apt, 2) |>
   gt() |>
@@ -253,7 +253,7 @@ sample_irv <- sample_data_prices_df |>
   # Remove bimodal distribution
   filter(`Ratio-to-average price test` > 0.8) |>
   # Apply Average Price Table checks
-  valid_apt(value = "price")
+  valid_apt(price_quote  = "price")
 
 head(sample_apt, 4) |>
   group_by(heading) |>
@@ -302,13 +302,13 @@ In the resulting table, the degree of variability can be examined to identify pr
 ```{r}
 # Build data ----------
 ## UK data
-uk_irv <- uk_irv |>
-  filter(Year == "2018") |>
-  ungroup() |>
-  slice(1, 3) |>
-  mutate(Region = paste0("UK - ", Region)) |>
-  select(Region, Year, `Product code`, `Average price of product`) |>
-  mutate(`XR USD` = 1.25)
+uk_irv <- tibble(
+  Region = c("UK01", "UK02"),
+  Year = "2018",
+  `Product code` = 210111,
+  `Average price of product` = c(1.23, 3.45),
+  `XR USD` = 1.1
+)
 
 ## Dummy CZ data
 cz_irv <- tibble(
@@ -604,6 +604,7 @@ valid_pls(
   ppp_bh = "sPPP",
   exp_wght = "exp_wght"
 ) %>%
+  head(n = 5) |> 
   gt() |>
   tab_header(
     title = md("**Paasche-Laspeyres Spread**"),
@@ -611,7 +612,10 @@ valid_pls(
   ) %>%
   fmt_number(
     decimals = 2
-  )
+  ) |>
+  tab_source_note(source_note = md(
+    "*Note*: Only first 5 observations shown."
+  )) 
 ```
 
 <!-- $$ -->
