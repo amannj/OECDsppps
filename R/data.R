@@ -156,3 +156,79 @@
 #' @source [ OECD Geographical Definitions ](https://www.oecd.org/en/data/datasets/oecd-geographical-definitions.html)
 #' and [Regions, cities and local statistics](http://oe.cd/geostats)
 "oecd_tl"
+
+#'  Sample price quotes
+#'
+#' Sample price quotes for 5 regions, 5 product groups, and 5 generic products
+#' created using the `rdata()` function from the \pkg{pricelevels} package; see
+#' \insertCite{pricelevels;textual}{OECDsppps}.
+#'
+#' @format
+#' A data frame with 124 rows and 4 columns containing the variables
+#' - "heading" (typically in reference to the COICOP or related classification),
+#' - "region" (the subnational, spatial identifier),
+#' - "product" (the generic product for which price quotes are surveyed), and
+#' - "price" (the reported price quote).
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @examples
+#' sampledata_prices |> dim()
+#' sampledata_prices |> names()
+#' sampledata_prices |> head()
+#'
+#' @source See R package  [ pricelevels: Spatial Price Level Comparisons](https://CRAN.R-project.org/package=pricelevels)
+"sampledata_prices"
+
+#'  Sample expenditure shares
+#'
+#' Sample expenditure shares for 5 regions, and 5 product groups,
+#' created using the `rdata()` function from the \pkg{pricelevels} package; see
+#' \insertCite{pricelevels;textual}{OECDsppps}.
+#'
+#' @format
+#' A data frame with 25 rows and 3 columns containing the variables
+#' - "heading" (typically in reference to the COICOP or related classification),
+#' - "region" (the subnational, spatial identifier), and
+#' - "exp_wght" (the generic expenditure shares for the corresponding heading and region).
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @examples
+#' sampledata_weights |> dim()
+#' sampledata_weights |> names()
+#' sampledata_weights |> head()
+#'
+#' @source See R package  [ pricelevels: Spatial Price Level Comparisons](https://CRAN.R-project.org/package=pricelevels)
+"sampledata_weights"
+
+#'  Sample price quotes and expenditure for a generic, multi-period sample
+#'
+#' Sample price quotes and expenditure shares for
+#' 2 periods, 5 regions, 5 product groups, and 5 generic products,
+#' created using the `rdata()` function from the \pkg{pricelevels} package; see
+#' \insertCite{pricelevels;textual}{OECDsppps}.
+#'
+#' @format
+#' A data frame with 250 rows and 8 columns containing the variables
+#' - "period" (the teimporal identifier),
+#' - "heading" (typically in reference to the COICOP or related classification),
+#' - "region" (the subnational, spatial identifier),
+#' - "product" (the generic product for which price quotes are surveyed),
+#' - "price" (the reported price quote),
+#' - "quantity" (the reported quantity of the surveyed product),
+#' - "sale" (a sales flag), and
+#' - "exp_wght" (the generic expenditure shares for the corresponding heading and region).
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @examples
+#' sampledata_multi_period |> dim()
+#' sampledata_multi_period |> names()
+#' sampledata_multi_period |> head()
+#'
+#' @source See R package  [ pricelevels: Spatial Price Level Comparisons](https://CRAN.R-project.org/package=pricelevels)
+"sampledata_multi_period"

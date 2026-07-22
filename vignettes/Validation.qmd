@@ -45,87 +45,7 @@ library(purrr)
 5.  [Expenditure weights validation](#sec-exweights) describes the validation of household consumption expenditure
 6.  [Validation beyond basic-heading level](#sec-beyondbh) concerns the validation of price indices beyond the basing-heading level
 
-## Data
-
-Data used in this vignette is obtained through the `rdata()` function from the `pricelevels` package through which we generate an artificial data set containing prices for 5 headings priced across 5 regions. Each heading contains 5 products.
-
-```{r}
-
-# Generate data with pricelevels
-
-set.seed(123)
-
-R <- 5 # number of regions
-B <- 5 # number of product groups
-N <- 5 # number of products
-
-sample_data_df <- pricelevels::rdata(R = R, B = B, N = N,
-                                     weights = ~ b + r,
-                                     settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
-) %>%
-  as_tibble() %>%
-  rename(heading = group, exp_wght = weight) %>%
-  mutate(heading = as.factor(paste("heading", heading, sep = "_")),
-         region = as.factor(paste("area", region, sep = "_")),
-         product = as.factor(paste("item", product, sep = "_")))
-
-```
-
-We split this data into the following two data sets used in this vignette. This data structure should be representative of the common price and weight data used for index calculation for one year.
-
-- `sample_data_prices_df` contains price quotes, region, heading, and product identifiers.
-
-```{r}
-
-sample_data_prices_df <- sample_data_df %>%
-  dplyr::select(heading, region, product, price)
-
-sample_data_prices_df %>%
-  head() %>%
-  gt()
-
-```
-
-- `sample_data_weights_df` contains the expenditure weights, heading, and region identifiers.
-
-```{r}
-
-sample_data_weights_df <- sample_data_df %>%
-  distinct(heading, region, .keep_all = TRUE) %>%
-  dplyr::select(heading, region, exp_wght)
-
-sample_data_weights_df %>%
-  head() %>%
-  gt()
-
-```
-
-We also create a data set containing price quotes for multiple years.
-
-- `sample_data_multi_year_prices_df` contains price quotes, region, heading, product, and year identifiers.
-
-```{r}
-
-sample_data_multi_year_prices_df <- sample_data_prices_df |>
-  mutate(year = 2020) |>
-  bind_rows(pricelevels::rdata(R = R, B = B, N = N,
-                               weights = ~ b + r,
-                               settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
-  ) %>%
-    as_tibble() %>%
-    rename(heading = group, exp_wght = weight) %>%
-    dplyr::select(heading, region, product, price) %>%
-    mutate(heading = as.factor(paste("heading", heading, sep = "_")),
-           region = as.factor(paste("area", region, sep = "_")),
-           product = as.factor(paste("item", product, sep = "_")),
-           year = 2026))
-
-
-sample_data_multi_year_prices_df %>%
-  head() %>%
-  gt()
-
-```
+------------------------------------------------------------------------
 
 # Intra-regional validation {#sec-intraregional}
 
@@ -151,7 +71,7 @@ Individual price quotes that do not pass these tests are flagged in the *Price O
 
 ```{r uk_pot}
 # Price Observation Table  ---------
-sample_pot <- sample_data_prices_df %>%
+sample_pot <- sampledata_prices %>%
   group_by(heading) %>%
   valid_pot(price_quote = "price") %>%
   ungroup()
@@ -178,8 +98,8 @@ sample_pot |>
   pivot_longer(`Ratio-to-average price test`:`T-value test`) |>
   mutate(
     is.outlier = case_when(name == "Ratio-to-average price test" & (value < 0.5 | value > 1.5) ~ "Test not passed",
-                           name == "T-value test" & ((value > 2) | (value < -2)) ~ "Test not passed",
-                           .default = "Test passed"
+      name == "T-value test" & ((value > 2) | (value < -2)) ~ "Test not passed",
+      .default = "Test passed"
     ),
     is.outlier = factor(is.outlier, levels = c("Test passed", "Test not passed"))
   ) |>
@@ -218,7 +138,7 @@ Aggregate price quotes that do not pass these tests are flagged in the *Average 
 
 ```{r}
 # Average Price Table -------
-sample_apt <- sample_data_prices_df %>%
+sample_apt <- sampledata_prices %>%
   group_by(heading) %>%
   valid_apt(price_quote = "price")
 
@@ -244,7 +164,7 @@ Using the two functions `valid_pot()`, and `valid_apt()` a simple production pip
 
 ```{r}
 # Example for linked production pipeline  -------
-sample_irv <- sample_data_prices_df |>
+sample_irv <- sampledata_prices |>
   group_by(region, heading) |>
   # Apply individual price outlier check
   valid_pot(price_quote = "price") |>
@@ -253,7 +173,7 @@ sample_irv <- sample_data_prices_df |>
   # Remove bimodal distribution
   filter(`Ratio-to-average price test` > 0.8) |>
   # Apply Average Price Table checks
-  valid_apt(price_quote  = "price")
+  valid_apt(price_quote = "price")
 
 head(sample_apt, 4) |>
   group_by(heading) |>
@@ -444,19 +364,17 @@ The Dikhanov table facilitates the comparisons of PPPs across basic headings; pl
 
 : Threshold values: CPD residuals and PPP-ratios
 
-The example below produces Dikhanov tables with `valid_dikhanov()` for products with product classification provided by argument `product_heading` for the two generic products specified via argument `product_heading_comparison`. Note that if `product_heading_comparison` were to left empty, the default option would produce Dikhanov tables for all products contained in the provided data frame `sample_data_prices_df`.
+The example below produces Dikhanov tables with `valid_dikhanov()` for products with product classification provided by argument `product_heading` for the two generic products specified via argument `product_heading_comparison`. Note that if `product_heading_comparison` were to left empty, the default option would produce Dikhanov tables for all products contained in the provided data frame `sampledata_prices`.
 
 ```{r}
-
 valid_dikhanov(
-  data = sample_data_prices_df,
+  data = sampledata_prices,
   region = "region",
   product = "product",
   price = "price",
   product_heading = "heading",
   product_heading_comparison = c("heading_1", "heading_3")
 )
-
 ```
 
 ## Visual validation at basic-heading level
@@ -473,7 +391,7 @@ Example for sPPPs outlier plot with adjusted outlier cutoffs.
 #| message: false
 #| warning: false
 # Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
-sample_data_prices_df |>
+sampledata_prices |>
   estim_cpd() |>
   valid_outlier_plot(
     title = "sPPPs outlier with adjusted outlier cutoffs",
@@ -482,20 +400,20 @@ sample_data_prices_df |>
   )
 ```
 
-Use `facet_var` to add facets, which is particularly useful to compare distributions of price indices by year, region, or product category. The example below compares price distributions by year.
+Use `facet_var` to add facets, which is particularly useful to compare distributions of price indices by year, region, or product category. The example below compares price distributions by period
 
 ```{r}
 #| message: false
 #| warning: false
 # Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
-sample_data_multi_year_prices_df |>
+sampledata_multi_period |>
   # Apply `estim_cpd()` to each year
-  group_by(year) |>
+  group_by(period) |>
   group_modify(~ estim_cpd(.x)) |>
   # Outlier plot
   valid_outlier_plot(
-    title = "sPPPs outlier with adjusted outlier cutoffs by year",
-    facet_var = "year",
+    title = "sPPPs outlier with adjusted outlier cutoffs by period",
+    facet_var = "period",
     # Adjust number of facet columns (default is 2)
     facet_ncol = 3,
     # Adjust bins (default is 70)
@@ -505,19 +423,19 @@ sample_data_multi_year_prices_df |>
   )
 ```
 
-Function `valid_outlier_plot()` can also be used to quickly check for price index changes between years, as shown below.
+Function `valid_outlier_plot()` can also be used to quickly check for price index changes between periods, as shown below.
 
 ```{r}
 #| message: false
 #| warning: false
 # Estimating sPPPs with `estim_cpd()`, then plot sPPPs results ---------
-sample_data_multi_year_prices_df |>
+sampledata_multi_period |>
   # Apply `estim_cpd()` to each year
-  group_by(year) |>
+  group_by(period) |>
   group_modify(~ estim_cpd(.x)) |>
   # Pivot data and calculate year-on-year difference
-  pivot_wider(values_from = "sPPP", names_from = "year", names_prefix = "year_") |>
-  mutate(d_sPPP = year_2026 / year_2020) |>
+  pivot_wider(values_from = "sPPP", names_from = "period") |>
+  mutate(d_sPPP = period_2 / period_1) |>
   # Outlier plot
   valid_outlier_plot(
     sPPPs = "d_sPPP",
@@ -548,7 +466,7 @@ Function `valid_est()` can be used to check for outliers in the household expend
 
 ```{r}
 # CPD estimation with `estim_cpd()` and validation with `valid_est()` ---------
-sample_data_weights_df |>
+sampledata_weights |>
   group_by(heading) |>
   valid_est(shares = "exp_wght") |>
   gt() |>
@@ -577,20 +495,20 @@ The PLS can be calculated using the function `valid_pls()` as described below.
 # Validation using the Paasche-Laspeyres spread
 
 # Obtain CPD estimates with estim_cpd, and join weights
-cpd_oecd <- sample_data_prices_df %>%
+cpd_oecd <- sampledata_prices %>%
   dplyr::select(heading, region, product, price) %>%
   group_by(heading) %>%
-  group_modify(~{
+  group_modify(~ {
     estim_cpd(.x,
-              region = "region",
-              product = "product",
-              price = "price",
-              output = "sPPP"
+      region = "region",
+      product = "product",
+      price = "price",
+      output = "sPPP"
     )
   }) %>%
   ungroup() %>%
   left_join(
-    sample_data_weights_df[, c("region", "heading", "exp_wght")] %>%
+    sampledata_weights[, c("region", "heading", "exp_wght")] %>%
       distinct(region, heading, .keep_all = TRUE),
     by = c("heading", "region")
   )
@@ -604,7 +522,7 @@ valid_pls(
   ppp_bh = "sPPP",
   exp_wght = "exp_wght"
 ) %>%
-  head(n = 5) |> 
+  head(n = 5) |>
   gt() |>
   tab_header(
     title = md("**Paasche-Laspeyres Spread**"),
@@ -615,7 +533,7 @@ valid_pls(
   ) |>
   tab_source_note(source_note = md(
     "*Note*: Only first 5 observations shown."
-  )) 
+  ))
 ```
 
 <!-- $$ -->

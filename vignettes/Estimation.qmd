@@ -90,95 +90,6 @@ approach whenever instructive. For a more comprehensive discussion on
 price indices see @worldbank2013 and
 @europeanunionEurostatOECDMethodologicalManual2024.
 
-## Data used {.unnumbered}
-
-Data used in this vignette is obtained through the `rdata()` function
-from the `pricelevels` package through which we generate an artificial
-data set containing prices for 5 headings priced across 5 regions. Each
-heading contains 5 products.
-
-```{r}
-
-# Generate data with pricelevels
-
-set.seed(123)
-
-R <- 5 # number of regions
-B <- 5 # number of product groups
-N <- 5 # number of products
-
-sample_data_df <- pricelevels::rdata(R = R, B = B, N = N,
-                                   weights = ~ b + r,
-                                   settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
-) %>%
-  as_tibble() %>%
-  rename(heading = group, exp_wght = weight) %>%
-  mutate(heading = as.factor(paste("heading", heading, sep = "_")),
-         region = as.factor(paste("area", region, sep = "_")),
-         product = as.factor(paste("item", product, sep = "_")))
-
-```
-
-We split this data into the following two data sets used in this
-vignette. This data structure should be representative of the common
-price and weight data used for index calculation for one year.
-
-- `sample_data_prices_df` contains price quotes, region, heading, and
-  product identifiers.
-
-```{r}
-
-sample_data_prices_df <- sample_data_df %>%
-  dplyr::select(heading, region, product, price)
-
-sample_data_prices_df %>%
-  head() %>%
-  gt()
-
-```
-
-- `sample_data_weights_df` contains the expenditure weights, heading,
-  and region identifiers.
-
-```{r}
-
-sample_data_weights_df <- sample_data_df %>%
-  distinct(heading, region, .keep_all = TRUE) %>%
-  dplyr::select(heading, region, exp_wght)
-
-sample_data_weights_df %>%
-  head() %>%
-  gt()
-
-```
-
-We also create a data set containing price quotes for multiple years.
-
-- `sample_data_multi_year_prices_df` contains price quotes, region,
-  heading, product, and year identifiers.
-
-```{r}
-
-sample_data_multi_year_prices_df <- sample_data_prices_df |>
-  mutate(year = 2020) |>
-  bind_rows(pricelevels::rdata(R = R, B = B, N = N,
-                               weights = ~ b + r,
-                               settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
-  ) %>%
-    as_tibble() %>%
-    rename(heading = group, exp_wght = weight) %>%
-    dplyr::select(heading, region, product, price) %>%
-    mutate(heading = as.factor(paste("heading", heading, sep = "_")),
-           region = as.factor(paste("area", region, sep = "_")),
-           product = as.factor(paste("item", product, sep = "_")),
-           year = 2026))
-
-
-sample_data_multi_year_prices_df %>%
-  head() %>%
-  gt()
-
-```
 
 ------------------------------------------------------------------------
 
@@ -408,10 +319,10 @@ CPD with no weights using `cpd()` in `pricelevels` [@pricelevels] and
 #| message: false
 #| warning: false
 # Estimating sPPPs with `pricelevels`, no weights --------
-as.data.table(sample_data_prices_df)[, cpd(p = price, r = region, n = product)]
+as.data.table(sampledata_prices)[, cpd(p = price, r = region, n = product)]
 
 # Estimating sPPPs with `estim_cpd()`, no weights ---------
-sample_data_prices_df |>
+sampledata_prices |>
   estim_cpd(
     region = "region",
     product = "product",
@@ -424,11 +335,15 @@ CPD with weights using `cpd()` in `pricelevels` [@pricelevels] and
 `estim_cpd()`.
 
 ```{r}
+# Combining sample price quotes and weights into one data object
+sampledata <- sampledata_prices |>
+  left_join(sampledata_weights)
+
 # Estimating sPPPs with `pricelevels`, with weights --------
-as.data.table(sample_data_df)[, cpd(p = price, r = region, n = product, w = exp_wght)]
+as.data.table(sampledata)[, cpd(p = price, r = region, n = product, w = exp_wght)]
 
 # Estimating sPPPs with `estim_cpd()`, with weights ---------
-sample_data_df |>
+sampledata |>
   estim_cpd(
     region = "region",
     product = "product",
@@ -453,7 +368,7 @@ vignette.
 
 ```{r}
 # Estimating sPPPs with `estim_cpd()` ---------
-full_est <- sample_data_prices_df |>
+full_est <- sampledata_prices |>
   estim_cpd(
     region = "region",
     product = "product",
@@ -484,15 +399,16 @@ identical to the behaviour of `cpd()` in `pricelevels` .
 
 ```{r}
 # Estimating sPPPs with `estim_cpd()` ---------
-sample_data_multi_year_prices_df |>
+sampledata_multi_period |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price"
-  )
+  ) |>
+  pull(sPPP)
 
 # Estimating sPPPs with `pricelevels` --------
-as.data.table(sample_data_multi_year_prices_df)
+as.data.table(sampledata_multi_period)[, cpd(p = price, r = region, n = product)]
 ```
 
 #### Example 6: Duplicate region-product price pairs with aggregation weights {#sec-example6 .unnumbered}
@@ -504,16 +420,22 @@ argument; see `estim_cpd()` for more information.
 ```{r}
 # Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
 ## No weights
-sample_data_multi_year_prices_df |>
+sampledata_prices |>
   mutate(w = 1) |>
   estim_cpd(weights = "w") |>
   pull("sPPP")
 
 ## Random weights
 set.seed(123)
-sample_data_multi_year_prices_df |>
-  mutate(w = runif(nrow(sample_data_multi_year_prices_df))) |>
+sampledata_prices |>
+  mutate(w = runif(nrow(sampledata_prices))) |>
   estim_cpd(weights = "w") |>
+  pull("sPPP")
+
+## Generic sample weights
+sampledata_prices |>
+  left_join(sampledata_weights) |>
+  estim_cpd(weights = "exp_wght") |>
   pull("sPPP")
 ```
 
@@ -525,8 +447,8 @@ data by setting `weights = 'raw'` argument; see `estim_cpd()` for more
 information.
 
 ```{r}
-sample_data_multi_year_prices_df |>
-  mutate(w = runif(nrow(sample_data_multi_year_prices_df))) |>
+sampledata_prices |>
+  mutate(w = runif(nrow(sampledata_prices))) |>
   estim_cpd(weights = "raw") |>
   pull("sPPP")
 ```
@@ -627,20 +549,20 @@ For this, some generic CPD estimates are generated first.
 
 ```{r}
 # Calculate generic CPD estimates
-cpd_oecd <- sample_data_prices_df %>%
+cpd_oecd <- sampledata_prices %>%
   dplyr::select(heading, region, product, price) %>%
   group_by(heading) %>%
-  group_modify(~{
+  group_modify(~ {
     estim_cpd(.x,
-              region = "region",
-              product = "product",
-              price = "price",
-              output = "sPPP"
+      region = "region",
+      product = "product",
+      price = "price",
+      output = "sPPP"
     )
   }) %>%
   ungroup() %>%
   left_join(
-    sample_data_weights_df[, c("region", "heading", "exp_wght")] %>%
+    sampledata_weights[, c("region", "heading", "exp_wght")] %>%
       distinct(region, heading, .keep_all = TRUE),
     by = c("heading", "region")
   )
@@ -800,8 +722,10 @@ indices_pricelevels_df <- do.call(cbind, laspeyres_pl) %>%
     names_to = "index_type",
     values_to = "index_value"
   ) %>%
-  mutate(region = paste("area", region, sep = "_"),
-         package = "pricelevels")
+  mutate(
+    region = paste("area", region, sep = "_"),
+    package = "pricelevels"
+  )
 ```
 
 ### Comparing `OECDsppps` and `pricelevels` price indices outputs
@@ -891,14 +815,14 @@ first grouping the data by basic heading with `group_by()`, then
 applying `estim_cpd()` to each basic heading with `group_modify()`.
 
 ```{r}
-sample_data_prices_df %>%
+sampledata_prices %>%
   group_by(heading) %>%
   group_modify(~ {
     estim_cpd(.x,
-              region = "region",
-              product = "product",
-              price = "price",
-              output = "sPPP"
+      region = "region",
+      product = "product",
+      price = "price",
+      output = "sPPP"
     )
   }) %>%
   ungroup() %>%
@@ -944,16 +868,16 @@ To summarise, the complete workflow has these three steps:
     `index_paasche()`, `index_fisher()`, and `index_geks()`
 
 ```{r}
-sample_data_prices_df %>%
+sampledata_prices %>%
   # 1st step: grouping the data
   group_by(heading) %>%
   # 1st step: estimating the basic heading sPPPs
   group_modify(~ {
     estim_cpd(.x,
-              region = "region",
-              product = "product",
-              price = "price",
-              output = "sPPP"
+      region = "region",
+      product = "product",
+      price = "price",
+      output = "sPPP"
     )
   }) %>%
   # 1st step: ungrouping the output data
@@ -961,11 +885,11 @@ sample_data_prices_df %>%
   # 2nd step: preparing the data for index number calculation
   estim_index_link(
     data = .,
-    data_weights = sample_data_weights_df,
+    data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
-    weights  = "exp_wght",
+    weights = "exp_wght",
     complete_sppp = NA
   ) %>%
   # 3rd step: Index number calculation
@@ -1011,22 +935,22 @@ return_error <- function(expr) {
 
 
 return_error(
-  sample_data_prices_df %>%
+  sampledata_prices %>%
     group_by(heading) %>%
     group_modify(~ {
       estim_cpd(.x,
-                region = "region",
-                product = "product",
-                price = "price",
-                output = "sPPP"
+        region = "region",
+        product = "product",
+        price = "price",
+        output = "sPPP"
       )
     }) %>%
     ungroup() %>%
     # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
-    filter(!(region %in% c("area_1", "area_2") & heading == "heading_1")) %>%
+    filter(!(region %in% c("region_1", "region_2") & heading == "heading_1")) %>%
     estim_index_link(
       data = .,
-      data_weights = sample_data_weights_df,
+      data_weights = sampledata_weights,
       product_heading = "heading",
       region = "region",
       sPPP = "sPPP",
@@ -1046,23 +970,23 @@ by the user. Below, we impute 1 for sPPPs of all such pairs.
 heading pairs for which the user-provided value was imputed.
 
 ```{r}
-sample_data_prices_df %>%
+sampledata_prices %>%
   group_by(heading) %>%
   group_modify(~ {
     estim_cpd(.x,
-              region = "region",
-              product = "product",
-              price = "price",
-              output = "sPPP"
+      region = "region",
+      product = "product",
+      price = "price",
+      output = "sPPP"
     )
   }) %>%
   ungroup() %>%
   # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
-  filter(!(region %in% c("area_1", "area_2") & heading == "heading_1")) %>%
+  filter(!(region %in% c("region_1", "region_2") & heading == "heading_1")) %>%
   # Setting complete_sppp = 1 to impute 1 for missing sPPPs
   estim_index_link(
     data = .,
-    data_weights = sample_data_weights_df,
+    data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
@@ -1085,23 +1009,23 @@ weights.
 
 ```{r}
 # Remove expenditure weight for the following region/heading combination: 1/1
-sample_data_weights_df <- sample_data_weights_df %>%
-  filter(!(heading %in% c("heading_1") & region %in% c("area_1")))
+sampledata_weights <- sampledata_weights %>%
+  filter(!(heading %in% c("heading_1") & region %in% c("region_1")))
 
-sample_data_prices_df %>%
+sampledata_prices %>%
   group_by(heading) %>%
   group_modify(~ {
     estim_cpd(.x,
-              region = "region",
-              product = "product",
-              price = "price",
-              output = "sPPP"
+      region = "region",
+      product = "product",
+      price = "price",
+      output = "sPPP"
     )
   }) %>%
   ungroup() %>%
   estim_index_link(
     data = .,
-    data_weights = sample_data_weights_df,
+    data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
@@ -1121,20 +1045,20 @@ error message returned by `index_geks()` as an output.
 
 ```{r}
 return_error(
-  sample_data_prices_df %>%
+  sampledata_prices %>%
     group_by(heading) %>%
     group_modify(~ {
       estim_cpd(.x,
-                region = "region",
-                product = "product",
-                price = "price",
-                output = "sPPP"
+        region = "region",
+        product = "product",
+        price = "price",
+        output = "sPPP"
       )
     }) %>%
     ungroup() %>%
     estim_index_link(
       data = .,
-      data_weights = sample_data_weights_df,
+      data_weights = sampledata_weights,
       product_heading = "heading",
       region = "region",
       sPPP = "sPPP",

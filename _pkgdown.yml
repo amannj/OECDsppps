@@ -67,11 +67,17 @@ reference:
       - index_geks
       - index_laspeyres
       - index_paasche
-  - title: "Data and concordance tables"
-    desc: "Data and concordance tables"
+  - title: "Concordance and reference tables"
+    desc: "A selection of concordance and reference tables to facilitate the creation of subnational PPPs"
     contents:
-      - uk_cpi
-      - uk_hhe
       - oecd_tl
       - ecoicop16_names
       - concordance_ecoicop2bh
+  - title: "Sample data"
+    desc: "Sample data to illustrate the functionality of OECDsppps"
+    contents:
+      - uk_cpi
+      - uk_hhe
+      - sampledata_prices
+      - sampledata_weights
+      - sampledata_multi_period
