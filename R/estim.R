@@ -225,7 +225,7 @@ estim_cpd <- function(data,
         broom::tidy(m) |>
           dplyr::filter(grepl({{ region }}, term)) |>
           dplyr::mutate(
-            term = stringr::str_remove_all(term, {{ region }}),
+            term = stringr::str_remove(term, {{ region }}),
             r.squared = NA, adj.r.squared = NA, sigma = NA, df = NA, df.residual = NA
           ) |>
           dplyr::left_join(reg_nobs, by = c("term" = {{ region }})),
