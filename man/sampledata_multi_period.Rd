@@ -7,7 +7,7 @@
 \format{
 A data frame with 250 rows and 8 columns containing the variables
 \itemize{
-\item "period" (the teimporal identifier),
+\item "period" (the temporal identifier),
 \item "heading" (typically in reference to the COICOP or related classification),
 \item "region" (the subnational, spatial identifier),
 \item "product" (the generic product for which price quotes are surveyed),

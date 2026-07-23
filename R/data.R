@@ -213,7 +213,7 @@
 #'
 #' @format
 #' A data frame with 250 rows and 8 columns containing the variables
-#' - "period" (the teimporal identifier),
+#' - "period" (the temporal identifier),
 #' - "heading" (typically in reference to the COICOP or related classification),
 #' - "region" (the subnational, spatial identifier),
 #' - "product" (the generic product for which price quotes are surveyed),
