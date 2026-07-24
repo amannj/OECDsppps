@@ -1,4 +1,4 @@
-# Dikhanov table
+# Dikhanov Table
 
 `valid_dikhanov()` generates the Dikhanov tables for all selected basic
 headings; see World Bank (2013) and ICP (2021) .
@@ -61,7 +61,7 @@ The Dikhanov tables consist of:
 - CPD residuals and product variation coefficients for products within
   basic headings.
 
-The Dikhanov table facilitates the comparisons of PPPs across basic
+The Dikhanov Table facilitates the comparisons of PPPs across basic
 headings; plausible variations in PPPs is expected across regions. Such
 variations would indicate that, say, alcoholic beverages in region A are
 x% higher than in region B. The CPD residuals help ensure that the

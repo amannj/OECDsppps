@@ -1,4 +1,4 @@
-# The "PPP-ratio tables"
+# The "PPP-ratio Tables"
 
 `valid_ratio_ppp()` in OECDsppps calculates the PPP-ratio, which shows
 the variation coefficient representing variability across products and

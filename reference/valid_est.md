@@ -4,6 +4,9 @@
 World Bank (2013), ICP (2021) and European Union/OECD et al. (2024) .
 The function calculates the:
 
+- `Nobs` - Number of data points by by group as specified by
+  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
+
 - `Maximum`- Highest expenditure share based on expenditure shares by
   group as specified by
   [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
@@ -78,13 +81,12 @@ library(OECDsppps)
 uk_hhe |>
   group_by(coicop_4d) |>
   valid_est(shares = "expenditure_share")
-#> # A tibble: 2 × 8
-#>   coicop_4d Maximum expenditure …¹ Median expenditure s…² Minimum expenditure …³
-#>   <chr>                      <dbl>                  <dbl>                  <dbl>
-#> 1 01.1.1                      14.7                   8.38                   2.80
-#> 2 04.3.2                      17.8                   8.45                   1.59
-#> # ℹ abbreviated names: ¹​`Maximum expenditure share`,
-#> #   ²​`Median expenditure share`, ³​`Minimum expenditure share`
-#> # ℹ 4 more variables: `Max-median ratio` <dbl>, `Median-min ratio` <dbl>,
+#> # A tibble: 2 × 9
+#>   coicop_4d  Nobs `Maximum expenditure share` `Median expenditure share`
+#>   <chr>     <int>                       <dbl>                      <dbl>
+#> 1 01.1.1       24                        14.7                       8.38
+#> 2 04.3.2       24                        17.8                       8.45
+#> # ℹ 5 more variables: `Minimum expenditure share` <dbl>,
+#> #   `Max-median ratio` <dbl>, `Median-min ratio` <dbl>,
 #> #   `Max-median ratio FLAG` <lgl>, `Median-min ratio FLAG` <lgl>
 ```

@@ -8,7 +8,7 @@ see World Bank (2013), ICP (2021) and European Union/OECD et al. (2024)
 in columns `Ratio-to-average price test FLAG` and `T-value test FLAG`,
 respectively. The item-level price quotes should be based on the
 **reference quantity price**; see *Details* and
-worldbankMeasuringRealSize2013) , table 9.1a. for more information.
+worldbankMeasuringRealSize2013) , Table 9.1a. for more information.
 
 ## Usage
 

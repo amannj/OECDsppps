@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@
 <p>Completing estimation procedure for basic headings</p>
 <div class="section level4">
 <h4 id="additions-0-0-0-3">Additions<a class="anchor" aria-label="anchor" href="#additions-0-0-0-3"></a></h4>
-<ul><li>Add COICOP is reference classification table <code>ecoicop16_names</code>
+<ul><li>Add COICOP reference classification table <code>ecoicop16_names</code>
 </li>
 <li>Add option to output residuals for CPD regression <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code>
 </li>
@@ -118,7 +118,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.5" id="version-0005">Version <code>0.0.0.5</code>
 <a class="anchor" aria-label="anchor" href="#version-0005"></a></h2>
-<p>Validate household expenditure data and add Laspeyres, Paasche, Fischer and GEKS index calculation</p>
+<p>Validate household expenditure data and add Laspeyres, Paasche, Fisher and GEKS index calculation</p>
 <div class="section level4">
 <h4 id="additions-0-0-0-5">Additions<a class="anchor" aria-label="anchor" href="#additions-0-0-0-5"></a></h4>
 <ul><li>Add function to validate household expenditure data <code><a href="../reference/valid_est.html">valid_est()</a></code>
@@ -132,7 +132,7 @@
 <p>Add index calculation functions, description of using <code>OECDsppps</code> in Python and SAS, better implementation description</p>
 <div class="section level4">
 <h4 id="additions-0-0-0-6">Additions<a class="anchor" aria-label="anchor" href="#additions-0-0-0-6"></a></h4>
-<ul><li>Add function <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code> and <code><a href="../reference/index_geks.html">index_geks()</a></code> for estimating subnational PPPs using Laspeyres, Paasche, Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices</li>
+<ul><li>Add functions <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code> and <code><a href="../reference/index_geks.html">index_geks()</a></code> for estimating subnational PPPs using Laspeyres, Paasche, Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices</li>
 <li>Add <a href="https://amannj.github.io/OECDsppps/articles/altSoftware.html">description</a> data on using <code>OECDsppps</code> in Python and SAS</li>
 <li>Update <a href="https://amannj.github.io/OECDsppps/articles/Implementation.html">implementation</a> vignette</li>
 </ul><hr></div>
@@ -142,12 +142,30 @@
 <a class="anchor" aria-label="anchor" href="#version-0007"></a></h2>
 <p>Complete estimation and validation pipelines and improve visualisation</p>
 <div class="section level4">
-<h4 id="bug-fixes-0-0-0-7">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-0-7"></a></h4>
+<h4 id="additions-0-0-0-7">Additions<a class="anchor" aria-label="anchor" href="#additions-0-0-0-7"></a></h4>
 <ul><li>Add functions <code><a href="../reference/valid_outlier_plot.html">valid_outlier_plot()</a></code>, <code><a href="../reference/valid_dikhanov.html">valid_dikhanov()</a></code> and <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> to complete the validation and estimation pipelines</li>
 <li>Rename functions <code><a href="../reference/valid_ratio_ppp.html">valid_ratio_ppp()</a></code> and <code><a href="../reference/valid_ratio_xr.html">valid_ratio_xr()</a></code> and fix naming inconsistencies</li>
 <li>Update <a href="https://amannj.github.io/OECDsppps/articles/Implementation.html">implementation</a> to describe complete sPPPs production pipeline describing the use of <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code>
 </li>
-<li>Improve visualisation of packet vignette</li>
+<li>Improve visualisation of package vignette</li>
+</ul><hr></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.8" id="version-0008">Version <code>0.0.0.8</code>
+<a class="anchor" aria-label="anchor" href="#version-0008"></a></h2>
+<p>Big housekeeping: Streamline documentation, vignettes, simplify and harmonise function names and parameters, grammar, etc.</p>
+<div class="section level4">
+<h4 id="additions-0-0-0-8">Additions<a class="anchor" aria-label="anchor" href="#additions-0-0-0-8"></a></h4>
+<ul><li>Added numbers of observations to <code><a href="../reference/valid_est.html">valid_est()</a></code>
+</li>
+<li>Add sample data sets <code><a href="../reference/sampledata_prices.html">sampledata_prices()</a></code>, <code><a href="../reference/sampledata_weights.html">sampledata_weights()</a></code> and <code><a href="../reference/sampledata_multi_period.html">sampledata_multi_period()</a></code>
+</li>
+<li>Add lifeycle with experimental badge</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-0-0-0-8">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-0-8"></a></h4>
+<ul><li>Fix <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> in <a href="https://github.com/amannj/OECDsppps/issues/8" class="external-link">#8</a>
+</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -159,7 +177,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

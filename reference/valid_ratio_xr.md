@@ -1,4 +1,4 @@
-# The "XR-ratio tables"
+# The "XR-ratio Tables"
 
 `valid_ratio_xr()` in OECDsppps calculates the exchange rate ratio
 (XR-ratio), which is a region-country's XR-price Variability can be

@@ -1,16 +1,18 @@
-# OECDsPPPs
+# OECDsppps
 
-`OECDsPPPs` provides functionalities for calculating subnational
+`OECDsppps` provides functionalities for calculating subnational
 Purchasing Power Parities (sPPPs) in OECD regions as part of the project
 [Towards measuring purchasing power parity across OECD
 regions](https://www.oecd.org/en/about/projects/towards-a-better-measuring-of-subnational-consumer-prices-and-purchasing-parity.html).
 
 This documentation describes the processing, validation, aggregation and
-estimation for the purpose of constructing subnational PPPs (sPPPs).
+estimation for the purpose of constructing subnational PPPs (sPPPs).f
 
 ## Installation
 
-`OECDsPPPs` can be installed using
+⚠️ This package is still under development and not available on CRAN.
+
+Install from source using
 [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
 by running:
 
@@ -18,8 +20,6 @@ by running:
 
 devtools::install_github('amannj/OECDsppps')
 ```
-
-⚠️ This package is still under development.
 
 ## Documentation
 
@@ -35,24 +35,24 @@ See tab **Articles** for detailed package documentation:
   regions
 
 - [Estimation](https://amannj.github.io/OECDsppps/articles/Estimation.html) -
-  estimating subnational purchasing power parities from item-level
+  estimating subnational Purchasing Power Parities from item-level
   prices at basic heading level and beyond
 
-`OECDsPPPs` is available in R, but section [Alternative
+`OECDsppps` is available in R, but section [Alternative
 Software](https://amannj.github.io/OECDsppps/articles/altSoftware.html)
 discusses how the package can be integrated into a Python or SAS
 workflow.
 
 # Package index
 
-## Raw data validation
+## Validation
 
-Functions for raw data validation
+Functions for validating data and price estimates and indices
 
 - [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md)
   : The "Average Price Table"
 - [`valid_dikhanov()`](https://amannj.github.io/OECDsppps/reference/valid_dikhanov.md)
-  : Dikhanov table
+  : Dikhanov Table
 - [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md)
   : The "Expenditure Shares Table"
 - [`valid_pls()`](https://amannj.github.io/OECDsppps/reference/valid_pls.md)
@@ -62,13 +62,13 @@ Functions for raw data validation
 - [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md)
   : The "Price Observation Table"
 - [`valid_ratio_ppp()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.md)
-  : The "PPP-ratio tables"
+  : The "PPP-ratio Tables"
 - [`valid_ratio_xr()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_xr.md)
-  : The "XR-ratio tables"
+  : The "XR-ratio Tables"
 
 ## Estimation at basic-heading level
 
-Function for estimation at basic-heading level
+Functions for estimating price indices at basic-heading level
 
 - [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
   : The Country Product Dummy (CPD) regression model
@@ -77,7 +77,8 @@ Function for estimation at basic-heading level
 
 ## Estimation beyond the basic-heading level
 
-Functions for estimation price indices and index calculation
+Functions for calculating multilateral price indices following the
+Gini-Éltetö-Köves-Szulc (GEKS) method
 
 - [`index_fisher()`](https://amannj.github.io/OECDsppps/reference/index_fisher.md)
   : The Fisher price index
@@ -88,21 +89,34 @@ Functions for estimation price indices and index calculation
 - [`index_paasche()`](https://amannj.github.io/OECDsppps/reference/index_paasche.md)
   : The Paasche price index
 
-## Data and supplementary files
+## Concordance and reference tables
 
-Data files and concordance tables
+A selection of concordance and reference tables to facilitate the
+creation of subnational PPPs
 
-- [`uk_cpi`](https://amannj.github.io/OECDsppps/reference/uk_cpi.md) :
-  UK CPI microdata extract
-- [`uk_hhe`](https://amannj.github.io/OECDsppps/reference/uk_hhe.md) :
-  UK Regional Household Final Consumption Expenditure data extract
 - [`oecd_tl`](https://amannj.github.io/OECDsppps/reference/oecd_tl.md) :
   OECD Territorial correspondence table
 - [`ecoicop16_names`](https://amannj.github.io/OECDsppps/reference/ecoicop16_names.md)
   : Classification of Individual Consumption According to Purpose
   (ECOICOP)
 - [`concordance_ecoicop2bh`](https://amannj.github.io/OECDsppps/reference/concordance_ecoicop2bh.md)
-  : Concordance table from ECOICOP1 to Eurostat PPP Basic Headings
+  : Concordance table from ECOICOP to Eurostat PPP Basic Headings
+
+## Sample data
+
+Sample data to illustrate the functionality of OECDsppps
+
+- [`uk_cpi`](https://amannj.github.io/OECDsppps/reference/uk_cpi.md) :
+  UK CPI microdata extract
+- [`uk_hhe`](https://amannj.github.io/OECDsppps/reference/uk_hhe.md) :
+  UK Regional Household Final Consumption Expenditure data extract
+- [`sampledata_prices`](https://amannj.github.io/OECDsppps/reference/sampledata_prices.md)
+  : Sample price quotes
+- [`sampledata_weights`](https://amannj.github.io/OECDsppps/reference/sampledata_weights.md)
+  : Sample expenditure shares
+- [`sampledata_multi_period`](https://amannj.github.io/OECDsppps/reference/sampledata_multi_period.md)
+  : Sample price quotes and expenditure for a generic, multi-period
+  sample
 
 # Articles
 

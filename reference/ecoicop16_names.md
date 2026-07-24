@@ -1,10 +1,11 @@
 # Classification of Individual Consumption According to Purpose (ECOICOP)
 
-COICOP is reference classification published by the United Nations
+COICOP is a reference classification published by the United Nations
 Statistics Division (UNSD) used in National accounts, Household Budget
-surveys (HBS), Price Statistics (HICP) and Purchasing Power Parities
-(PPP). Eurostat introduced a harmonised and revision of COICOP, yielding
-a single harmonised COICOP classification at the five-digit level.
+Surveys (HBS), Price Statistics (HICP) and Purchasing Power Parities
+(PPP). Eurostat introduced a harmonised revision of COICOP, yielding a
+single harmonised COICOP classification at the five-digit (sub-class)
+level, referred to as “ECOICOP”.
 
 ## Usage
 

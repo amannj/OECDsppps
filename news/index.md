@@ -37,7 +37,7 @@ Completing estimation procedure for basic headings
 
 #### Additions
 
-- Add COICOP is reference classification table `ecoicop16_names`
+- Add COICOP reference classification table `ecoicop16_names`
 - Add option to output residuals for CPD regression
   [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 - Describe workflow to derive initial CPD regression results at
@@ -78,7 +78,7 @@ table and various bug fixes
 
 ## Version `0.0.0.5`
 
-Validate household expenditure data and add Laspeyres, Paasche, Fischer
+Validate household expenditure data and add Laspeyres, Paasche, Fisher
 and GEKS index calculation
 
 #### Additions
@@ -98,7 +98,7 @@ Python and SAS, better implementation description
 
 #### Additions
 
-- Add function
+- Add functions
   [`index_laspeyres()`](https://amannj.github.io/OECDsppps/reference/index_laspeyres.md),
   [`index_paasche()`](https://amannj.github.io/OECDsppps/reference/index_paasche.md),
   [`index_fisher()`](https://amannj.github.io/OECDsppps/reference/index_fisher.md)
@@ -119,7 +119,7 @@ Python and SAS, better implementation description
 
 Complete estimation and validation pipelines and improve visualisation
 
-#### Bug fixes
+#### Additions
 
 - Add functions
   [`valid_outlier_plot()`](https://amannj.github.io/OECDsppps/reference/valid_outlier_plot.md),
@@ -136,4 +136,28 @@ Complete estimation and validation pipelines and improve visualisation
   [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
   to describe complete sPPPs production pipeline describing the use of
   [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
-- Improve visualisation of packet vignette
+- Improve visualisation of package vignette
+
+------------------------------------------------------------------------
+
+## Version `0.0.0.8`
+
+Big housekeeping: Streamline documentation, vignettes, simplify and
+harmonise function names and parameters, grammar, etc.
+
+#### Additions
+
+- Added numbers of observations to
+  [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md)
+- Add sample data sets
+  [`sampledata_prices()`](https://amannj.github.io/OECDsppps/reference/sampledata_prices.md),
+  [`sampledata_weights()`](https://amannj.github.io/OECDsppps/reference/sampledata_weights.md)
+  and
+  [`sampledata_multi_period()`](https://amannj.github.io/OECDsppps/reference/sampledata_multi_period.md)
+- Add lifeycle with experimental badge
+
+#### Bug fixes
+
+- Fix
+  [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
+  in [\#8](https://github.com/amannj/OECDsppps/issues/8)

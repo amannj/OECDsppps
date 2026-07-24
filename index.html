@@ -37,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,20 +74,22 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="oecdsppps">OECDsPPPs<a class="anchor" aria-label="anchor" href="#oecdsppps"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="oecdsppps">OECDsppps<a class="anchor" aria-label="anchor" href="#oecdsppps"></a>
 </h1>
 </div>
 <!-- badges: start -->
+<!-- badges: start -->
+
 <!-- badges: end -->
-<p><code>OECDsPPPs</code> provides functionalities for calculating subnational Purchasing Power Parities (sPPPs) in OECD regions as part of the project <a href="https://www.oecd.org/en/about/projects/towards-a-better-measuring-of-subnational-consumer-prices-and-purchasing-parity.html" class="external-link">Towards measuring purchasing power parity across OECD regions</a>.</p>
-<p>This documentation describes the processing, validation, aggregation and estimation for the purpose of constructing subnational PPPs (sPPPs).</p>
+<p><code>OECDsppps</code> provides functionalities for calculating subnational Purchasing Power Parities (sPPPs) in OECD regions as part of the project <a href="https://www.oecd.org/en/about/projects/towards-a-better-measuring-of-subnational-consumer-prices-and-purchasing-parity.html" class="external-link">Towards measuring purchasing power parity across OECD regions</a>.</p>
+<p>This documentation describes the processing, validation, aggregation and estimation for the purpose of constructing subnational PPPs (sPPPs).f</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>OECDsPPPs</code> can be installed using <a href="https://cran.r-project.org/web/packages/devtools/index.html" class="external-link">devtools</a> by running:</p>
+<p>⚠️ This package is still under development and not available on CRAN.</p>
+<p>Install from source using <a href="https://cran.r-project.org/web/packages/devtools/index.html" class="external-link">devtools</a> by running:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'amannj/OECDsppps'</span><span class="op">)</span></span></code></pre></div>
-<p>⚠️ This package is still under development.</p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
@@ -96,9 +98,9 @@
 <ul>
 <li><p><a href="https://amannj.github.io/OECDsppps/articles/Implementation.html">Implementation</a> - discusses the production pipeline to create subnational PPPs</p></li>
 <li><p><a href="https://amannj.github.io/OECDsppps/articles/Validation.html">Validation</a> - validate price statistics at various levels of aggregation, from the initial item-level price quotes to the basic heading level and upwards, as well as comparing household expenditure weights across regions</p></li>
-<li><p><a href="https://amannj.github.io/OECDsppps/articles/Estimation.html">Estimation</a> - estimating subnational purchasing power parities from item-level prices at basic heading level and beyond</p></li>
+<li><p><a href="https://amannj.github.io/OECDsppps/articles/Estimation.html">Estimation</a> - estimating subnational Purchasing Power Parities from item-level prices at basic heading level and beyond</p></li>
 </ul>
-<p><code>OECDsPPPs</code> is available in R, but section <a href="https://amannj.github.io/OECDsppps/articles/altSoftware.html">Alternative Software</a> discusses how the package can be integrated into a Python or SAS workflow.</p>
+<p><code>OECDsppps</code> is available in R, but section <a href="https://amannj.github.io/OECDsppps/articles/altSoftware.html">Alternative Software</a> discusses how the package can be integrated into a Python or SAS workflow.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -132,7 +134,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
@@ -143,7 +150,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

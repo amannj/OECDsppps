@@ -37,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,19 +96,19 @@
 <section class="level2" data-number="1.1"><h3 data-number="1.1" id="integrating-python-into-an-r-project">
 <span class="header-section-number">1.1</span> Integrating Python into an R project<a class="anchor" aria-label="anchor" href="#integrating-python-into-an-r-project"></a>
 </h3>
-<p>An R interface to Python is provided by the <a href="https://rstudio.github.io/reticulate/" class="external-link">reticulate</a>; see the packages <a href="https://rstudio.github.io/reticulate/#getting-started" class="external-link">Getting started</a> guide for more information and the various ways, to integrate Python code into an R project.</p>
+<p>An R interface to Python is provided by <a href="https://rstudio.github.io/reticulate/" class="external-link">reticulate</a>; see the packages <a href="https://rstudio.github.io/reticulate/#getting-started" class="external-link">Getting started</a> guide for more information and the various ways to integrate Python code into an R project.</p>
 <p>The next section focuses on one such solution, that is, integrating <a href="https://rstudio.github.io/reticulate/#python-in-r-markdown" class="external-link">Python in R Markdown</a>.</p>
 <section class="level3" data-number="1.1.1"><h4 data-number="1.1.1" id="python-in-r-markdown-and-quarto">
 <span class="header-section-number">1.1.1</span> Python in R Markdown and Quarto<a class="anchor" aria-label="anchor" href="#python-in-r-markdown-and-quarto"></a>
 </h4>
-<p>After successfully <a href="https://rstudio.github.io/reticulate/#installation" class="external-link">installing</a> and (if necessary) <a href="https://rstudio.github.io/reticulate/articles/versions.html" class="external-link">configurating</a> Python, Python and R code can be run in the same IDE (recommended are either <a href="https://posit.co/downloads" class="external-link">RStudio</a> or <a href="https://positron.posit.co/" class="external-link">Positron</a>) in an interactive session where data can be moved between both environments interactively using either <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> or <a href="https://quarto.org/" class="external-link">quarto</a>.</p>
-<p>Step 1, initiate Python environment in R; the example below uses a generic virtual environment.</p>
+<p>After successfully <a href="https://rstudio.github.io/reticulate/#installation" class="external-link">installing</a> and (if necessary) <a href="https://rstudio.github.io/reticulate/articles/versions.html" class="external-link">configuring</a> Python, Python and R code can be run in the same IDE (recommended are either <a href="https://posit.co/downloads" class="external-link">RStudio</a> or <a href="https://positron.posit.co/" class="external-link">Positron</a>) in an interactive session where data can be moved between both environments interactively using either <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> or <a href="https://quarto.org/" class="external-link">Quarto</a>.</p>
+<p>In step 1, initiate a Python environment in R; the example below uses a generic virtual environment.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In R</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"path_to_your_virtual_environment"</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<p>Step 2, perform computations in Python in a separate code chunk initiated by <code>```{python}</code> `. In this generic example, a data file with price quotes is loaded and transformed to only keep the variables relevant for the CPD calculation, which will be performed in R in the next step.</p>
+<p>In step 2, perform computations in Python in a separate code chunk initiated by <code>```{python}</code> `. In this generic example, a data file with price quotes is loaded and transformed to only keep the variables relevant for the CDP calculation, which will be performed in R in the next step.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In Python</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
@@ -117,7 +117,7 @@
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">## Only keep relevant variables for CPD estimation</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>prices_out <span class="op">=</span> prices[[<span class="st">"region"</span>, <span class="st">"product"</span>, <span class="st">"price"</span>]]</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<p>Step 3, move data object <code>prices_out</code> from Python into R and estimate the CDP method using function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> in <code>OECDsppps</code>. Note that this data object can be accessed in R by running <code>py$prices_out</code>.</p>
+<p>In step 3, move data object <code>prices_out</code> from Python into R and estimate the CDP method using function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> in <code>OECDsppps</code>. Note that this data object can be accessed in R by running <code>py$prices_out</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In R</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(OECDsppps)</span>
@@ -127,13 +127,7 @@
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">product =</span> <span class="st">"product"</span>,</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">price =</span> <span class="st">"price"</span>)</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-</section></section><section class="level2" data-number="1.2"><h3 data-number="1.2" id="integrating-r-into-a-python-project">
-<span class="header-section-number">1.2</span> Integrating R into a Python project<a class="anchor" aria-label="anchor" href="#integrating-r-into-a-python-project"></a>
-</h3>
-<blockquote>
-<p>🚧 Work in progress.</p>
-</blockquote>
-</section></section><section class="section level2" data-number="2"><h2 data-number="2" id="sec-sas">
+</section></section></section><section class="section level2" data-number="2"><h2 data-number="2" id="sec-sas">
 <span class="header-section-number">2</span> SAS<a class="anchor" aria-label="anchor" href="#sec-sas"></a>
 </h2>
 <style>
@@ -141,16 +135,16 @@ div.blue pre { background-color:lightblue; }
 div.blue pre.r { background-color:blue; }
 </style>
 <div class="blue">
-<p><a href="https://www.sas.com" class="external-link">SAS</a> users can execute R with the <a href="https://documentation.sas.com/doc/en/pgmsascdc/v_075/proc/p13zn8bv8gu2won1dvff9a2x9qb7.htm" class="external-link">R procedure (PROC R)</a> dirictly inside SAS, while keeping the data in the SAS ecosystem.</p>
+<p><a href="https://www.sas.com" class="external-link">SAS</a> users can execute R with the <a href="https://documentation.sas.com/doc/en/pgmsascdc/v_075/proc/p13zn8bv8gu2won1dvff9a2x9qb7.htm" class="external-link">R procedure (PROC R)</a> directly inside SAS, while keeping the data in the SAS ecosystem.</p>
 <p>PROC R is available to SAS Viya users starting with the 2026.03 SAS Viya release.</p>
 <p>A more detailed discussion on this integration can be found in the SAS Communities Library “<a href="https://communities.sas.com/t5/SAS-Communities-Library/Introducing-PROC-R-The-Newest-Way-to-Integrate-R-and-SAS-Part-1/ta-p/985832" class="external-link">Introducing PROC R: The Newest Way to Integrate R and SAS</a>” as well as the Base SAS Procedures Guide “<a href="https://documentation.sas.com/doc/en/pgmsascdc/v_075/proc/p13zn8bv8gu2won1dvff9a2x9qb7.htm" class="external-link">What Does the R Procedure Do?</a>”.</p>
 <blockquote>
-<p><strong>Note:</strong> A complete installation of R including the following R packages is necessary to have full PROC R functionality: <code>R6</code>, <code>arrow</code>, <code>haven</code>, <code>plotly</code>, <code>svglite</code>, <code>gt</code>. To run <code>OECDspps</code>, these packages <em>as well as</em> all <code>OECDsppps</code> dependencies must be installed.</p>
+<p><strong>Note:</strong> A complete installation of R including the following R packages is necessary to have full PROC R functionality: <code>R6</code>, <code>arrow</code>, <code>haven</code>, <code>plotly</code>, <code>svglite</code>, <code>gt</code>. To run <code>OECDsppps</code>, these packages <em>as well as</em> all <code>OECDsppps</code> dependencies must be installed.</p>
 </blockquote>
 <section class="level2" data-number="2.1"><h3 data-number="2.1" id="stylised-example-running-r-in-sas">
 <span class="header-section-number">2.1</span> Stylised example: running R in SAS<a class="anchor" aria-label="anchor" href="#stylised-example-running-r-in-sas"></a>
 </h3>
-<p>R can be run from a SAS programme saved in a <code>.sas</code> by running:</p>
+<p>R can be run from a SAS programme saved in a <code>.sas</code> file by running:</p>
 <div class="cell">
 <pre class="blue cell-code"><code>* SAS code;
 proc r;
@@ -159,16 +153,15 @@ proc r;
     endsubmit;
 run;</code></pre>
 </div>
-<p>Data loaded into a SAS can be passed between R and SAS as described by following these steps; a more detailed step-by-step guide is provided in “<a href="https://communities.sas.com/t5/SAS-Communities-Library/Introducing-PROC-R-The-Newest-Way-to-Integrate-R-and-SAS-Part-1/ta-p/985832" class="external-link">Introducing PROC R: The Newest Way to Integrate R and SAS</a>”:</p>
+<p>Data loaded into a SAS data set can be passed between R and SAS as described by following these steps; a more detailed step-by-step guide is provided in “<a href="https://communities.sas.com/t5/SAS-Communities-Library/Introducing-PROC-R-The-Newest-Way-to-Integrate-R-and-SAS-Part-1/ta-p/985832" class="external-link">Introducing PROC R: The Newest Way to Integrate R and SAS</a>”:</p>
 <ol type="1">
 <li>Export a SAS data set to a local R data frame using <code>sd2df</code> or <code>sasdata2dataframe</code>.</li>
-<li>Perform calculations in R using R syntax</li>
-<li>Transfer r data to a SAS data using <code>df2sd</code> of <code>dataframe2sasdata</code>
-</li>
+<li>Perform calculations in R using R syntax.</li>
+<li>Transfer R data to a SAS data set using <code>df2sd</code> or <code>dataframe2sasdata</code>.</li>
 </ol></section><section class="level2" data-number="2.2"><h3 data-number="2.2" id="integrating-oecdsppps-into-a-sas-workflow">
 <span class="header-section-number">2.2</span> Integrating <code>OECDsppps</code> into a SAS workflow<a class="anchor" aria-label="anchor" href="#integrating-oecdsppps-into-a-sas-workflow"></a>
 </h3>
-<p>The generic example below converts a table called <code>price</code> stored in the <code>work</code> library to an R data object and estimates the Country Product Dummy (CPD) method using the <code>OECDsppps</code> function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code>. Then, the retrieved CPD estimates are converted back to a SAS table called <code>cpd</code> stored in the <code>work</code> library.</p>
+<p>The generic example below converts a table called <code>price</code> stored in the <code>work</code> library to an R data object and estimates the Country-Product-Dummy (CPD) method using the <code>OECDsppps</code> function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code>. Then, the retrieved CPD estimates are converted back to a SAS table called <code>cpd</code> stored in the <code>work</code> library.</p>
 <div class="cell">
 <pre class="blue cell-code"><code>* SAS code;
 proc r;
@@ -278,7 +271,7 @@ run;</code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

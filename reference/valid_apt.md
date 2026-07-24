@@ -31,7 +31,7 @@
 ## Usage
 
 ``` r
-valid_apt(data, value = "Reference quantity price")
+valid_apt(data, price_quote = "Reference quantity price")
 ```
 
 ## Arguments
@@ -41,7 +41,7 @@ valid_apt(data, value = "Reference quantity price")
   A data frame or tibble containing at least one column with individual
   item-level price quotes.
 
-- value:
+- price_quote:
 
   Column containing the individual item-level price quotes, which should
   be based on the "reference quantity price"; see *Details* for more
@@ -100,7 +100,7 @@ library(OECDsppps)
 uk_cpi |>
   select(Year, Region, `Product code`, `Reference quantity price`) |>
   group_by(Year, Region, `Product code`) |>
-  valid_apt(value = "Reference quantity price") |>
+  valid_apt(price_quote = "Reference quantity price") |>
   head(n = 2) |>
   t()
 #>                               [,1]            [,2]           

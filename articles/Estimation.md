@@ -21,7 +21,7 @@ item-level prices that are progressively aggregated to higher levels. In
 addition to aggregate subnational price indices, sub-indices, for
 example, at the COICOP division level, can highlight more granular
 regional price level differences. This process aligns with current
-recommendations; see ICP ([2021](#ref-icp2021)), World Bank
+recommendations; see ICP ([2021](#ref-icp2021)), Bank
 ([2013](#ref-worldbank2013)) and European Union/OECD
 ([2024](#ref-europeanunionEurostatOECDMethodologicalManual2024)) for
 more information.
@@ -36,7 +36,7 @@ The estimation steps are:
     information is available, for instance, when retail scanner data
     provide detailed transaction-level records).
 
-2.  [Estimation of higher level aggregates using basic heading
+2.  [Estimation of higher-level aggregates using basic heading
     indices](#sec-step2) to higher levels of the classification
     hierarchy, at which point household expenditure data are accessible
     and can be applied as weighting factors.
@@ -53,48 +53,30 @@ together](#sec-combined).
 The choice of estimation method depends on the availability of data and
 the analytical objectives of the subnational PPP exercise. When the aim
 is to ensure cross-country comparability and to exploit micro-level
-price information, the **Country-Product-Dummy (CPD) -
-Gini-Éltetö-Köves-Szulc (GEKS)** approach offers a flexible framework
-for estimating basic heading indices ([ICP 2021](#ref-icp2021)).
+price information, the **Country-Product-Dummy - Gini-Éltetö-Köves-Szulc
+(CPD-GEKS)** approach offers a flexible framework for estimating
+basic-heading indices ([ICP 2021](#ref-icp2021)), where the first
+estiation step to the basic-heading level is performed using the CPD
+method, and further aggregation beyond the basic-heading level is
+carried out using GEKS. Basic-heading aggregation with CPD is
+recommended by the ICP ([ICP 2021](#ref-icp2021)) as it is better-suited
+to handling missing price observations in the underlying price microdata
+than GEKS ([Auer, Ludwig von 2026](#ref-auer_von_gap_2026)).[^1]
 
-In contrast, the **Eurostat OECD method (Jevons-GEKS)** methodology
-employed at the national level imposes more stringent data requirements.
-Such requirements may be more difficult to meet in the context of
-deriving subnational PPPs based on existing microdata, particularly
-regarding the representativeness of individual products across all
-regions ([European Union/OECD
+In contrast, the **Eurostat-OECD (Jevons-GEKS)** method employed at the
+national level imposes more stringent data requirements. Such
+requirements may be more difficult to meet in the context of deriving
+subnational PPPs based on existing microdata, particularly regarding the
+representativeness of individual products across all regions ([European
+Union/OECD
 2024](#ref-europeanunionEurostatOECDMethodologicalManual2024)).
 
 The estimation procedure in this vignette follows the CPD-GEKS approach
 and highlights its similarities and differences with the Jevons-GEKS
 approach whenever instructive. For a more comprehensive discussion on
-price indices see World Bank ([2013](#ref-worldbank2013)) and European
+price indices see Bank ([2013](#ref-worldbank2013)) and European
 Union/OECD
 ([2024](#ref-europeanunionEurostatOECDMethodologicalManual2024)).
-
-### Data used
-
-Data used in this vignette is taken from official UK microdata from the
-United Kingdom Office for National Statistics (ONS). Similar data was
-recently used in Hearne and Bailey ([2025](#ref-hearne2025)) and is
-publicly available:
-
-- [`uk_cpi()`](https://amannj.github.io/OECDsppps/reference/uk_cpi.md)
-  is a snipped of the [UK CPI
-  microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes)
-  published by the United Kingdom Office for National Statistics (ONS)
-  and contains two products: White sliced loaf branded 750 grams
-  (COICOP 1010103) and carpenter hourly rate (COICOP 410518).
-
-- [`uk_hhe()`](https://amannj.github.io/OECDsppps/reference/uk_hhe.md)
-  is a snipped of the
-
-official [UK Regional Household Final Consumption Expenditure
-data](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
-published by the United Kingdom Office for National Statistics (ONS) and
-contains regional (TL2) household final consumption expenditure shares
-for two products: White sliced loaf branded 750 grams (COICOP 01.1.1.3)
-and carpenter hourly rate (COICOP 04.3.2.5).
 
 ------------------------------------------------------------------------
 
@@ -105,20 +87,20 @@ and carpenter hourly rate (COICOP 04.3.2.5).
 The CPD method is a regression-based approach for estimating price
 parities. The underlying statistical model is
 
-\\ p\_{ij} = PPP_j \times p_i \times \epsilon\_{ij} \tag{1}\\
+\\p\_{ij} = PPP_j \times p_i \times \epsilon\_{ij} \tag{1}\\
 
 where \\PPP_j\\ is the purchasing power parity of an arbitrary region
-\\j\\, (\\r = 1,...,j,...,R\\), \\p_i\\ is the average regional price of
-an arbitrary commodity \\i\\, (\\n = 1, ..., i, ... N\\), and
-\\\epsilon\_{ij}\\ is a independently and identically distributed random
-variable.[^1] Taking logs of [Equation 1](#eq-ppp1) yields
+\\j\\, (\\r = 1,...,j,...,R\\), \\p_i\\ is the average cross-regional
+price of the same arbitrary commodity \\i\\, (\\n = 1, ..., i, ... N\\),
+and \\\epsilon\_{ij}\\ is an independently and identically distributed
+random variable.[^2] Taking logs of [Equation 1](#eq-ppp1) yields
 
-\\ \begin{aligned} ln p\_{ij} & = ln PPP_j + ln p_i + ln \epsilon\_{ij}
+\\\begin{aligned} ln p\_{ij} & = ln PPP_j + ln p_i + ln \epsilon\_{ij}
 \\ & = \alpha_j + \gamma_i + ln \varepsilon\_{ij} \end{aligned}
 \tag{2}\\
 
-where \\\alpha_j\\ is the the price level of region \\j\\ relative to
-all other regions in the comparison. \\\alpha_j\\ can also be expressed
+where \\\alpha_j\\ is the price level of region \\j\\ relative to all
+other regions in the comparison. \\\alpha_j\\ can also be expressed
 relative to a reference region, for example, the national price level.
 Then, \\\alpha_j\\ represents the subnational purchasing power parity of
 region \\j\\ given by \\\hat{PPP}\_j = exp(\hat{\alpha}\_j)\\.
@@ -126,14 +108,15 @@ region \\j\\ given by \\\hat{PPP}\_j = exp(\hat{\alpha}\_j)\\.
 ### 1.2 Estimation
 
 The CPD model in [Equation 2](#eq-ppp2) may be interpreted as a
-fixed-effects specification, in which country effects yield estimates of
-subnational purchasing power parities, while commodity-specific effects
-generate estimates of subnational price levels. The model can be written
-as a regression equation in which all explanatory variables take the
-form of dummy indicators for each region and commodity.
+fixed-effects specification, in which the “regio-effects” yield
+estimates of subnational Purchasing Power Parities, while
+commodity-specific effects generate estimates of subnational price
+levels. The model can be written as a regression equation in which all
+explanatory variables take the form of dummy indicators for each region
+and commodity.
 
-\\ \begin{aligned} ln p\_{ij} = & \alpha_1 D_1 + ... + \alpha_j D_j +
-... +\alpha_R D_R + \\ & \eta_1 \mathcal{D}\_1 + ... + \eta_i
+\\\begin{aligned} ln p\_{ij} = & \alpha_1 D_1 + ... + \alpha_j D_j + ...
++\alpha_R D_R + \\ & \eta_1 \mathcal{D}\_1 + ... + \eta_i
 \mathcal{D}\_i + ... + \eta_N \mathcal{D}\_N + \varepsilon\_{ij}
 \end{aligned} \tag{3}\\
 
@@ -141,8 +124,7 @@ and \\\varepsilon\_{ij}\\ are independently and identically (normally)
 distributed with a zero mean and variance \\\sigma^2\\, that is,
 \\\varepsilon\_{ij} \sim N(0, \sigma^2)\\. The variables of interest,
 \\PPP_j\\, can be estimated through the parameters \\\hat{\alpha}\_j\\
-using ordinary least squares (OLS); see [Section 1.1.3
-Implementation](#sec-implementation).
+using ordinary least squares (OLS).
 
 ### 1.3 Implementation
 
@@ -191,7 +173,7 @@ log(25.5)
 #> [1] 3.238678
 ```
 
-And the coefficient estimate is the price ratio of the average regional
+The coefficient estimate is the price ratio of the average regional
 prices.
 
 ``` r
@@ -302,7 +284,7 @@ df2 <- data.table(
 
 ``` r
 
-# With pricelevels} ------
+# With pricelevels ------
 ## Estimation with respect to regional average
 df2[, cpd(p = price, r = region, n = product, q = NULL, base = NULL)]
 #>        1        2 
@@ -362,7 +344,7 @@ exp(dummy.coef(out)[["region"]])
 
 ------------------------------------------------------------------------
 
-#### 1.3.6 Integration in : `estim_cpd()`
+#### 1.3.6 Integration in using `estim_cpd()`
 
 provides the function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
@@ -372,17 +354,7 @@ functionalities; see the examples below as well as the documentation of
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 for more information.
 
-##### Example 3: Generic - Multiple products, and regions, with and without weights
-
-``` r
-
-# Generate data with pricelevels -------
-set.seed(123)
-R <- 5 # number of regions
-B <- 5 # number of product groups
-N <- 5 # number of products
-dt1 <- pricelevels::rdata(R = R, B = B, N = N)
-```
+##### Example 3: Multiple products and regions, with and without weights
 
 CPD with no weights using
 [`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in `pricelevels`
@@ -392,20 +364,20 @@ CPD with no weights using
 ``` r
 
 # Estimating sPPPs with `pricelevels`, no weights --------
-dt1[, cpd(p = price, r = region, n = product)]
-#>         1         2         3         4         5 
-#> 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137
+as.data.table(sampledata_prices)[, cpd(p = price, r = region, n = product)]
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 1.1970918 1.0000753 0.9599226 1.1393190 0.7637624
 
 # Estimating sPPPs with `estim_cpd()`, no weights ---------
-dt1 |>
+sampledata_prices |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price"
   ) |>
   pull("sPPP")
-#>         1         2         3         4         5 
-#> 1.0163465 0.8543248 1.1667509 0.9950373 0.9920137
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 1.1970918 1.0000753 0.9599226 1.1393190 0.7637624
 ```
 
 CPD with weights using
@@ -415,22 +387,27 @@ CPD with weights using
 
 ``` r
 
+# Combining sample price quotes and weights into one data object
+sampledata <- sampledata_prices |>
+  left_join(sampledata_weights)
+#> Joining with `by = join_by(heading, region)`
+
 # Estimating sPPPs with `pricelevels`, with weights --------
-dt1[, cpd(p = price, r = region, n = product, w = weight)]
-#>         1         2         3         4         5 
-#> 1.0187925 0.8460806 1.1784210 0.9964223 0.9880038
+as.data.table(sampledata)[, cpd(p = price, r = region, n = product, w = exp_wght)]
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 1.4407151 0.8344869 1.1247738 1.3042019 0.5670121
 
 # Estimating sPPPs with `estim_cpd()`, with weights ---------
-dt1 |>
+sampledata |>
   estim_cpd(
     region = "region",
     product = "product",
     price = "price",
-    weights_cpd = "weight"
+    weights_cpd = "exp_wght"
   ) |>
   pull("sPPP")
-#>         1         2         3         4         5 
-#> 1.0187925 0.8460806 1.1784210 0.9964223 0.9880038
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 1.4407151 0.8344869 1.1247738 1.3042019 0.5670121
 ```
 
 ##### Example 4: Complete regression output
@@ -439,18 +416,18 @@ The function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 also has the option to export extended regression output of the CPD
 model with argument `output = "Full"`, which summarises the key
-information of the estimate CPD model: It provides the ‘Regression
-output\` as well as the individual ’Residuals’ of the CPD regression.
+information of the estimated CPD model: It provides the ‘Regression
+output’ as well as the individual ‘Residuals’ of the CPD regression.
 
 Information in the extended regression output is used to support the
 validation of CPD-based subnational PPPs at the basic-heading level; see
-[Validation](https://amannj.github.io/OECDsPPPs/articles/Validation.html#sec-tobh)
+[Validation](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-tobh)
 vignette.
 
 ``` r
 
 # Estimating sPPPs with `estim_cpd()` ---------
-full_est <- dt1 |>
+full_est <- sampledata_prices |>
   estim_cpd(
     region = "region",
     product = "product",
@@ -478,14 +455,14 @@ full_est[["Residuals"]] |>
   sub_missing(missing_text = "")
 ```
 
-| region | .fitted | .resid  | .std.resid |
-|--------|---------|---------|------------|
-| 1      | 2.7628  | −0.0022 | −0.0384    |
-| 2      | 2.5891  | 0.1242  | 2.2037     |
-| 3      | 2.9008  | −0.1351 | −2.3972    |
-| 4      | 2.7416  | 0.0063  | 0.1117     |
-| 5      | 2.7386  | 0.0068  | 0.1201     |
-| 1      | 2.9156  | −0.0076 | −0.1353    |
+| region   | .fitted | .resid  | .std.resid |
+|----------|---------|---------|------------|
+| region_1 | 2.8573  | 0.7165  | 1.0428     |
+| region_2 | 2.6774  | −0.2256 | −0.3283    |
+| region_3 | 2.6365  | −0.7991 | −1.1630    |
+| region_4 | 2.8078  | 0.0820  | 0.1194     |
+| region_5 | 2.4079  | 0.2262  | 0.3292     |
+| region_1 | 3.1495  | −0.2356 | −0.3428    |
 
 ##### Example 5: Duplicate region-product price pairs defaults
 
@@ -493,49 +470,29 @@ By default,
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 aggregates the price quotes up to region-product pairs using unweighted
 means whenever there are duplicate region-product pairs found in data
-and no weights provided. This is identical to the bahaviour of
+and no weights provided. This is identical to the behaviour of
 [`cpd()`](https://rdrr.io/pkg/pricelevels/man/cpd.html) in `pricelevels`
+.
 
 ``` r
 
-# Take UK CPI microdata containing duplicate region-product pairs ---------
-red <- uk_cpi |>
-  filter(Year == "2018") |>
-  select(
-    region = "Region",
-    product = "Product code",
-    price = "Reference quantity price"
-  ) |>
-  mutate(
-    region = as.factor(region),
-    product = as.factor(product)
-  )
-
 # Estimating sPPPs with `estim_cpd()` ---------
-red |>
-  estim_cpd() |>
-  pull("sPPP")
+sampledata_multi_period |>
+  estim_cpd(
+    region = "region",
+    product = "product",
+    price = "price"
+  ) |>
+  pull(sPPP)
 #> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using unweighted means.
-#>             East Midlands           East of England                    London 
-#>                 0.9291930                 1.0171431                 1.3164839 
-#>                     North                North West          Northern Ireland 
-#>                 0.9631195                 0.9757530                 0.9888085 
-#>                  Scotland                South East                South West 
-#>                 1.0521466                 0.9977087                 0.9331900 
-#>                     Wales             West Midlands Yorkshire and the Humberl 
-#>                 0.8612814                 1.0457363                 0.9802726
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 0.8147020 0.9487813 1.0192098 1.2466297 1.0182022
 
 # Estimating sPPPs with `pricelevels` --------
-as.data.table(red)[, cpd(p = price, r = region, n = product)]
+as.data.table(sampledata_multi_period)[, cpd(p = price, r = region, n = product)]
 #> Warning: Duplicated observations found and aggregated
-#>             East Midlands           East of England                    London 
-#>                 0.9291930                 1.0171431                 1.3164839 
-#>                     North                North West          Northern Ireland 
-#>                 0.9631195                 0.9757530                 0.9888085 
-#>                  Scotland                South East                South West 
-#>                 1.0521466                 0.9977087                 0.9331900 
-#>                     Wales             West Midlands Yorkshire and the Humberl 
-#>                 0.8612814                 1.0457363                 0.9802726
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 0.8147020 0.9487813 1.0192098 1.2466297 1.0182022
 ```
 
 ##### Example 6: Duplicate region-product price pairs with aggregation weights
@@ -550,35 +507,30 @@ for more information.
 
 # Estimating sPPPs with `estim_cpd()`, with aggregation weights ---------
 ## No weights
-red |>
+sampledata_prices |>
   mutate(w = 1) |>
   estim_cpd(weights = "w") |>
   pull("sPPP")
-#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
-#>             East Midlands           East of England                    London 
-#>                 0.9291930                 1.0171431                 1.3164839 
-#>                     North                North West          Northern Ireland 
-#>                 0.9631195                 0.9757530                 0.9888085 
-#>                  Scotland                South East                South West 
-#>                 1.0521466                 0.9977087                 0.9331900 
-#>                     Wales             West Midlands Yorkshire and the Humberl 
-#>                 0.8612814                 1.0457363                 0.9802726
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 1.1970918 1.0000753 0.9599226 1.1393190 0.7637624
 
 ## Random weights
 set.seed(123)
-red |>
-  mutate(w = runif(nrow(red))) |>
+sampledata_prices |>
+  mutate(w = runif(nrow(sampledata_prices))) |>
   estim_cpd(weights = "w") |>
   pull("sPPP")
-#> Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.
-#>             East Midlands           East of England                    London 
-#>                 0.9273710                 1.0071653                 1.3190512 
-#>                     North                North West          Northern Ireland 
-#>                 0.9643659                 0.9701565                 0.9970916 
-#>                  Scotland                South East                South West 
-#>                 1.0489943                 1.0051813                 0.9315536 
-#>                     Wales             West Midlands Yorkshire and the Humberl 
-#>                 0.8701807                 1.0331752                 0.9852731
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 1.1970918 1.0000753 0.9599226 1.1393190 0.7637624
+
+## Generic sample weights
+sampledata_prices |>
+  left_join(sampledata_weights) |>
+  estim_cpd(weights = "exp_wght") |>
+  pull("sPPP")
+#> Joining with `by = join_by(heading, region)`
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 1.1970918 1.0000753 0.9599226 1.1393190 0.7637624
 ```
 
 ##### Example 7: Duplicate region-product price pairs without aggregation
@@ -586,29 +538,24 @@ red |>
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 also provides the option to run the CPD method on the raw data, that is,
 keeping duplicate region-product pairs found in the raw data by setting
-`weights = 'raw'` argument; see
+the `weights` argument to `'raw'` argument; see
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 for more information.
 
 ``` r
 
-red |>
+sampledata_prices |>
+  mutate(w = runif(nrow(sampledata_prices))) |>
   estim_cpd(weights = "raw") |>
   pull("sPPP")
 #> Duplicate region-product pairs found in data and `weights == 'raw'`: Raw data is used with no additional aggregation to region-product pairs.
-#>             East Midlands           East of England                    London 
-#>                 0.9462097                 1.0266122                 1.2122656 
-#>                     North                North West          Northern Ireland 
-#>                 0.9913797                 0.9667091                 0.9616980 
-#>                  Scotland                South East                South West 
-#>                 1.0780491                 1.0025071                 0.9247737 
-#>                     Wales             West Midlands Yorkshire and the Humberl 
-#>                 0.8891412                 1.0400253                 0.9969142
+#>  region_1  region_2  region_3  region_4  region_5 
+#> 1.1970918 1.0000753 0.9599226 1.1393190 0.7637624
 ```
 
 ------------------------------------------------------------------------
 
-## 2 Estimation of higher level aggregates using basic heading indices
+## 2 Estimation of higher-level aggregates using basic heading indices
 
 ### 2.1 Overview
 
@@ -631,9 +578,9 @@ and
 #### Gini-Éltetö-Köves-Szulc index (GEKS)
 
 The Gini-Éltetö-Köves-Szulc index (GEKS) method is recommended for
-aggregating above the basic heading levels for international and
+aggregating above the basic-heading levels for international and
 interregional comparisons, as it satisfies the necessary properties for
-multilateral comparisons; see ICP ([2021](#ref-icp2021)), World Bank
+multilateral comparisons; see ICP ([2021](#ref-icp2021)), Bank
 ([2013](#ref-worldbank2013)) and European Union/OECD
 ([2024](#ref-europeanunionEurostatOECDMethodologicalManual2024)) for
 more information.
@@ -641,8 +588,8 @@ more information.
 Subnational PPPs for region \\k\\ with reference to region \\j\\ are
 calculated using the GEKS as
 
-\\ sPPP\_{GEKS}^{j,k} = \prod\_{r=1}^R \left( sPPP_F^{j,r} \times
-sPPP_F^{r,k} \right)^{1/R} \\
+\\sPPP\_{GEKS}^{j,k} = \prod\_{r=1}^R \left( sPPP_F^{j,r} \times
+sPPP_F^{r,k} \right)^{1/R}\\
 
 and correspond to the geometric average of the [Fisher
 indices](#sec-fisher) of all direct comparisons between region \\j\\ and
@@ -659,21 +606,21 @@ calculates the subnational PPPs for the geometric mean of the weighted
 basic heading \\b\\, \\b = 1,\dots, B\\, of the [Laspeyres
 index](#sec-geks), which holds quantities in region \\j\\ constant and
 allows prices to change, and the [Paasche index](#sec-geks), which holds
-quantities in region \\k\\ constants and allows prices to change.
+quantities in region \\k\\ constant and allows prices to change.
 
-\\ sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2}
-\tag{4}\\
+\\sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2}\\
+{#eq-fish}
 
-the Fisher is calculated based on the results estimated at the basic
-heading level, where \\p_jk\\ and \\e_jk\\, respectively, denote the
-price and associated expenditure for an arbitrary basic heading \\b\\
-and region \\r\\, and the implied quantity, \\q_br\\, is given by
-\\q_br= e_br⁄p_br\\:
+The Fisher index is calculated based on the results estimated at the
+basic heading level, where \\p\_{jk}\\ and \\e\_{jk}\\, respectively,
+denote the price and associated expenditure for an arbitrary basic
+heading \\b\\ and region \\r\\, and the implied quantity, \\q\_{br}\\,
+is given by \\q\_{br} = \frac{e\_{br} }{ p\_{br}}\\:
 
-\\ sPPP_F^{j,k} = \left\[ \underbrace{ \frac{\sum\_{b = 1}^B
+\\sPPP_F^{j,k} = \left\[ \underbrace{ \frac{\sum\_{b = 1}^B
 p\_{bk}q\_{bj}}{\sum\_{b = 1}^B p\_{bj}q\_{bj}} }\_{sPPP_L^{j,k}} \times
 \underbrace{ \frac{\sum\_{b = 1}^B p\_{bk}q\_{bk}}{\sum\_{b = 1}^B
-p\_{bj}q\_{bk}} }\_{sPPP_P^{j,k}} \right\]^{1/2} \\
+p\_{bj}q\_{bk}} }\_{sPPP_P^{j,k}} \right\]^{1/2}\\
 
 The Fisher index is implemented through function
 [`index_fisher()`](https://amannj.github.io/OECDsppps/reference/index_fisher.md).
@@ -686,7 +633,7 @@ region \\j\\ would cost if the basket were priced at partner region
 
 The Laspeyres is calculated as
 
-\\ sPPP_L^{j,k} = \sum\_{n=1}^N w_n^j \times sPPP_n^{j,k} \tag{5}\\
+\\sPPP_L^{j,k} = \sum\_{n=1}^N w_n^j \times sPPP_n^{j,k} \tag{4}\\
 
 The Laspeyres index is implemented using function
 [`index_laspeyres()`](https://amannj.github.io/OECDsppps/reference/index_laspeyres.md).
@@ -695,10 +642,10 @@ The Laspeyres index is implemented using function
 
 The same logic is mirrored with the Paasche index, where region \\k\\’s
 basket is evaluated and compared with region \\j\\’s price. The Paasche
-is calculated as
+index is calculated as
 
-\\ sPPP_P^{j,k} = \frac{1}{\sum\_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}
-\tag{6}\\
+\\sPPP_P^{j,k} = \frac{1}{\sum\_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}\\
+{#eq-paas}
 
 The Paasche index is implemented using function
 [`index_paasche()`](https://amannj.github.io/OECDsppps/reference/index_paasche.md).
@@ -721,34 +668,22 @@ For this, some generic CPD estimates are generated first.
 ``` r
 
 # Calculate generic CPD estimates
-set.seed(123)
-
-R <- 5 # number of regions
-B <- 5 # number of product groups
-N <- 5 # number of products
-
-dt1 <- pricelevels::rdata(
-  R = R, B = B, N = N,
-  weights = ~ r + n,
-  settings = list(par.sd = c(lnP = 0.1, pi = exp(1), delta = 0.5, error = 0.8))
-) %>%
-  as_tibble()
-
-# Get the CPD estimate
-cpd_oecd <- dt1 %>%
-  dplyr::select(group, region, product, price) %>%
-  nest(.by = c(group)) %>%
-  mutate(cpd_estimation = map(.x = data, ~ .x %>%
-    estim_cpd(
+cpd_oecd <- sampledata_prices %>%
+  dplyr::select(heading, region, product, price) %>%
+  group_by(heading) %>%
+  group_modify(~ {
+    estim_cpd(.x,
       region = "region",
       product = "product",
-      price = "price"
-    ))) %>%
-  unnest(cpd_estimation) %>%
+      price = "price",
+      output = "sPPP"
+    )
+  }) %>%
+  ungroup() %>%
   left_join(
-    dt1[, c("region", "group", "weight")] %>%
-      distinct(region, group, .keep_all = TRUE),
-    by = c("group", "region")
+    sampledata_weights[, c("region", "heading", "exp_wght")] %>%
+      distinct(region, heading, .keep_all = TRUE),
+    by = c("heading", "region")
   )
 ```
 
@@ -762,8 +697,9 @@ and
 [`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md),
 and take identical input arguments.
 
-Note that argument
-[`reframe()`](https://dplyr.tidyverse.org/reference/reframe.html) in the
+Note that the
+[`reframe()`](https://dplyr.tidyverse.org/reference/reframe.html)
+function, from package Wickham et al. ([2026](#ref-refdplyr)), in the
 code chunk below creates a new data frame around the returned set of
 index estimates. This is useful if the separate indices should be
 returned together; however, it is not necessary to calculate all these
@@ -772,7 +708,7 @@ indices separately to implement the GEKS method, as
 carries out all necessary calculation steps.
 
 In other words,
-[`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md),
+[`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md)
 nests the functions
 [`index_fisher()`](https://amannj.github.io/OECDsppps/reference/index_fisher.md),
 [`index_laspeyres()`](https://amannj.github.io/OECDsppps/reference/index_laspeyres.md)
@@ -787,30 +723,30 @@ indices_oecdsppps_df <- cpd_oecd %>%
     index_laspeyres(
       data = .,
       region = "region",
-      product = "group",
+      product = "heading",
       ppp_bh = "sPPP",
-      exp_wght = "weight"
+      exp_wght = "exp_wght"
     ),
     index_paasche(
       data = .,
       region = "region",
-      product = "group",
+      product = "heading",
       ppp_bh = "sPPP",
-      exp_wght = "weight"
+      exp_wght = "exp_wght"
     ),
     index_fisher(
       data = .,
       region = "region",
-      product = "group",
+      product = "heading",
       ppp_bh = "sPPP",
-      exp_wght = "weight"
+      exp_wght = "exp_wght"
     ),
     index_geks(
       data = .,
       region = "region",
-      product = "group",
+      product = "heading",
       ppp_bh = "sPPP",
-      exp_wght = "weight"
+      exp_wght = "exp_wght"
     )
   ) %>%
   pivot_longer(!c(base_region, region),
@@ -823,16 +759,16 @@ indices_oecdsppps_df <- cpd_oecd %>%
 #### 2.3.2 Price indices in `pricelevels`
 
 The same index calculations can be carried out with the `pricelevels`
-package ([Weinand 2025](#ref-pricelevels)), which is build on the
+package ([Weinand 2025](#ref-pricelevels)), which is built on the
 `data.table` ([Barrett et al. 2026](#ref-datatable)) library.
 
 ``` r
 
 cpd_oecd_pl <- cpd_oecd %>%
-  dplyr::select(group, region, sPPP, weight) %>%
+  dplyr::select(heading, region, sPPP, exp_wght) %>%
   as.data.table()
 
-regions_v <- c("1", "2", "3", "4", "5")
+regions_v <- c("area_1", "area_2", "area_3", "area_4", "area_5")
 
 laspeyres_pl <- vector("list", 5)
 paasche_pl <- vector("list", 5)
@@ -849,33 +785,53 @@ for (i in seq_along(regions_v)) {
   laspeyres_pl[[i]] <- cpd_oecd_pl[, laspeyres(
     p = sPPP,
     r = region,
-    n = group,
-    w = weight,
+    n = heading,
+    w = exp_wght,
     base = c(regions_v[i])
   )]
   paasche_pl[[i]] <- cpd_oecd_pl[, paasche(
     p = sPPP,
     r = region,
-    n = group,
-    w = weight,
+    n = heading,
+    w = exp_wght,
     base = c(regions_v[i])
   )]
   fisher_pl[[i]] <- cpd_oecd_pl[, fisher(
     p = sPPP,
     r = region,
-    n = group,
-    w = weight,
+    n = heading,
+    w = exp_wght,
     base = c(regions_v[i])
   )]
   geks_pl[[i]] <- cpd_oecd_pl[, geks(
     p = sPPP,
     r = region,
-    n = group,
-    w = weight,
+    n = heading,
+    w = exp_wght,
     settings = list(type = "fisher"),
     base = c(regions_v[i])
   )]
 }
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
+#> Warning: Base region not found -> reset to base='region_1'
 
 
 indices_pricelevels_df <- do.call(cbind, laspeyres_pl) %>%
@@ -919,7 +875,10 @@ indices_pricelevels_df <- do.call(cbind, laspeyres_pl) %>%
     names_to = "index_type",
     values_to = "index_value"
   ) %>%
-  mutate(package = "pricelevels")
+  mutate(
+    region = paste("area", region, sep = "_"),
+    package = "pricelevels"
+  )
 ```
 
 #### 2.3.3 Comparing `OECDsppps` and `pricelevels` price indices outputs
@@ -949,11 +908,11 @@ indices_oecdsppps_df %>%
   facet_wrap(~ base_region + index_type, ncol = 4)
 ```
 
-![](Estimation_files/figure-html/unnamed-chunk-19-1.png)
+![](Estimation_files/figure-html/unnamed-chunk-18-1.png)
 
 ------------------------------------------------------------------------
 
-## 3 Putting it all together: Estimating weighted higher level aggregates directly from item-level prices
+## 3 Putting it all together: Estimating weighted higher-level aggregates directly from item-level prices
 
 As described in the
 [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
@@ -966,7 +925,7 @@ This section describes how to implement this [two-step
 procedure](https://amannj.github.io/OECDsppps/articles/Implementation.html#fig-aggregation),
 which combines:
 
-1.  Estimation of price parities at the basic heading level using the
+1.  Estimation of price parities at the basic-heading level using the
     regional extension of the Country-Product-Dummy (CPD) method
     ([Summers 1973](#ref-summers1973international)).
 2.  Upon validation, aggregation of BH-level parities into higher-level
@@ -994,48 +953,16 @@ This can be done with the function
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md),
 which fills in missing basic heading PPPs with a value given by the
 user. The function returns a data frame containing the variables
-indicating the region (“region”), basic heading (“product”), basic
-heading PPP (“ppp_bh”). Once joined with expenditure weights, this
+indicating the region (“region”), basic heading (“product”),
+basic-heading PPP (“ppp_bh”). Once joined with expenditure weights, this
 output can be directly fed into
-[`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md).[^2]
+[`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md).[^3]
 
 The two steps above can be linked within one pipeline using the
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
 function.
 
-``` r
-
-# Generate data with pricelevels ---------
-## Set parameters and generate generic data
-set.seed(123)
-
-R <- 5 # number of regions
-B <- 5 # number of product groups
-N <- 5 # number of products
-
-dt1 <- pricelevels::rdata(
-  R = R, B = B, N = N,
-  weights = ~ r + n,
-  settings = list(par.sd = c(
-    lnP = 0.1,
-    pi = exp(1),
-    delta = 0.5,
-    error = 0.8
-  ))
-) %>%
-  as_tibble()
-
-## Item-level prices
-dt1_prices <- dt1 %>%
-  dplyr::select(group, region, product, price)
-
-# Obtain product-specific weights ----------
-dt1_wghts <- dt1 %>%
-  distinct(group, region, .keep_all = TRUE) %>%
-  select(group, region, weight)
-```
-
-### 3.1 CPD estimation at the basic heading level using item-level prices
+### 3.1 CPD estimation at the basic-heading level using item-level prices
 
 Basic heading level sPPPs can be obtained from item-level price data by
 first grouping the data by basic heading with
@@ -1047,8 +974,8 @@ to each basic heading with
 
 ``` r
 
-dt1_prices %>%
-  group_by(group) %>%
+sampledata_prices %>%
+  group_by(heading) %>%
   group_modify(~ {
     estim_cpd(.x,
       region = "region",
@@ -1063,19 +990,20 @@ dt1_prices %>%
   fmt_number(decimals = 4)
 ```
 
-| group | region | sPPP   |
-|-------|--------|--------|
-| 1     | 1      | 1.2944 |
-| 1     | 2      | 0.5238 |
-| 1     | 3      | 1.2010 |
-| 1     | 4      | 1.1724 |
-| 1     | 5      | 1.0475 |
-| 2     | 1      | 0.9842 |
+| heading   | region   | sPPP   |
+|-----------|----------|--------|
+| heading_1 | region_1 | 1.0691 |
+| heading_1 | region_2 | 1.3077 |
+| heading_1 | region_3 | 1.0052 |
+| heading_1 | region_4 | 0.7483 |
+| heading_1 | region_5 | 0.9509 |
+| heading_2 | region_1 | 1.0950 |
 
 This will return a grouped tibble containing three columns: the variable
-specified by `group_by` (in this case the basic heading “group”); region
-(“region”), and the subnational PPPs estimated via the CPD method
-(“sPPP”).
+specified by
+[`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html) (in
+this case the basic heading “group”); region (“region”), and the
+subnational PPPs estimated via the CPD method (“sPPP”).
 
 Note that the returned tibble is still grouped by the grouping variable
 specified in
@@ -1084,7 +1012,7 @@ which should be resolved with
 [`ungroup()`](https://dplyr.tidyverse.org/reference/group_by.html)
 before proceeding further.
 
-### 3.2 Index calculation using basic heading indices
+### 3.2 Index calculation using basic-heading indices
 
 GEKS (as well as Laspeyres, Paasche, Fisher, which are all nested within
 the GEKS function) indices can be calculated by linking the previous
@@ -1099,11 +1027,12 @@ through the
 function.
 
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
-takes tibble (data frame) containing the basic heading sPPPs, and joins
-it with a supplied data frame containing the household expenditure
-weights, and gives the user the option to impute price quotes for
-expenditure categories, for which household expenditure weights are
-present but nor price quotes are available.
+takes a data frame containing the basic heading sPPPs provided as an
+input argument `data_sppps`, and joins it with a a second data frame
+(supplied via the argument `data_weights`) containing the household
+expenditure weights, and gives the user the option to impute price
+quotes for expenditure categories, for which household expenditure
+weights are present but nor price quotes are available.
 
 Thus,
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
@@ -1127,10 +1056,10 @@ To summarise, the complete workflow has these three steps:
 
 ``` r
 
-dt1_prices %>%
+sampledata_prices %>%
   # 1st step: grouping the data
-  group_by(group) %>%
-  # 1st step: estimating the basic heading sPPPs
+  group_by(heading) %>%
+  # 1st step: estimating the basic-heading sPPPs
   group_modify(~ {
     estim_cpd(.x,
       region = "region",
@@ -1144,11 +1073,11 @@ dt1_prices %>%
   # 2nd step: preparing the data for index number calculation
   estim_index_link(
     data = .,
-    data_weights = dt1_wghts,
-    basic_heading = "group",
+    data_weights = sampledata_weights,
+    product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "exp_wght",
     complete_sppp = NA
   ) %>%
   # 3rd step: Index number calculation
@@ -1159,14 +1088,14 @@ dt1_prices %>%
   fmt_number(decimals = 4)
 ```
 
-| base_region | region | geks_index |
-|-------------|--------|------------|
-| 1           | 1      | 1.0000     |
-| 1           | 2      | 0.9330     |
-| 1           | 3      | 0.6603     |
-| 1           | 4      | 1.1413     |
-| 1           | 5      | 1.0012     |
-| 2           | 1      | 1.0719     |
+| base_region | region   | geks_index |
+|-------------|----------|------------|
+| region_1    | region_1 | 1.0000     |
+| region_1    | region_2 | 0.5915     |
+| region_1    | region_3 | 0.7921     |
+| region_1    | region_4 | 0.9108     |
+| region_1    | region_5 | 0.4122     |
+| region_2    | region_1 | 1.6905     |
 
 ### 3.3 Incomplete input data
 
@@ -1175,8 +1104,9 @@ further processing before it can be used. Item-level price data can be
 validated through
 [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md),
 [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md),
-`valid_XRratio()`, and `valid_PPPratio()`. Expenditure weights can be
-validated through
+`valid_XRratio()`, and
+[`valid_ratio_ppp()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.md).
+Expenditure weights can be validated through
 [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md).
 
 #### 3.3.1 Missing price quotes
@@ -1189,10 +1119,10 @@ above-outlined approach results in an error from
 [`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md)
 due to an incomplete sPPP matrix.
 
-In the example below, we remove the sPPPs for two region/basic heading
+In the example below, we remove the sPPPs for two region/basic-heading
 pairs. While
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
-returns a harmonized data frame,
+returns a harmonised data frame,
 [`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md)
 returns an error.
 
@@ -1215,8 +1145,8 @@ return_error <- function(expr) {
 
 
 return_error(
-  dt1_prices %>%
-    group_by(group) %>%
+  sampledata_prices %>%
+    group_by(heading) %>%
     group_modify(~ {
       estim_cpd(.x,
         region = "region",
@@ -1227,14 +1157,14 @@ return_error(
     }) %>%
     ungroup() %>%
     # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
-    filter(!(region %in% c("1", "2") & group == "1")) %>%
+    filter(!(region %in% c("region_1", "region_2") & heading == "heading_1")) %>%
     estim_index_link(
       data = .,
-      data_weights = dt1_wghts,
-      basic_heading = "group",
+      data_weights = sampledata_weights,
+      product_heading = "heading",
       region = "region",
       sPPP = "sPPP",
-      exp_wght = "weight",
+      weights = "exp_wght",
       complete_sppp = NA
     ) %>%
     index_geks()
@@ -1242,13 +1172,14 @@ return_error(
 #> Error message:
 #> Error in valid_index_data(data, region, product, ppp_bh, exp_wght): Incomplete PPP matrix.
 #> Missing PPPs for the following region/product combinations:
-#>  1/1; 2/1
+#>  region_1/heading_1; region_2/heading_1
 ```
 
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
 enables imputing a user-specified value for missing sPPPs through the
-“complete_sppp” argument. The same value is imputed for all region/basic
-heading pairs with missing sPPPs. The missing pairs are identified by
+“complete_sppp” argument. The same value is imputed for all
+region/basic-heading pairs with missing sPPPs. The missing pairs are
+identified by
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
 and do not have to be specified by the user. Below, we impute 1 for
 sPPPs of all such pairs.
@@ -1258,8 +1189,8 @@ the user-provided value was imputed.
 
 ``` r
 
-dt1_prices %>%
-  group_by(group) %>%
+sampledata_prices %>%
+  group_by(heading) %>%
   group_modify(~ {
     estim_cpd(.x,
       region = "region",
@@ -1270,53 +1201,53 @@ dt1_prices %>%
   }) %>%
   ungroup() %>%
   # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
-  filter(!(region %in% c("1", "2") & group == "1")) %>%
+  filter(!(region %in% c("region_1", "region_2") & heading == "heading_1")) %>%
   # Setting complete_sppp = 1 to impute 1 for missing sPPPs
   estim_index_link(
     data = .,
-    data_weights = dt1_wghts,
-    basic_heading = "group",
+    data_weights = sampledata_weights,
+    product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "exp_wght",
     complete_sppp = 1
   ) %>%
   index_geks() %>%
   head() %>%
   gt() %>%
   fmt_number(decimals = 4)
-#> [1] "sPPP of 1 was imputed to the following region/headings pairs: 1/1; 2/1"
-#> Warning in estim_index_link(data = ., data_weights = dt1_wghts, basic_heading =
-#> "group", : sPPP of 1 was imputed to the following region/headings pairs: 1/1;
-#> 2/1
+#> [1] "sPPP of 1 was imputed to the following region/headings pairs: region_1/heading_1; region_2/heading_1"
+#> Warning in estim_index_link(data = ., data_weights = sampledata_weights, : sPPP
+#> of 1 was imputed to the following region/headings pairs: region_1/heading_1;
+#> region_2/heading_1
 ```
 
-| base_region | region | geks_index |
-|-------------|--------|------------|
-| 3           | 3      | 1.0000     |
-| 3           | 4      | 1.7329     |
-| 3           | 5      | 1.5194     |
-| 3           | 1      | 1.4907     |
-| 3           | 2      | 1.4852     |
-| 4           | 3      | 0.5771     |
+| base_region | region   | geks_index |
+|-------------|----------|------------|
+| region_3    | region_3 | 1.0000     |
+| region_3    | region_4 | 1.1508     |
+| region_3    | region_5 | 0.5205     |
+| region_3    | region_1 | 1.2573     |
+| region_3    | region_2 | 0.7326     |
+| region_4    | region_3 | 0.8690     |
 
 #### 3.3.2 Incomplete weighting matrix
 
 Alternatively, the expenditure weights data frame can contain empty
-fields for some region/basic heading combinations.
+fields for some region/basic-heading combinations.
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
-still works with such data and returns a standardized data frame.
-However, this data frame contains NAs for some region/basic heading
+still works with such data and returns a standardised data frame.
+However, this data frame contains NAs for some region/basic-heading
 weights.
 
 ``` r
 
 # Remove expenditure weight for the following region/heading combination: 1/1
-dt1_wghts <- dt1_wghts %>%
-  filter(!(group %in% c("1") & region %in% c("1")))
+sampledata_weights <- sampledata_weights %>%
+  filter(!(heading %in% c("heading_1") & region %in% c("region_1")))
 
-dt1_prices %>%
-  group_by(group) %>%
+sampledata_prices %>%
+  group_by(heading) %>%
   group_modify(~ {
     estim_cpd(.x,
       region = "region",
@@ -1328,11 +1259,11 @@ dt1_prices %>%
   ungroup() %>%
   estim_index_link(
     data = .,
-    data_weights = dt1_wghts,
-    basic_heading = "group",
+    data_weights = sampledata_weights,
+    product_heading = "heading",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "exp_wght",
     complete_sppp = NA
   ) %>%
   head() %>%
@@ -1340,17 +1271,17 @@ dt1_prices %>%
   fmt_number(decimals = 4)
 ```
 
-| product | region | ppp_bh | exp_wght |
-|---------|--------|--------|----------|
-| 1       | 1      | 1.2944 | NA       |
-| 1       | 2      | 0.5238 | 0.0685   |
-| 1       | 3      | 1.2010 | 0.0685   |
-| 1       | 4      | 1.1724 | 0.0685   |
-| 1       | 5      | 1.0475 | 0.0685   |
-| 2       | 1      | 0.9842 | 0.0954   |
+| product   | region   | ppp_bh | exp_wght |
+|-----------|----------|--------|----------|
+| heading_1 | region_1 | 1.0691 | NA       |
+| heading_1 | region_2 | 1.3077 | 0.0687   |
+| heading_1 | region_3 | 1.0052 | 0.0687   |
+| heading_1 | region_4 | 0.7483 | 0.0631   |
+| heading_1 | region_5 | 0.9509 | 0.0673   |
+| heading_2 | region_1 | 1.0950 | 0.0983   |
 
-In turn, this results in the index number function to break and return
-an error due to an incomplete expenditure weights matrix.
+In turn, this causes the index number function to break and return an
+error due to an incomplete expenditure weights matrix.
 
 Note that in the code chunk below,
 [`tryCatch()`](https://rdrr.io/r/base/conditions.html) is used to print
@@ -1361,8 +1292,8 @@ as an output.
 ``` r
 
 return_error(
-  dt1_prices %>%
-    group_by(group) %>%
+  sampledata_prices %>%
+    group_by(heading) %>%
     group_modify(~ {
       estim_cpd(.x,
         region = "region",
@@ -1374,11 +1305,11 @@ return_error(
     ungroup() %>%
     estim_index_link(
       data = .,
-      data_weights = dt1_wghts,
-      basic_heading = "group",
+      data_weights = sampledata_weights,
+      product_heading = "heading",
       region = "region",
       sPPP = "sPPP",
-      exp_wght = "weight",
+      weights = "exp_wght",
       complete_sppp = NA
     ) %>%
     index_geks()
@@ -1387,7 +1318,7 @@ return_error(
 #> Error in valid_index_data(data, region, product, ppp_bh, exp_wght): 
 #> Incomplete expenditure weights matrix.
 #> Missing weights for the following region/product combinations:
-#>  1/1
+#>  region_1/heading_1
 ```
 
   
@@ -1397,16 +1328,21 @@ return_error(
 
 ## References
 
+Auer, Ludwig von. 2026. *The Gap Pattern Coefficient: Diagnosing
+Missing-Data Bias in Multilateral Price Level Measurement*. (Trier).
+<https://www.uni-trier.de/fileadmin/fb4/prof/VWL/EWF/Research_Papers/2026-09.pdf>.
+
+Bank, World. 2013. *Measuring the Real Size of the World Economy: The
+Framework, Methodology, and Results of the International Comparison
+Program (ICP)*. World Bank.
+<https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf>.
+
 Barrett, Tyson, Matt Dowle, Arun Srinivasan, et al. 2026. *Data.table:
 Extension of ‘Data.frame‘*. <https://r-datatable.com>.
 
 European Union/OECD. 2024. *Eurostat-OECD Methodological Manual on
 Purchasing Power Parities (2023 Edition)*. OECD Publishing, Paris.
 <https://doi.org/10.2785/384854>.
-
-Hearne, David, and David Bailey. 2025. “Regional Prices Reconsidered.”
-*Regional Studies, Regional Science* 12 (1): 338–56.
-<https://doi.org/10.1080/21681376.2025.2475115>.
 
 ICP. 2021. *A Guide to the Compilation of Subnational Purchasing Power
 Parities (PPPs)*.
@@ -1421,15 +1357,24 @@ Incomplete Data.” *Review of Income and Wealth* 19 (1): 1–16.
 Weinand, Sebastian. 2025. *Pricelevels: Spatial Price Level
 Comparisons*. <https://doi.org/10.32614/CRAN.package.pricelevels>.
 
-World Bank. 2013. *Measuring the Real Size of the World Economy: The
-Framework, Methodology, and Results of the International Comparison
-Program ICP*. World Bank.
-<https://thedocs.worldbank.org/en/doc/927971487091799574-0050022017/original/ICPBookeBookFINAL.pdf>.
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis
+Vaughan. 2026. *Dplyr: A Grammar of Data Manipulation*.
+<https://doi.org/10.32614/CRAN.package.dplyr>.
 
-[^1]: Model [Equation 1](#eq-ppp1) is not identified and requires
+[^1]: This is particularly important when deriving PPPs from existing
+    price microdata, where not all products are observed in every
+    region, rather than from dedicated PPP surveys based on a
+    pre-specified list of comparable items. In particular, GEKS
+    price-level estimates are intrinsically more sensitive to missing
+    observations than those obtained through CPD and therefore
+    diagnostic tools for assessing data completeness are especially
+    valuable for GEKS-based price-level estimates ([Auer, Ludwig von
+    2026](#ref-auer_von_gap_2026)).
+
+[^2]: Model [Equation 1](#eq-ppp1) is not identified and requires
     parametrisation before it can be estimated.
 
-[^2]: Or any alternative bilateral index formula
+[^3]: Or any alternative bilateral index formula
     [`index_laspeyres()`](https://amannj.github.io/OECDsppps/reference/index_laspeyres.md),
     [`index_paasche()`](https://amannj.github.io/OECDsppps/reference/index_paasche.md),
     [`index_fisher()`](https://amannj.github.io/OECDsppps/reference/index_fisher.md).

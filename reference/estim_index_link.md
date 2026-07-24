@@ -1,26 +1,26 @@
 # CPD estimation to index calculation linking function
 
 `estim_index_link()` enables linking CPD estimation to index calculation
-within one pipe. Can fill in missing basic heading PPPs with a value
+within one pipe. Can fill in missing basic-heading PPPs with a value
 given by the user.
 
 ## Usage
 
 ``` r
 estim_index_link(
-  data,
-  data_weights = data_weights,
-  basic_heading = "basic_heading",
+  data_sppps,
+  data_weights,
+  product_heading = "product_heading ",
   region = "region",
   sPPP = "sPPP",
-  exp_wght = "weight",
+  weights = "weight",
   complete_sppp = NA
 )
 ```
 
 ## Arguments
 
-- data:
+- data_sppps:
 
   Data frame, data table or tibble containing at least three columns
   identifying region, product and respective sPPPs
@@ -30,9 +30,10 @@ estim_index_link(
   Data frame, data table or tibble containing at least three columns
   identifying region, product and expenditure weights
 
-- basic_heading:
+- product_heading:
 
-  column containing the basic heading identifier
+  column containing the product heading, typically following the COICOP
+  classification
 
 - region:
 
@@ -42,18 +43,18 @@ estim_index_link(
 
   Identifier for the basix heading sPPPs
 
-- exp_wght:
+- weights:
 
   Identifier for expenditure weights
 
 - complete_sppp:
 
-  value to be imputed for missing basic heading PPPs
+  value to be imputed for missing basic-heading PPPs
 
 ## Value
 
 Returns a data frame containing the variables indicating the region
-("region"), basic heading ("product"), basic heading PPP ("ppp_bh"), and
+("region"), basic heading ("product"), basic-heading PPP ("ppp_bh"), and
 expenditure weights ("exp_wght"). This output can be directly fed into
 [`index_laspeyres()`](https://amannj.github.io/OECDsppps/reference/index_laspeyres.md),
 [`index_paasche()`](https://amannj.github.io/OECDsppps/reference/index_paasche.md),
@@ -65,7 +66,7 @@ and
 
 ``` r
 if (FALSE) { # \dontrun{
-# Generate the price and weight data and estimate CPD at basic headings
+# Generate the price and weight data and estimate CPD at basic-heading level
 dt1 <- pricelevels::rdata(
   R = R, B = B, N = N,
   weights = ~ r + n,
@@ -99,12 +100,12 @@ dt1_basic_headings <- dt1_prices %>%
 
 dt1_basic_headings %>%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = NA
   )
 
@@ -115,12 +116,12 @@ dt1_basic_headings %>%
 dt1_basic_headings %>%
   filter(!(region %in% c("1", "2") & group == "1")) %>%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = NA
   )
 
@@ -131,12 +132,12 @@ dt1_basic_headings %>%
 dt1_basic_headings %>%
   filter(!(region %in% c("1", "2") & group == "1")) %>%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = dt1_wghts,
-    basic_heading = "group",
+    product_heading = "group",
     region = "region",
     sPPP = "sPPP",
-    exp_wght = "weight",
+    weights = "weight",
     complete_sppp = 1
   )
 } # }

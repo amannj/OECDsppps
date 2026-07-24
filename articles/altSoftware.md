@@ -10,11 +10,11 @@ This section describes alternative software solutions to implement
 
 ### 1.1 Integrating Python into an R project
 
-An R interface to Python is provided by the
+An R interface to Python is provided by
 [reticulate](https://rstudio.github.io/reticulate/); see the packages
 [Getting started](https://rstudio.github.io/reticulate/#getting-started)
-guide for more information and the various ways, to integrate Python
-code into an R project.
+guide for more information and the various ways to integrate Python code
+into an R project.
 
 The next section focuses on one such solution, that is, integrating
 [Python in R
@@ -25,15 +25,15 @@ Markdown](https://rstudio.github.io/reticulate/#python-in-r-markdown).
 After successfully
 [installing](https://rstudio.github.io/reticulate/#installation) and (if
 necessary)
-[configurating](https://rstudio.github.io/reticulate/articles/versions.html)
+[configuring](https://rstudio.github.io/reticulate/articles/versions.html)
 Python, Python and R code can be run in the same IDE (recommended are
 either [RStudio](https://posit.co/downloads) or
 [Positron](https://positron.posit.co/)) in an interactive session where
 data can be moved between both environments interactively using either
 [R Markdown](https://rmarkdown.rstudio.com/) or
-[quarto](https://quarto.org/).
+[Quarto](https://quarto.org/).
 
-Step 1, initiate Python environment in R; the example below uses a
+In step 1, initiate a Python environment in R; the example below uses a
 generic virtual environment.
 
 ```` markdown
@@ -44,10 +44,10 @@ use_virtualenv("path_to_your_virtual_environment")
 ```
 ````
 
-Step 2, perform computations in Python in a separate code chunk
+In step 2, perform computations in Python in a separate code chunk
 initiated by ```` ```{python} ```` \`. In this generic example, a data
 file with price quotes is loaded and transformed to only keep the
-variables relevant for the CPD calculation, which will be performed in R
+variables relevant for the CDP calculation, which will be performed in R
 in the next step.
 
 ```` markdown
@@ -61,7 +61,7 @@ prices_out = prices[["region", "product", "price"]]
 ```
 ````
 
-Step 3, move data object `prices_out` from Python into R and estimate
+In step 3, move data object `prices_out` from Python into R and estimate
 the CDP method using function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 in `OECDsppps`. Note that this data object can be accessed in R by
@@ -79,16 +79,12 @@ results_cpd <- estim_cpd(
 ```
 ````
 
-### 1.2 Integrating R into a Python project
-
-> 🚧 Work in progress.
-
 ## 2 SAS
 
 [SAS](https://www.sas.com) users can execute R with the [R procedure
 (PROC
 R)](https://documentation.sas.com/doc/en/pgmsascdc/v_075/proc/p13zn8bv8gu2won1dvff9a2x9qb7.htm)
-dirictly inside SAS, while keeping the data in the SAS ecosystem.
+directly inside SAS, while keeping the data in the SAS ecosystem.
 
 PROC R is available to SAS Viya users starting with the 2026.03 SAS Viya
 release.
@@ -102,12 +98,12 @@ Do?](https://documentation.sas.com/doc/en/pgmsascdc/v_075/proc/p13zn8bv8gu2won1d
 
 > **Note:** A complete installation of R including the following R
 > packages is necessary to have full PROC R functionality: `R6`,
-> `arrow`, `haven`, `plotly`, `svglite`, `gt`. To run `OECDspps`, these
+> `arrow`, `haven`, `plotly`, `svglite`, `gt`. To run `OECDsppps`, these
 > packages *as well as* all `OECDsppps` dependencies must be installed.
 
 ### 2.1 Stylised example: running R in SAS
 
-R can be run from a SAS programme saved in a `.sas` by running:
+R can be run from a SAS programme saved in a `.sas` file by running:
 
 ``` blue
 * SAS code;
@@ -118,21 +114,22 @@ proc r;
 run;
 ```
 
-Data loaded into a SAS can be passed between R and SAS as described by
-following these steps; a more detailed step-by-step guide is provided in
-“[Introducing PROC R: The Newest Way to Integrate R and
+Data loaded into a SAS data set can be passed between R and SAS as
+described by following these steps; a more detailed step-by-step guide
+is provided in “[Introducing PROC R: The Newest Way to Integrate R and
 SAS](https://communities.sas.com/t5/SAS-Communities-Library/Introducing-PROC-R-The-Newest-Way-to-Integrate-R-and-SAS-Part-1/ta-p/985832)”:
 
 1.  Export a SAS data set to a local R data frame using `sd2df` or
     `sasdata2dataframe`.
-2.  Perform calculations in R using R syntax
-3.  Transfer r data to a SAS data using `df2sd` of `dataframe2sasdata`
+2.  Perform calculations in R using R syntax.
+3.  Transfer R data to a SAS data set using `df2sd` or
+    `dataframe2sasdata`.
 
 ### 2.2 Integrating `OECDsppps` into a SAS workflow
 
 The generic example below converts a table called `price` stored in the
-`work` library to an R data object and estimates the Country Product
-Dummy (CPD) method using the `OECDsppps` function
+`work` library to an R data object and estimates the
+Country-Product-Dummy (CPD) method using the `OECDsppps` function
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md).
 Then, the retrieved CPD estimates are converted back to a SAS table
 called `cpd` stored in the `work` library.

@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">OECDsppps</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,9 +46,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="raw-data-validation">Raw data validation<a class="anchor" aria-label="anchor" href="#raw-data-validation"></a></h2>
+      <h2 id="validation">Validation<a class="anchor" aria-label="anchor" href="#validation"></a></h2>
 
-      <div class="section-desc"><p>Functions for raw data validation</p></div>
+      <div class="section-desc"><p>Functions for validating data and price estimates and indices</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -67,7 +67,7 @@
           <code><a href="valid_dikhanov.html">valid_dikhanov()</a></code>
 
         </dt>
-        <dd>Dikhanov table</dd>
+        <dd>Dikhanov Table</dd>
 
         <dt>
 
@@ -102,18 +102,18 @@
           <code><a href="valid_ratio_ppp.html">valid_ratio_ppp()</a></code>
 
         </dt>
-        <dd>The "PPP-ratio tables"</dd>
+        <dd>The "PPP-ratio Tables"</dd>
 
         <dt>
 
           <code><a href="valid_ratio_xr.html">valid_ratio_xr()</a></code>
 
         </dt>
-        <dd>The "XR-ratio tables"</dd>
+        <dd>The "XR-ratio Tables"</dd>
       </dl></div><div class="section level2">
       <h2 id="estimation-at-basic-heading-level">Estimation at basic-heading level<a class="anchor" aria-label="anchor" href="#estimation-at-basic-heading-level"></a></h2>
 
-      <div class="section-desc"><p>Function for estimation at basic-heading level</p></div>
+      <div class="section-desc"><p>Functions for estimating price indices at basic-heading level</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -136,7 +136,7 @@
       </dl></div><div class="section level2">
       <h2 id="estimation-beyond-the-basic-heading-level">Estimation beyond the basic-heading level<a class="anchor" aria-label="anchor" href="#estimation-beyond-the-basic-heading-level"></a></h2>
 
-      <div class="section-desc"><p>Functions for estimation price indices and index calculation</p></div>
+      <div class="section-desc"><p>Functions for calculating multilateral price indices following the Gini-Éltetö-Köves-Szulc (GEKS) method</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -171,9 +171,39 @@
         </dt>
         <dd>The Paasche price index</dd>
       </dl></div><div class="section level2">
-      <h2 id="data-and-supplementary-files">Data and supplementary files<a class="anchor" aria-label="anchor" href="#data-and-supplementary-files"></a></h2>
+      <h2 id="concordance-and-reference-tables">Concordance and reference tables<a class="anchor" aria-label="anchor" href="#concordance-and-reference-tables"></a></h2>
 
-      <div class="section-desc"><p>Data files and concordance tables</p></div>
+      <div class="section-desc"><p>A selection of concordance and reference tables to facilitate the creation of subnational PPPs</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="oecd_tl.html">oecd_tl</a></code>
+
+        </dt>
+        <dd>OECD Territorial correspondence table</dd>
+
+        <dt>
+
+          <code><a href="ecoicop16_names.html">ecoicop16_names</a></code>
+
+        </dt>
+        <dd>Classification of Individual Consumption According to Purpose (ECOICOP)</dd>
+
+        <dt>
+
+          <code><a href="concordance_ecoicop2bh.html">concordance_ecoicop2bh</a></code>
+
+        </dt>
+        <dd>Concordance table from ECOICOP to Eurostat PPP Basic Headings</dd>
+      </dl></div><div class="section level2">
+      <h2 id="sample-data">Sample data<a class="anchor" aria-label="anchor" href="#sample-data"></a></h2>
+
+      <div class="section-desc"><p>Sample data to illustrate the functionality of OECDsppps</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -196,24 +226,24 @@
 
         <dt>
 
-          <code><a href="oecd_tl.html">oecd_tl</a></code>
+          <code><a href="sampledata_prices.html">sampledata_prices</a></code>
 
         </dt>
-        <dd>OECD Territorial correspondence table</dd>
+        <dd>Sample price quotes</dd>
 
         <dt>
 
-          <code><a href="ecoicop16_names.html">ecoicop16_names</a></code>
+          <code><a href="sampledata_weights.html">sampledata_weights</a></code>
 
         </dt>
-        <dd>Classification of Individual Consumption According to Purpose (ECOICOP)</dd>
+        <dd>Sample expenditure shares</dd>
 
         <dt>
 
-          <code><a href="concordance_ecoicop2bh.html">concordance_ecoicop2bh</a></code>
+          <code><a href="sampledata_multi_period.html">sampledata_multi_period</a></code>
 
         </dt>
-        <dd>Concordance table from ECOICOP1 to Eurostat PPP Basic Headings</dd>
+        <dd>Sample price quotes and expenditure for a generic, multi-period sample</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
@@ -224,7 +254,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -73,7 +73,7 @@ estim_cpd(
 - output:
 
   Either "sPPP", which returns the estimated subnational purchasing
-  purchasing power parities, that is, \\\hat{SPPP}\_r =
+  Purchasing Power Parities, that is, \\\hat{SPPP}\_r =
   exp(\hat{\alpha}\_r)\\ or "Full", which summarises the key information
   of the estimate CPD model: It provides the 'Regression
   output`as well as the individual 'Residuals' of the CPD regression. Note that the column `sPPP`is derived from the factor term contrasts using`stats::dummy.coef()`. The values in the column `estimate`correspond to the column`sPPP`as`sPPP
@@ -86,8 +86,8 @@ estim_cpd(
 
 The CPD method is a regression-based approach for estimating price
 parities. It is characterised by a fixed-effects specification, in which
-country effects yield estimates of subnational purchasing power
-parities, while commodity-specific effects generate estimates of
+country effects yield estimates of subnational Purchasing Power
+Parities, while commodity-specific effects generate estimates of
 subnational price levels. The model can be written as a regression
 equation in which all explanatory variables take the form of dummy
 indicators for each region and commodity:
