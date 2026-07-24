@@ -56,12 +56,12 @@ reference:
       - valid_ratio_ppp
       - valid_ratio_xr
   - title: "Estimation at basic-heading level"
-    desc: "Function for calculating price estimates at basic-heading level"
+    desc: "Functions for estimating price indices at basic-heading level"
     contents:
       - estim_cpd
       - estim_index_link
   - title: "Estimation beyond the basic-heading level"
-    desc: "Functions for calculating price indices"
+    desc: "Functions for calculating multilateral price indices following the Gini-Éltetö-Köves-Szulc (GEKS) method"
     contents:
       - index_fisher
       - index_geks

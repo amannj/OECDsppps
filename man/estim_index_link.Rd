@@ -29,21 +29,21 @@ columns identifying region, product and expenditure weights}
 
 \item{weights}{Identifier for expenditure weights}
 
-\item{complete_sppp}{value to be imputed for missing basic heading PPPs}
+\item{complete_sppp}{value to be imputed for missing basic-heading PPPs}
 }
 \value{
 Returns a data frame containing the variables indicating the region ("region"),
-basic heading ("product"), basic heading PPP ("ppp_bh"), and expenditure weights ("exp_wght").
+basic heading ("product"), basic-heading PPP ("ppp_bh"), and expenditure weights ("exp_wght").
 This output can be directly fed into \code{index_laspeyres()}, \code{index_paasche()}, \code{index_fisher()},
 and \code{index_geks()}.
 }
 \description{
 \code{estim_index_link()} enables linking CPD estimation to index calculation within
-one pipe. Can fill in missing basic heading PPPs with a value given by the user.
+one pipe. Can fill in missing basic-heading PPPs with a value given by the user.
 }
 \examples{
 \dontrun{
-# Generate the price and weight data and estimate CPD at basic headings
+# Generate the price and weight data and estimate CPD at basic-heading level
 dt1 <- pricelevels::rdata(
   R = R, B = B, N = N,
   weights = ~ r + n,

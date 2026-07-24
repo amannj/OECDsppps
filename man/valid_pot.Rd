@@ -26,7 +26,7 @@ quotes that do not pass the two tests are flagged in columns
 The item-level price quotes should be based on the
 \strong{reference quantity price};
 see \emph{Details} and \insertCite{@worldbankMeasuringRealSize2013;textual}{OECDsppps},
-table 9.1a. for more information.
+Table 9.1a. for more information.
 }
 \details{
 \strong{Reference quantity price:} Scales the observed price to the quantity

@@ -2,7 +2,7 @@
 % Please edit documentation in R/valid.R
 \name{valid_ratio_ppp}
 \alias{valid_ratio_ppp}
-\title{The "PPP-ratio tables"}
+\title{The "PPP-ratio Tables"}
 \usage{
 valid_ratio_ppp(
   data,

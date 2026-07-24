@@ -74,7 +74,7 @@
 #' @source [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
 "uk_hhe"
 
-#' Concordance table from ECOICOP1 to Eurostat PPP Basic Headings
+#' Concordance table from ECOICOP to Eurostat PPP Basic Headings
 #'
 #' A concordance table to map European Classification of Individual Consumption according to Purpose, version 1 (ECOICOP1) to Basic Headings (BH) of the Eurostat PPP list of products for consumer goods and services
 #'

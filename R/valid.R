@@ -11,7 +11,7 @@
 #' The item-level price quotes should be based on the
 #' **reference quantity price**;
 #' see *Details* and \insertCite{@worldbankMeasuringRealSize2013;textual}{OECDsppps},
-#' table 9.1a. for more information.
+#' Table 9.1a. for more information.
 #'
 #' **Reference quantity price:** Scales the observed price to the quantity
 #' that *should* be surveyed. It is defined as:
@@ -157,7 +157,7 @@ valid_apt <- function(data,
 }
 
 
-#' The "XR-ratio tables"
+#' The "XR-ratio Tables"
 #'
 #' \loadmathjax
 #' `valid_ratio_xr()` in  \pkg{OECDsppps} calculates the exchange rate ratio (XR-ratio), which is a region-country's XR-price
@@ -205,7 +205,7 @@ valid_ratio_xr <- function(data,
 }
 
 
-#' The "PPP-ratio tables"
+#' The "PPP-ratio Tables"
 #'
 #' \loadmathjax
 #' `valid_ratio_ppp()` in  \pkg{OECDsppps} calculates the PPP-ratio, which shows the variation
@@ -539,7 +539,7 @@ valid_outlier_plot <- function(data,
   return(p)
 }
 
-#' Dikhanov table
+#' Dikhanov Table
 #'
 #' `valid_dikhanov()` generates the Dikhanov tables for all selected basic headings;
 #' \insertCite{@see @worldbankMeasuringRealSize2013 and @icpGuideCompilationSubnational2021;textual}{OECDsppps}.
@@ -549,7 +549,7 @@ valid_outlier_plot <- function(data,
 #' - Summary information (PPPs, SDs, price level) by region for the aggregate;
 #' - CPD residuals and product variation coefficients for products within basic headings.
 #'
-#' The Dikhanov table facilitates the comparisons of PPPs across basic headings;
+#' The Dikhanov Table facilitates the comparisons of PPPs across basic headings;
 #' plausible variations in PPPs is expected across regions. Such variations would
 #' indicate that, say, alcoholic beverages in region A are x% higher than in region B.
 #' The CPD residuals help ensure that the aggregate PPP variations are not driven

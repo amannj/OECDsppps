@@ -9,7 +9,7 @@
 #'
 #' The CPD method is a regression-based approach for estimating price parities.
 #' It is characterised by a fixed-effects specification, in which country effects
-#' yield estimates of subnational purchasing power parities,
+#' yield estimates of subnational Purchasing Power Parities,
 #' while commodity-specific effects generate estimates of subnational price
 #' levels. The model can be written as a regression equation in which all
 #' explanatory variables take the form of dummy indicators for each region
@@ -49,7 +49,7 @@
 #' When `NULL`, they refer to the (unweighted) regional average,
 #' similar to `contr.sum()`
 #' @param output Either "sPPP", which returns the estimated subnational
-#' purchasing purchasing power parities, that is,
+#' purchasing Purchasing Power Parities, that is,
 #' \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 #' "Full", which summarises the key information of the estimate CPD model:
 #'  It provides the 'Regression output`as well as the individual 'Residuals'
@@ -258,7 +258,7 @@ estim_cpd <- function(data,
 #' CPD estimation to index calculation linking function
 #'
 #' `estim_index_link()` enables linking CPD estimation to index calculation within
-#' one pipe. Can fill in missing basic heading PPPs with a value given by the user.
+#' one pipe. Can fill in missing basic-heading PPPs with a value given by the user.
 #'
 #' @param data_sppps Data frame, data table or tibble containing at least three
 #'  columns identifying region, product and respective sPPPs
@@ -268,16 +268,16 @@ estim_cpd <- function(data,
 #' @param region Identifier for regions
 #' @param sPPP Identifier for the basix heading sPPPs
 #' @param weights Identifier for expenditure weights
-#' @param complete_sppp value to be imputed for missing basic heading PPPs
+#' @param complete_sppp value to be imputed for missing basic-heading PPPs
 #'
 #' @return Returns a data frame containing the variables indicating the region ("region"),
-#' basic heading ("product"), basic heading PPP ("ppp_bh"), and expenditure weights ("exp_wght").
+#' basic heading ("product"), basic-heading PPP ("ppp_bh"), and expenditure weights ("exp_wght").
 #' This output can be directly fed into `index_laspeyres()`, `index_paasche()`, `index_fisher()`,
 #' and `index_geks()`.
 #'
 #' @examples
 #' \dontrun{
-#' # Generate the price and weight data and estimate CPD at basic headings
+#' # Generate the price and weight data and estimate CPD at basic-heading level
 #' dt1 <- pricelevels::rdata(
 #'   R = R, B = B, N = N,
 #'   weights = ~ r + n,
