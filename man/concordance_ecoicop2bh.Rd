@@ -3,7 +3,7 @@
 \docType{data}
 \name{concordance_ecoicop2bh}
 \alias{concordance_ecoicop2bh}
-\title{Concordance table from ECOICOP1 to Eurostat PPP Basic Headings}
+\title{Concordance table from ECOICOP to Eurostat PPP Basic Headings}
 \format{
 \subsection{\code{concordance_ecoicop2bh}}{
 

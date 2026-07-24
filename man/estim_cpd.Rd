@@ -50,7 +50,7 @@ When \code{NULL}, they refer to the (unweighted) regional average,
 similar to \code{contr.sum()}}
 
 \item{output}{Either "sPPP", which returns the estimated subnational
-purchasing purchasing power parities, that is,
+purchasing Purchasing Power Parities, that is,
 \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 "Full", which summarises the key information of the estimate CPD model:
 It provides the 'Regression output\verb{as well as the individual 'Residuals' of the CPD regression. Note that the column }sPPP\verb{is derived from the factor term contrasts using}stats::dummy.coef()\verb{. The values in the column }estimate\verb{correspond to the column}sPPP\code{as}sPPP = exp(estimate)`
@@ -69,7 +69,7 @@ for more information.
 \details{
 The CPD method is a regression-based approach for estimating price parities.
 It is characterised by a fixed-effects specification, in which country effects
-yield estimates of subnational purchasing power parities,
+yield estimates of subnational Purchasing Power Parities,
 while commodity-specific effects generate estimates of subnational price
 levels. The model can be written as a regression equation in which all
 explanatory variables take the form of dummy indicators for each region

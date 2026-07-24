@@ -2,7 +2,7 @@
 % Please edit documentation in R/valid.R
 \name{valid_ratio_xr}
 \alias{valid_ratio_xr}
-\title{The "XR-ratio tables"}
+\title{The "XR-ratio Tables"}
 \usage{
 valid_ratio_xr(
   data,

@@ -9,7 +9,7 @@
 #'
 #' The CPD method is a regression-based approach for estimating price parities.
 #' It is characterised by a fixed-effects specification, in which country effects
-#' yield estimates of subnational purchasing power parities,
+#' yield estimates of subnational Purchasing Power Parities,
 #' while commodity-specific effects generate estimates of subnational price
 #' levels. The model can be written as a regression equation in which all
 #' explanatory variables take the form of dummy indicators for each region
@@ -49,7 +49,7 @@
 #' When `NULL`, they refer to the (unweighted) regional average,
 #' similar to `contr.sum()`
 #' @param output Either "sPPP", which returns the estimated subnational
-#' purchasing purchasing power parities, that is,
+#' purchasing Purchasing Power Parities, that is,
 #' \mjseqn{\hat{SPPP}_r = exp(\hat{\alpha}_r)} or
 #' "Full", which summarises the key information of the estimate CPD model:
 #'  It provides the 'Regression output`as well as the individual 'Residuals'
@@ -145,7 +145,7 @@ estim_cpd <- function(data,
         summarise({{ price }} := stats::weighted.mean(.data[[price]], w = .data[[weights]], na.rm = T),
           .groups = "drop"
         )
-      message("Duplicate region-product pairs found in data and no weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
+      message("Duplicate region-product pairs found in data and weights provided: Data is aggregated to region-product pairs using weighted means, with weights provided in `weights`.")
     }
   }
   ### Aggregate: use raw data provided
@@ -225,7 +225,7 @@ estim_cpd <- function(data,
         broom::tidy(m) |>
           dplyr::filter(grepl({{ region }}, term)) |>
           dplyr::mutate(
-            term = stringr::str_remove_all(term, {{ region }}),
+            term = stringr::str_remove(term, {{ region }}),
             r.squared = NA, adj.r.squared = NA, sigma = NA, df = NA, df.residual = NA
           ) |>
           dplyr::left_join(reg_nobs, by = c("term" = {{ region }})),
@@ -258,26 +258,26 @@ estim_cpd <- function(data,
 #' CPD estimation to index calculation linking function
 #'
 #' `estim_index_link()` enables linking CPD estimation to index calculation within
-#' one pipe. Can fill in missing basic heading PPPs with a value given by the user.
+#' one pipe. Can fill in missing basic-heading PPPs with a value given by the user.
 #'
-#' @param data Data frame, data table or tibble containing at least three
+#' @param data_sppps Data frame, data table or tibble containing at least three
 #'  columns identifying region, product and respective sPPPs
 #' @param data_weights Data frame, data table or tibble containing at least three
 #' columns identifying region, product and expenditure weights
-#' @param basic_heading column containing the basic heading identifier
+#' @param product_heading column containing the product heading, typically following the COICOP classification
 #' @param region Identifier for regions
 #' @param sPPP Identifier for the basix heading sPPPs
-#' @param exp_wght Identifier for expenditure weights
-#' @param complete_sppp value to be imputed for missing basic heading PPPs
+#' @param weights Identifier for expenditure weights
+#' @param complete_sppp value to be imputed for missing basic-heading PPPs
 #'
 #' @return Returns a data frame containing the variables indicating the region ("region"),
-#' basic heading ("product"), basic heading PPP ("ppp_bh"), and expenditure weights ("exp_wght").
+#' basic heading ("product"), basic-heading PPP ("ppp_bh"), and expenditure weights ("exp_wght").
 #' This output can be directly fed into `index_laspeyres()`, `index_paasche()`, `index_fisher()`,
 #' and `index_geks()`.
 #'
 #' @examples
 #' \dontrun{
-#' # Generate the price and weight data and estimate CPD at basic headings
+#' # Generate the price and weight data and estimate CPD at basic-heading level
 #' dt1 <- pricelevels::rdata(
 #'   R = R, B = B, N = N,
 #'   weights = ~ r + n,
@@ -311,12 +311,12 @@ estim_cpd <- function(data,
 #'
 #' dt1_basic_headings %>%
 #'   estim_index_link(
-#'     data = .,
+#'     data_sppps = .,
 #'     data_weights = dt1_wghts,
-#'     basic_heading = "group",
+#'     product_heading = "group",
 #'     region = "region",
 #'     sPPP = "sPPP",
-#'     exp_wght = "weight",
+#'     weights = "weight",
 #'     complete_sppp = NA
 #'   )
 #'
@@ -327,12 +327,12 @@ estim_cpd <- function(data,
 #' dt1_basic_headings %>%
 #'   filter(!(region %in% c("1", "2") & group == "1")) %>%
 #'   estim_index_link(
-#'     data = .,
+#'     data_sppps = .,
 #'     data_weights = dt1_wghts,
-#'     basic_heading = "group",
+#'     product_heading = "group",
 #'     region = "region",
 #'     sPPP = "sPPP",
-#'     exp_wght = "weight",
+#'     weights = "weight",
 #'     complete_sppp = NA
 #'   )
 #'
@@ -343,12 +343,12 @@ estim_cpd <- function(data,
 #' dt1_basic_headings %>%
 #'   filter(!(region %in% c("1", "2") & group == "1")) %>%
 #'   estim_index_link(
-#'     data = .,
+#'     data_sppps = .,
 #'     data_weights = dt1_wghts,
-#'     basic_heading = "group",
+#'     product_heading = "group",
 #'     region = "region",
 #'     sPPP = "sPPP",
-#'     exp_wght = "weight",
+#'     weights = "weight",
 #'     complete_sppp = 1
 #'   )
 #' }
@@ -362,19 +362,24 @@ estim_cpd <- function(data,
 #' @importFrom dplyr filter
 #'
 #' @export
-estim_index_link <- function(data,
-                             data_weights = data_weights,
-                             basic_heading = "basic_heading",
+estim_index_link <- function(data_sppps,
+                             data_weights,
+                             product_heading = "product_heading ",
                              region = "region",
                              sPPP = "sPPP",
-                             exp_wght = "weight",
+                             weights = "weight",
                              complete_sppp = NA) {
-  harmonised_data <- data %>%
+  harmonised_data <- data_sppps %>%
     full_join(data_weights,
-      by = c({{ basic_heading }}, {{ region }})
+      by = c({{ product_heading }}, {{ region }})
     ) %>%
-    filter(!is.na({{ exp_wght }})) %>%
-    rename(product = {{ basic_heading }}, ppp_bh = sPPP, exp_wght = {{ exp_wght }}, region = {{ region }})
+    filter(!is.na({{ weights }})) %>%
+    rename(
+      product = {{ product_heading }},
+      ppp_bh = sPPP,
+      exp_wght = {{ weights }},
+      region = {{ region }}
+    )
 
   if (!is.na(complete_sppp)) {
     harmonised_data <- harmonised_data %>%
@@ -390,11 +395,11 @@ estim_index_link <- function(data,
       replace_na(list(ppp_bh = complete_sppp)) %>%
       full_join(data_weights,
         by = c(
-          product = {{ basic_heading }},
+          product = {{ product_heading }},
           region = {{ region }}
         )
       ) %>%
-      rename(exp_wght = {{ exp_wght }})
+      rename(exp_wght = {{ weights }})
 
     if (length(completed_regions_headings_v) > 0) {
       warning(print(paste(

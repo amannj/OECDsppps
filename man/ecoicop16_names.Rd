@@ -26,9 +26,11 @@ and \href{https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glo
 ecoicop16_names
 }
 \description{
-COICOP is  reference classification published by the United Nations Statistics Division (UNSD)
-used in National accounts, Household Budget surveys (HBS), Price Statistics (HICP) and Purchasing Power Parities (PPP).
-Eurostat introduced a harmonised and revision of COICOP, yielding a single harmonised COICOP classification at the five-digit level.
+COICOP is a reference classification published by the United Nations Statistics
+Division (UNSD) used in National accounts, Household Budget Surveys (HBS),
+Price Statistics (HICP) and Purchasing Power Parities (PPP).
+Eurostat introduced a harmonised revision of COICOP, yielding a single
+harmonised COICOP classification at the five-digit (sub-class) level, referred to as “ECOICOP”.
 }
 \examples{
 ecoicop16_names |> dim()

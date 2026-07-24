@@ -42,7 +42,7 @@ Completing estimation procedure for basic headings
 
 ### Additions
 
-- Add COICOP is reference classification table `ecoicop16_names`
+- Add COICOP reference classification table `ecoicop16_names`
 - Add option to output residuals for CPD regression `estim_cpd()`
 - Describe workflow to derive initial CPD regression results at basic-heading level in [vignettes/Implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html)
 
@@ -75,7 +75,7 @@ weights
 
 # Version `0.0.0.5`
 
-Validate household expenditure data and add Laspeyres, Paasche, Fischer and GEKS index calculation
+Validate household expenditure data and add Laspeyres, Paasche, Fisher and GEKS index calculation
 
 ### Additions
 
@@ -91,7 +91,7 @@ better implementation description
 
 ### Additions
 
-- Add function `index_laspeyres()`, `index_paasche()`, `index_fisher()` 
+- Add functions `index_laspeyres()`, `index_paasche()`, `index_fisher()` 
 and `index_geks()` for estimating subnational PPPs using Laspeyres, Paasche, 
 Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices 
 - Add [description](https://amannj.github.io/OECDsppps/articles/altSoftware.html) data
@@ -104,12 +104,27 @@ Fischer and Gini-Éltetö-Köves-Szulc (GEKS) price indices
 
 Complete estimation and validation pipelines and improve visualisation 
 
-### Bug fixes
+### Additions
 
 - Add  functions `valid_outlier_plot()`, `valid_dikhanov()` and `estim_index_link()` to complete the 
 validation and estimation pipelines
 - Rename functions `valid_ratio_ppp()` and `valid_ratio_xr()` and fix naming inconsistencies
 - Update [implementation](https://amannj.github.io/OECDsppps/articles/Implementation.html) to describe 
 complete sPPPs production pipeline describing the use of `estim_index_link()`
-- Improve visualisation of packet vignette
+- Improve visualisation of package vignette
 
+------------
+
+# Version `0.0.0.8`
+
+Big housekeeping: Streamline documentation, vignettes, simplify and harmonise function names and parameters, grammar, etc.
+
+### Additions
+
+- Added numbers of observations to `valid_est()`
+- Add sample data sets `sampledata_prices()`, `sampledata_weights()` and `sampledata_multi_period()`
+- Add lifeycle with experimental badge
+
+### Bug fixes
+
+- Fix `estim_cpd()` in [#8](https://github.com/amannj/OECDsppps/issues/8)

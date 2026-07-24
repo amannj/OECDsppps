@@ -2,7 +2,7 @@
 % Please edit documentation in R/valid.R
 \name{valid_dikhanov}
 \alias{valid_dikhanov}
-\title{Dikhanov table}
+\title{Dikhanov Table}
 \usage{
 valid_dikhanov(
   data,
@@ -45,7 +45,7 @@ The Dikhanov tables consist of:
 \item CPD residuals and product variation coefficients for products within basic headings.
 }
 
-The Dikhanov table facilitates the comparisons of PPPs across basic headings;
+The Dikhanov Table facilitates the comparisons of PPPs across basic headings;
 plausible variations in PPPs is expected across regions. Such variations would
 indicate that, say, alcoholic beverages in region A are x\% higher than in region B.
 The CPD residuals help ensure that the aggregate PPP variations are not driven

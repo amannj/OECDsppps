@@ -11,7 +11,7 @@
 #' The item-level price quotes should be based on the
 #' **reference quantity price**;
 #' see *Details* and \insertCite{@worldbankMeasuringRealSize2013;textual}{OECDsppps},
-#' table 9.1a. for more information.
+#' Table 9.1a. for more information.
 #'
 #' **Reference quantity price:** Scales the observed price to the quantity
 #' that *should* be surveyed. It is defined as:
@@ -108,7 +108,7 @@ valid_pot <- function(data,
 #'
 #' @param data A data frame or tibble containing at least one column with
 #' individual item-level price quotes.
-#' @param value Column containing the individual item-level price quotes,
+#' @param price_quote Column containing the individual item-level price quotes,
 #' which should be based on the
 #' "reference quantity price"; see *Details* for more information.
 #' @references
@@ -120,7 +120,7 @@ valid_pot <- function(data,
 #' uk_cpi |>
 #'   select(Year, Region, `Product code`, `Reference quantity price`) |>
 #'   group_by(Year, Region, `Product code`) |>
-#'   valid_apt(value = "Reference quantity price") |>
+#'   valid_apt(price_quote = "Reference quantity price") |>
 #'   head(n = 2) |>
 #'   t()
 #'
@@ -132,17 +132,17 @@ valid_pot <- function(data,
 #' @importFrom rlang .data
 #' @export
 valid_apt <- function(data,
-                      value = "Reference quantity price") {
+                      price_quote = "Reference quantity price") {
   data |>
     ## Number of observations
     mutate(nobs = 1) |>
     ## Summary stats
     summarise(
       `Number of observations` = sum(nobs),
-      `Average price of product` = mean(.data[[value]]),
-      `Maximum price of product` = max(.data[[value]]),
-      `Minimum price of product` = min(.data[[value]]),
-      `Standard deviation` = sd(.data[[value]])
+      `Average price of product` = mean(.data[[price_quote]]),
+      `Maximum price of product` = max(.data[[price_quote]]),
+      `Minimum price of product` = min(.data[[price_quote]]),
+      `Standard deviation` = sd(.data[[price_quote]])
     ) |>
     ## Calculate tests
     mutate(
@@ -157,7 +157,7 @@ valid_apt <- function(data,
 }
 
 
-#' The "XR-ratio tables"
+#' The "XR-ratio Tables"
 #'
 #' \loadmathjax
 #' `valid_ratio_xr()` in  \pkg{OECDsppps} calculates the exchange rate ratio (XR-ratio), which is a region-country's XR-price
@@ -205,7 +205,7 @@ valid_ratio_xr <- function(data,
 }
 
 
-#' The "PPP-ratio tables"
+#' The "PPP-ratio Tables"
 #'
 #' \loadmathjax
 #' `valid_ratio_ppp()` in  \pkg{OECDsppps} calculates the PPP-ratio, which shows the variation
@@ -311,6 +311,7 @@ valid_ratio_ppp <- function(data,
 #' `valid_est()` in  \pkg{OECDsppps} creates the "Expenditure Shares Table"
 #' \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
 #' The function calculates the:
+#' - `Nobs` - Number of data points by by group as specified by `group_by()`
 #' - `Maximum`- Highest expenditure share based on expenditure shares by group as specified by `group_by()`
 #' - `Median` - Median expenditure share based on expenditure shares by group as specified by `group_by()`
 #' - `Minimum` - Lowest expenditure share based on expenditure shares by group as specified by `group_by()`
@@ -354,6 +355,7 @@ valid_est <- function(data,
   data |>
     ## Summary stats
     summarise(
+      Nobs = n(),
       `Maximum expenditure share` = max(.data[[shares]]),
       `Median expenditure share` = median(.data[[shares]]),
       `Minimum expenditure share` = min(.data[[shares]])
@@ -537,7 +539,7 @@ valid_outlier_plot <- function(data,
   return(p)
 }
 
-#' Dikhanov table
+#' Dikhanov Table
 #'
 #' `valid_dikhanov()` generates the Dikhanov tables for all selected basic headings;
 #' \insertCite{@see @worldbankMeasuringRealSize2013 and @icpGuideCompilationSubnational2021;textual}{OECDsppps}.
@@ -547,7 +549,7 @@ valid_outlier_plot <- function(data,
 #' - Summary information (PPPs, SDs, price level) by region for the aggregate;
 #' - CPD residuals and product variation coefficients for products within basic headings.
 #'
-#' The Dikhanov table facilitates the comparisons of PPPs across basic headings;
+#' The Dikhanov Table facilitates the comparisons of PPPs across basic headings;
 #' plausible variations in PPPs is expected across regions. Such variations would
 #' indicate that, say, alcoholic beverages in region A are x% higher than in region B.
 #' The CPD residuals help ensure that the aggregate PPP variations are not driven

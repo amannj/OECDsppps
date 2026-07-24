@@ -4,13 +4,13 @@
 \alias{valid_apt}
 \title{The "Average Price Table"}
 \usage{
-valid_apt(data, value = "Reference quantity price")
+valid_apt(data, price_quote = "Reference quantity price")
 }
 \arguments{
 \item{data}{A data frame or tibble containing at least one column with
 individual item-level price quotes.}
 
-\item{value}{Column containing the individual item-level price quotes,
+\item{price_quote}{Column containing the individual item-level price quotes,
 which should be based on the
 "reference quantity price"; see \emph{Details} for more information.}
 }
@@ -60,7 +60,7 @@ library(OECDsppps)
 uk_cpi |>
   select(Year, Region, `Product code`, `Reference quantity price`) |>
   group_by(Year, Region, `Product code`) |>
-  valid_apt(value = "Reference quantity price") |>
+  valid_apt(price_quote = "Reference quantity price") |>
   head(n = 2) |>
   t()
 

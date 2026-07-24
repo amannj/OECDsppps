@@ -18,6 +18,7 @@ individual item-level expenditure shares.}
 \insertCite{@see @worldbankMeasuringRealSize2013, @icpGuideCompilationSubnational2021 and @europeanunionEurostatOECDMethodologicalManual2024;textual}{OECDsppps}.
 The function calculates the:
 \itemize{
+\item \code{Nobs} - Number of data points by by group as specified by \code{group_by()}
 \item \code{Maximum}- Highest expenditure share based on expenditure shares by group as specified by \code{group_by()}
 \item \code{Median} - Median expenditure share based on expenditure shares by group as specified by \code{group_by()}
 \item \code{Minimum} - Lowest expenditure share based on expenditure shares by group as specified by \code{group_by()}

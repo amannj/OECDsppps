@@ -44,8 +44,8 @@ navbar:
         href: news/index.html
 
 reference:
-  - title: "Raw data validation"
-    desc: "Functions for raw data validation"
+  - title: "Validation"
+    desc: "Functions for validating data and price estimates and indices"
     contents:
       - valid_apt
       - valid_dikhanov
@@ -56,22 +56,28 @@ reference:
       - valid_ratio_ppp
       - valid_ratio_xr
   - title: "Estimation at basic-heading level"
-    desc: "Function for estimation at basic-heading level"
+    desc: "Functions for estimating price indices at basic-heading level"
     contents:
       - estim_cpd
       - estim_index_link
   - title: "Estimation beyond the basic-heading level"
-    desc: "Functions for estimation price indices and index calculation"
+    desc: "Functions for calculating multilateral price indices following the Gini-Éltetö-Köves-Szulc (GEKS) method"
     contents:
       - index_fisher
       - index_geks
       - index_laspeyres
       - index_paasche
-  - title: "Data and supplementary files"
-    desc: "Data files and concordance tables"
+  - title: "Concordance and reference tables"
+    desc: "A selection of concordance and reference tables to facilitate the creation of subnational PPPs"
     contents:
-      - uk_cpi
-      - uk_hhe
       - oecd_tl
       - ecoicop16_names
       - concordance_ecoicop2bh
+  - title: "Sample data"
+    desc: "Sample data to illustrate the functionality of OECDsppps"
+    contents:
+      - uk_cpi
+      - uk_hhe
+      - sampledata_prices
+      - sampledata_weights
+      - sampledata_multi_period
