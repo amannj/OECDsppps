@@ -133,7 +133,7 @@ region $j$ given by $\hat{PPP}_j = exp(\hat{\alpha}_j)$.
 ## Estimation
 
 The CPD model in @eq-ppp2 may be interpreted as a fixed-effects
-specification, in which the "regio-effects" yield estimates of subnational
+specification, in which the region effects yield estimates of subnational
 Purchasing Power Parities, while commodity-specific effects generate
 estimates of subnational price levels. The model can be written as a
 regression equation in which all explanatory variables take the form of
@@ -450,7 +450,7 @@ sampledata_prices |>
 
 `estim_cpd()` also provides the option to run the CPD method on the raw
 data, that is, keeping duplicate region-product pairs found in the raw
-data by setting the `weights` argument to `'raw'` argument; see `estim_cpd()` for more
+data by setting the `weights` argument to `'raw'`; see `estim_cpd()` for more
 information.
 
 ```{r}
@@ -581,7 +581,7 @@ The different price indices can be calculated through the functions
 `index_laspeyres()`, `index_paasche()`, `index_fisher()` and
 `index_geks()`, and take identical input arguments.
 
-Note that the `reframe()` function, from package @refdplyr, in the code chunk 
+Note that the `reframe()` function, from package `dplyr` [@refdplyr], in the code chunk 
 below creates a new data frame around the returned set of index estimates. 
 This is useful if the separate indices should be returned together; however, it is not
 necessary to calculate all these indices separately to implement the
@@ -912,7 +912,7 @@ sampledata_prices %>%
 
 Unfortunately, the required input data is often incomplete and requires
 further processing before it can be used. Item-level price data can be
-validated through `valid_pot()`, `valid_apt()`, `valid_XRratio()`, and
+validated through `valid_pot()`, `valid_apt()`, `valid_ratio_xr()`, and
 `valid_ratio_ppp()`. Expenditure weights can be validated through
 `valid_est()`.
 
@@ -957,7 +957,7 @@ return_error(
     # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
     filter(!(region %in% c("region_1", "region_2") & heading == "heading_1")) %>%
     estim_index_link(
-      data = .,
+      data_sppps = .,
       data_weights = sampledata_weights,
       product_heading = "heading",
       region = "region",

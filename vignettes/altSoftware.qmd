@@ -58,7 +58,7 @@ use_virtualenv("path_to_your_virtual_environment")
 
 In step 2, perform computations in Python in a separate code chunk initiated by ` ```{python} ` `.
 In this generic example, a data file with price quotes is loaded and transformed 
-to only keep the variables relevant for the CDP calculation, which will be 
+to only keep the variables relevant for the CPD calculation, which will be 
 performed in R in the next step.
 
 ```{{python}}
@@ -70,7 +70,7 @@ prices = pandas.read_csv("prices.csv")
 prices_out = prices[["region", "product", "price"]]
 ```
 
-In step 3, move data object `prices_out` from Python into R and estimate the CDP 
+In step 3, move data object `prices_out` from Python into R and estimate the CPD 
 method using function `estim_cpd()` in `OECDsppps`. Note that this data
 object can be accessed in R by running `py$prices_out`.
 
