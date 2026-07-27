@@ -108,12 +108,11 @@ region \\j\\ given by \\\hat{PPP}\_j = exp(\hat{\alpha}\_j)\\.
 ### 1.2 Estimation
 
 The CPD model in [Equation 2](#eq-ppp2) may be interpreted as a
-fixed-effects specification, in which the “regio-effects” yield
-estimates of subnational Purchasing Power Parities, while
-commodity-specific effects generate estimates of subnational price
-levels. The model can be written as a regression equation in which all
-explanatory variables take the form of dummy indicators for each region
-and commodity.
+fixed-effects specification, in which the region effects yield estimates
+of subnational Purchasing Power Parities, while commodity-specific
+effects generate estimates of subnational price levels. The model can be
+written as a regression equation in which all explanatory variables take
+the form of dummy indicators for each region and commodity.
 
 \\\begin{aligned} ln p\_{ij} = & \alpha_1 D_1 + ... + \alpha_j D_j + ...
 +\alpha_R D_R + \\ & \eta_1 \mathcal{D}\_1 + ... + \eta_i
@@ -538,7 +537,7 @@ sampledata_prices |>
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 also provides the option to run the CPD method on the raw data, that is,
 keeping duplicate region-product pairs found in the raw data by setting
-the `weights` argument to `'raw'` argument; see
+the `weights` argument to `'raw'`; see
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 for more information.
 
@@ -699,9 +698,9 @@ and take identical input arguments.
 
 Note that the
 [`reframe()`](https://dplyr.tidyverse.org/reference/reframe.html)
-function, from package Wickham et al. ([2026](#ref-refdplyr)), in the
-code chunk below creates a new data frame around the returned set of
-index estimates. This is useful if the separate indices should be
+function, from package `dplyr` ([Wickham et al. 2026](#ref-refdplyr)),
+in the code chunk below creates a new data frame around the returned set
+of index estimates. This is useful if the separate indices should be
 returned together; however, it is not necessary to calculate all these
 indices separately to implement the GEKS method, as
 [`index_geks()`](https://amannj.github.io/OECDsppps/reference/index_geks.md)
@@ -1104,7 +1103,8 @@ further processing before it can be used. Item-level price data can be
 validated through
 [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md),
 [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md),
-`valid_XRratio()`, and
+[`valid_ratio_xr()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_xr.md),
+and
 [`valid_ratio_ppp()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.md).
 Expenditure weights can be validated through
 [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md).
@@ -1159,7 +1159,7 @@ return_error(
     # Remove sPPPs for the following region/heading combinations: 1/1, 2/1
     filter(!(region %in% c("region_1", "region_2") & heading == "heading_1")) %>%
     estim_index_link(
-      data = .,
+      data_sppps = .,
       data_weights = sampledata_weights,
       product_heading = "heading",
       region = "region",

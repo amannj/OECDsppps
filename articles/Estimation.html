@@ -78,7 +78,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/v0.0.0.8/vignettes/Estimation.qmd" class="external-link"><code>vignettes/Estimation.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/vignettes/Estimation.qmd" class="external-link"><code>vignettes/Estimation.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -133,7 +133,7 @@ ln p_{ij} &amp; = ln PPP_j + ln p_i  + ln \epsilon_{ij} \\
 </section><section class="level2" data-number="1.2"><h3 data-number="1.2" id="estimation">
 <span class="header-section-number">1.2</span> Estimation<a class="anchor" aria-label="anchor" href="#estimation"></a>
 </h3>
-<p>The CPD model in <a href="#eq-ppp2" class="quarto-xref">Equation 2</a> may be interpreted as a fixed-effects specification, in which the “regio-effects” yield estimates of subnational Purchasing Power Parities, while commodity-specific effects generate estimates of subnational price levels. The model can be written as a regression equation in which all explanatory variables take the form of dummy indicators for each region and commodity.</p>
+<p>The CPD model in <a href="#eq-ppp2" class="quarto-xref">Equation 2</a> may be interpreted as a fixed-effects specification, in which the region effects yield estimates of subnational Purchasing Power Parities, while commodity-specific effects generate estimates of subnational price levels. The model can be written as a regression equation in which all explanatory variables take the form of dummy indicators for each region and commodity.</p>
 <p><span id="eq-ppp3"><span class="math display">\[\begin{aligned}
 ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 &amp; \eta_1 \mathcal{D}_1 + ... + \eta_i \mathcal{D}_i + ... + \eta_N \mathcal{D}_N + \varepsilon_{ij}
@@ -407,23 +407,23 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>missing_text <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="zhgcqueskn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zhgcqueskn table {
+<div id="lvyjdgbllc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lvyjdgbllc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zhgcqueskn thead, #zhgcqueskn tbody, #zhgcqueskn tfoot, #zhgcqueskn tr, #zhgcqueskn td, #zhgcqueskn th {
+#lvyjdgbllc thead, #lvyjdgbllc tbody, #lvyjdgbllc tfoot, #lvyjdgbllc tr, #lvyjdgbllc td, #lvyjdgbllc th {
   border-style: none;
 }
 
-#zhgcqueskn p {
+#lvyjdgbllc p {
   margin: 0;
   padding: 0;
 }
 
-#zhgcqueskn .gt_table {
+#lvyjdgbllc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -449,12 +449,12 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-left-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_caption {
+#lvyjdgbllc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zhgcqueskn .gt_title {
+#lvyjdgbllc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -466,7 +466,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-width: 0;
 }
 
-#zhgcqueskn .gt_subtitle {
+#lvyjdgbllc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -478,7 +478,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-top-width: 0;
 }
 
-#zhgcqueskn .gt_heading {
+#lvyjdgbllc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -490,13 +490,13 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_bottom_border {
+#lvyjdgbllc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_col_headings {
+#lvyjdgbllc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -511,7 +511,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_col_heading {
+#lvyjdgbllc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -531,7 +531,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   overflow-x: hidden;
 }
 
-#zhgcqueskn .gt_column_spanner_outer {
+#lvyjdgbllc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -543,15 +543,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 4px;
 }
 
-#zhgcqueskn .gt_column_spanner_outer:first-child {
+#lvyjdgbllc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zhgcqueskn .gt_column_spanner_outer:last-child {
+#lvyjdgbllc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zhgcqueskn .gt_column_spanner {
+#lvyjdgbllc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -563,11 +563,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   width: 100%;
 }
 
-#zhgcqueskn .gt_spanner_row {
+#lvyjdgbllc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zhgcqueskn .gt_group_heading {
+#lvyjdgbllc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -593,7 +593,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   text-align: left;
 }
 
-#zhgcqueskn .gt_empty_group_heading {
+#lvyjdgbllc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -608,15 +608,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   vertical-align: middle;
 }
 
-#zhgcqueskn .gt_from_md > :first-child {
+#lvyjdgbllc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zhgcqueskn .gt_from_md > :last-child {
+#lvyjdgbllc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zhgcqueskn .gt_row {
+#lvyjdgbllc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -635,7 +635,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   overflow-x: hidden;
 }
 
-#zhgcqueskn .gt_stub {
+#lvyjdgbllc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -648,7 +648,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#zhgcqueskn .gt_stub_row_group {
+#lvyjdgbllc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -662,15 +662,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   vertical-align: top;
 }
 
-#zhgcqueskn .gt_row_group_first td {
+#lvyjdgbllc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zhgcqueskn .gt_row_group_first th {
+#lvyjdgbllc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zhgcqueskn .gt_summary_row {
+#lvyjdgbllc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -680,16 +680,16 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#zhgcqueskn .gt_first_summary_row {
+#lvyjdgbllc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_first_summary_row.thick {
+#lvyjdgbllc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zhgcqueskn .gt_last_summary_row {
+#lvyjdgbllc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -699,7 +699,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_grand_summary_row {
+#lvyjdgbllc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -709,7 +709,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#zhgcqueskn .gt_first_grand_summary_row {
+#lvyjdgbllc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -719,7 +719,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-top-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_last_grand_summary_row_top {
+#lvyjdgbllc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -729,11 +729,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_striped {
+#lvyjdgbllc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zhgcqueskn .gt_table_body {
+#lvyjdgbllc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -742,7 +742,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_footnotes {
+#lvyjdgbllc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -756,7 +756,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_footnote {
+#lvyjdgbllc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -765,7 +765,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#zhgcqueskn .gt_sourcenotes {
+#lvyjdgbllc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -779,7 +779,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#zhgcqueskn .gt_sourcenote {
+#lvyjdgbllc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -787,72 +787,72 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#zhgcqueskn .gt_left {
+#lvyjdgbllc .gt_left {
   text-align: left;
 }
 
-#zhgcqueskn .gt_center {
+#lvyjdgbllc .gt_center {
   text-align: center;
 }
 
-#zhgcqueskn .gt_right {
+#lvyjdgbllc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zhgcqueskn .gt_font_normal {
+#lvyjdgbllc .gt_font_normal {
   font-weight: normal;
 }
 
-#zhgcqueskn .gt_font_bold {
+#lvyjdgbllc .gt_font_bold {
   font-weight: bold;
 }
 
-#zhgcqueskn .gt_font_italic {
+#lvyjdgbllc .gt_font_italic {
   font-style: italic;
 }
 
-#zhgcqueskn .gt_super {
+#lvyjdgbllc .gt_super {
   font-size: 65%;
 }
 
-#zhgcqueskn .gt_footnote_marks {
+#lvyjdgbllc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zhgcqueskn .gt_asterisk {
+#lvyjdgbllc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zhgcqueskn .gt_indent_1 {
+#lvyjdgbllc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zhgcqueskn .gt_indent_2 {
+#lvyjdgbllc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zhgcqueskn .gt_indent_3 {
+#lvyjdgbllc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zhgcqueskn .gt_indent_4 {
+#lvyjdgbllc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zhgcqueskn .gt_indent_5 {
+#lvyjdgbllc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#zhgcqueskn .katex-display {
+#lvyjdgbllc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#zhgcqueskn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#lvyjdgbllc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -983,23 +983,23 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>missing_text <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="kjtetilqhy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kjtetilqhy table {
+<div id="reamqlfqws" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#reamqlfqws table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kjtetilqhy thead, #kjtetilqhy tbody, #kjtetilqhy tfoot, #kjtetilqhy tr, #kjtetilqhy td, #kjtetilqhy th {
+#reamqlfqws thead, #reamqlfqws tbody, #reamqlfqws tfoot, #reamqlfqws tr, #reamqlfqws td, #reamqlfqws th {
   border-style: none;
 }
 
-#kjtetilqhy p {
+#reamqlfqws p {
   margin: 0;
   padding: 0;
 }
 
-#kjtetilqhy .gt_table {
+#reamqlfqws .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1025,12 +1025,12 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-left-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_caption {
+#reamqlfqws .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kjtetilqhy .gt_title {
+#reamqlfqws .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1042,7 +1042,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-width: 0;
 }
 
-#kjtetilqhy .gt_subtitle {
+#reamqlfqws .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1054,7 +1054,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-top-width: 0;
 }
 
-#kjtetilqhy .gt_heading {
+#reamqlfqws .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1066,13 +1066,13 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_bottom_border {
+#reamqlfqws .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_col_headings {
+#reamqlfqws .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1087,7 +1087,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_col_heading {
+#reamqlfqws .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1107,7 +1107,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   overflow-x: hidden;
 }
 
-#kjtetilqhy .gt_column_spanner_outer {
+#reamqlfqws .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1119,15 +1119,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 4px;
 }
 
-#kjtetilqhy .gt_column_spanner_outer:first-child {
+#reamqlfqws .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kjtetilqhy .gt_column_spanner_outer:last-child {
+#reamqlfqws .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kjtetilqhy .gt_column_spanner {
+#reamqlfqws .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1139,11 +1139,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   width: 100%;
 }
 
-#kjtetilqhy .gt_spanner_row {
+#reamqlfqws .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kjtetilqhy .gt_group_heading {
+#reamqlfqws .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1169,7 +1169,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   text-align: left;
 }
 
-#kjtetilqhy .gt_empty_group_heading {
+#reamqlfqws .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1184,15 +1184,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   vertical-align: middle;
 }
 
-#kjtetilqhy .gt_from_md > :first-child {
+#reamqlfqws .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kjtetilqhy .gt_from_md > :last-child {
+#reamqlfqws .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kjtetilqhy .gt_row {
+#reamqlfqws .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1211,7 +1211,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   overflow-x: hidden;
 }
 
-#kjtetilqhy .gt_stub {
+#reamqlfqws .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1224,7 +1224,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#kjtetilqhy .gt_stub_row_group {
+#reamqlfqws .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1238,15 +1238,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   vertical-align: top;
 }
 
-#kjtetilqhy .gt_row_group_first td {
+#reamqlfqws .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kjtetilqhy .gt_row_group_first th {
+#reamqlfqws .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kjtetilqhy .gt_summary_row {
+#reamqlfqws .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1256,16 +1256,16 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#kjtetilqhy .gt_first_summary_row {
+#reamqlfqws .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_first_summary_row.thick {
+#reamqlfqws .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kjtetilqhy .gt_last_summary_row {
+#reamqlfqws .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1275,7 +1275,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_grand_summary_row {
+#reamqlfqws .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1285,7 +1285,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#kjtetilqhy .gt_first_grand_summary_row {
+#reamqlfqws .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1295,7 +1295,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-top-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_last_grand_summary_row_top {
+#reamqlfqws .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1305,11 +1305,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_striped {
+#reamqlfqws .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kjtetilqhy .gt_table_body {
+#reamqlfqws .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1318,7 +1318,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_footnotes {
+#reamqlfqws .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1332,7 +1332,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_footnote {
+#reamqlfqws .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1341,7 +1341,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#kjtetilqhy .gt_sourcenotes {
+#reamqlfqws .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1355,7 +1355,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#kjtetilqhy .gt_sourcenote {
+#reamqlfqws .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1363,72 +1363,72 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#kjtetilqhy .gt_left {
+#reamqlfqws .gt_left {
   text-align: left;
 }
 
-#kjtetilqhy .gt_center {
+#reamqlfqws .gt_center {
   text-align: center;
 }
 
-#kjtetilqhy .gt_right {
+#reamqlfqws .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kjtetilqhy .gt_font_normal {
+#reamqlfqws .gt_font_normal {
   font-weight: normal;
 }
 
-#kjtetilqhy .gt_font_bold {
+#reamqlfqws .gt_font_bold {
   font-weight: bold;
 }
 
-#kjtetilqhy .gt_font_italic {
+#reamqlfqws .gt_font_italic {
   font-style: italic;
 }
 
-#kjtetilqhy .gt_super {
+#reamqlfqws .gt_super {
   font-size: 65%;
 }
 
-#kjtetilqhy .gt_footnote_marks {
+#reamqlfqws .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kjtetilqhy .gt_asterisk {
+#reamqlfqws .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kjtetilqhy .gt_indent_1 {
+#reamqlfqws .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kjtetilqhy .gt_indent_2 {
+#reamqlfqws .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kjtetilqhy .gt_indent_3 {
+#reamqlfqws .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kjtetilqhy .gt_indent_4 {
+#reamqlfqws .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kjtetilqhy .gt_indent_5 {
+#reamqlfqws .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kjtetilqhy .katex-display {
+#reamqlfqws .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kjtetilqhy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#reamqlfqws div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1538,7 +1538,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 </div>
 </section><section class="level4 unnumbered"><h5 class="unnumbered" id="sec-example7">Example 7: Duplicate region-product price pairs without aggregation<a class="anchor" aria-label="anchor" href="#sec-example7"></a>
 </h5>
-<p><code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> also provides the option to run the CPD method on the raw data, that is, keeping duplicate region-product pairs found in the raw data by setting the <code>weights</code> argument to <code>'raw'</code> argument; see <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> for more information.</p>
+<p><code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> also provides the option to run the CPD method on the raw data, that is, keeping duplicate region-product pairs found in the raw data by setting the <code>weights</code> argument to <code>'raw'</code>; see <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> for more information.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sampledata_prices</span> <span class="op">|&gt;</span></span>
@@ -1617,7 +1617,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <a class="anchor" aria-label="anchor" href="#price-indices-in-oecdsppps"></a>
 </h4>
 <p>The different price indices can be calculated through the functions <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code> and <code><a href="../reference/index_geks.html">index_geks()</a></code>, and take identical input arguments.</p>
-<p>Note that the <code><a href="https://dplyr.tidyverse.org/reference/reframe.html" class="external-link">reframe()</a></code> function, from package <span class="citation" data-cites="refdplyr">Wickham et al. (<a href="#ref-refdplyr" role="doc-biblioref">2026</a>)</span>, in the code chunk below creates a new data frame around the returned set of index estimates. This is useful if the separate indices should be returned together; however, it is not necessary to calculate all these indices separately to implement the GEKS method, as <code><a href="../reference/index_geks.html">index_geks()</a></code> carries out all necessary calculation steps.</p>
+<p>Note that the <code><a href="https://dplyr.tidyverse.org/reference/reframe.html" class="external-link">reframe()</a></code> function, from package <code>dplyr</code> <span class="citation" data-cites="refdplyr">(<a href="#ref-refdplyr" role="doc-biblioref">Wickham et al. 2026</a>)</span>, in the code chunk below creates a new data frame around the returned set of index estimates. This is useful if the separate indices should be returned together; however, it is not necessary to calculate all these indices separately to implement the GEKS method, as <code><a href="../reference/index_geks.html">index_geks()</a></code> carries out all necessary calculation steps.</p>
 <p>In other words, <code><a href="../reference/index_geks.html">index_geks()</a></code> nests the functions <code><a href="../reference/index_fisher.html">index_fisher()</a></code>, <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code> and <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, respectively, as discussed in the <a href="#sec-step2Indices">Indices</a> section.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
@@ -2878,7 +2878,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 </section><section class="level2" data-number="3.3"><h3 data-number="3.3" id="incomplete-input-data">
 <span class="header-section-number">3.3</span> Incomplete input data<a class="anchor" aria-label="anchor" href="#incomplete-input-data"></a>
 </h3>
-<p>Unfortunately, the required input data is often incomplete and requires further processing before it can be used. Item-level price data can be validated through <code><a href="../reference/valid_pot.html">valid_pot()</a></code>, <code><a href="../reference/valid_apt.html">valid_apt()</a></code>, <code>valid_XRratio()</code>, and <code><a href="../reference/valid_ratio_ppp.html">valid_ratio_ppp()</a></code>. Expenditure weights can be validated through <code><a href="../reference/valid_est.html">valid_est()</a></code>.</p>
+<p>Unfortunately, the required input data is often incomplete and requires further processing before it can be used. Item-level price data can be validated through <code><a href="../reference/valid_pot.html">valid_pot()</a></code>, <code><a href="../reference/valid_apt.html">valid_apt()</a></code>, <code><a href="../reference/valid_ratio_xr.html">valid_ratio_xr()</a></code>, and <code><a href="../reference/valid_ratio_ppp.html">valid_ratio_ppp()</a></code>. Expenditure weights can be validated through <code><a href="../reference/valid_est.html">valid_est()</a></code>.</p>
 <section class="level3" data-number="3.3.1"><h4 data-number="3.3.1" id="missing-price-quotes">
 <span class="header-section-number">3.3.1</span> Missing price quotes<a class="anchor" aria-label="anchor" href="#missing-price-quotes"></a>
 </h4>
@@ -2912,7 +2912,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>    <span class="co"># Remove sPPPs for the following region/heading combinations: 1/1, 2/1</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">region</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"region_1"</span>, <span class="st">"region_2"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">heading</span> <span class="op">==</span> <span class="st">"heading_1"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
-<span>      data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>      data_sppps <span class="op">=</span> <span class="va">.</span>,</span>
 <span>      data_weights <span class="op">=</span> <span class="va">sampledata_weights</span>,</span>
 <span>      product_heading <span class="op">=</span> <span class="st">"heading"</span>,</span>
 <span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>

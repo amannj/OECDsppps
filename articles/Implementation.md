@@ -162,7 +162,7 @@ generally without the use of expenditure weights.
 This first estimation step is carried out using
 [`estim_cpd()`](https://amannj.github.io/OECDsppps/reference/estim_cpd.md)
 with argument `output = "Full"`, which summarises the key information of
-the estimate CPD model. It provides the ‘Regression output’ as well as
+the estimated CPD model. It provides the ‘Regression output’ as well as
 the individual ‘Residuals’ of the CPD regression; see [Example
 4](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-example4)
 in the [Estimation
@@ -221,7 +221,7 @@ method is recommended for aggregating above the basic-heading level for
 international and inter-regional comparisons, as it satisfies the
 necessary properties for multilateral comparisons. It corresponds to the
 geometric average of the [Fisher
-indexs](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-fisher),
+index](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-fisher),
 which, in turn, incorporates the
 [Laspeyres](https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks)
 and the

@@ -78,7 +78,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/v0.0.0.8/vignettes/altSoftware.qmd" class="external-link"><code>vignettes/altSoftware.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/vignettes/altSoftware.qmd" class="external-link"><code>vignettes/altSoftware.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -108,7 +108,7 @@
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"path_to_your_virtual_environment"</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<p>In step 2, perform computations in Python in a separate code chunk initiated by <code>```{python}</code> `. In this generic example, a data file with price quotes is loaded and transformed to only keep the variables relevant for the CDP calculation, which will be performed in R in the next step.</p>
+<p>In step 2, perform computations in Python in a separate code chunk initiated by <code>```{python}</code> `. In this generic example, a data file with price quotes is loaded and transformed to only keep the variables relevant for the CPD calculation, which will be performed in R in the next step.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In Python</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
@@ -117,7 +117,7 @@
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">## Only keep relevant variables for CPD estimation</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>prices_out <span class="op">=</span> prices[[<span class="st">"region"</span>, <span class="st">"product"</span>, <span class="st">"price"</span>]]</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<p>In step 3, move data object <code>prices_out</code> from Python into R and estimate the CDP method using function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> in <code>OECDsppps</code>. Note that this data object can be accessed in R by running <code>py$prices_out</code>.</p>
+<p>In step 3, move data object <code>prices_out</code> from Python into R and estimate the CPD method using function <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> in <code>OECDsppps</code>. Note that this data object can be accessed in R by running <code>py$prices_out</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In R</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(OECDsppps)</span>

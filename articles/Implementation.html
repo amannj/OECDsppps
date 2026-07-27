@@ -78,7 +78,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/v0.0.0.8/vignettes/Implementation.qmd" class="external-link"><code>vignettes/Implementation.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/amannj/OECDsppps/blob/master/vignettes/Implementation.qmd" class="external-link"><code>vignettes/Implementation.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -259,7 +259,7 @@ Table 2: Example of consumer price microdata based on <span class="citation" da
 <span class="header-section-number">3</span> Estimation at basic-heading level<a class="anchor" aria-label="anchor" href="#estimation-at-basic-heading-level"></a>
 </h2>
 <p>The first step is the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-step1">estimation of basic headings using item-level prices</a>. There, price data are aggregated up to the level of basic headings, generally without the use of expenditure weights.</p>
-<p>This first estimation step is carried out using <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> with argument <code>output = "Full"</code>, which summarises the key information of the estimate CPD model. It provides the ‘Regression output’ as well as the individual ‘Residuals’ of the CPD regression; see <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-example4">Example 4</a> in the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html">Estimation vignette</a>.</p>
+<p>This first estimation step is carried out using <code><a href="../reference/estim_cpd.html">estim_cpd()</a></code> with argument <code>output = "Full"</code>, which summarises the key information of the estimated CPD model. It provides the ‘Regression output’ as well as the individual ‘Residuals’ of the CPD regression; see <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-example4">Example 4</a> in the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html">Estimation vignette</a>.</p>
 </section><section class="section level2" data-number="4"><h2 data-number="4" id="validation-of-estimation-at-basic-heading-level">
 <span class="header-section-number">4</span> Validation of estimation at basic-heading level<a class="anchor" aria-label="anchor" href="#validation-of-estimation-at-basic-heading-level"></a>
 </h2>
@@ -276,7 +276,7 @@ Table 2: Example of consumer price microdata based on <span class="citation" da
 </section><section class="level2" data-number="5.2"><h3 data-number="5.2" id="index-calculations">
 <span class="header-section-number">5.2</span> Index calculations<a class="anchor" aria-label="anchor" href="#index-calculations"></a>
 </h3>
-<p>The <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Gini-Éltetö-Köves-Szulc index (GEKS)</a> method is recommended for aggregating above the basic-heading level for international and inter-regional comparisons, as it satisfies the necessary properties for multilateral comparisons. It corresponds to the geometric average of the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-fisher">Fisher indexs</a>, which, in turn, incorporates the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Laspeyres</a> and the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Paasche</a> index.</p>
+<p>The <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Gini-Éltetö-Köves-Szulc index (GEKS)</a> method is recommended for aggregating above the basic-heading level for international and inter-regional comparisons, as it satisfies the necessary properties for multilateral comparisons. It corresponds to the geometric average of the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-fisher">Fisher index</a>, which, in turn, incorporates the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Laspeyres</a> and the <a href="https://amannj.github.io/OECDsppps/articles/Estimation.html#sec-geks">Paasche</a> index.</p>
 <p>Functions used at this stage are: <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code>, <code><a href="../reference/index_geks.html">index_geks()</a></code>.</p>
 </section></section><section class="section level2" data-number="6"><h2 data-number="6" id="validation-of-subnational-ppps-beyond-the-basic-heading-level">
 <span class="header-section-number">6</span> Validation of subnational PPPs beyond the basic-heading level<a class="anchor" aria-label="anchor" href="#validation-of-subnational-ppps-beyond-the-basic-heading-level"></a>
