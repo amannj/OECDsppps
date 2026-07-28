@@ -63,7 +63,8 @@ one pipe. Can fill in missing basic-heading PPPs with a value given by the user.
 <span>  region <span class="op">=</span> <span class="st">"region"</span>,</span>
 <span>  sPPP <span class="op">=</span> <span class="st">"sPPP"</span>,</span>
 <span>  weights <span class="op">=</span> <span class="st">"weight"</span>,</span>
-<span>  complete_sppp <span class="op">=</span> <span class="cn">NA</span></span>
+<span>  complete_sppp <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  complete_sppp_message <span class="op">=</span> <span class="st">"short"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -99,6 +100,12 @@ columns identifying region, product and expenditure weights</p></dd>
 
 <dt id="arg-complete-sppp">complete_sppp<a class="anchor" aria-label="anchor" href="#arg-complete-sppp"></a></dt>
 <dd><p>value to be imputed for missing basic-heading PPPs</p></dd>
+
+
+<dt id="arg-complete-sppp-message">complete_sppp_message<a class="anchor" aria-label="anchor" href="#arg-complete-sppp-message"></a></dt>
+<dd><p>specifies the length of the warning message triggered by imputing PPPs through
+complete_sppp. When set to "short", the function prints a warning that some PPPs were imputed. Complete list
+of all region/heading pairs is obtained by setting it to "full".</p></dd>
 
 </dl></div>
     <div class="section level2">

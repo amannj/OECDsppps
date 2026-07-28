@@ -155,6 +155,9 @@ harmonise function names and parameters, grammar, etc.
   and
   [`sampledata_multi_period()`](https://amannj.github.io/OECDsppps/reference/sampledata_multi_period.md)
 - Add lifeycle with experimental badge
+- Improved error messages and warning/error message handling for
+  [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
+  and index functions
 
 #### Bug fixes
 

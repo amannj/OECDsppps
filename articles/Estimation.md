@@ -1170,7 +1170,7 @@ return_error(
     index_geks()
 )
 #> Error message:
-#> Error in valid_index_data(data, region, product, ppp_bh, exp_wght): Incomplete PPP matrix.
+#> Error in valid_index_data(data, region, product, ppp_bh, exp_wght, data_check_output): Incomplete PPP matrix.
 #> Missing PPPs for the following region/product combinations:
 #>  region_1/heading_1; region_2/heading_1
 ```
@@ -1216,10 +1216,10 @@ sampledata_prices %>%
   head() %>%
   gt() %>%
   fmt_number(decimals = 4)
-#> [1] "sPPP of 1 was imputed to the following region/headings pairs: region_1/heading_1; region_2/heading_1"
+#> [1] "sPPP of 1 was imputed for some region/headings pairs. To see the full list, set `complete_sppp_message == \"full\"."
 #> Warning in estim_index_link(data = ., data_weights = sampledata_weights, : sPPP
-#> of 1 was imputed to the following region/headings pairs: region_1/heading_1;
-#> region_2/heading_1
+#> of 1 was imputed for some region/headings pairs. To see the full list, set
+#> `complete_sppp_message == "full".
 ```
 
 | base_region | region   | geks_index |
@@ -1315,7 +1315,7 @@ return_error(
     index_geks()
 )
 #> Error message:
-#> Error in valid_index_data(data, region, product, ppp_bh, exp_wght): 
+#> Error in valid_index_data(data, region, product, ppp_bh, exp_wght, data_check_output): 
 #> Incomplete expenditure weights matrix.
 #> Missing weights for the following region/product combinations:
 #>  region_1/heading_1
