@@ -73,31 +73,36 @@ in section [Putting it all together](#sec-combined).
 The choice of estimation method depends on the availability of data and
 the analytical objectives of the subnational PPP exercise. When the aim
 is to ensure cross-country comparability and to exploit micro-level
-price information, the 
-**Country-Product-Dummy - Gini-Éltetö-Köves-Szulc (CPD-GEKS)** 
-approach offers a flexible framework
-for estimating basic-heading indices [@icp2021], where the first estiation step 
-to the basic-heading level is performed using the CPD method, and further aggregation
-beyond the basic-heading level is carried out using GEKS.
-Basic-heading
-aggregation with CPD is recommended by the ICP [@icp2021] as it is 
-better-suited to handling missing price observations in the underlying 
-price microdata than GEKS [@auer_von_gap_2026].^[This is particularly important when deriving PPPs from existing price microdata, where not all products are observed in every region, rather than from dedicated PPP surveys based on a pre-specified list of comparable items. In particular, GEKS price-level estimates are intrinsically more sensitive to missing observations than those obtained through CPD and therefore diagnostic tools for assessing data completeness are especially valuable for GEKS-based price-level estimates  [@auer_von_gap_2026].]
+price information, the **Country-Product-Dummy - Gini-Éltetö-Köves-Szulc
+(CPD-GEKS)** approach offers a flexible framework for estimating
+basic-heading indices [@icp2021], where the first estiation step to the
+basic-heading level is performed using the CPD method, and further
+aggregation beyond the basic-heading level is carried out using GEKS.
+Basic-heading aggregation with CPD is recommended by the ICP [@icp2021]
+as it is better-suited to handling missing price observations in the
+underlying price microdata than GEKS [@auer_von_gap_2026].[^1]
 
-In contrast, the **Eurostat-OECD (Jevons-GEKS)** method
-employed at the national level imposes more stringent data requirements.
-Such requirements may be more difficult to meet in the context of
-deriving subnational PPPs based on existing microdata, particularly
-regarding the representativeness of individual products across all
-regions [@europeanunionEurostatOECDMethodologicalManual2024].
+[^1]: This is particularly important when deriving PPPs from existing
+    price microdata, where not all products are observed in every
+    region, rather than from dedicated PPP surveys based on a
+    pre-specified list of comparable items. In particular, GEKS
+    price-level estimates are intrinsically more sensitive to missing
+    observations than those obtained through CPD and therefore
+    diagnostic tools for assessing data completeness are especially
+    valuable for GEKS-based price-level estimates [@auer_von_gap_2026].
+
+In contrast, the **Eurostat-OECD (Jevons-GEKS)** method employed at the
+national level imposes more stringent data requirements. Such
+requirements may be more difficult to meet in the context of deriving
+subnational PPPs based on existing microdata, particularly regarding the
+representativeness of individual products across all regions
+[@europeanunionEurostatOECDMethodologicalManual2024].
 
 The estimation procedure in this vignette follows the CPD-GEKS approach
 and highlights its similarities and differences with the Jevons-GEKS
 approach whenever instructive. For a more comprehensive discussion on
 price indices see @worldbank2013 and
 @europeanunionEurostatOECDMethodologicalManual2024.
-
-
 
 ------------------------------------------------------------------------
 
@@ -111,12 +116,12 @@ parities. The underlying statistical model is
 $$p_{ij} = PPP_j \times p_i \times \epsilon_{ij}$$ {#eq-ppp1}
 
 where $PPP_j$ is the purchasing power parity of an arbitrary region $j$,
-($r = 1,...,j,...,R$), $p_i$ is the average cross-regional price of the same
-arbitrary commodity $i$, ($n = 1, ..., i, ... N$), and $\epsilon_{ij}$
-is an independently and identically distributed random variable.[^1]
-Taking logs of @eq-ppp1 yields
+($r = 1,...,j,...,R$), $p_i$ is the average cross-regional price of the
+same arbitrary commodity $i$, ($n = 1, ..., i, ... N$), and
+$\epsilon_{ij}$ is an independently and identically distributed random
+variable.[^2] Taking logs of @eq-ppp1 yields
 
-[^1]: Model @eq-ppp1 is not identified and requires parametrisation
+[^2]: Model @eq-ppp1 is not identified and requires parametrisation
     before it can be estimated.
 
 $$\begin{aligned}
@@ -124,20 +129,20 @@ ln p_{ij} & = ln PPP_j + ln p_i  + ln \epsilon_{ij} \\
 & = \alpha_j + \gamma_i + ln \varepsilon_{ij}
 \end{aligned}$$ {#eq-ppp2}
 
-where $\alpha_j$ is the price level of region $j$ relative to all
-other regions in the comparison. $\alpha_j$ can also be expressed
-relative to a reference region, for example, the national price level.
-Then, $\alpha_j$ represents the subnational purchasing power parity of
-region $j$ given by $\hat{PPP}_j = exp(\hat{\alpha}_j)$.
+where $\alpha_j$ is the price level of region $j$ relative to all other
+regions in the comparison. $\alpha_j$ can also be expressed relative to
+a reference region, for example, the national price level. Then,
+$\alpha_j$ represents the subnational purchasing power parity of region
+$j$ given by $\hat{PPP}_j = exp(\hat{\alpha}_j)$.
 
 ## Estimation
 
 The CPD model in @eq-ppp2 may be interpreted as a fixed-effects
-specification, in which the region effects yield estimates of subnational
-Purchasing Power Parities, while commodity-specific effects generate
-estimates of subnational price levels. The model can be written as a
-regression equation in which all explanatory variables take the form of
-dummy indicators for each region and commodity.
+specification, in which the region effects yield estimates of
+subnational Purchasing Power Parities, while commodity-specific effects
+generate estimates of subnational price levels. The model can be written
+as a regression equation in which all explanatory variables take the
+form of dummy indicators for each region and commodity.
 
 $$\begin{aligned}
 ln p_{ij}  = & \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
@@ -450,8 +455,8 @@ sampledata_prices |>
 
 `estim_cpd()` also provides the option to run the CPD method on the raw
 data, that is, keeping duplicate region-product pairs found in the raw
-data by setting the `weights` argument to `'raw'`; see `estim_cpd()` for more
-information.
+data by setting the `weights` argument to `'raw'`; see `estim_cpd()` for
+more information.
 
 ```{r}
 sampledata_prices |>
@@ -511,10 +516,11 @@ region $k$ constant and allows prices to change.
 $$sPPP_F^{j,k} = \left( sPPP_L^{j,k} \times sPPP_P^{j,k} \right)^{1/2}$$
 {#eq-fish}
 
-The Fisher index is calculated based on the results estimated at the basic
-heading level, where $p_{jk}$ and $e_{jk}$, respectively, denote the price
-and associated expenditure for an arbitrary basic heading $b$ and region
-$r$, and the implied quantity, $q_{br}$, is given by $q_{br} =  \frac{e_{br} }{ p_{br}}$:
+The Fisher index is calculated based on the results estimated at the
+basic heading level, where $p_{jk}$ and $e_{jk}$, respectively, denote
+the price and associated expenditure for an arbitrary basic heading $b$
+and region $r$, and the implied quantity, $q_{br}$, is given by
+$q_{br} =  \frac{e_{br} }{ p_{br}}$:
 
 $$sPPP_F^{j,k} = \left[ \underbrace{ \frac{\sum_{b = 1}^B p_{bk}q_{bj}}{\sum_{b = 1}^B p_{bj}q_{bj}} }_{sPPP_L^{j,k}} \times \underbrace{ \frac{\sum_{b = 1}^B p_{bk}q_{bk}}{\sum_{b = 1}^B p_{bj}q_{bk}} }_{sPPP_P^{j,k}}   \right]^{1/2}$$
 
@@ -535,8 +541,8 @@ The Laspeyres index is implemented using function `index_laspeyres()`.
 ### Paasche index {#sec-paasche .unnumbered}
 
 The same logic is mirrored with the Paasche index, where region $k$'s
-basket is evaluated and compared with region $j$'s price. The Paasche index is
-calculated as
+basket is evaluated and compared with region $j$'s price. The Paasche
+index is calculated as
 
 $$sPPP_P^{j,k} = \frac{1}{\sum_{n=1}^{N} \frac{w_n^k}{sPPP_n^{j,k}}}$$
 {#eq-paas}
@@ -581,12 +587,12 @@ The different price indices can be calculated through the functions
 `index_laspeyres()`, `index_paasche()`, `index_fisher()` and
 `index_geks()`, and take identical input arguments.
 
-Note that the `reframe()` function, from package `dplyr` [@refdplyr], in the code chunk 
-below creates a new data frame around the returned set of index estimates. 
-This is useful if the separate indices should be returned together; however, it is not
-necessary to calculate all these indices separately to implement the
-GEKS method, as `index_geks()` carries out all necessary calculation
-steps.
+Note that the `reframe()` function, from package `dplyr` [@refdplyr], in
+the code chunk below creates a new data frame around the returned set of
+index estimates. This is useful if the separate indices should be
+returned together; however, it is not necessary to calculate all these
+indices separately to implement the GEKS method, as `index_geks()`
+carries out all necessary calculation steps.
 
 In other words, `index_geks()` nests the functions `index_fisher()`,
 `index_laspeyres()` and `index_paasche()`, respectively, as discussed in
@@ -807,9 +813,9 @@ missing basic heading PPPs with a value given by the user. The function
 returns a data frame containing the variables indicating the region
 ("region"), basic heading ("product"), basic-heading PPP ("ppp_bh").
 Once joined with expenditure weights, this output can be directly fed
-into `index_geks()`.[^2]
+into `index_geks()`.[^3]
 
-[^2]: Or any alternative bilateral index formula `index_laspeyres()`,
+[^3]: Or any alternative bilateral index formula `index_laspeyres()`,
     `index_paasche()`, `index_fisher()`.
 
 The two steps above can be linked within one pipeline using the
@@ -839,8 +845,8 @@ sampledata_prices %>%
 ```
 
 This will return a grouped tibble containing three columns: the variable
-specified by `group_by()` (in this case the basic heading "group"); region
-("region"), and the subnational PPPs estimated via the CPD method
+specified by `group_by()` (in this case the basic heading "group");
+region ("region"), and the subnational PPPs estimated via the CPD method
 ("sPPP").
 
 Note that the returned tibble is still grouped by the grouping variable
@@ -855,12 +861,12 @@ commands with `index_geks()` (as well as `index_laspeyres()`,
 `index_paasche()`, `index_fisher()`) through the `estim_index_link()`
 function.
 
-`estim_index_link()` takes a data frame containing the basic
-heading sPPPs provided as an input argument `data_sppps`, and joins it with a a 
-second data frame (supplied via the argument `data_weights`) containing the
-household expenditure weights, and gives the user the option to impute
-price quotes for expenditure categories, for which household expenditure
-weights are present but nor price quotes are available.
+`estim_index_link()` takes a data frame containing the basic heading
+sPPPs provided as an input argument `data_sppps`, and joins it with a a
+second data frame (supplied via the argument `data_weights`) containing
+the household expenditure weights, and gives the user the option to
+impute price quotes for expenditure categories, for which household
+expenditure weights are present but nor price quotes are available.
 
 Thus, `estim_index_link()` returns a data object with all necessary
 variables for the calculation of the price indices, e.g.,
@@ -1045,8 +1051,8 @@ sampledata_prices %>%
   fmt_number(decimals = 4)
 ```
 
-In turn, this causes the index number function to break and return an error 
-due to an incomplete expenditure weights matrix.
+In turn, this causes the index number function to break and return an
+error due to an incomplete expenditure weights matrix.
 
 Note that in the code chunk below, `tryCatch()` is used to print the
 error message returned by `index_geks()` as an output.

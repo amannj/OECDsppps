@@ -12,6 +12,9 @@
 #' @param product Column containing the product identifier
 #' @param ppp_bh Column containing the subnational PPPs
 #' @param exp_wght Column containing the expenditure weights
+#' @param output Controls the length of error messages triggered by the function. Under the default "truncated",
+#' error messages might not list all problematic region/heading pairs. Under "full", the function increases the
+#' length of the warning message, so that all problematic region/heading pairs are printed.
 #'
 #' @return Returns an error message if any of the checks fail. The error message specifies the
 #' reason, e.g., "Following region/product pairs have negative weights:", and lists the problematic
@@ -31,7 +34,14 @@ valid_index_data <- function(data,
                              region = "region",
                              product = "product",
                              ppp_bh = "ppp_bh",
-                             exp_wght = "exp_wght") {
+                             exp_wght = "exp_wght",
+                             output = "truncated") {
+
+  if (output == "full") {
+    old_opts <- options(warning.length = 8170)
+    on.exit(options(old_opts), add = TRUE)
+  }
+
   # PPPs:
   # missing ppps
   missing_ppps <- data %>%
@@ -69,21 +79,6 @@ valid_index_data <- function(data,
   # check: negative ppps
   negative_ppps_check <- nrow(negative_ppps) > 0
 
-  # warning: negative ppps
-  if (negative_ppps_check) {
-    warning(paste(
-      "Following region/product pairs have negative PPPs:\n",
-      paste(
-        paste(
-          negative_ppps[[region]],
-          negative_ppps[[product]],
-          sep = "/"
-        ),
-        collapse = "; "
-      )
-    ))
-  }
-
   # Expenditure weights:
   # missing weights
   missing_exp_wghts <- data %>%
@@ -107,8 +102,8 @@ valid_index_data <- function(data,
       "\nIncomplete expenditure weights matrix.\nMissing weights for the following region/product combinations:\n",
       paste(
         paste(missing_exp_wghts[[region]],
-          missing_exp_wghts[[product]],
-          sep = "/"
+              missing_exp_wghts[[product]],
+              sep = "/"
         ),
         collapse = "; "
       )
@@ -136,47 +131,60 @@ valid_index_data <- function(data,
   # check: non-unity regional sums
   unity_sum_check <- nrow(non_unity_regional_sums) > 0
 
-  # warning: negative weights
-  if (negative_exp_check) {
-    warning(paste(
-      "Following region/product pairs have negative weights:\n",
-      paste(
-        paste(
-          negative_exp_wghts[[region]],
-          negative_exp_wghts[[product]],
-          sep = "/"
-        ),
-        collapse = "; "
-      )
-    ))
-  }
-
-  # warning: weights above 1
-  if (above_one_check) {
-    warning(paste(
-      "Following region/product pairs have weights exceeding 1:\n",
-      paste(
-        paste(
-          above_one_exp_wghts[[region]],
-          above_one_exp_wghts[[product]],
-          sep = "/"
-        ),
-        collapse = "; "
-      )
-    ))
-  }
-
-  # warning: non-unity regional sums
-  if (unity_sum_check) {
-    warning(paste(
-      "Following regions' weights do not sum to 1:\n",
-      paste(non_unity_regional_sums[[region]],
-        collapse = "; "
-      )
-    ))
-  }
-
-  if (any(negative_ppps_check, negative_exp_check, above_one_check, unity_sum_check)) stop("Input data unsuitable for index calculation.")
+  if (any(negative_ppps_check, negative_exp_check, above_one_check, unity_sum_check)) stop(
+    paste("Input data unsuitable for index calculation, for the following reasons:\n",
+          if(negative_ppps_check) {
+            paste(
+              "- Following region/product pairs have negative PPPs:\n",
+              paste(
+                paste(
+                  negative_ppps[[region]],
+                  negative_ppps[[product]],
+                  sep = "/"
+                ),
+                collapse = "; "
+              ),
+              "\n"
+            )
+          },
+          if(negative_exp_check) {
+            paste(
+              "- Following region/product pairs have negative weights:\n",
+              paste(
+                paste(
+                  negative_exp_wghts[[region]],
+                  negative_exp_wghts[[product]],
+                  sep = "/"
+                ),
+                collapse = "; "
+              ),
+              "\n"
+            )
+          },
+          if(above_one_check) {
+            paste(
+              "- Following region/product pairs have weights exceeding 1:\n",
+              paste(
+                paste(
+                  above_one_exp_wghts[[region]],
+                  above_one_exp_wghts[[product]],
+                  sep = "/"
+                ),
+                collapse = "; "
+              ),
+              "\n"
+            )
+          },
+          if(unity_sum_check) {
+            paste(
+              "- Following regions' weights do not sum to 1:\n",
+              paste(non_unity_regional_sums[[region]],
+                    collapse = "; "
+              )
+            )
+          },
+          sep = "")
+  )
 }
 
 #' Matrix generation
