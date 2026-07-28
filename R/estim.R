@@ -269,6 +269,9 @@ estim_cpd <- function(data,
 #' @param sPPP Identifier for the basix heading sPPPs
 #' @param weights Identifier for expenditure weights
 #' @param complete_sppp value to be imputed for missing basic-heading PPPs
+#' @param complete_sppp_message specifies the length of the warning message triggered by imputing PPPs through
+#' complete_sppp. When set to "short", the function prints a warning that some PPPs were imputed. Complete list
+#' of all region/heading pairs is obtained by setting it to "full".
 #'
 #' @return Returns a data frame containing the variables indicating the region ("region"),
 #' basic heading ("product"), basic-heading PPP ("ppp_bh"), and expenditure weights ("exp_wght").
@@ -368,7 +371,14 @@ estim_index_link <- function(data_sppps,
                              region = "region",
                              sPPP = "sPPP",
                              weights = "weight",
-                             complete_sppp = NA) {
+                             complete_sppp = NA,
+                             complete_sppp_message = "short") {
+
+  if (complete_sppp_message == "full") {
+    old_opts <- options(warning.length = 8170)
+    on.exit(options(old_opts), add = TRUE)
+  }
+
   harmonised_data <- data_sppps %>%
     full_join(data_weights,
       by = c({{ product_heading }}, {{ region }})
@@ -401,12 +411,20 @@ estim_index_link <- function(data_sppps,
       ) %>%
       rename(exp_wght = {{ weights }})
 
-    if (length(completed_regions_headings_v) > 0) {
+    if (length(completed_regions_headings_v) > 0 & complete_sppp_message == "full") {
       warning(print(paste(
         "sPPP of",
         complete_sppp,
         "was imputed to the following region/headings pairs:",
         paste(completed_regions_headings_v, collapse = "; ")
+      )))
+    }
+
+    if (length(completed_regions_headings_v) > 0 & complete_sppp_message == "short") {
+      warning(print(paste(
+        "sPPP of",
+        complete_sppp,
+        'was imputed for some region/headings pairs. To see the full list, set `complete_sppp_message == "full".'
       )))
     }
   }

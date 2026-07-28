@@ -124,6 +124,7 @@ Big housekeeping: Streamline documentation, vignettes, simplify and harmonise fu
 - Added numbers of observations to `valid_est()`
 - Add sample data sets `sampledata_prices()`, `sampledata_weights()` and `sampledata_multi_period()`
 - Add lifeycle with experimental badge
+- Improved error messages and warning/error message handling for `estim_index_link()` and index functions
 
 ### Bug fixes
 
