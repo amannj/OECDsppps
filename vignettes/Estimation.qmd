@@ -747,8 +747,8 @@ The various indices calculated across both packages are numerically
 identical.
 
 ```{r}
-#| fig-height: 8
-#| fig-width: 6
+#| fig-height: 12
+#| fig-width: 8
 indices_oecdsppps_df %>%
   bind_rows(indices_pricelevels_df) %>%
   mutate(

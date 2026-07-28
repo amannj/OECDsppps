@@ -11,7 +11,8 @@ estim_index_link(
   region = "region",
   sPPP = "sPPP",
   weights = "weight",
-  complete_sppp = NA
+  complete_sppp = NA,
+  complete_sppp_message = "short"
 )
 }
 \arguments{
@@ -30,6 +31,10 @@ columns identifying region, product and expenditure weights}
 \item{weights}{Identifier for expenditure weights}
 
 \item{complete_sppp}{value to be imputed for missing basic-heading PPPs}
+
+\item{complete_sppp_message}{specifies the length of the warning message triggered by imputing PPPs through
+complete_sppp. When set to "short", the function prints a warning that some PPPs were imputed. Complete list
+of all region/heading pairs is obtained by setting it to "full".}
 }
 \value{
 Returns a data frame containing the variables indicating the region ("region"),
