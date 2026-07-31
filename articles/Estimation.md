@@ -56,7 +56,7 @@ is to ensure cross-country comparability and to exploit micro-level
 price information, the **Country-Product-Dummy - Gini-Éltetö-Köves-Szulc
 (CPD-GEKS)** approach offers a flexible framework for estimating
 basic-heading indices ([ICP 2021](#ref-icp2021)), where the first
-estiation step to the basic-heading level is performed using the CPD
+estimation step to the basic-heading level is performed using the CPD
 method, and further aggregation beyond the basic-heading level is
 carried out using GEKS. Basic-heading aggregation with CPD is
 recommended by the ICP ([ICP 2021](#ref-icp2021)) as it is better-suited
@@ -1027,11 +1027,11 @@ function.
 
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
 takes a data frame containing the basic heading sPPPs provided as an
-input argument `data_sppps`, and joins it with a a second data frame
+input argument `data_sppps`, and joins it with a second data frame
 (supplied via the argument `data_weights`) containing the household
 expenditure weights, and gives the user the option to impute price
 quotes for expenditure categories, for which household expenditure
-weights are present but nor price quotes are available.
+weights are present but no price quotes are available.
 
 Thus,
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
@@ -1071,7 +1071,7 @@ sampledata_prices %>%
   ungroup() %>%
   # 2nd step: preparing the data for index number calculation
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
@@ -1204,7 +1204,7 @@ sampledata_prices %>%
   filter(!(region %in% c("region_1", "region_2") & heading == "heading_1")) %>%
   # Setting complete_sppp = 1 to impute 1 for missing sPPPs
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
@@ -1217,9 +1217,9 @@ sampledata_prices %>%
   gt() %>%
   fmt_number(decimals = 4)
 #> [1] "sPPP of 1 was imputed for some region/headings pairs. To see the full list, set `complete_sppp_message == \"full\"."
-#> Warning in estim_index_link(data = ., data_weights = sampledata_weights, : sPPP
-#> of 1 was imputed for some region/headings pairs. To see the full list, set
-#> `complete_sppp_message == "full".
+#> Warning in estim_index_link(data_sppps = ., data_weights = sampledata_weights,
+#> : sPPP of 1 was imputed for some region/headings pairs. To see the full list,
+#> set `complete_sppp_message == "full".
 ```
 
 | base_region | region   | geks_index |
@@ -1258,7 +1258,7 @@ sampledata_prices %>%
   }) %>%
   ungroup() %>%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
@@ -1304,7 +1304,7 @@ return_error(
     }) %>%
     ungroup() %>%
     estim_index_link(
-      data = .,
+      data_sppps = .,
       data_weights = sampledata_weights,
       product_heading = "heading",
       region = "region",

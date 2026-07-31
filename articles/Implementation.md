@@ -70,7 +70,7 @@ individual stages of the production pipeline are discussed in the
 subsequent paragraphs, together with the various functions used for the
 calculation of the subnational price indices.
 
-| Steps | Counterpart | `OECDsPPPs` integration |
+| Steps | Counterpart | `OECDsppps` integration |
 |----|----|----|
 | **1** Raw data processing | OECD or country | \- |
 | **2** Raw data validation | OECD or country | [`valid_pot()`](https://amannj.github.io/OECDsppps/reference/valid_pot.md), [`valid_apt()`](https://amannj.github.io/OECDsppps/reference/valid_apt.md), [`valid_ratio_xr()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_xr.md), [`valid_ratio_ppp()`](https://amannj.github.io/OECDsppps/reference/valid_ratio_ppp.md), [`valid_est()`](https://amannj.github.io/OECDsppps/reference/valid_est.md) |
@@ -205,13 +205,13 @@ respective higher aggregate for which sPPPs are estimated.
 Function
 [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
 serves as a “link” from the first CPD steps towards the second GEKS step
-of the index calculation. It comnines the CPD estimates with the
+of the index calculation. It combines the CPD estimates with the
 corresponding household expenditure weights (typically at the
 basic-heading level corresponding to the 4-digit COICOP classes) and
 identifies missing CPD-price-household-weight pairs. It also provides
 the option to fill in missing basic-heading PPPs with a value given by
 the user, thereby producing a complete CPD-price-household-weight
-matrix, which is needed in for the second GEKS aggregation step.[^3]
+matrix, which is needed for the second GEKS aggregation step.[^3]
 
 ### 5.2 Index calculations
 
@@ -303,6 +303,6 @@ Analysis* 15 (4): 413–40.
 [^3]: Function
     [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
     only provides an option to impute missing CPD price estimates for
-    existing household weights. The alternative scenario, where CPDI
+    existing household weights. The alternative scenario, where CPD
     estimates exist for categories with non-existing household weights
     is not considered.

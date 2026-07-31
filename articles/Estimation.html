@@ -113,7 +113,7 @@
 <p>To seamlessly combine the two estimation steps, <code>OECDsppps</code>, provides the ‘linking function’ <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> to impute missing basic-heading subnational PPPs. A complete sylised workflow is described in section <a href="#sec-combined">Putting it all together</a>.</p>
 </section><section class="level2 unnumbered"><h3 class="unnumbered" id="estimation-methods">Estimation methods<a class="anchor" aria-label="anchor" href="#estimation-methods"></a>
 </h3>
-<p>The choice of estimation method depends on the availability of data and the analytical objectives of the subnational PPP exercise. When the aim is to ensure cross-country comparability and to exploit micro-level price information, the <strong>Country-Product-Dummy - Gini-Éltetö-Köves-Szulc (CPD-GEKS)</strong> approach offers a flexible framework for estimating basic-heading indices <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>, where the first estiation step to the basic-heading level is performed using the CPD method, and further aggregation beyond the basic-heading level is carried out using GEKS. Basic-heading aggregation with CPD is recommended by the ICP <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span> as it is better-suited to handling missing price observations in the underlying price microdata than GEKS <span class="citation" data-cites="auer_von_gap_2026">(<a href="#ref-auer_von_gap_2026" role="doc-biblioref">Auer, Ludwig von 2026</a>)</span>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This is particularly important when deriving PPPs from existing price microdata, where not all products are observed in every region, rather than from dedicated PPP surveys based on a pre-specified list of comparable items. In particular, GEKS price-level estimates are intrinsically more sensitive to missing observations than those obtained through CPD and therefore diagnostic tools for assessing data completeness are especially valuable for GEKS-based price-level estimates &lt;span class="citation" data-cites="auer_von_gap_2026"&gt;(&lt;a href="#ref-auer_von_gap_2026" role="doc-biblioref"&gt;Auer, Ludwig von 2026&lt;/a&gt;)&lt;/span&gt;.&lt;/p&gt;'><sup>1</sup></a></p>
+<p>The choice of estimation method depends on the availability of data and the analytical objectives of the subnational PPP exercise. When the aim is to ensure cross-country comparability and to exploit micro-level price information, the <strong>Country-Product-Dummy - Gini-Éltetö-Köves-Szulc (CPD-GEKS)</strong> approach offers a flexible framework for estimating basic-heading indices <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span>, where the first estimation step to the basic-heading level is performed using the CPD method, and further aggregation beyond the basic-heading level is carried out using GEKS. Basic-heading aggregation with CPD is recommended by the ICP <span class="citation" data-cites="icp2021">(<a href="#ref-icp2021" role="doc-biblioref">ICP 2021</a>)</span> as it is better-suited to handling missing price observations in the underlying price microdata than GEKS <span class="citation" data-cites="auer_von_gap_2026">(<a href="#ref-auer_von_gap_2026" role="doc-biblioref">Auer, Ludwig von 2026</a>)</span>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This is particularly important when deriving PPPs from existing price microdata, where not all products are observed in every region, rather than from dedicated PPP surveys based on a pre-specified list of comparable items. In particular, GEKS price-level estimates are intrinsically more sensitive to missing observations than those obtained through CPD and therefore diagnostic tools for assessing data completeness are especially valuable for GEKS-based price-level estimates &lt;span class="citation" data-cites="auer_von_gap_2026"&gt;(&lt;a href="#ref-auer_von_gap_2026" role="doc-biblioref"&gt;Auer, Ludwig von 2026&lt;/a&gt;)&lt;/span&gt;.&lt;/p&gt;'><sup>1</sup></a></p>
 <p>In contrast, the <strong>Eurostat-OECD (Jevons-GEKS)</strong> method employed at the national level imposes more stringent data requirements. Such requirements may be more difficult to meet in the context of deriving subnational PPPs based on existing microdata, particularly regarding the representativeness of individual products across all regions <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">(<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">European Union/OECD 2024</a>)</span>.</p>
 <p>The estimation procedure in this vignette follows the CPD-GEKS approach and highlights its similarities and differences with the Jevons-GEKS approach whenever instructive. For a more comprehensive discussion on price indices see <span class="citation" data-cites="worldbank2013">Bank (<a href="#ref-worldbank2013" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="europeanunionEurostatOECDMethodologicalManual2024">European Union/OECD (<a href="#ref-europeanunionEurostatOECDMethodologicalManual2024" role="doc-biblioref">2024</a>)</span>.</p>
 <hr></section></section><section class="section level2" data-number="1"><h2 data-number="1" id="sec-step1">
@@ -407,23 +407,23 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>missing_text <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="bznriqhvoh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bznriqhvoh table {
+<div id="ojgeowmbbx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ojgeowmbbx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bznriqhvoh thead, #bznriqhvoh tbody, #bznriqhvoh tfoot, #bznriqhvoh tr, #bznriqhvoh td, #bznriqhvoh th {
+#ojgeowmbbx thead, #ojgeowmbbx tbody, #ojgeowmbbx tfoot, #ojgeowmbbx tr, #ojgeowmbbx td, #ojgeowmbbx th {
   border-style: none;
 }
 
-#bznriqhvoh p {
+#ojgeowmbbx p {
   margin: 0;
   padding: 0;
 }
 
-#bznriqhvoh .gt_table {
+#ojgeowmbbx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -449,12 +449,12 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-left-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_caption {
+#ojgeowmbbx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bznriqhvoh .gt_title {
+#ojgeowmbbx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -466,7 +466,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-width: 0;
 }
 
-#bznriqhvoh .gt_subtitle {
+#ojgeowmbbx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -478,7 +478,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-top-width: 0;
 }
 
-#bznriqhvoh .gt_heading {
+#ojgeowmbbx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -490,13 +490,13 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_bottom_border {
+#ojgeowmbbx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_col_headings {
+#ojgeowmbbx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -511,7 +511,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_col_heading {
+#ojgeowmbbx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -531,7 +531,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   overflow-x: hidden;
 }
 
-#bznriqhvoh .gt_column_spanner_outer {
+#ojgeowmbbx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -543,15 +543,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 4px;
 }
 
-#bznriqhvoh .gt_column_spanner_outer:first-child {
+#ojgeowmbbx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bznriqhvoh .gt_column_spanner_outer:last-child {
+#ojgeowmbbx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bznriqhvoh .gt_column_spanner {
+#ojgeowmbbx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -563,11 +563,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   width: 100%;
 }
 
-#bznriqhvoh .gt_spanner_row {
+#ojgeowmbbx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bznriqhvoh .gt_group_heading {
+#ojgeowmbbx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -593,7 +593,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   text-align: left;
 }
 
-#bznriqhvoh .gt_empty_group_heading {
+#ojgeowmbbx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -608,15 +608,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   vertical-align: middle;
 }
 
-#bznriqhvoh .gt_from_md > :first-child {
+#ojgeowmbbx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bznriqhvoh .gt_from_md > :last-child {
+#ojgeowmbbx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bznriqhvoh .gt_row {
+#ojgeowmbbx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -635,7 +635,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   overflow-x: hidden;
 }
 
-#bznriqhvoh .gt_stub {
+#ojgeowmbbx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -648,7 +648,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#bznriqhvoh .gt_stub_row_group {
+#ojgeowmbbx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -662,15 +662,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   vertical-align: top;
 }
 
-#bznriqhvoh .gt_row_group_first td {
+#ojgeowmbbx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bznriqhvoh .gt_row_group_first th {
+#ojgeowmbbx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bznriqhvoh .gt_summary_row {
+#ojgeowmbbx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -680,16 +680,16 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#bznriqhvoh .gt_first_summary_row {
+#ojgeowmbbx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_first_summary_row.thick {
+#ojgeowmbbx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bznriqhvoh .gt_last_summary_row {
+#ojgeowmbbx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -699,7 +699,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_grand_summary_row {
+#ojgeowmbbx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -709,7 +709,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#bznriqhvoh .gt_first_grand_summary_row {
+#ojgeowmbbx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -719,7 +719,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-top-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_last_grand_summary_row_top {
+#ojgeowmbbx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -729,11 +729,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_striped {
+#ojgeowmbbx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bznriqhvoh .gt_table_body {
+#ojgeowmbbx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -742,7 +742,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_footnotes {
+#ojgeowmbbx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -756,7 +756,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_footnote {
+#ojgeowmbbx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -765,7 +765,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#bznriqhvoh .gt_sourcenotes {
+#ojgeowmbbx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -779,7 +779,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#bznriqhvoh .gt_sourcenote {
+#ojgeowmbbx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -787,72 +787,72 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#bznriqhvoh .gt_left {
+#ojgeowmbbx .gt_left {
   text-align: left;
 }
 
-#bznriqhvoh .gt_center {
+#ojgeowmbbx .gt_center {
   text-align: center;
 }
 
-#bznriqhvoh .gt_right {
+#ojgeowmbbx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bznriqhvoh .gt_font_normal {
+#ojgeowmbbx .gt_font_normal {
   font-weight: normal;
 }
 
-#bznriqhvoh .gt_font_bold {
+#ojgeowmbbx .gt_font_bold {
   font-weight: bold;
 }
 
-#bznriqhvoh .gt_font_italic {
+#ojgeowmbbx .gt_font_italic {
   font-style: italic;
 }
 
-#bznriqhvoh .gt_super {
+#ojgeowmbbx .gt_super {
   font-size: 65%;
 }
 
-#bznriqhvoh .gt_footnote_marks {
+#ojgeowmbbx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bznriqhvoh .gt_asterisk {
+#ojgeowmbbx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bznriqhvoh .gt_indent_1 {
+#ojgeowmbbx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bznriqhvoh .gt_indent_2 {
+#ojgeowmbbx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bznriqhvoh .gt_indent_3 {
+#ojgeowmbbx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bznriqhvoh .gt_indent_4 {
+#ojgeowmbbx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bznriqhvoh .gt_indent_5 {
+#ojgeowmbbx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#bznriqhvoh .katex-display {
+#ojgeowmbbx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#bznriqhvoh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ojgeowmbbx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -983,23 +983,23 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/sub_missing.html" class="external-link">sub_missing</a></span><span class="op">(</span>missing_text <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="walmbyixwc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#walmbyixwc table {
+<div id="rwjutsluls" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rwjutsluls table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#walmbyixwc thead, #walmbyixwc tbody, #walmbyixwc tfoot, #walmbyixwc tr, #walmbyixwc td, #walmbyixwc th {
+#rwjutsluls thead, #rwjutsluls tbody, #rwjutsluls tfoot, #rwjutsluls tr, #rwjutsluls td, #rwjutsluls th {
   border-style: none;
 }
 
-#walmbyixwc p {
+#rwjutsluls p {
   margin: 0;
   padding: 0;
 }
 
-#walmbyixwc .gt_table {
+#rwjutsluls .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1025,12 +1025,12 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-left-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_caption {
+#rwjutsluls .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#walmbyixwc .gt_title {
+#rwjutsluls .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1042,7 +1042,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-width: 0;
 }
 
-#walmbyixwc .gt_subtitle {
+#rwjutsluls .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1054,7 +1054,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-top-width: 0;
 }
 
-#walmbyixwc .gt_heading {
+#rwjutsluls .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1066,13 +1066,13 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_bottom_border {
+#rwjutsluls .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_col_headings {
+#rwjutsluls .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1087,7 +1087,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_col_heading {
+#rwjutsluls .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1107,7 +1107,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   overflow-x: hidden;
 }
 
-#walmbyixwc .gt_column_spanner_outer {
+#rwjutsluls .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1119,15 +1119,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 4px;
 }
 
-#walmbyixwc .gt_column_spanner_outer:first-child {
+#rwjutsluls .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#walmbyixwc .gt_column_spanner_outer:last-child {
+#rwjutsluls .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#walmbyixwc .gt_column_spanner {
+#rwjutsluls .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1139,11 +1139,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   width: 100%;
 }
 
-#walmbyixwc .gt_spanner_row {
+#rwjutsluls .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#walmbyixwc .gt_group_heading {
+#rwjutsluls .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1169,7 +1169,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   text-align: left;
 }
 
-#walmbyixwc .gt_empty_group_heading {
+#rwjutsluls .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1184,15 +1184,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   vertical-align: middle;
 }
 
-#walmbyixwc .gt_from_md > :first-child {
+#rwjutsluls .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#walmbyixwc .gt_from_md > :last-child {
+#rwjutsluls .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#walmbyixwc .gt_row {
+#rwjutsluls .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1211,7 +1211,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   overflow-x: hidden;
 }
 
-#walmbyixwc .gt_stub {
+#rwjutsluls .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1224,7 +1224,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#walmbyixwc .gt_stub_row_group {
+#rwjutsluls .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1238,15 +1238,15 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   vertical-align: top;
 }
 
-#walmbyixwc .gt_row_group_first td {
+#rwjutsluls .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#walmbyixwc .gt_row_group_first th {
+#rwjutsluls .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#walmbyixwc .gt_summary_row {
+#rwjutsluls .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1256,16 +1256,16 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#walmbyixwc .gt_first_summary_row {
+#rwjutsluls .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_first_summary_row.thick {
+#rwjutsluls .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#walmbyixwc .gt_last_summary_row {
+#rwjutsluls .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1275,7 +1275,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_grand_summary_row {
+#rwjutsluls .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1285,7 +1285,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#walmbyixwc .gt_first_grand_summary_row {
+#rwjutsluls .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1295,7 +1295,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-top-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_last_grand_summary_row_top {
+#rwjutsluls .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1305,11 +1305,11 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_striped {
+#rwjutsluls .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#walmbyixwc .gt_table_body {
+#rwjutsluls .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1318,7 +1318,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-bottom-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_footnotes {
+#rwjutsluls .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1332,7 +1332,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_footnote {
+#rwjutsluls .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1341,7 +1341,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#walmbyixwc .gt_sourcenotes {
+#rwjutsluls .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1355,7 +1355,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   border-right-color: #D3D3D3;
 }
 
-#walmbyixwc .gt_sourcenote {
+#rwjutsluls .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1363,72 +1363,72 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
   padding-right: 5px;
 }
 
-#walmbyixwc .gt_left {
+#rwjutsluls .gt_left {
   text-align: left;
 }
 
-#walmbyixwc .gt_center {
+#rwjutsluls .gt_center {
   text-align: center;
 }
 
-#walmbyixwc .gt_right {
+#rwjutsluls .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#walmbyixwc .gt_font_normal {
+#rwjutsluls .gt_font_normal {
   font-weight: normal;
 }
 
-#walmbyixwc .gt_font_bold {
+#rwjutsluls .gt_font_bold {
   font-weight: bold;
 }
 
-#walmbyixwc .gt_font_italic {
+#rwjutsluls .gt_font_italic {
   font-style: italic;
 }
 
-#walmbyixwc .gt_super {
+#rwjutsluls .gt_super {
   font-size: 65%;
 }
 
-#walmbyixwc .gt_footnote_marks {
+#rwjutsluls .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#walmbyixwc .gt_asterisk {
+#rwjutsluls .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#walmbyixwc .gt_indent_1 {
+#rwjutsluls .gt_indent_1 {
   text-indent: 5px;
 }
 
-#walmbyixwc .gt_indent_2 {
+#rwjutsluls .gt_indent_2 {
   text-indent: 10px;
 }
 
-#walmbyixwc .gt_indent_3 {
+#rwjutsluls .gt_indent_3 {
   text-indent: 15px;
 }
 
-#walmbyixwc .gt_indent_4 {
+#rwjutsluls .gt_indent_4 {
   text-indent: 20px;
 }
 
-#walmbyixwc .gt_indent_5 {
+#rwjutsluls .gt_indent_5 {
   text-indent: 25px;
 }
 
-#walmbyixwc .katex-display {
+#rwjutsluls .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#walmbyixwc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rwjutsluls div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2342,7 +2342,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span class="header-section-number">3.2</span> Index calculation using basic-heading indices<a class="anchor" aria-label="anchor" href="#index-calculation-using-basic-heading-indices"></a>
 </h3>
 <p>GEKS (as well as Laspeyres, Paasche, Fisher, which are all nested within the GEKS function) indices can be calculated by linking the previous commands with <code><a href="../reference/index_geks.html">index_geks()</a></code> (as well as <code><a href="../reference/index_laspeyres.html">index_laspeyres()</a></code>, <code><a href="../reference/index_paasche.html">index_paasche()</a></code>, <code><a href="../reference/index_fisher.html">index_fisher()</a></code>) through the <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> function.</p>
-<p><code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> takes a data frame containing the basic heading sPPPs provided as an input argument <code>data_sppps</code>, and joins it with a a second data frame (supplied via the argument <code>data_weights</code>) containing the household expenditure weights, and gives the user the option to impute price quotes for expenditure categories, for which household expenditure weights are present but nor price quotes are available.</p>
+<p><code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> takes a data frame containing the basic heading sPPPs provided as an input argument <code>data_sppps</code>, and joins it with a second data frame (supplied via the argument <code>data_weights</code>) containing the household expenditure weights, and gives the user the option to impute price quotes for expenditure categories, for which household expenditure weights are present but no price quotes are available.</p>
 <p>Thus, <code><a href="../reference/estim_index_link.html">estim_index_link()</a></code> returns a data object with all necessary variables for the calculation of the price indices, e.g., <code><a href="../reference/index_geks.html">index_geks()</a></code>.</p>
 <p>To summarise, the complete workflow has these three steps:</p>
 <ol type="1">
@@ -2369,7 +2369,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># 2nd step: preparing the data for index number calculation</span></span>
 <span>  <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>    data_sppps <span class="op">=</span> <span class="va">.</span>,</span>
 <span>    data_weights <span class="op">=</span> <span class="va">sampledata_weights</span>,</span>
 <span>    product_heading <span class="op">=</span> <span class="st">"heading"</span>,</span>
 <span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
@@ -2945,7 +2945,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">region</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"region_1"</span>, <span class="st">"region_2"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">heading</span> <span class="op">==</span> <span class="st">"heading_1"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Setting complete_sppp = 1 to impute 1 for missing sPPPs</span></span>
 <span>  <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>    data_sppps <span class="op">=</span> <span class="va">.</span>,</span>
 <span>    data_weights <span class="op">=</span> <span class="va">sampledata_weights</span>,</span>
 <span>    product_heading <span class="op">=</span> <span class="st">"heading"</span>,</span>
 <span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
@@ -2958,9 +2958,9 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "sPPP of 1 was imputed for some region/headings pairs. To see the full list, set `complete_sppp_message == \"full\"."</span></span>
-<span><span class="co">#&gt; Warning in estim_index_link(data = ., data_weights = sampledata_weights, : sPPP</span></span>
-<span><span class="co">#&gt; of 1 was imputed for some region/headings pairs. To see the full list, set</span></span>
-<span><span class="co">#&gt; `complete_sppp_message == "full".</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning in estim_index_link(data_sppps = ., data_weights = sampledata_weights,</span></span>
+<span><span class="co">#&gt; : sPPP of 1 was imputed for some region/headings pairs. To see the full list,</span></span>
+<span><span class="co">#&gt; set `complete_sppp_message == "full".</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="mkkytzgywz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mkkytzgywz table {
@@ -3475,7 +3475,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>    data_sppps <span class="op">=</span> <span class="va">.</span>,</span>
 <span>    data_weights <span class="op">=</span> <span class="va">sampledata_weights</span>,</span>
 <span>    product_heading <span class="op">=</span> <span class="st">"heading"</span>,</span>
 <span>    region <span class="op">=</span> <span class="st">"region"</span>,</span>
@@ -4002,7 +4002,7 @@ ln p_{ij}  = &amp; \alpha_1 D_1 + ... + \alpha_j D_j + ... +\alpha_R D_R + \\
 <span>    <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/estim_index_link.html">estim_index_link</a></span><span class="op">(</span></span>
-<span>      data <span class="op">=</span> <span class="va">.</span>,</span>
+<span>      data_sppps <span class="op">=</span> <span class="va">.</span>,</span>
 <span>      data_weights <span class="op">=</span> <span class="va">sampledata_weights</span>,</span>
 <span>      product_heading <span class="op">=</span> <span class="st">"heading"</span>,</span>
 <span>      region <span class="op">=</span> <span class="st">"region"</span>,</span>

@@ -156,7 +156,7 @@ of the products listed in the *Average Price Table*. An extreme value is
 defined as an individual price or average price that for a given test
 scores a value that falls outside a predetermined critical value and is
 built on two *average price outlier statistics*, which are summarised in
-the Average Price Table; see Bank ([2013](#ref-worldbank2013)), table
+the Average Price Table; see Bank ([2013](#ref-worldbank2013)), tables
 9.2a and 9.2b for an extensive example. The two statistics contained in
 this table are the *max-min ratio test* and the *coefficient to
 variation* test.
@@ -658,7 +658,7 @@ sampledata_multi_period |>
 
 #### 4.2.2 Cross-country validation
 
-Box plots should be used to visualise the Price Level index (PLI), which
+Box plots should be used to visualise the Price Level Index (PLI), which
 is the ratio of a purchasing power parity (PPP) conversion factor to the
 corresponding market exchange rate between two countries by country and
 by basic heading.
@@ -721,7 +721,7 @@ sampledata_weights |>
 This step of validation concerns the joint validation of PPPs and
 expenditure weights ([Bank 2013, 287](#ref-worldbank2013)). The
 objective is to check whether there is a problem with the basic-headings
-PPP and expenditures, or, in case the data are valid, there is an
+PPPs and expenditures, or, in case the data are valid, there is an
 estimation issue.
 
 The Paasche-Laspeyres spread (PLS) corresponds to the upper and lower
