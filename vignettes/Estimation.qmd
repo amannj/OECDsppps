@@ -898,7 +898,7 @@ sampledata_prices %>%
   ungroup() %>%
   # 2nd step: preparing the data for index number calculation
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
@@ -999,7 +999,7 @@ sampledata_prices %>%
   filter(!(region %in% c("region_1", "region_2") & heading == "heading_1")) %>%
   # Setting complete_sppp = 1 to impute 1 for missing sPPPs
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
@@ -1038,7 +1038,7 @@ sampledata_prices %>%
   }) %>%
   ungroup() %>%
   estim_index_link(
-    data = .,
+    data_sppps = .,
     data_weights = sampledata_weights,
     product_heading = "heading",
     region = "region",
@@ -1071,7 +1071,7 @@ return_error(
     }) %>%
     ungroup() %>%
     estim_index_link(
-      data = .,
+      data_sppps = .,
       data_weights = sampledata_weights,
       product_heading = "heading",
       region = "region",
