@@ -4,11 +4,11 @@
 \name{OECDsppps-package}
 \alias{OECDsppps}
 \alias{OECDsppps-package}
-\title{OECDsppps: Calculating subnational purchasing power parities (sPPPs) in OECD regions}
+\title{OECDsppps: Calculating Subnational Purchasing Power Parities (sPPPs) in OECD Regions}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-An R package for calculating subnational purchasing power parities (sPPPs) in OECD regions.
+An R package for calculating subnational purchasing power parities (sPPPs) in OECD regions in support of the OECD project "Towards measuring purcahsing power parity across OECD regions". The package provides processing, validation, aggregation and estimation for the purpose of constructing subnational PPPs.
 }
 \seealso{
 Useful links:
@@ -21,6 +21,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}:  OECD \email{juergen.amann@oecd.org}
+
+Authors:
+\itemize{
+  \item  OECD \email{juergen.amann@oecd.org}
+}
 
 }
 \keyword{internal}

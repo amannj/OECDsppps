@@ -75,7 +75,7 @@ the analytical objectives of the subnational PPP exercise. When the aim
 is to ensure cross-country comparability and to exploit micro-level
 price information, the **Country-Product-Dummy - Gini-Éltetö-Köves-Szulc
 (CPD-GEKS)** approach offers a flexible framework for estimating
-basic-heading indices [@icp2021], where the first estiation step to the
+basic-heading indices [@icp2021], where the first estimation step to the
 basic-heading level is performed using the CPD method, and further
 aggregation beyond the basic-heading level is carried out using GEKS.
 Basic-heading aggregation with CPD is recommended by the ICP [@icp2021]
@@ -862,11 +862,11 @@ commands with `index_geks()` (as well as `index_laspeyres()`,
 function.
 
 `estim_index_link()` takes a data frame containing the basic heading
-sPPPs provided as an input argument `data_sppps`, and joins it with a a
+sPPPs provided as an input argument `data_sppps`, and joins it with a
 second data frame (supplied via the argument `data_weights`) containing
 the household expenditure weights, and gives the user the option to
 impute price quotes for expenditure categories, for which household
-expenditure weights are present but nor price quotes are available.
+expenditure weights are present but no price quotes are available.
 
 Thus, `estim_index_link()` returns a data object with all necessary
 variables for the calculation of the price indices, e.g.,
