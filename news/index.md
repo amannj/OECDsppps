@@ -158,6 +158,10 @@ harmonise function names and parameters, grammar, etc.
 - Improved error messages and warning/error message handling for
   [`estim_index_link()`](https://amannj.github.io/OECDsppps/reference/estim_index_link.md)
   and index functions
+- COICO 2018 - COICOP 1999 correspondence table
+  [`correspondence_coicop18_coicop99()`](https://amannj.github.io/OECDsppps/reference/correspondence_coicop18_coicop99.md)
+  and ECOICOP 2016 - COICO 2018 correspondence table
+  [`correspondence_ecoicop16_coicop18()`](https://amannj.github.io/OECDsppps/reference/correspondence_ecoicop16_coicop18.md)
 
 #### Bug fixes
 

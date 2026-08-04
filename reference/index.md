@@ -49,13 +49,17 @@ Gini-Éltetö-Köves-Szulc (GEKS) method
 A selection of concordance and reference tables to facilitate the
 creation of subnational PPPs
 
-- [`oecd_tl`](https://amannj.github.io/OECDsppps/reference/oecd_tl.md) :
-  OECD Territorial correspondence table
+- [`correspondence_coicop18_coicop99`](https://amannj.github.io/OECDsppps/reference/correspondence_coicop18_coicop99.md)
+  : COICOP 2018 - COICOP 1999 correspondence table
+- [`correspondence_ecoicop16_coicop18`](https://amannj.github.io/OECDsppps/reference/correspondence_ecoicop16_coicop18.md)
+  : ECOICOP 2016 - COICOP 2018 correspondence table
+- [`correspondence_ecoicop_bh`](https://amannj.github.io/OECDsppps/reference/correspondence_ecoicop_bh.md)
+  : ECOICOP 2016 - Eurostat PPP Basic Headings correspondence table
 - [`ecoicop16_names`](https://amannj.github.io/OECDsppps/reference/ecoicop16_names.md)
   : Classification of Individual Consumption According to Purpose
-  (ECOICOP)
-- [`concordance_ecoicop2bh`](https://amannj.github.io/OECDsppps/reference/concordance_ecoicop2bh.md)
-  : Concordance table from ECOICOP to Eurostat PPP Basic Headings
+  (ECOICOP 16)
+- [`oecd_tl`](https://amannj.github.io/OECDsppps/reference/oecd_tl.md) :
+  OECD Territorial correspondence table
 
 ## Sample data
 

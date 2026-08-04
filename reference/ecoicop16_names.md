@@ -1,11 +1,13 @@
-# Classification of Individual Consumption According to Purpose (ECOICOP)
+# Classification of Individual Consumption According to Purpose (ECOICOP 16)
 
 COICOP is a reference classification published by the United Nations
 Statistics Division (UNSD) used in National accounts, Household Budget
 Surveys (HBS), Price Statistics (HICP) and Purchasing Power Parities
 (PPP). Eurostat introduced a harmonised revision of COICOP, yielding a
 single harmonised COICOP classification at the five-digit (sub-class)
-level, referred to as “ECOICOP”.
+level, referred to as “ECOICOP” (or "ECOICOP 1") for COICOP 1999
+standard. The more recent COICOP 2018 standard is equivalent to ECOICOP
+2.
 
 ## Usage
 
@@ -50,7 +52,8 @@ HICP](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossar
 
 ``` r
 ecoicop16_names |> dim()
-#> [1] 479   3
+#> [1] 479   4
 ecoicop16_names |> names()
-#> [1] "code"  "level" "name" 
+#> [1] "code"              "coicop_level"      "coicop_level_code"
+#> [4] "name"             
 ```
