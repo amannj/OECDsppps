@@ -70,9 +70,12 @@ reference:
   - title: "Concordance and reference tables"
     desc: "A selection of concordance and reference tables to facilitate the creation of subnational PPPs"
     contents:
-      - oecd_tl
+      - correspondence_coicop18_coicop99
+      - correspondence_ecoicop16_coicop18
+      - correspondence_ecoicop_bh
       - ecoicop16_names
-      - concordance_ecoicop2bh
+      - oecd_tl
+
   - title: "Sample data"
     desc: "Sample data to illustrate the functionality of OECDsppps"
     contents:
@@ -81,3 +84,4 @@ reference:
       - sampledata_prices
       - sampledata_weights
       - sampledata_multi_period
+

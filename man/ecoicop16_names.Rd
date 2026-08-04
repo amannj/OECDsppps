@@ -3,7 +3,7 @@
 \docType{data}
 \name{ecoicop16_names}
 \alias{ecoicop16_names}
-\title{Classification of Individual Consumption According to Purpose (ECOICOP)}
+\title{Classification of Individual Consumption According to Purpose (ECOICOP 16)}
 \format{
 \subsection{\code{ecoicop16_names}}{
 
@@ -30,7 +30,9 @@ COICOP is a reference classification published by the United Nations Statistics
 Division (UNSD) used in National accounts, Household Budget Surveys (HBS),
 Price Statistics (HICP) and Purchasing Power Parities (PPP).
 Eurostat introduced a harmonised revision of COICOP, yielding a single
-harmonised COICOP classification at the five-digit (sub-class) level, referred to as “ECOICOP”.
+harmonised COICOP classification at the five-digit (sub-class) level, referred to as “ECOICOP”
+(or "ECOICOP 1") for COICOP 1999 standard.
+The more recent COICOP 2018 standard is equivalent to ECOICOP 2.
 }
 \examples{
 ecoicop16_names |> dim()

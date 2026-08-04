@@ -74,12 +74,14 @@
 #' @source [Regional household final consumption expenditure](https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/datasets/regionalhouseholdfinalconsumptionexpenditureinternationalterritoriallevel1countriesandregionsandinternationalterritoriallevel2subregions)
 "uk_hhe"
 
-#' Concordance table from ECOICOP to Eurostat PPP Basic Headings
+#' ECOICOP 2016 - Eurostat PPP Basic Headings correspondence table
 #'
-#' A concordance table to map European Classification of Individual Consumption according to Purpose, version 1 (ECOICOP1) to Basic Headings (BH) of the Eurostat PPP list of products for consumer goods and services
+#' A correspondence table to map European Classification of Individual Consumption
+#' according to Purpose, version 1 (also referred to as "ECOICOP 2016" or "ECOICOP 1")
+#' to Basic Headings (BH) of the Eurostat PPP list of products for consumer goods and services.
 #'
 #' @format ## `concordance_ecoicop2bh`
-#' A data frame with 358 rows and 5 columns containing the concordance to map ECOICOP1s onto BHs.
+#' A data frame with 358 rows and 5 columns containing the concordance to map ECOICOP codes onto BHs.
 #'
 #' \describe{
 #'   \item{ecoicop1_code}{ECOICOP1 code}
@@ -100,22 +102,25 @@
 #' - `NA` not available: BHs go beyond household consumption
 #'
 #' @examples
-#' concordance_ecoicop2bh |> dim()
-#' concordance_ecoicop2bh |> names()
-#' concordance_ecoicop2bh |> dplyr::distinct(type)
+#' correspondence_ecoicop_bh |> dim()
+#' correspondence_ecoicop_bh |> names()
+#' correspondence_ecoicop_bh |> dplyr::distinct(type)
 #'
 #' @source [European Classification of Individual Consumption according to Purpose, version 1 (ECOICOP1)](https://showvoc.op.europa.eu/#/datasets/ESTAT_European_Classification_of_Individual_Consumption_according_to_Purpose_%28ECOICOP%29/data)
 #' and [Eurostat PPP list of products for consumer goods and services](https://ec.europa.eu/eurostat/web/purchasing-power-parities/methodology)
-"concordance_ecoicop2bh"
+"correspondence_ecoicop_bh"
 
 
-#' Classification of Individual Consumption According to Purpose (ECOICOP)
+#' Classification of Individual Consumption According to Purpose (ECOICOP 16)
 #'
 #' COICOP is a reference classification published by the United Nations Statistics
 #' Division (UNSD) used in National accounts, Household Budget Surveys (HBS),
 #' Price Statistics (HICP) and Purchasing Power Parities (PPP).
 #' Eurostat introduced a harmonised revision of COICOP, yielding a single
-#' harmonised COICOP classification at the five-digit (sub-class) level, referred to as “ECOICOP”.
+#' harmonised COICOP classification at the five-digit (sub-class) level, referred to as “ECOICOP”
+#' (or "ECOICOP 1") for COICOP 1999 standard.
+#' The more recent COICOP 2018 standard is equivalent to ECOICOP 2.
+#'
 #'
 #' @format ## `ecoicop16_names`
 #' A data frame with 479 rows and 4 columns containing the code and description of the ECOICOP classification at various levels of aggregation,
@@ -232,3 +237,60 @@
 #'
 #' @source See R package  [ pricelevels: Spatial Price Level Comparisons](https://CRAN.R-project.org/package=pricelevels)
 "sampledata_multi_period"
+
+
+#'  COICOP 2018 - COICOP 1999 correspondence table
+#'
+#' Correspondence table between COICOP 2018 and COICOP 1999. Note that
+#' COICOP 2018 corresponds to ECOICOP 2.
+#'
+#' @format
+#' A data frame with 688 rows and 4 columns containing the variables
+#' - "coicop18_code " (COICOP 2018 code),
+#' - "coicop18_description" (COICOP 2018 description),
+#' - "coicop99_code" (COICOP 1999 code),
+#' - "coicop99_description" (COICOP 1999 description),
+#' - "comment" (classification comments)
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @examples
+#' correspondence_coicop18_coicop99 |> dim()
+#' correspondence_coicop18_coicop99 |> names()
+#' correspondence_coicop18_coicop99 |> head()
+#'
+#' @source See Statistics Lithuania for the  [correspondence table](https://osp.stat.gov.lt/en_GB/individualaus-vartojimo-islaidu-pagal-paskirti-klasifikatorius-coicop),
+#' as well as the United Nattions Statistics Division for more information on
+#' [COICOP 1999](https://unstats.un.org/unsd/classifications/Family/Detail/5) and
+#' [COICOP 2018](https://unstats.un.org/unsd/classifications/Family/Detail/2094), respectively.
+"correspondence_coicop18_coicop99"
+
+
+#'  ECOICOP 2016 - COICOP 2018 correspondence table
+#'
+#' Correspondence table between ECOICOP 2018 (also referred to as "ECOICOP 1")
+#'  and COICOP 2018.
+#'  Note that COICOP 2018 corresponds to ECOICOP 2.
+#'
+#' @format
+#' A data frame with 776 rows and 5 columns containing the variables
+#' - "ecoicop_code" (ECOICOP 2016 code),
+#' - "ecoicop_description" (ECOICOP 2016 description),
+#' - "ecoicop_comments" (ECOICOP 2016 classification comments),
+#' - "coicop18_code " (COICOP 2018 code),
+#' - "coicop18_description" (COICOP 2018 description),
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @examples
+#' correspondence_ecoicop16_coicop18 |> dim()
+#' correspondence_ecoicop16_coicop18 |> names()
+#' correspondence_ecoicop16_coicop18 |> head()
+#'
+#' @source See Statistics Lithuania for the  [correspondence table](https://osp.stat.gov.lt/en_GB/individualaus-vartojimo-islaidu-pagal-paskirti-klasifikatorius-coicop),
+#' as well as the United Nattions Statistics Division for more information on
+#' [ECOICOP 2016](https://data.europa.eu/data/datasets/ecoicop?locale=en) and
+#' [COICOP 2018](https://unstats.un.org/unsd/classifications/Family/Detail/2094), respectively.
+"correspondence_ecoicop16_coicop18"

@@ -125,6 +125,8 @@ Big housekeeping: Streamline documentation, vignettes, simplify and harmonise fu
 - Add sample data sets `sampledata_prices()`, `sampledata_weights()` and `sampledata_multi_period()`
 - Add lifecycle with experimental badge
 - Improved error messages and warning/error message handling for `estim_index_link()` and index functions
+- COICO 2018 - COICOP 1999 correspondence table `correspondence_coicop18_coicop99()` 
+and ECOICOP 2016 - COICO 2018 correspondence table `correspondence_ecoicop16_coicop18()`
 
 ### Bug fixes
 
