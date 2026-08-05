@@ -703,3 +703,85 @@ valid_dikhanov <- function(data,
 
   print(dikhanov_table_list)
 }
+
+#' Gap Pattern Coefficient
+#'
+#' `valid_gpc()` calculates the gap pattern coefficient
+#'
+#' The gap pattern coefficient is an indicator of the relationship between item-level missingness and
+#' the sensitivity of item prices to overall price levels.
+#'
+#' @param data Data frame, data table or tibble containing at least three
+#'  columns identifying item, price and price level
+#' @param price column containing item-level price quotes
+#' @param price_level column containing the price level
+#' @param item item identifier
+#' @param sensitivity_weights optional weights to be used in the calculation of the sensitivity index
+#' @param gpc_weight optional weights to be used in the calculation of the gap pattern coefficient
+#'
+#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarise
+#' @importFrom dplyr left_join
+#'
+#'
+#' @export
+valid_gpc <- function(data,
+                      price = "price",
+                      price_level = "price_level",
+                      item = "item",
+                      sensitivity_weights = NULL,
+                      gpc_weight = NULL){
+
+  # Price level sensitivity
+  if (is.null(sensitivity_weights)) {
+
+    sensitivity_index_df <- data %>%
+      mutate(log_price = log( .data[[price]] ),
+             log_price_level = log( .data[[price_level]] )) %>%
+      group_by(.data[[item]]) %>%
+      summarise(kendall_tau = safe_kendall_b(log_price, log_price_level),
+                sd_price = stats::sd(log_price, na.rm = TRUE),
+                sensitivity_index = (kendall_tau * sd_price))
+
+  } else {
+
+    sensitivity_index_df <- data %>%
+      mutate(log_price = log( .data[[price]] ),
+             log_price_level = log( .data[[price_level]] )) %>%
+      group_by(.data[[item]]) %>%
+      summarise(kendall_tau = safe_weighted_kendall_b(log_price, log_price_level, .data[[sensitivity_weights]]),
+                sd_price = safe_weighted_sd(log_price, .data[[sensitivity_weights]]),
+                sensitivity_index = (kendall_tau * sd_price))
+  }
+
+  # Gap pattern coefficient
+  if (is.null(gpc_weight)) {
+
+    gap_pattern_coefficient_df <- data %>%
+      group_by(.data[[item]]) %>%
+      summarise(n_obs = n(),
+                n_missing = sum(is.na(.data[[price]]))) %>%
+      left_join(sensitivity_index_df[, c({{ item }}, "sensitivity_index")]) %>%
+      summarise(gap_pattern_coefficient = safe_kendall_b(sensitivity_index, n_missing))
+
+  } else {
+
+    gap_pattern_coefficient_df <- data %>%
+      group_by(.data[[item]]) %>%
+      summarise(n_obs = n(),
+                n_missing = sum(is.na(.data[[price]]))) %>%
+      left_join(sensitivity_index_df[, c({{ item }}, "sensitivity_index")]) %>%
+      left_join(data[, c({{ item }}, {{ gpc_weight }})]) %>%
+      summarise(gap_pattern_coefficient = safe_weighted_kendall_b(sensitivity_index, n_missing, .data[[gpc_weight]]))
+
+  }
+
+  # Output
+  return(
+    list(`Sensitivity Index` = sensitivity_index_df,
+         `Gap Pattern Coefficient` = gap_pattern_coefficient_df)
+  )
+
+}
+
