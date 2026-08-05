@@ -131,3 +131,19 @@ and ECOICOP 2016 - COICO 2018 correspondence table `correspondence_ecoicop16_coi
 ### Bug fixes
 
 - Fix `estim_cpd()` in [#8](https://github.com/amannj/OECDsppps/issues/8)
+
+------------
+
+# Version `0.0.0.9`
+
+Introducing the "Gap Pattern" tests ([Auer, 2026](https://www.uni-trier.de/fileadmin/fb4/prof/VWL/EWF/Research_Papers/2026-09.pdf)).
+
+### Additions
+
+- The "Gap Pattern Coefficient" and "Gap Pattern Test" ([Auer, 2026](https://www.uni-trier.de/fileadmin/fb4/prof/VWL/EWF/Research_Papers/2026-09.pdf)) 
+are implemented via the functions `valid_gpc()` and `valid_gpt()`, respectively;
+a detailed discussion of the testing suit is provided in `...`.
+
+### Bug fixes
+
+- ...

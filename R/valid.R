@@ -709,7 +709,9 @@ valid_dikhanov <- function(data,
 #' `valid_gpc()` calculates the gap pattern coefficient
 #'
 #' The gap pattern coefficient is an indicator of the relationship between item-level missingness and
-#' the sensitivity of item prices to overall price levels.
+#' the sensitivity of item prices to overall price levels; see
+#' \insertCite{auergap;textual}{OECDsppps},
+#' for more information.
 #'
 #' @param data Data frame, data table or tibble containing at least three
 #'  columns identifying item, price and price level
@@ -724,6 +726,8 @@ valid_dikhanov <- function(data,
 #' @importFrom dplyr summarise
 #' @importFrom dplyr left_join
 #'
+#' @references
+#'   \insertAllCited{}
 #'
 #' @export
 valid_gpc <- function(data,
@@ -785,3 +789,21 @@ valid_gpc <- function(data,
 
 }
 
+
+#' Gap Pattern Test
+#'
+#' `valid_gpt()` calculates the gap pattern test
+#'
+#' The gap pattern test is .... see
+#' \insertCite{auergap;textual}{OECDsppps},
+#' for more information.
+#'
+#' @param placeholder placeholder
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @export
+valid_gpt <- function(placeholder = "placeholder"){
+return(placeholder)
+  }

@@ -47,6 +47,56 @@ library(purrr)
 
 ------------------------------------------------------------------------
 
+# Gap Pattern {#sec-gappattern}
+
+An important aspect of raw data validation is assessing the mechanism underlying missing price quotes, distinguishing between observations that are missing at random and those that are systematically absent, as this distinction directly affects the validity and potential bias of the resulting subnational PPP estimates.^[This assessment is particularly important when deriving PPPs from existing price microdata, where products are not necessarily observed in every region, rather than from dedicated PPP surveys based on a predefined list of comparable items. While randomly missing observations primarily reduce estimation efficiency, systematically missing observations may bias the estimated price levels. GEKS estimates are also more sensitive to missing observations than CPD estimates, making diagnostic tools for assessing data completeness particularly valuable when applying the GEKS methodology [@auergap].]
+
+This is demonstrated below with a complete price matrix, where both the CPD as well as the GEKS method produce identical results. The results are identical to the CPD and GEKS results in Table 1 [@auergap]:
+
+```{r}
+#| message: false
+#| warning: false
+# Complete price matric
+complete <- tibble(product = rep(c('Goods', 'Services', 'Housing'), each =4),
+                    region = rep(c('A', 'B', 'C', 'D'), 3),
+                    price = c(5,5,6,5,7,8,8,9,3,4,6,8))
+
+# CPD result
+cpd <- estim_cpd(complete) 
+cpd[4,2]/cpd[1,2]
+
+# GEKS result
+#index_geks(complete) this won't run
+```
+
+For non-randomly missing price matrix, both CPD and GEKS produce biased estimates.^[See @auergap for a more extensive discussion on the direction and magnitude of the various biases resulting from randomly and non-randomly missing data and index calculation methods.] The results are again identical to the CPD and GEKS results in Table 1 [@auergap]:
+
+```{r}
+# Non-randomly missing price matrix
+nrm <- tibble(product = rep(c('Goods', 'Services', 'Housing'), each =4),
+                    region = rep(c('A', 'B', 'C', 'D'), 3),
+                    price = c(NA,5,NA,5,7,8,8,9,3,4,6,8))
+
+# CPD result
+cpd <- estim_cpd(nrm) 
+cpd[4,2]/cpd[1,2]
+
+# GEKS result
+#index_geks(nrm) this won't run
+```
+
+To test whether in the price microdata, price quotes are missing non-randomly, the gap pattern coefficient ...
+
+```{r}
+#valid_gpc(complete)
+```
+
+The gap patern test ...
+
+```{r}
+#valid_gpt(complete)
+```
+
 # Intra-regional validation {#sec-intraregional}
 
 Intra-region validation establishes that price collectors within the *same region* and *across regions of the same country* have priced products that match the product specifications and that the prices they have reported are correct. This is done in two stages, which correspond to the outlier detection of (a) individual prices and (b) average price aggregates.

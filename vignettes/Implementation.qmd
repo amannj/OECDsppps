@@ -51,7 +51,7 @@ basic-heading level using the regional extension of the
 Country-Product-Dummy (CPD) method [@summers1973international]. Basic-heading
 aggregation with CPD is recommended by the ICP [@icp2021] as it is 
 better-suited to handling missing price observations in the underlying 
-price microdata than GEKS [@auer_von_gap_2026].^[This is particularly important when deriving PPPs from existing price microdata, where not all products are observed in every region, rather than from dedicated PPP surveys based on a pre-specified list of comparable items. In particular, GEKS price-level estimates are intrinsically more sensitive to missing observations than those obtained through CPD and therefore diagnostic tools for assessing data completeness are especially valuable for GEKS-based price-level estimates  [@auer_von_gap_2026].]
+price microdata than GEKS [@auergap].^[This is particularly important when deriving PPPs from existing price microdata, where not all products are observed in every region, rather than from dedicated PPP surveys based on a pre-specified list of comparable items. In particular, GEKS price-level estimates are intrinsically more sensitive to missing observations than those obtained through CPD and therefore diagnostic tools for assessing data completeness are especially valuable for GEKS-based price-level estimates  [@auergap].]
 
 2. Aggregation of BH-level parities into higher-level
 indices using the Gini-Éltetö-Köves-Szulc (GEKS) method, a multilateral
@@ -92,7 +92,7 @@ calculation of the subnational price indices.
 | Steps | Counterpart | `OECDsppps` integration |
 |------------------------|------------------------|------------------------|
 | **1** Raw data processing | OECD or country | - |
-| **2** Raw data validation | OECD or country | `valid_pot()`, `valid_apt()`, `valid_ratio_xr()`, `valid_ratio_ppp()`,  `valid_est()` |
+| **2** Raw data validation | OECD or country | `valid_pot()`, `valid_apt()`, `valid_ratio_xr()`, `valid_ratio_ppp()`,  `valid_est()`, `valid_gpc()`, `valid_gpt()` |
 | **3** Estimation at basic-heading level | OECD or country | `estim_cpd()`, `estim_index_link()` |
 | **4** Validation of estimation at basic-heading level | OECD or country | `valid_dikhanov()`, `valid_outlier_plot()` |
 | **5** Estimation beyond the basic-heading level | OECD | `index_laspeyres()`, `index_paasche()`, `index_fisher()`, `index_geks()` |
@@ -143,29 +143,37 @@ statistics at various levels of aggregation, from the initial item-level
 price quotes to the basic-heading level and upwards, as well as
 comparing household expenditure weights across regions.
 
-Validation begins with analysing item-level prices within regions and
+The **first step of the raw data validation** is to assess the completeness of the underlying item-level price microdata, as systematically missing price quotes may bias the estimation of subnational PPPs.^[This assessment is particularly important when deriving PPPs from existing price microdata, where products are not necessarily observed in every region, rather than from dedicated PPP surveys based on a predefined list of comparable items. In particular, GEKS estimates are inherently more sensitive to missing observations than CPD estimates, making diagnostic tools for assessing data completeness especially valuable when applying the GEKS methodology [@auergap].]
+
+Functions used at this stage are: `valid_gpc()` and `valid_cpt()`, and are described in 
+are described in more detail in the [Validation
+vignette](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-gappattern).
+
+The **second step of the raw data validation** covers the analysis of item-level prices within regions and
 involves outlier detection of single price quotes and average price
 aggregates. The two validation steps taken at this stage are described
 in the [Validation
 vignette](https://amannj.github.io/OECDsppps/articles/Validation.html):
 
-1.  [Intra-regional
+- [Intra-regional
     validation](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-intraregional)
     analyses individual and aggregate price quotes within the same
     region and across regions of the same country.
-2.  [Inter-regional
+-   [Inter-regional
     validation](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-interregional)
     performs prices validation across all regions and countries,
     ensuring that average prices are based on comparable products in
     regions across countries and that products have been accurately
     priced.
 
-The raw data [validation of alternative data
+In case alternative data sources are used, the correspondig raw data [validation of alternative data
 sources](https://amannj.github.io/OECDsppps/articles/Validation.html#sec-alternative)
 is also carried out at this stage.
 
 Functions used at this stage are: `valid_pot()`, `valid_apt()`,
-`valid_ratio_xr()`, `valid_ratio_ppp()`, `valid_est()`.
+`valid_ratio_xr()`, `valid_ratio_ppp()`, `valid_est()`, and are described in 
+are described in more detail in the [Validation
+vignette](https://amannj.github.io/OECDsppps/articles/Validation.html).
 
 # Estimation at basic-heading level
 
