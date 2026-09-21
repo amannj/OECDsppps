@@ -425,7 +425,7 @@ index_geks <- function(data,
 #'
 #' @examples
 #' suppressPackageStartupMessages(library(dplyr))
-#' #' suppressPackageStartupMessages(library(tidyr))
+#' suppressPackageStartupMessages(library(tidyr))
 #' suppressPackageStartupMessages(library(tibble))
 #' tibble(product = c("item_1", "item_2", "item_3"),
 #'        region_1 = c(5, 7, 3),
