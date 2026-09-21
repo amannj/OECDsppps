@@ -400,3 +400,113 @@ index_geks <- function(data,
 
   return(geks_df)
 }
+
+
+#' The GEKS-Jevons index
+#'
+#' \loadmathjax
+#' `index_geks_jevons()` in \pkg{OECDsppps} calculates the matrix of GEKS-Jevons indices. It
+#' returns a data frame containing the base region, region, and the respective indices;
+#' see *Details* and
+#' \insertCite{worldbankMeasuringRealSize2013;textual}{OECDsppps},
+#' for more information.
+#'
+#' The function returns a data frame containing the following variables: 'base_region', 'region',
+#' 'geks_jevons_index' (final indices).
+#'
+#' @references
+#'   \insertAllCited{}
+#'
+#' @param data A data frame or tibble containing at least three columns identifying
+#' region, product, and prices.
+#' @param region Identifier for regions
+#' @param product Product identifier
+#' @param price Identifier for prices
+#'
+#' @examples
+#' suppressPackageStartupMessages(library(dplyr))
+#' #' suppressPackageStartupMessages(library(tidyr))
+#' suppressPackageStartupMessages(library(tibble))
+#' tibble(product = c("item_1", "item_2", "item_3"),
+#'        region_1 = c(5, 7, 3),
+#'        region_2 = c(5, 8, NA),
+#'        region_3 = c(NA, 8, 6),
+#'        region_4 = c(5, NA, 8)) %>%
+#'   pivot_longer(!product, names_to = "region", values_to = "price") %>%
+#'   index_geks_jevons()
+#'
+#'
+#' @importFrom dplyr select
+#' @importFrom dplyr mutate
+#' @importFrom dplyr across
+#' @importFrom dplyr summarise
+#' @importFrom dplyr bind_rows
+#' @importFrom tidyr pivot_wider
+#' @importFrom tidyselect everything
+#' @importFrom stats setNames
+#'
+#' @export
+#'
+index_geks_jevons <- function(data,
+                              region = "region",
+                              product = "product",
+                              price = "price") {
+
+  # Generate data frame for index calculation
+  price_data <- data %>%
+    select({{ region }}, {{ product }}, {{ price }}) %>%
+    pivot_wider(names_from = {{ region }}, values_from = {{ price }}) %>%
+    select(- {{ product }})
+
+  # Calculate the Jevons index
+
+  jevons_list <- list()
+
+  for (i in 1:ncol(price_data)) {
+
+    base_region <- price_data[[i]]
+
+    price_relatives_df <- price_data %>%
+      mutate(across(everything(), ~ .x / base_region))
+
+    jevons_index <- map2(.x = price_relatives_df %>%
+                           summarise(across(everything(), ~ prod(.x, na.rm = TRUE))),
+                         .y = price_relatives_df %>%
+                           summarise(across(everything(), ~ sum(!is.na(.x)))),
+                         ~ .x ^ (1/.y)) %>%
+      bind_rows()
+
+    jevons_list[[i]] <- jevons_index
+
+  }
+
+  jevons_matrix <- jevons_list %>%
+    bind_rows() %>%
+    as.matrix() %>%
+    t()
+
+  colnames(jevons_matrix) <- rownames(jevons_matrix)
+
+  # Calculate the GEKS index
+
+  n_region <- nrow(jevons_matrix)
+
+  geks_results <- vector("list", n_region)
+
+  for (i in 1:n_region) {
+    geks_v <- sweep(jevons_matrix, 1, jevons_matrix[, i], FUN = "/") %>%
+      apply(., 2, prod)
+
+    geks_results[[i]] <- geks_v^(1 / n_region)
+  }
+
+  geks_jevons_df <- map(.x = geks_results, ~ .x %>%
+                          as_tibble) %>%
+    bind_cols() %>%
+    setNames(colnames(jevons_matrix)) %>%
+    mutate(base_region = rownames(jevons_matrix)) %>%
+    pivot_longer(!base_region, names_to = "region", values_to = "geks_jevons_index")
+
+  return(geks_jevons_df)
+
+}
