@@ -794,16 +794,110 @@ valid_gpc <- function(data,
 #'
 #' `valid_gpt()` calculates the gap pattern test
 #'
-#' The gap pattern test is .... see
-#' \insertCite{auergap;textual}{OECDsppps},
-#' for more information.
+#' The gap pattern test assesses how unusual the observed value of the gap pattern test
+#' (obtained through `valid_gpc()`) is under the null hypothesis of no systematic relationship
+#' between price-level sensitivity and missingness.
 #'
-#' @param placeholder placeholder
+#' The test calculates A permutation replicates (\mjseqn{G^(a)}) of the gap pattern coefficient (\mjseqn{G}) by permuting the
+#' observed missingness measure across items.The p-value of the test is then obtained as
+#' \mjdeqn{p = \frac{K+1}{A+1}}
+#' where
+#' \mjdeqn{K = \sum_{a=1}^{A}1(\lvert G^(a)\rvert) \ge (\lvert G\rvert)}) }
+#'
+#' See \insertCite{auergap;textual}{OECDsppps} for more information.
+#'
+#' @param data Data frame, data table or tibble containing at least three
+#'  columns identifying item, price and price level
+#' @param price column containing item-level price quotes
+#' @param price_level column containing the price level
+#' @param item item identifier
+#' @param n_iteration number of permutation replicates (A)
+#' @param sensitivity_weights optional weights to be used in the calculation of the sensitivity index
+#' @param gpc_weight optional weights to be used in the calculation of the gap pattern coefficient
 #'
 #' @references
 #'   \insertAllCited{}
 #'
 #' @export
-valid_gpt <- function(placeholder = "placeholder"){
-return(placeholder)
+#'
+valid_gpt <- function(data,
+                      price = "price",
+                      price_level = "price_level",
+                      item = "item",
+                      n_iteration = 1000,
+                      sensitivity_weights = NULL,
+                      gpc_weight = NULL) {
+
+  # Price level sensitivity
+  if (is.null(sensitivity_weights)) {
+
+    sensitivity_index_df <- data %>%
+      mutate(log_price = log( .data[[price]] ),
+             log_price_level = log( .data[[price_level]] )) %>%
+      group_by(.data[[item]]) %>%
+      summarise(kendall_tau = safe_kendall_b(log_price, log_price_level),
+                sd_price = stats::sd(log_price, na.rm = TRUE),
+                sensitivity_index = (kendall_tau * sd_price))
+
+  } else {
+
+    sensitivity_index_df <- data %>%
+      mutate(log_price = log( .data[[price]] ),
+             log_price_level = log( .data[[price_level]] )) %>%
+      group_by(.data[[item]]) %>%
+      summarise(kendall_tau = safe_weighted_kendall_b(log_price, log_price_level, .data[[sensitivity_weights]]),
+                sd_price = safe_weighted_sd(log_price, .data[[sensitivity_weights]]),
+                sensitivity_index = (kendall_tau * sd_price))
   }
+
+  # True gap pattern coefficient
+  if (is.null(gpc_weight)) {
+
+    gap_pattern_coefficient_df <- data %>%
+      group_by(.data[[item]]) %>%
+      summarise(n_obs = n(),
+                n_missing = sum(is.na(.data[[price]]))) %>%
+      left_join(sensitivity_index_df[, c({{ item }}, "sensitivity_index")]) %>%
+      {gpt_data <<- .} %>%
+      summarise(gap_pattern_coefficient = safe_kendall_b(sensitivity_index, n_missing)) %>%
+      pull(gap_pattern_coefficient)
+
+  } else {
+
+    gap_pattern_coefficient_df <- data %>%
+      group_by(.data[[item]]) %>%
+      summarise(n_obs = n(),
+                n_missing = sum(is.na(.data[[price]]))) %>%
+      left_join(sensitivity_index_df[, c({{ item }}, "sensitivity_index")]) %>%
+      left_join(data[, c({{ item }}, {{ gpc_weight }})]) %>%
+      {gpt_data <<- .} %>%
+      summarise(gap_pattern_coefficient = safe_weighted_kendall_b(sensitivity_index, n_missing, .data[[gpc_weight]])) %>%
+      pull(gap_pattern_coefficient)
+
+  }
+
+  # Bootstrap replicates
+  gpc_replicates <- map_dbl(1:n_iteration, ~ {
+    if (is.null(gpc_weight)) {
+      gpt_data %>%
+        mutate(n_missing = sample(n_missing)) %>%
+        summarise(gap_pattern_coefficient = safe_kendall_b(sensitivity_index, n_missing)) %>%
+        pull(gap_pattern_coefficient)
+    } else {
+      gpt_data %>%
+        mutate(n_missing = sample(n_missing)) %>%
+        summarise(gap_pattern_coefficient = safe_weighted_kendall_b(sensitivity_index, n_missing, .data[[gpc_weight]])) %>%
+        pull(gap_pattern_coefficient)
+    }
+  }
+  )
+
+  p_value_gpt <-(sum(abs(gpc_replicates) > abs(gap_pattern_coefficient_df)) + 1) / (n_iteration + 1)
+
+  return(
+    list(
+      `Gap pattern coefficient` = gap_pattern_coefficient_df,
+      `P-value: Gap pattern test` = p_value_gpt
+    )
+  )
+}
